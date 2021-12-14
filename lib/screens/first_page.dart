@@ -62,9 +62,9 @@ class FirstPage extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          ButtonContinue(
-            onPressed: () {},
-          )
+          ButtonContinue(onPressed: () {
+            Navigator.pushNamed(context, '/RegistrationPage');
+          })
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memory_box/screens/first_page.dart';
+import 'package:memory_box/screens/registration_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,9 +17,13 @@ class MyApp extends StatelessWidget {
           textTheme: const TextTheme(
               bodyText2: TextStyle(
                   color: Color(0xFF3A3A55),
-                  fontFamily: 'TTNorms',
-                  fontWeight: FontWeight.bold))),
-      home: const FirstPage(),
+                  fontFamily: 'TTNorm',
+                  fontWeight: FontWeight.normal))),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const FirstPage(),
+        '/RegistrationPage': (context) => const RegistrationPage(),
+      },
     );
   }
 }

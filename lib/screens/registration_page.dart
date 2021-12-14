@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
 import 'package:memory_box/screens/screens_element/button_continue.dart';
-import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:memory_box/screens/screens_element/container_shadow.dart';
 import 'package:memory_box/screens/screens_element/textfield_input.dart';
 
@@ -28,11 +27,11 @@ class RegistrationPage extends StatelessWidget {
                 )),
                 color: kColorAppbar,
                 width: double.infinity,
-                height: 250,
+                height: 300,
               ),
             ),
             const SizedBox(
-              height: 40,
+              height: 35,
             ),
             const Text(
               'Введи номер телефона',
@@ -41,20 +40,22 @@ class RegistrationPage extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 15,
             ),
             TextFieldInput(phoneNumber: _phoneNumber),
             const SizedBox(
-              height: 60,
+              height: 50,
             ),
             ButtonContinue(onPressed: () {
               Navigator.pushNamed(context, '/RegistrationPage');
             }),
             const SizedBox(
-              height: 20,
+              height: 15,
             ),
             TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/HomePage');
+                },
                 child: const Text(
                   'Позже',
                   style: TextStyle(
@@ -63,7 +64,7 @@ class RegistrationPage extends StatelessWidget {
                   ),
                 )),
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
             const ContainerShadow()
           ],

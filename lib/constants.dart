@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+// class Color{
+//   static const colorAppbar = '0xFF8C84E2';
+//   static const colorText = '0xFF3A3A55';
+// }
 
 const kColorAppbar = Color(0xFF8C84E2);
 const kColorText = Color(0xFF3A3A55);

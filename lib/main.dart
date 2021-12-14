@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memory_box/screens/first_page.dart';
+import 'package:memory_box/screens/home_page.dart';
 import 'package:memory_box/screens/registration_page.dart';
 
 import 'constants.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const FirstPage(),
         '/RegistrationPage': (context) => RegistrationPage(),
+        '/HomePage': (context) => HomePage(),
       },
     );
   }

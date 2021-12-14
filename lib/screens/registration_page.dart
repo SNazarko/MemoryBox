@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
 import 'package:memory_box/screens/screens_element/button_continue.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
+import 'package:memory_box/screens/screens_element/container_shadow.dart';
 import 'package:memory_box/screens/screens_element/textfield_input.dart';
 
 import '../constants.dart';
 
 class RegistrationPage extends StatelessWidget {
   RegistrationPage({Key? key}) : super(key: key);
-  late final String _phoneNumber;
+  late final String _phoneNumber = '+3(066) 123 45 67';
 
   @override
   Widget build(BuildContext context) {
@@ -62,19 +63,9 @@ class RegistrationPage extends StatelessWidget {
                   ),
                 )),
             const SizedBox(
-              height: 40,
+              height: 30,
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 55),
-              child: Text(
-                'Регистрация привяжет твои сказки к облаку, после чего они всегда будут с тобой',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black,
-                ),
-              ),
-            )
+            const ContainerShadow()
           ],
         ),
       ),

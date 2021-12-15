@@ -17,3 +17,4 @@ const kTitle2TextStyle = TextStyle(
   fontSize: 14,
   color: Colors.white,
 );
+const kBottombarTextStyle = TextStyle(fontSize: 10, color: Color(0xFF3A3A55));

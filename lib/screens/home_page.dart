@@ -175,17 +175,28 @@ class HomePage extends StatelessWidget {
                   )
                 ]),
             child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  )),
-              width: double.infinity,
-              height: 65,
-              child: const _ItemBar(
-                  name: 'Главная', icon: 'images/tabbar_home.png'),
-            ),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    )),
+                width: double.infinity,
+                height: 65,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _ItemBar(name: 'Главная', icon: 'images/tabbar_home.png'),
+                    _ItemBar(
+                        name: 'Подбарки', icon: 'images/tabbar_category.png'),
+                    _ItemBar(
+                        name: 'Запись', icon: 'images/tabbar_componen.png'),
+                    _ItemBar(
+                        name: 'Аудиозаписи', icon: 'images/tabbar_paper.png'),
+                    _ItemBar(
+                        name: 'Профиль', icon: 'images/tabbar_profile.png'),
+                  ],
+                )),
           ),
         ],
       ),

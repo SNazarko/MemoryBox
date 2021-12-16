@@ -27,11 +27,11 @@ class RegistrationPage extends StatelessWidget {
                 )),
                 color: kColorAppbar,
                 width: double.infinity,
-                height: 300,
+                height: 250,
               ),
             ),
             const SizedBox(
-              height: 35,
+              height: 40,
             ),
             const Text(
               'Введи номер телефона',
@@ -44,7 +44,7 @@ class RegistrationPage extends StatelessWidget {
             ),
             TextFieldInput(phoneNumber: _phoneNumber),
             const SizedBox(
-              height: 50,
+              height: 60,
             ),
             ButtonContinue(onPressed: () {
               Navigator.pushNamed(context, '/RegistrationPage');

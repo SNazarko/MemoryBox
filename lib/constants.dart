@@ -18,3 +18,11 @@ const kTitle2TextStyle = TextStyle(
   color: Colors.white,
 );
 const kBottombarTextStyle = TextStyle(fontSize: 10, color: Color(0xFF3A3A55));
+const kBorderContainer = BoxDecoration(
+    color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20)));
+const kBorderContainer2 = BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.only(
+      topLeft: Radius.circular(20),
+      topRight: Radius.circular(20),
+    ));

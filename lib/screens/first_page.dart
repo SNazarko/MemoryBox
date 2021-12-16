@@ -34,7 +34,7 @@ class FirstPage extends StatelessWidget {
               ),
               color: kColorAppbar,
               width: double.infinity,
-              height: 300,
+              height: 250,
             ),
           ),
           const SizedBox(

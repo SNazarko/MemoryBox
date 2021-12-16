@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants.dart';
+
 class ContainerShadow extends StatelessWidget {
   const ContainerShadow({Key? key}) : super(key: key);
 
@@ -21,12 +23,7 @@ class ContainerShadow extends StatelessWidget {
       child: Container(
         width: 275,
         height: 100,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(20),
-          ),
-        ),
+        decoration: kBorderContainer,
         child: const Center(
           child: Padding(
             padding: EdgeInsets.all(10.0),

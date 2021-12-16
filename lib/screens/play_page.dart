@@ -5,8 +5,8 @@ import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
 
 import '../constants.dart';
 
-class Recording extends StatelessWidget {
-  const Recording({Key? key}) : super(key: key);
+class PlayPage extends StatelessWidget {
+  const PlayPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +63,25 @@ class Recording extends StatelessWidget {
                       Text(
                         'Аудиозапись 1',
                         style: TextStyle(fontSize: 24),
+                      ),
+                      SizedBox(
+                        height: 220,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                              onPressed: () {}, icon: Icon(Icons.replay_10)),
+                          IconButton(
+                              splashRadius: 110,
+                              iconSize: 100,
+                              onPressed: () {},
+                              icon: Image.asset(
+                                'images/play.png',
+                              )),
+                          IconButton(
+                              onPressed: () {}, icon: Icon(Icons.forward_10)),
+                        ],
                       )
                     ],
                   ),

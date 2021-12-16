@@ -11,15 +11,7 @@ class ContainerShadow extends StatelessWidget {
     return Container(
       height: 100,
       width: 275,
-      decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(20)),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Colors.grey.shade300,
-              offset: const Offset(0.0, 5.0),
-              blurRadius: 5.0,
-            )
-          ]),
+      decoration: boxDecoration(),
       child: Container(
         width: 275,
         height: 100,
@@ -40,4 +32,16 @@ class ContainerShadow extends StatelessWidget {
       ),
     );
   }
+}
+
+BoxDecoration boxDecoration() {
+  return BoxDecoration(
+      borderRadius: const BorderRadius.all(Radius.circular(20)),
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+          color: Colors.grey.shade300,
+          offset: const Offset(0.0, 5.0),
+          blurRadius: 5.0,
+        )
+      ]);
 }

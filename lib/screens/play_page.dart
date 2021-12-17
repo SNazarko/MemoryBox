@@ -1,15 +1,38 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/players/sound_record.dart';
 import 'package:memory_box/screens/screens_element/appbar_menu.dart';
 import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
 
 import '../constants.dart';
 
-class PlayPage extends StatelessWidget {
-  const PlayPage({Key? key}) : super(key: key);
+class PlayPage extends StatefulWidget {
+  PlayPage({Key? key}) : super(key: key);
+
+  @override
+  State<PlayPage> createState() => _PlayPageState();
+}
+
+class _PlayPageState extends State<PlayPage> {
+  final recorder = SoundRecord();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    recorder.init();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    recorder.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final isRecording = recorder.isRecording;
+    final icon = isRecording ? 'stop' : 'play';
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,7 +88,7 @@ class PlayPage extends StatelessWidget {
                         style: TextStyle(fontSize: 24),
                       ),
                       SizedBox(
-                        height: 220,
+                        height: 200,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -75,9 +98,13 @@ class PlayPage extends StatelessWidget {
                           IconButton(
                               splashRadius: 110,
                               iconSize: 100,
-                              onPressed: () {},
+                              onPressed: () async {
+                                final isRecording =
+                                    await recorder.toggleRecorder();
+                                setState(() {});
+                              },
                               icon: Image.asset(
-                                'images/play.png',
+                                'images/$icon.png',
                               )),
                           IconButton(
                               onPressed: () {}, icon: Icon(Icons.forward_10)),

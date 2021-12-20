@@ -36,6 +36,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_multi_formatter: ^2.4.4
   flutter_sound_lite: ^8.4.2
+  permission_handler: ^8.3.0
+  path: ^1.8.0
+  intl: ^0.17.0
+  assets_audio_player: ^3.0.3+3
 
 dev_dependencies:
   flutter_test:

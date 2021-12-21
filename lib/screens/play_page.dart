@@ -1,8 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_sound_lite/public/flutter_sound_player.dart';
+import 'package:flutter_sound_lite/public/flutter_sound_recorder.dart';
 import 'package:memory_box/players/sound_record.dart';
 import 'package:memory_box/screens/screens_element/appbar_menu.dart';
 import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
@@ -20,29 +19,30 @@ class _PlayPageState extends State<PlayPage> {
   SoundRecord soundRecord = SoundRecord();
   bool _isVisible = false;
   bool _play = false;
-  // final timerController = TimerController();
-  // final recorder = SoundRecord();
+  String _recordtxt = '00:00:00';
+  bool _mPlayerIsInited = false;
+  bool _mRecorderIsInited = false;
+  bool _mplaybackReady = false;
+  double height = 40;
+
   @override
   void initState() {
-    soundRecord.startIt();
+    soundRecord.initState(_mPlayerIsInited, _mRecorderIsInited);
+    setState(() {
+      _mPlayerIsInited = true;
+      _mRecorderIsInited = true;
+    });
     super.initState();
-    // recorder.init();
   }
-  //
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  //   super.dispose();
-  //   recorder.dispose();
-  // }
+
+  @override
+  void dispose() {
+    soundRecord.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // final isRecording = recorder.isRecording;
-    // Widget icon = isRecording
-    //     ? const Icon(Icons.pause_circle_filled)
-    //     : Icon(Icons.play_circle_filled);
-    // 'Icons.pause_circle_filled' : 'Icons.play_circle_filled';
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -165,7 +165,7 @@ class _PlayPageState extends State<PlayPage> {
                               width: 5,
                             ),
                             Text(
-                              soundRecord.recorderTxt,
+                              _recordtxt,
                               style: const TextStyle(
                                 fontSize: 18,
                               ),
@@ -173,8 +173,8 @@ class _PlayPageState extends State<PlayPage> {
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 40,
+                      SizedBox(
+                        height: height,
                       ),
                       Visibility(
                         visible: _isVisible,
@@ -193,8 +193,15 @@ class _PlayPageState extends State<PlayPage> {
                                 setState(() {
                                   _play = !_play;
                                 });
-                                if (_play) await soundRecord.startPlaying();
-                                if (!_play) await soundRecord.stopPlaying();
+                                if (_play) {
+                                  soundRecord.play(
+                                      _mPlayerIsInited, _mplaybackReady);
+                                  setState(() {});
+                                }
+                                if (!_play) {
+                                  soundRecord.stopPlayer();
+                                  setState(() {});
+                                }
                                 // final isRecording =
                                 //     await recorder.toggleRecorder();
                                 // setState(() {});
@@ -217,15 +224,22 @@ class _PlayPageState extends State<PlayPage> {
                               setState(() {
                                 _play = !_play;
                               });
-                              if (_play) await soundRecord.record();
+                              if (_play) {
+                                soundRecord.record();
+                                setState(() {});
+                              }
                               if (!_play) {
-                                await soundRecord.stopRecord();
-                                _isVisible = !_isVisible;
+                                soundRecord.stopRecorder(_mplaybackReady);
+                                setState(() {
+                                  _mplaybackReady = true;
+                                  _isVisible = !_isVisible;
+                                  height = 60;
+                                });
                               }
                             },
                             icon: _play
                                 ? const Icon(Icons.play_circle_filled)
-                                : const Icon(Icons.pause_circle_filled),
+                                : const Icon(Icons.mic_none),
                           )),
                     ],
                   ),

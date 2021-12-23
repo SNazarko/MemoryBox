@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sound_lite/public/flutter_sound_player.dart';
-import 'package:flutter_sound_lite/public/flutter_sound_recorder.dart';
+import 'package:memory_box/players/bloc/sound_bloc.dart';
 import 'package:memory_box/players/sound_record.dart';
 import 'package:memory_box/screens/screens_element/appbar_menu.dart';
 import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
+import 'package:provider/src/provider.dart';
 
 import '../constants.dart';
 
@@ -24,13 +24,16 @@ class _PlayPageState extends State<PlayPage> {
   bool _mRecorderIsInited = false;
   bool _mplaybackReady = false;
   double height = 40;
+  double _mSubscriptionDuration = 0;
 
   @override
   void initState() {
-    soundRecord.initState(_mPlayerIsInited, _mRecorderIsInited);
+    soundRecord.initState(
+        _mPlayerIsInited, _mRecorderIsInited, _mSubscriptionDuration);
     setState(() {
       _mPlayerIsInited = true;
       _mRecorderIsInited = true;
+      _mSubscriptionDuration;
     });
     super.initState();
   }
@@ -43,6 +46,8 @@ class _PlayPageState extends State<PlayPage> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final SoundBloc recPlayStop = context.read<SoundBloc>();
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,7 +60,7 @@ class _PlayPageState extends State<PlayPage> {
                 top: 120,
                 child: Container(
                   height: 600,
-                  width: 350,
+                  width: screenWidth * 0.97,
                   decoration: kBorderContainer2,
                   child: Column(
                     children: [
@@ -103,7 +108,12 @@ class _PlayPageState extends State<PlayPage> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 50),
                                 child: TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      '/SavePage',
+                                    );
+                                  },
                                   child: const Text(
                                     'Сохранить',
                                     style: TextStyle(
@@ -144,7 +154,30 @@ class _PlayPageState extends State<PlayPage> {
                       //   timerController: TimerController(),
                       // ),
                       const SizedBox(
-                        height: 140,
+                        height: 70,
+                      ),
+
+                      Visibility(
+                        visible: _isVisible,
+                        child: SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                              thumbShape: const RoundSliderThumbShape(
+                                  enabledThumbRadius: 7),
+                              thumbColor: const Color(0xFF3A3A55),
+                              activeTickMarkColor: const Color(0xFF3A3A55),
+                              inactiveTrackColor: const Color(0xFF3A3A55),
+                              inactiveTickMarkColor: const Color(0xFF3A3A55)),
+                          child: Slider(
+                            value: _mSubscriptionDuration,
+                            min: 0.0,
+                            max: 2000.0,
+                            onChanged: soundRecord.setSubscriptionDuration,
+                            //divisions: 100
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 80,
                       ),
                       Visibility(
                         visible: !_isVisible,
@@ -189,26 +222,12 @@ class _PlayPageState extends State<PlayPage> {
                             ),
                             IconButton(
                               iconSize: 100,
-                              onPressed: () async {
-                                setState(() {
-                                  _play = !_play;
-                                });
-                                if (_play) {
-                                  soundRecord.play(
-                                      _mPlayerIsInited, _mplaybackReady);
-                                  setState(() {});
-                                }
-                                if (!_play) {
-                                  soundRecord.stopPlayer();
-                                  setState(() {});
-                                }
-                                // final isRecording =
-                                //     await recorder.toggleRecorder();
-                                // setState(() {});
+                              onPressed: () {
+                                recPlayStop.add(RecordPlayStop());
                               },
                               icon: _play
                                   ? const Icon(Icons.play_circle_filled)
-                                  : const Icon(Icons.pause_circle_filled),
+                                  : const Icon(Icons.mic_none),
                             ),
                             IconButton(
                                 onPressed: () {},
@@ -233,7 +252,7 @@ class _PlayPageState extends State<PlayPage> {
                                 setState(() {
                                   _mplaybackReady = true;
                                   _isVisible = !_isVisible;
-                                  height = 60;
+                                  height = 15;
                                 });
                               }
                             },

@@ -7,7 +7,6 @@ import 'package:flutter_sound_lite/public/flutter_sound_recorder.dart';
 import 'package:flutter_sound_platform_interface/flutter_sound_recorder_platform_interface.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-typedef _Fn = void Function();
 const theSource = AudioSource.microphone;
 
 class SoundRecord {
@@ -18,8 +17,12 @@ class SoundRecord {
   bool _mPlayerIsInited = false;
   bool _mRecorderIsInited = false;
   bool _mplaybackReady = false;
+  StreamSubscription? _mPlayerSubscription;
+  double _mSubscriptionDuration = 0;
+  int pos = 0;
 
-  void initState(bool_mPlayerIsInited, bool _mRecorderIsInited) {
+  void initState(bool_mPlayerIsInited, bool _mRecorderIsInited,
+      double _mSubscriptionDuration) {
     _mPlayer!.openAudioSession().then((value) {
       _mPlayerIsInited;
     });
@@ -27,6 +30,11 @@ class SoundRecord {
     openTheRecorder().then((value) {
       _mRecorderIsInited;
     });
+
+    _mPlayerSubscription = _mPlayer!.onProgress!.listen((e) {
+      pos = e.position.inMilliseconds;
+    });
+    _mSubscriptionDuration;
   }
 
   void dispose() {
@@ -35,6 +43,8 @@ class SoundRecord {
 
     _mRecorder!.closeAudioSession();
     _mRecorder = null;
+
+    cancelPlayerSubscriptions();
   }
 
   Future<void> openTheRecorder() async {
@@ -70,8 +80,6 @@ class SoundRecord {
 
   void stopRecorder(_mplaybackReady) async {
     await _mRecorder!.stopRecorder().then((value) {
-      // setState(() {
-      //var url = value;
       _mplaybackReady = true;
       // });
     });
@@ -92,6 +100,23 @@ class SoundRecord {
 
   void stopPlayer() {
     _mPlayer!.stopPlayer().then((value) {});
+  }
+
+  Future<void> setSubscriptionDuration(
+      double d) async // v is between 0.0 and 2000 (milliseconds)
+  {
+    _mSubscriptionDuration = d;
+    // setState(() {});
+    await _mPlayer!.setSubscriptionDuration(
+      Duration(milliseconds: d.floor()),
+    );
+  }
+
+  void cancelPlayerSubscriptions() {
+    if (_mPlayerSubscription != null) {
+      _mPlayerSubscription!.cancel();
+      _mPlayerSubscription = null;
+    }
   }
 
 // ----------------------------- UI --------------------------------------------

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/screens/screens_element/slider.dart';
 
 class PlayerBig extends StatelessWidget {
   PlayerBig(
@@ -20,7 +21,7 @@ class PlayerBig extends StatelessWidget {
       children: [
         SliderTheme(
           data: SliderTheme.of(context).copyWith(
-              thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 7),
+              // thumbShape: const RoundedAmebaThumbShape(radius: 10),
               thumbColor: const Color(0xFF3A3A55),
               activeTickMarkColor: const Color(0xFF3A3A55),
               inactiveTrackColor: const Color(0xFF3A3A55),

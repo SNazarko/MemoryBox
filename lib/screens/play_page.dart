@@ -176,7 +176,7 @@ class _PlayPageState extends State<PlayPage> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 80,
                       ),
                       Visibility(
@@ -223,11 +223,35 @@ class _PlayPageState extends State<PlayPage> {
                             IconButton(
                               iconSize: 100,
                               onPressed: () {
-                                recPlayStop.add(RecordPlayStop());
+                                // recPlayStop.add(PlayerPlayStop());
+
+                                // recPlayStop.add(PlayerPlayStop(
+                                //     _mPlayerIsInited, _mplaybackReady));
+
+                                setState(() {
+                                  _play = !_play;
+                                });
+                                if (_play) {
+                                  soundRecord.play(
+                                      _mPlayerIsInited, _mplaybackReady);
+                                  setState(() {});
+                                }
+                                if (!_play) {
+                                  soundRecord.stopPlayer();
+                                  setState(() {});
+                                }
+
+                                // _play = !_play;
+                                // if (_play) {
+                                //   recPlayStop.add(PlayerPlay());
+                                // }
+                                // if (!_play) {
+                                //   recPlayStop.add(PlayerStop());
+                                // }
                               },
                               icon: _play
-                                  ? const Icon(Icons.play_circle_filled)
-                                  : const Icon(Icons.mic_none),
+                                  ? const Icon(Icons.pause_circle_filled)
+                                  : const Icon(Icons.play_circle_filled),
                             ),
                             IconButton(
                                 onPressed: () {},
@@ -238,28 +262,29 @@ class _PlayPageState extends State<PlayPage> {
                       Visibility(
                           visible: !_isVisible,
                           child: IconButton(
-                            iconSize: 100,
-                            onPressed: () async {
-                              setState(() {
-                                _play = !_play;
-                              });
-                              if (_play) {
-                                soundRecord.record();
-                                setState(() {});
-                              }
-                              if (!_play) {
-                                soundRecord.stopRecorder(_mplaybackReady);
+                              iconSize: 100,
+                              onPressed: () async {
                                 setState(() {
-                                  _mplaybackReady = true;
-                                  _isVisible = !_isVisible;
-                                  height = 15;
+                                  // recPlayStop.add(RecordPlayStop());
+                                  _play = !_play;
+                                  if (_play) {
+                                    setState(() {
+                                      soundRecord.record();
+                                    });
+                                  }
+                                  if (!_play) {
+                                    soundRecord.stopRecorder(_mplaybackReady);
+                                    setState(() {
+                                      _isVisible = !_isVisible;
+                                      height = 15;
+                                      _mplaybackReady = true;
+                                    });
+                                  }
                                 });
-                              }
-                            },
-                            icon: _play
-                                ? const Icon(Icons.play_circle_filled)
-                                : const Icon(Icons.mic_none),
-                          )),
+                              },
+                              icon: _play
+                                  ? const Icon(Icons.play_circle_filled)
+                                  : const Icon(Icons.mic_none))),
                     ],
                   ),
                 ),

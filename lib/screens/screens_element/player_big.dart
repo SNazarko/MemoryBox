@@ -14,6 +14,8 @@ class PlayerBig extends StatelessWidget {
   final playStopIcon;
   final replayFunction;
   final forwardFunction;
+  final String timerStart = '00:00';
+  final String timerEnd = '30:00';
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,16 @@ class PlayerBig extends StatelessWidget {
             max: 2000.0,
             onChanged: (double value) {},
             //divisions: 100
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 22),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(timerStart),
+              Text(timerEnd),
+            ],
           ),
         ),
         Row(

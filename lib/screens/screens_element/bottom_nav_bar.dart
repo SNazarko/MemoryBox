@@ -56,6 +56,12 @@ class BottomNavBar extends StatelessWidget {
                 _ItemBar(
                   name: 'Аудиозаписи',
                   icon: 'tabbar_paper.png',
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      '/AudioRecordingsPage',
+                    );
+                  },
                 ),
                 _ItemBar(
                   name: 'Профиль',

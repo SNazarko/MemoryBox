@@ -12,9 +12,20 @@ const kTitleTextStyle = TextStyle(
   fontFamily: 'TTNorms',
   fontWeight: FontWeight.bold,
 );
+const kTitleTextStyle2 = TextStyle(
+  color: Colors.white,
+  fontSize: 36,
+  fontFamily: 'TTNorms',
+  fontWeight: FontWeight.bold,
+);
 const kTitle2TextStyle = TextStyle(
   fontFamily: 'TTNorms',
   fontSize: 14,
+  color: Colors.white,
+);
+const kTitle2TextStyle2 = TextStyle(
+  fontFamily: 'TTNorms',
+  fontSize: 16,
   color: Colors.white,
 );
 const kBottombarTextStyle = TextStyle(fontSize: 10, color: Color(0xFF3A3A55));

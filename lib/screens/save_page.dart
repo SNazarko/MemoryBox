@@ -8,6 +8,8 @@ import '../constants.dart';
 
 class SavePage extends StatelessWidget {
   const SavePage({Key? key}) : super(key: key);
+  final String titlePodborki = 'Название подборки';
+  final String titleAudio = 'Название аудиозаписи';
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,7 @@ class SavePage extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Icon(Icons.check_circle_outline),
+                            const Icon(Icons.check_circle_outline),
                             IconButton(
                                 iconSize: 30,
                                 onPressed: () {},
@@ -65,14 +67,16 @@ class SavePage extends StatelessWidget {
                                 BorderRadius.all(Radius.circular(20))),
                       ),
                       Text(
-                        'Нахвание подборки',
-                        style: TextStyle(fontSize: 24),
+                        titlePodborki,
+                        style: const TextStyle(fontSize: 24),
                       ),
-                      Text('Нахвание аудиозаписи',
-                          style: TextStyle(fontSize: 14)),
+                      Text(titleAudio, style: const TextStyle(fontSize: 14)),
+                      SizedBox(
+                        height: 30,
+                      ),
                       PlayerBig(
                         playStopFunction: () {},
-                        playStopIcon: Icon(Icons.play_circle_filled),
+                        playStopIcon: const Icon(Icons.play_circle_filled),
                         replayFunction: () {},
                         forwardFunction: () {},
                       )

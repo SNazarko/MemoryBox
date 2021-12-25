@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/players/bloc/sound_bloc.dart';
+import 'package:memory_box/screens/audio_recordings_page.dart';
 import 'package:memory_box/screens/first_page.dart';
 import 'package:memory_box/screens/home_page.dart';
 import 'package:memory_box/screens/play_page.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
               child: PlayPage(),
             ),
         '/SavePage': (context) => SavePage(),
+        '/AudioRecordingsPage': (context) => AudioRecordingsPage(),
       },
     );
   }

@@ -17,19 +17,7 @@ class RegistrationPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ClipPath(
-              clipper: AppbarClipper(),
-              child: Container(
-                child: const Center(
-                    child: Text(
-                  'Регистрация',
-                  style: kTitleTextStyle,
-                )),
-                color: kColorAppbar,
-                width: double.infinity,
-                height: 250,
-              ),
-            ),
+            const _AppbarHeader(),
             const SizedBox(
               height: 40,
             ),
@@ -69,6 +57,27 @@ class RegistrationPage extends StatelessWidget {
             const ContainerShadow()
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _AppbarHeader extends StatelessWidget {
+  const _AppbarHeader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipPath(
+      clipper: AppbarClipper(),
+      child: Container(
+        child: const Center(
+            child: Text(
+          'Регистрация',
+          style: kTitleTextStyle,
+        )),
+        color: kColorAppbar,
+        width: double.infinity,
+        height: 250,
       ),
     );
   }

@@ -13,30 +13,7 @@ class FirstPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          ClipPath(
-            clipper: AppbarClipper(),
-            child: Container(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: const [
-                    Text(
-                      'MemoryBox',
-                      style: kTitleTextStyle,
-                    ),
-                    Text(
-                      'Твой голос всегда рядом',
-                      style: kTitle2TextStyle,
-                    )
-                  ],
-                ),
-              ),
-              color: kColorAppbar,
-              width: double.infinity,
-              height: 250,
-            ),
-          ),
+          _AppbarHeader(),
           const SizedBox(
             height: 40,
           ),
@@ -68,5 +45,36 @@ class FirstPage extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class _AppbarHeader extends StatelessWidget {
+  const _AppbarHeader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipPath(
+        clipper: AppbarClipper(),
+        child: Container(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: const [
+                Text(
+                  'MemoryBox',
+                  style: kTitleTextStyle,
+                ),
+                Text(
+                  'Твой голос всегда рядом',
+                  style: kTitle2TextStyle,
+                )
+              ],
+            ),
+          ),
+          color: kColorAppbar,
+          width: double.infinity,
+          height: 250,
+        ));
   }
 }

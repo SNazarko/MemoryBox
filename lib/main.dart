@@ -8,6 +8,7 @@ import 'package:memory_box/screens/play_page.dart';
 import 'package:memory_box/screens/registration_page.dart';
 import 'package:memory_box/screens/save_page.dart';
 
+import 'bloc_all/bloc_all_bloc.dart';
 import 'constants.dart';
 
 void main() {
@@ -37,7 +38,10 @@ class MyApp extends StatelessWidget {
               child: PlayPage(),
             ),
         '/SavePage': (context) => SavePage(),
-        '/AudioRecordingsPage': (context) => AudioRecordingsPage(),
+        '/AudioRecordingsPage': (context) => BlocProvider(
+              create: (context) => PlayAllRepeatBloc(),
+              child: AudioRecordingsPage(),
+            ),
       },
     );
   }

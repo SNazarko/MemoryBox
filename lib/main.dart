@@ -33,10 +33,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const FirstPage(),
         '/RegistrationPage': (context) => RegistrationPage(),
         '/HomePage': (context) => HomePage(),
-        '/PlayPage': (context) => BlocProvider(
-              create: (context) => SoundBloc(),
-              child: PlayPage(),
-            ),
+        '/PlayPage': (context) => PlayPage(),
         '/SavePage': (context) => SavePage(),
         '/AudioRecordingsPage': (context) => BlocProvider(
               create: (context) => PlayAllRepeatBloc(),

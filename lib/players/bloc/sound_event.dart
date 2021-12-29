@@ -1,11 +1,11 @@
 part of 'sound_bloc.dart';
 
-abstract class PlayStop {}
+abstract class PlayStopEvent {}
 
-class RecordPlayStop extends PlayStop {}
+class RecordPlay extends PlayStopEvent {}
 
-class PlayerPlayStop extends PlayStop {}
+class RecordStop extends PlayStopEvent {}
 
-class PlayerPlay extends PlayStop {}
+class PlayerPlay extends PlayStopEvent {}
 
-class PlayerStop extends PlayStop {}
+class PlayerStop extends PlayStopEvent {}

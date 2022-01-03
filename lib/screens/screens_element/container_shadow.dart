@@ -4,25 +4,50 @@ import 'package:flutter/material.dart';
 import '../../constants.dart';
 
 class ContainerShadow extends StatelessWidget {
-  const ContainerShadow({Key? key}) : super(key: key);
+  const ContainerShadow(
+      {Key? key,
+      required this.width,
+      required this.height,
+      required this.text,
+      required this.radius})
+      : super(key: key);
+  final double radius;
+  final double width;
+  final double height;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
-      width: 275,
-      decoration: boxDecoration(),
+      height: height,
+      width: width,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(
+            Radius.circular(radius),
+          ),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Colors.grey.shade300,
+              offset: const Offset(0.0, 5.0),
+              blurRadius: 5.0,
+            )
+          ]),
       child: Container(
-        width: 275,
-        height: 100,
-        decoration: kBorderContainer,
-        child: const Center(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(radius),
+          ),
+        ),
+        child: Center(
           child: Padding(
             padding: EdgeInsets.all(10.0),
             child: Text(
-              'Регистрация привяжет твои сказки к облаку, после чего они всегда будут с тобой',
+              text,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 color: Colors.black,
               ),
@@ -32,16 +57,4 @@ class ContainerShadow extends StatelessWidget {
       ),
     );
   }
-}
-
-BoxDecoration boxDecoration() {
-  return BoxDecoration(
-      borderRadius: const BorderRadius.all(Radius.circular(20)),
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-          color: Colors.grey.shade300,
-          offset: const Offset(0.0, 5.0),
-          blurRadius: 5.0,
-        )
-      ]);
 }

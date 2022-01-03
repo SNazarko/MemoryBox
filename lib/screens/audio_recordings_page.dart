@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:memory_box/bloc_all/bloc_all_bloc.dart';
 import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
 import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
@@ -14,18 +13,21 @@ class AudioRecordingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Stack(
-            children: [
-              _ListPlayers(),
-              _AppbarHeader(),
-            ],
-          ),
-          BottomNavBar(),
-        ],
+    return BlocProvider(
+      create: (context) => PlayAllRepeatBloc(),
+      child: Scaffold(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Stack(
+              children: [
+                _ListPlayers(),
+                _AppbarHeader(),
+              ],
+            ),
+            BottomNavBar(),
+          ],
+        ),
       ),
     );
   }

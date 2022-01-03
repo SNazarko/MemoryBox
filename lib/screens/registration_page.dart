@@ -9,7 +9,6 @@ import '../constants.dart';
 
 class RegistrationPage extends StatelessWidget {
   RegistrationPage({Key? key}) : super(key: key);
-  late final String _phoneNumber = '+3(066) 123 45 67';
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,7 @@ class RegistrationPage extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-            TextFieldInput(phoneNumber: _phoneNumber),
+            TextFieldInput(),
             const SizedBox(
               height: 60,
             ),
@@ -54,7 +53,13 @@ class RegistrationPage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const ContainerShadow()
+            const ContainerShadow(
+              width: 275,
+              height: 100,
+              radius: 20,
+              text:
+                  'Регистрация привяжет твои сказки к облаку, после чего они всегда будут с тобой',
+            )
           ],
         ),
       ),

@@ -1,7 +1,14 @@
+import 'dart:async';
+import 'dart:core';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/date_symbol_data_file.dart';
+import 'package:intl/intl.dart';
 import 'package:memory_box/players/bloc/sound_bloc.dart';
+import 'package:memory_box/players/save_audio.dart';
+import 'package:memory_box/players/save_audio.dart';
 import 'package:memory_box/players/sound_record.dart';
 import 'package:memory_box/screens/screens_element/appbar_menu.dart';
 import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
@@ -17,10 +24,11 @@ class PlayPage extends StatefulWidget {
 }
 
 class _PlayPageState extends State<PlayPage> {
-  SoundRecord soundRecord = SoundRecord();
+  SoundRecording soundRecord = SoundRecording();
   bool _isVisible = false;
   bool _play = false;
   String _recordtxt = '00:00:00';
+  String _saveRecord = 'Аудио';
   bool _mPlayerIsInited = false;
   bool _mRecorderIsInited = false;
   bool _mplaybackReady = false;
@@ -118,10 +126,12 @@ class _PlayPageState extends State<PlayPage> {
                                   padding: const EdgeInsets.only(left: 50),
                                   child: TextButton(
                                     onPressed: () {
-                                      Navigator.pushNamed(
-                                        context,
-                                        '/SavePage',
-                                      );
+                                      SaveAudio(_saveRecord).saveFile();
+
+                                      // Navigator.pushNamed(
+                                      //   context,
+                                      //   '/SavePage',
+                                      // );
                                     },
                                     child: const Text(
                                       'Сохранить',
@@ -152,11 +162,10 @@ class _PlayPageState extends State<PlayPage> {
                         ),
                         Visibility(
                           visible: _isVisible,
-                          child: const Text(
-                            'Аудиозапись 1',
-                            style: TextStyle(
-                              fontSize: 24,
-                            ),
+                          child: TextField(
+                            onChanged: (value) {
+                              _saveRecord = value;
+                            },
                           ),
                         ),
                         // TimerWidget(
@@ -207,7 +216,7 @@ class _PlayPageState extends State<PlayPage> {
                                 width: 5,
                               ),
                               Text(
-                                _recordtxt,
+                                soundRecord.playerTxt,
                                 style: const TextStyle(
                                   fontSize: 18,
                                 ),
@@ -234,31 +243,23 @@ class _PlayPageState extends State<PlayPage> {
                                   return IconButton(
                                       iconSize: 100,
                                       onPressed: () {
-                                        setState(() {
-                                          _play = !_play;
-                                        });
+                                        _play = !_play;
                                         if (_play) {
                                           context
                                               .read<IconPlayPauseBloc>()
                                               .add(PlayerPlay());
                                           soundRecord.play(_mPlayerIsInited,
                                               _mplaybackReady);
-                                          setState(() {});
                                         }
                                         if (!_play) {
                                           context
                                               .read<IconPlayPauseBloc>()
                                               .add(PlayerStop());
                                           soundRecord.stopPlayer();
-                                          setState(() {});
+                                          // setState(() {});
                                         }
                                       },
-                                      icon: stateIconPlayer
-
-                                      // _play
-                                      //     ? const Icon(Icons.pause_circle_filled)
-                                      //     : const Icon(Icons.play_circle_filled),
-                                      );
+                                      icon: stateIconPlayer);
                                 },
                               ),
                               IconButton(
@@ -274,35 +275,27 @@ class _PlayPageState extends State<PlayPage> {
                                 return IconButton(
                                     iconSize: 100,
                                     onPressed: () async {
-                                      setState(() {
-                                        // recPlayStop.add(RecordPlayStop());
-                                        _play = !_play;
-                                        if (_play) {
-                                          context
-                                              .read<IconRecPlayPauseBloc>()
-                                              .add(RecordPlay());
-                                          setState(() {
-                                            soundRecord.record();
-                                          });
-                                        }
-                                        if (!_play) {
-                                          context
-                                              .read<IconRecPlayPauseBloc>()
-                                              .add(RecordStop());
-                                          soundRecord
-                                              .stopRecorder(_mplaybackReady);
-                                          setState(() {
-                                            _isVisible = !_isVisible;
-                                            height = 15;
-                                            _mplaybackReady = true;
-                                          });
-                                        }
-                                      });
+                                      _play = !_play;
+                                      if (_play) {
+                                        context
+                                            .read<IconRecPlayPauseBloc>()
+                                            .add(RecordPlay());
+                                        soundRecord.record();
+                                      }
+                                      if (!_play) {
+                                        context
+                                            .read<IconRecPlayPauseBloc>()
+                                            .add(RecordStop());
+                                        soundRecord
+                                            .stopRecorder(_mplaybackReady);
+                                        setState(() {
+                                          _isVisible = !_isVisible;
+                                          height = 15;
+                                        });
+                                        _mplaybackReady = true;
+                                      }
                                     },
                                     icon: stateIconPlayer);
-                                // _play
-                                //     ? const Icon(Icons.play_circle_filled)
-                                //     : const Icon(Icons.mic_none));
                               },
                             )),
                       ],

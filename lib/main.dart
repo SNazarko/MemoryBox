@@ -5,11 +5,15 @@ import 'package:memory_box/screens/audio_recordings_page.dart';
 import 'package:memory_box/screens/first_page.dart';
 import 'package:memory_box/screens/home_page.dart';
 import 'package:memory_box/screens/play_page.dart';
+import 'package:memory_box/screens/profile_page/profile.dart';
+import 'package:memory_box/screens/profile_page/profile_edit.dart';
 import 'package:memory_box/screens/registration_page.dart';
 import 'package:memory_box/screens/save_page.dart';
+import 'package:provider/provider.dart';
 
 import 'bloc_all/bloc_all_bloc.dart';
 import 'constants.dart';
+import 'data_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,26 +24,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'MemoryBox',
-      theme: ThemeData(
-          textTheme: const TextTheme(
-              bodyText2: TextStyle(
-                  color: kColorText,
-                  fontFamily: 'TTNorm',
-                  fontWeight: FontWeight.normal))),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const FirstPage(),
-        '/RegistrationPage': (context) => RegistrationPage(),
-        '/HomePage': (context) => HomePage(),
-        '/PlayPage': (context) => PlayPage(),
-        '/SavePage': (context) => SavePage(),
-        '/AudioRecordingsPage': (context) => BlocProvider(
-              create: (context) => PlayAllRepeatBloc(),
-              child: AudioRecordingsPage(),
-            ),
-      },
-    );
+    return ChangeNotifierProvider<DataModel>(
+        create: (BuildContext context) => DataModel(),
+        child: MaterialApp(
+          title: 'MemoryBox',
+          theme: ThemeData(
+              textTheme: const TextTheme(
+                  bodyText2: TextStyle(
+                      color: kColorText,
+                      fontFamily: 'TTNorm',
+                      fontWeight: FontWeight.normal))),
+          initialRoute: '/',
+          routes: {
+            '/': (context) => const FirstPage(),
+            '/RegistrationPage': (context) => RegistrationPage(),
+            '/HomePage': (context) => HomePage(),
+            '/PlayPage': (context) => PlayPage(),
+            '/SavePage': (context) => SavePage(),
+            '/AudioRecordingsPage': (context) => AudioRecordingsPage(),
+            '/Profile': (context) => Profile(),
+            '/ProfileEdit': (context) => ProfileEdit(),
+          },
+        ));
   }
 }

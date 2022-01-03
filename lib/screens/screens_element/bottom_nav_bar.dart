@@ -66,6 +66,9 @@ class BottomNavBar extends StatelessWidget {
                 _ItemBar(
                   name: 'Профиль',
                   icon: 'tabbar_profile.png',
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/Profile');
+                  },
                 ),
               ],
             ),

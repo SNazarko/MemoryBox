@@ -28,9 +28,31 @@ const kTitle2TextStyle2 = TextStyle(
   fontSize: 16,
   color: Colors.white,
 );
-const kBottombarTextStyle = TextStyle(fontSize: 10, color: Color(0xFF3A3A55));
-const kBorderContainer = BoxDecoration(
-    color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20)));
+const kBodiTextStyle = TextStyle(
+  fontFamily: 'TTNorms',
+  fontSize: 24,
+);
+const kBodi2TextStyle = TextStyle(
+  fontFamily: 'TTNorms',
+  fontSize: 14,
+  color: kColorText,
+);
+const kBodi2ColorRedTextStyle = TextStyle(
+  fontFamily: 'TTNorms',
+  fontSize: 14,
+  color: Color(0xFFE27777),
+);
+const kBodiOverlineTextStyle = TextStyle(
+  fontFamily: 'TTNorms',
+  fontSize: 14,
+  color: kColorText,
+  decoration: TextDecoration.underline,
+);
+const kBottombarTextStyle = TextStyle(
+  fontSize: 10,
+  color: Color(0xFF3A3A55),
+);
+
 const kBorderContainer2 = BoxDecoration(
     color: Colors.white,
     borderRadius: BorderRadius.only(

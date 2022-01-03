@@ -1,17 +1,17 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:flutter/material.dart';
-import 'package:flutter_sound_lite/flutter_sound.dart';
-import 'package:flutter_sound_lite/public/flutter_sound_player.dart';
-import 'package:flutter_sound_lite/public/flutter_sound_recorder.dart';
+import 'package:flutter_sound/flutter_sound.dart';
 import 'package:flutter_sound_platform_interface/flutter_sound_recorder_platform_interface.dart';
+import 'package:intl/date_symbol_data_file.dart';
+import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:path_provider/path_provider.dart' as pathProvider;
 
 const theSource = AudioSource.microphone;
 
-class SoundRecord {
+class SoundRecording {
   Codec _codec = Codec.aacMP4;
-  String _mPath = 'tau_file.mp4';
+  String mPath = 'tau_file.mp4';
   FlutterSoundPlayer? _mPlayer = FlutterSoundPlayer();
   FlutterSoundRecorder? _mRecorder = FlutterSoundRecorder();
   bool _mPlayerIsInited = false;
@@ -20,9 +20,31 @@ class SoundRecord {
   StreamSubscription? _mPlayerSubscription;
   double _mSubscriptionDuration = 0;
   int pos = 0;
+  String playerTxt = '';
+  StreamSubscription? _playerSubscription;
+
+  void cancelPlayerSubscriptions() {
+    if (_playerSubscription != null) {
+      _playerSubscription!.cancel();
+      _playerSubscription = null;
+    }
+  }
+
+  void _addListener1() {
+    cancelPlayerSubscriptions();
+    _playerSubscription = _mPlayer!.onProgress!.listen((e) {
+      var date = DateTime.fromMillisecondsSinceEpoch(e.position.inMilliseconds,
+          isUtc: true);
+      var txt = DateFormat('mm:ss:SS', 'en_GB').format(date);
+      // setState(() {
+      playerTxt = txt.substring(0, 8);
+      // });
+    });
+  }
 
   void initState(bool_mPlayerIsInited, bool _mRecorderIsInited,
       double _mSubscriptionDuration) {
+    initializeDateFormatting('en_GB', 'tau_file.mp4');
     _mPlayer!.openAudioSession().then((value) {
       _mPlayerIsInited;
     });
@@ -57,7 +79,7 @@ class SoundRecord {
     await _mRecorder!.openAudioSession();
     if (!await _mRecorder!.isEncoderSupported(_codec) && kIsWeb) {
       _codec = Codec.opusWebM;
-      _mPath = 'tau_file.webm';
+      mPath = 'tau_file.webm';
       if (!await _mRecorder!.isEncoderSupported(_codec) && kIsWeb) {
         _mRecorderIsInited = true;
         return;
@@ -68,10 +90,12 @@ class SoundRecord {
 
   // ----------------------  Here is the code for recording and playback -------
 
-  void record() {
+  void record() async {
+    await _mPlayer!.setSubscriptionDuration(Duration(milliseconds: 10));
+    _addListener1();
     _mRecorder!
         .startRecorder(
-          toFile: _mPath,
+          toFile: mPath,
           codec: _codec,
           audioSource: theSource,
         )
@@ -85,14 +109,14 @@ class SoundRecord {
     });
   }
 
-  void play(bool _mPlayerIsInited, bool _mplaybackReady) {
+  void play(bool _mPlayerIsInited, bool _mplaybackReady) async {
     assert(_mPlayerIsInited &&
         _mplaybackReady &&
         _mRecorder!.isStopped &&
         _mPlayer!.isStopped);
-    _mPlayer!
+    await _mPlayer!
         .startPlayer(
-            fromURI: _mPath,
+            fromURI: mPath,
             //codec: kIsWeb ? Codec.opusWebM : Codec.aacADTS,
             whenFinished: () {})
         .then((value) {});
@@ -111,13 +135,14 @@ class SoundRecord {
       Duration(milliseconds: d.floor()),
     );
   }
-
-  void cancelPlayerSubscriptions() {
-    if (_mPlayerSubscription != null) {
-      _mPlayerSubscription!.cancel();
-      _mPlayerSubscription = null;
-    }
-  }
+  //
+  // void cancelPlayerSubscriptions() {
+  //   if (_mPlayerSubscription != null) {
+  //     _mPlayerSubscription!.cancel();
+  //     _mPlayerSubscription = null;
+  //   }
+  // }
+}
 
 // ----------------------------- UI --------------------------------------------
 //
@@ -134,7 +159,7 @@ class SoundRecord {
 //     }
 //     return _mPlayer!.isStopped ? play : stopPlayer;
 //   }
-}
+
 //   @override
 //   Widget build(BuildContext context) {
 //     Widget makeBody() {

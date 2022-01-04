@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:memory_box/data_model.dart';
 import 'package:memory_box/screens/profile_page/profile.dart';
 import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
@@ -76,26 +80,91 @@ class ProfileEdit extends StatelessWidget {
   }
 }
 
-class _FotoProfilEdit extends StatelessWidget {
-  const _FotoProfilEdit({Key? key}) : super(key: key);
+class _FotoProfilEdit extends StatefulWidget {
+  _FotoProfilEdit({Key? key}) : super(key: key);
+
+  @override
+  State<_FotoProfilEdit> createState() => _FotoProfilEditState();
+}
+
+class _FotoProfilEditState extends State<_FotoProfilEdit> {
+  File? image;
+
+  Future<void> imagePicker() async {
+    try {
+      final _image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (_image == null) return;
+      final _imageTemp = File(_image.path);
+      setState(() => this.image = _imageTemp);
+    } on PlatformException catch (e) {
+      print('Ошибка $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 110),
-      child: Align(
-        alignment: Alignment.center,
-        child: Container(
-          width: 200,
-          height: 200,
-          decoration: const BoxDecoration(
-            color: Colors.yellow,
-            borderRadius: BorderRadius.all(
-              Radius.circular(20),
-            ),
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 110),
+          child: Align(
+              alignment: Alignment.center,
+              child: Container(
+                  width: 200,
+                  height: 200,
+                  decoration: const BoxDecoration(
+                    color: Colors.yellow,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                  ),
+                  child: image != null
+                      ? Image.file(image!)
+                      : Image.asset('images/avatarka.jpg'))
+
+              // _image == null
+              //     ? Image.asset('images/avatarka.jpg')
+              //     : Image.file(context.watch<DataModel>().getUserImage)),
+              ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 110),
+          child: Center(
+            child: Container(
+                width: 200,
+                height: 200,
+                decoration: const BoxDecoration(
+                  color: Color(0x50000000),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
+                child: Image.asset('images/сamera.png')),
           ),
         ),
-      ),
+        Padding(
+          padding: const EdgeInsets.only(top: 160),
+          child: Center(
+            child: GestureDetector(
+              onTap: imagePicker,
+              //     () {
+              //   imagePicker;
+              //   // context.read<DataModel>().userImage(_image);
+              // },
+              child: Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(50),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 }

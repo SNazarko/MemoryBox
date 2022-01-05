@@ -13,7 +13,7 @@ import 'package:memory_box/screens/screens_element/appbar_menu.dart';
 import 'package:provider/provider.dart';
 
 import 'bloc_all/bloc_all_bloc.dart';
-import 'constants.dart';
+import 'resources/constants.dart';
 import 'data_model.dart';
 
 void main() {

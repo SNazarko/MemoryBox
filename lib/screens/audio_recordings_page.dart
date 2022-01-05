@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/bloc_all/bloc_all_bloc.dart';
+import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
 import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
+import 'package:memory_box/screens/screens_element/drawer_menu.dart';
 import 'package:memory_box/screens/screens_element/player_mini.dart';
 
-import '../constants.dart';
+import '../resources/constants.dart';
 
 class AudioRecordingsPage extends StatelessWidget {
   const AudioRecordingsPage({Key? key}) : super(key: key);
@@ -16,6 +18,23 @@ class AudioRecordingsPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => PlayAllRepeatBloc(),
       child: Scaffold(
+        bottomNavigationBar: BottomNavBar(),
+        appBar: AppBar(
+          elevation: 0.0,
+          title: const Text(
+            'Аудиозаписи',
+            style: kTitleTextStyle2,
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.more_horiz),
+              color: Colors.white,
+              iconSize: 30,
+            )
+          ],
+        ),
+        drawer: DrawerMenu(),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -25,7 +44,6 @@ class AudioRecordingsPage extends StatelessWidget {
                 _AppbarHeader(),
               ],
             ),
-            BottomNavBar(),
           ],
         ),
       ),
@@ -48,53 +66,21 @@ class _AppbarHeader extends StatelessWidget {
           child: Container(
             color: kColorAppbar,
             width: double.infinity,
-            height: 210,
+            height: 125,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                iconSize: 30,
-                color: Colors.white,
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.menu,
-                ),
-              ),
-              const Text(
-                'Аудиозаписи',
-                style: kTitleTextStyle2,
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.more_horiz),
-                color: Colors.white,
-                iconSize: 30,
-              )
-            ],
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Text(
+              'Все в одном месте',
+              style: kTitle2TextStyle2,
+            ),
+          ],
         ),
         Padding(
           padding: const EdgeInsets.only(
-            top: 70,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text(
-                'Все в одном месте',
-                style: kTitle2TextStyle2,
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(
-            top: 105,
+            top: 30,
             left: 10,
             right: 10,
           ),
@@ -156,7 +142,7 @@ class _AppbarPlayer extends StatelessWidget {
                       width: 40,
                       height: 40,
                       child: Image.asset(
-                        'images/vector.png',
+                        AppIcons.vector,
                         color: Colors.white,
                       ),
                     ),
@@ -182,7 +168,7 @@ class _AppbarPlayer extends StatelessWidget {
                     width: 50,
                     height: 50,
                     child: Image.asset(
-                      'images/play_aud.png',
+                      AppIcons.play_aud,
                     ),
                   ),
                   const Text(
@@ -217,14 +203,14 @@ class _ListPlayers extends StatelessWidget {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      height: screenHeight * 0.905,
+      height: screenHeight * 0.79,
       child: Flexible(
         flex: 1,
         child: Container(
           child: ListView(
             children: [
               SizedBox(
-                height: screenHeight * 0.28,
+                height: screenHeight * 0.19,
               ),
               PlayerMini(),
               PlayerMini(),

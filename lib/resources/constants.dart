@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-// class Color{
+// abstract class Color{
 //   static const colorAppbar = '0xFF8C84E2';
-//   static const colorText = '0xFF3A3A55';
+//   static const colorText = Color(0xFF3A3A55);
 // }
 
 const kColorAppbar = Color(0xFF8C84E2);
@@ -14,7 +14,7 @@ const kTitleTextStyle = TextStyle(
 );
 const kTitleTextStyle2 = TextStyle(
   color: Colors.white,
-  fontSize: 36,
+  fontSize: 34,
   fontFamily: 'TTNorms',
   fontWeight: FontWeight.bold,
 );
@@ -27,6 +27,10 @@ const kTitle2TextStyle2 = TextStyle(
   fontFamily: 'TTNorms',
   fontSize: 16,
   color: Colors.white,
+);
+const kDraverTextStyle = TextStyle(
+  fontSize: 18.0,
+  color: kColorText,
 );
 const kBodiTextStyle = TextStyle(
   fontFamily: 'TTNorms',

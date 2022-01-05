@@ -25,7 +25,7 @@ class PlayerMini extends StatelessWidget {
               width: 70,
               height: 70,
               child: Image.asset(
-                'images/4x/play_aud.png',
+                'assets/images/4x/play_aud.png',
               ),
             ),
             Padding(
@@ -33,7 +33,7 @@ class PlayerMini extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: const [
                   Text(
                     'Малышь Кокки 1',
                     style: TextStyle(
@@ -47,7 +47,7 @@ class PlayerMini extends StatelessWidget {
                 ],
               ),
             ),
-            Expanded(child: const SizedBox()),
+            const Expanded(child: SizedBox()),
             IconButton(
                 onPressed: () {},
                 icon: const Icon(

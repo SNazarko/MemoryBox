@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:memory_box/data_model.dart';
+import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/screens/profile_page/profile.dart';
 import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
 import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
@@ -12,7 +13,7 @@ import 'package:memory_box/screens/screens_element/icon_back.dart';
 import 'package:memory_box/screens/screens_element/textfield_input.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants.dart';
+import '../../resources/constants.dart';
 
 class ProfileEdit extends StatelessWidget {
   ProfileEdit({Key? key}) : super(key: key);
@@ -120,7 +121,7 @@ class _FotoProfilEditState extends State<_FotoProfilEdit> {
                   ),
                   child: image != null
                       ? Image.file(image!)
-                      : Image.asset('images/avatarka.jpg'))
+                      : Image.asset(AppIcons.avatarka))
 
               // _image == null
               //     ? Image.asset('images/avatarka.jpg')
@@ -139,7 +140,7 @@ class _FotoProfilEditState extends State<_FotoProfilEdit> {
                     Radius.circular(20),
                   ),
                 ),
-                child: Image.asset('images/сamera.png')),
+                child: Image.asset(AppIcons.camera)),
           ),
         ),
         Padding(
@@ -182,7 +183,7 @@ class _AppbarHeaderProfileEdit extends StatelessWidget {
           child: Container(
             color: kColorAppbar,
             width: double.infinity,
-            height: 250,
+            height: 280,
           ),
         ),
         IconBack(

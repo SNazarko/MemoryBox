@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
 import 'package:memory_box/screens/screens_element/button_continue.dart';
 
-import '../constants.dart';
+import '../resources/constants.dart';
 
 class FirstPage extends StatelessWidget {
   const FirstPage({Key? key}) : super(key: key);

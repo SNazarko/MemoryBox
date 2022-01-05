@@ -1,17 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/resources/app_icons.dart';
 
-import '../../constants.dart';
+import '../../resources/constants.dart';
 
-class DraverMenu extends StatelessWidget {
-  const DraverMenu({Key? key}) : super(key: key);
+class DrawerMenu extends StatelessWidget {
+  const DrawerMenu({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: const BorderRadius.only(
-        topRight: Radius.circular(20),
-        bottomRight: Radius.circular(20),
+        topRight: Radius.circular(20.0),
+        bottomRight: Radius.circular(20.0),
       ),
       child: Drawer(
         child: ListView(
@@ -25,21 +26,21 @@ class DraverMenu extends StatelessWidget {
                 child: Column(
                   children: const [
                     SizedBox(
-                      height: 40,
+                      height: 40.0,
                     ),
                     Text(
                       'Аудиосказки',
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 24.0,
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 20.0,
                     ),
                     Text(
                       'Меню',
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 24.0,
                         color: Color(0X503A3A55),
                       ),
                     ),
@@ -48,79 +49,76 @@ class DraverMenu extends StatelessWidget {
               ),
             ),
             ListTile(
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  '/HomePage',
+                );
+              },
               leading: Image.asset(
-                'images/tabbar_home.png',
-                width: 20,
-                height: 20,
+                AppIcons.tabbar_home,
+                width: 20.0,
+                height: 20.0,
               ),
-              title: const Text(
-                'Главная',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: kColorText,
-                ),
-              ),
+              title: const Text('Главная', style: kDraverTextStyle),
             ),
             ListTile(
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  '/Profile',
+                );
+              },
               leading: Image.asset(
-                'images/tabbar_profile.png',
+                AppIcons.tabbar_profile,
               ),
               title: const Text(
                 'Профиль',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: kColorText,
-                ),
+                style: kDraverTextStyle,
               ),
             ),
             ListTile(
               leading: Image.asset(
-                'images/tabbar_category.png',
+                AppIcons.tabbar_category,
               ),
               title: const Text(
                 'Подборки',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: kColorText,
-                ),
+                style: kDraverTextStyle,
               ),
             ),
             ListTile(
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  '/AudioRecordingsPage',
+                );
+              },
               leading: Image.asset(
-                'images/tabbar_paper.png',
+                AppIcons.tabbar_paper,
               ),
               title: const Text(
                 'Все аудеофайлы',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: kColorText,
-                ),
+                style: kDraverTextStyle,
               ),
             ),
             ListTile(
               leading: Image.asset(
-                'images/drawer_search.png',
+                AppIcons.drawer_search,
                 width: 24.0,
                 height: 24.0,
               ),
               title: const Text(
                 'Поиск',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: kColorText,
-                ),
+                style: kDraverTextStyle,
               ),
             ),
             ListTile(
               leading: Image.asset(
-                'images/rec_delete.png',
+                AppIcons.rec_delete,
               ),
               title: const Text(
                 'Недавно удальонные',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: kColorText,
-                ),
+                style: kDraverTextStyle,
               ),
             ),
             const SizedBox(
@@ -128,33 +126,27 @@ class DraverMenu extends StatelessWidget {
             ),
             ListTile(
               leading: Image.asset(
-                'images/drawer_wallet.png',
+                AppIcons.drawer_wallet,
                 width: 24.0,
                 height: 24.0,
               ),
               title: const Text(
                 'Подписка',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: kColorText,
-                ),
+                style: kDraverTextStyle,
               ),
             ),
             const SizedBox(
-              height: 5,
+              height: 5.0,
             ),
             ListTile(
               leading: Image.asset(
-                'images/drawer_edit.png',
+                AppIcons.drawer_edit,
                 width: 24.0,
                 height: 24.0,
               ),
               title: const Text(
                 'Написать в \n поддержку',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: kColorText,
-                ),
+                style: kDraverTextStyle,
               ),
             ),
           ],

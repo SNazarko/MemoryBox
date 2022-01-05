@@ -6,11 +6,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/players/bloc/sound_bloc.dart';
 import 'package:memory_box/players/save_audio.dart';
 import 'package:memory_box/players/sound_record.dart';
+import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/screens/screens_element/appbar_menu.dart';
 import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
+import 'package:memory_box/screens/screens_element/drawer_menu.dart';
 import 'package:provider/src/provider.dart';
 
-import '../constants.dart';
+import '../resources/constants.dart';
 
 class PlayPage extends StatefulWidget {
   PlayPage({Key? key}) : super(key: key);
@@ -64,6 +66,10 @@ class _PlayPageState extends State<PlayPage> {
         ),
       ],
       child: Scaffold(
+        appBar: AppBar(
+          elevation: 0.0,
+        ),
+        drawer: DrawerMenu(),
         bottomNavigationBar: BottomNavBar(),
         body: SingleChildScrollView(
           child: Column(
@@ -74,9 +80,9 @@ class _PlayPageState extends State<PlayPage> {
                   AppbarMenu(),
                   Positioned(
                     left: 5,
-                    top: 120,
+                    top: 30,
                     child: Container(
-                      height: 600,
+                      height: 520,
                       width: screenWidth * 0.97,
                       decoration: kBorderContainer2,
                       child: Column(
@@ -107,20 +113,19 @@ class _PlayPageState extends State<PlayPage> {
                                 children: [
                                   IconButton(
                                     onPressed: () {},
-                                    icon: Image.asset('images/rec_upload.png'),
+                                    icon: Image.asset(AppIcons.rec_upload),
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 15),
                                   ),
                                   IconButton(
                                       onPressed: () {},
                                       icon: Image.asset(
-                                          'images/rec_paper_download.png'),
+                                          AppIcons.rec_paper_download),
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 15)),
                                   IconButton(
                                       onPressed: () {},
-                                      icon:
-                                          Image.asset('images/rec_delete.png'),
+                                      icon: Image.asset(AppIcons.rec_delete),
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 15)),
                                   Padding(
@@ -298,7 +303,7 @@ class _PlayPageState extends State<PlayPage> {
                                               .stopRecorder(_mplaybackReady);
                                           setState(() {
                                             _isVisible = !_isVisible;
-                                            height = 15;
+                                            height = 0;
                                           });
                                           _mplaybackReady = true;
                                         }

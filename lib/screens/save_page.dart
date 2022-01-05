@@ -4,7 +4,7 @@ import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
 import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
 import 'package:memory_box/screens/screens_element/player_big.dart';
 
-import '../constants.dart';
+import '../resources/constants.dart';
 
 class SavePage extends StatelessWidget {
   const SavePage({Key? key}) : super(key: key);

@@ -5,10 +5,11 @@ import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
 import 'package:memory_box/screens/screens_element/appbar_menu.dart';
 import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
 import 'package:memory_box/screens/screens_element/container_shadow.dart';
+import 'package:memory_box/screens/screens_element/drawer_menu.dart';
 import 'package:memory_box/screens/screens_element/textfield_input.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants.dart';
+import '../../resources/constants.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
@@ -17,6 +18,15 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      drawer: DrawerMenu(),
+      appBar: AppBar(
+        elevation: 0.0,
+        centerTitle: true,
+        title: Text(
+          'Профиль',
+          style: kTitleTextStyle2,
+        ),
+      ),
       bottomNavigationBar: BottomNavBar(),
       body: SingleChildScrollView(
         child: Column(
@@ -101,7 +111,7 @@ class _FotoProfil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 110),
+      padding: const EdgeInsets.only(top: 35),
       child: Align(
         alignment: Alignment.center,
         child: Container(
@@ -132,40 +142,14 @@ class _AppbarHeaderProfile extends StatelessWidget {
           child: Container(
             color: kColorAppbar,
             width: double.infinity,
-            height: 250,
+            height: 200,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
-          child: IconButton(
-            iconSize: 30,
-            color: Colors.white,
-            onPressed: () {},
-            icon: const Icon(
-              Icons.menu,
-            ),
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(top: 25, left: 10, right: 10),
-          child: Align(
-            alignment: Alignment.center,
-            child: Text(
-              'Профиль',
-              style: kTitleTextStyle2,
-            ),
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(
-            top: 70,
-          ),
-          child: Align(
-            alignment: Alignment.center,
-            child: Text(
-              'Твоя частчка',
-              style: kTitle2TextStyle2,
-            ),
+        const Align(
+          alignment: Alignment.center,
+          child: Text(
+            'Твоя частчка',
+            style: kTitle2TextStyle2,
           ),
         ),
       ],

@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
 import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
-import 'package:memory_box/screens/screens_element/draver_menu.dart';
-import '../constants.dart';
+import 'package:memory_box/screens/screens_element/drawer_menu.dart';
+import '../resources/constants.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         elevation: 0.0,
       ),
-      drawer: DraverMenu(),
+      drawer: DrawerMenu(),
       bottomNavigationBar: BottomNavBar(),
       body: Column(
         children: [

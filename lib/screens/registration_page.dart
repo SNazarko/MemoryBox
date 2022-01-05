@@ -5,7 +5,7 @@ import 'package:memory_box/screens/screens_element/button_continue.dart';
 import 'package:memory_box/screens/screens_element/container_shadow.dart';
 import 'package:memory_box/screens/screens_element/textfield_input.dart';
 
-import '../constants.dart';
+import '../resources/constants.dart';
 
 class RegistrationPage extends StatelessWidget {
   RegistrationPage({Key? key}) : super(key: key);

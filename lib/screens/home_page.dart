@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
 import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
+import 'package:memory_box/screens/screens_element/draver_menu.dart';
 import '../constants.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,6 +13,11 @@ class HomePage extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+      ),
+      drawer: DraverMenu(),
+      bottomNavigationBar: BottomNavBar(),
       body: Column(
         children: [
           SingleChildScrollView(
@@ -25,7 +31,6 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          BottomNavBar()
         ],
       ),
     );
@@ -38,54 +43,44 @@ class _AppbarHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
     return Container(
       child: Stack(
         children: [
           Container(
-            height: 350,
+            height: screenHeight * 0.374,
           ),
           ClipPath(
             clipper: AppbarClipper(),
             child: Container(
               color: kColorAppbar,
               width: double.infinity,
-              height: 250,
+              height: 200.0,
             ),
           ),
           Positioned(
-            left: 0,
-            top: 30,
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.menu,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          Positioned(
-            top: 70,
+            top: 0,
             child: Container(
               width: screenWidth,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
                       'Подборки',
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 24.0,
                         color: Colors.white,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
                       'Открыть все',
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 14.0,
                         color: Colors.white,
                       ),
                     ),
@@ -95,7 +90,7 @@ class _AppbarHeader extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 95,
+            top: 30.0,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(
@@ -104,24 +99,27 @@ class _AppbarHeader extends StatelessWidget {
                   children: [
                     const Padding(
                       padding: EdgeInsets.only(
-                        left: 10,
-                        right: 10,
-                        top: 25,
+                        left: 10.0,
+                        right: 10.0,
+                        top: 25.0,
                       ),
                       child: Text(
                         'Здесь будет твой набор сказок',
-                        style: TextStyle(fontSize: 20, color: Colors.white),
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          color: Colors.white,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 40.0),
                     TextButton(
                       onPressed: () {},
                       child: const Text(
                         'Добавить',
                         style: TextStyle(
                           decoration: TextDecoration.underline,
-                          fontSize: 14,
+                          fontSize: 14.0,
                           color: Colors.white,
                         ),
                       ),
@@ -129,57 +127,69 @@ class _AppbarHeader extends StatelessWidget {
                   ],
                 ),
                 width: screenWidth / 2.3,
-                height: 210,
+                height: 210.0,
                 decoration: const BoxDecoration(
                     color: Color(0xD971A59F),
                     borderRadius: BorderRadius.all(
-                      Radius.circular(15),
+                      Radius.circular(15.0),
                     )),
               ),
             ),
           ),
           Positioned(
-            top: 95,
+            top: 30.0,
             right: 0,
             child: Padding(
-              padding: const EdgeInsets.only(top: 16, right: 16),
+              padding: const EdgeInsets.only(
+                top: 16.0,
+                right: 16.0,
+              ),
               child: Container(
                 child: const Center(
                   child: Text(
                     'Тут',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      color: Colors.white,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 width: screenWidth / 2.3,
-                height: 95,
+                height: 95.0,
                 decoration: const BoxDecoration(
                     color: Color(0xD9F1B488),
                     borderRadius: BorderRadius.all(
-                      Radius.circular(15),
+                      Radius.circular(15.0),
                     )),
               ),
             ),
           ),
           Positioned(
-            top: 200,
+            top: 135.0,
             right: 0,
             child: Padding(
-              padding: const EdgeInsets.only(right: 16, top: 24),
+              padding: const EdgeInsets.only(
+                right: 16.0,
+                top: 24.0,
+              ),
               child: Container(
                 child: const Center(
                   child: Text(
                     'И тут',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      color: Colors.white,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 width: screenWidth / 2.3,
-                height: 95,
+                height: 95.0,
                 decoration: const BoxDecoration(
                     color: Color(0xD9678BD2),
                     borderRadius: BorderRadius.all(
-                      Radius.circular(15),
+                      Radius.circular(15.0),
                     )),
               ),
             ),
@@ -200,8 +210,8 @@ class _MenuSound extends StatelessWidget {
       height: screenHeight,
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
           ),
           boxShadow: <BoxShadow>[
             BoxShadow(
@@ -225,21 +235,27 @@ class _MenuSound extends StatelessWidget {
                 children: const [
                   Text(
                     'Аудиозаписи',
-                    style: TextStyle(fontSize: 24),
+                    style: TextStyle(fontSize: 24.0),
                   ),
                   Text(
                     'Открыть все',
-                    style: TextStyle(fontSize: 14),
+                    style: TextStyle(fontSize: 14.0),
                   )
                 ],
               ),
             ),
             const Padding(
-              padding: EdgeInsets.symmetric(vertical: 50, horizontal: 40),
+              padding: EdgeInsets.symmetric(
+                vertical: 50.0,
+                horizontal: 40.0,
+              ),
               child: Text(
                 'Как только ты запишешь аудио, она появится здесь.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20, color: Color(0x503A3A55)),
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Color(0x503A3A55),
+                ),
               ),
             ),
           ],

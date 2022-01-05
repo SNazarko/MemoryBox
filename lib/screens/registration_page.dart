@@ -18,26 +18,26 @@ class RegistrationPage extends StatelessWidget {
           children: [
             const _AppbarHeader(),
             const SizedBox(
-              height: 40,
+              height: 30.0,
             ),
             const Text(
               'Введи номер телефона',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 16.0,
               ),
             ),
             const SizedBox(
-              height: 15,
+              height: 15.0,
             ),
             TextFieldInput(),
             const SizedBox(
-              height: 60,
+              height: 60.0,
             ),
             ButtonContinue(onPressed: () {
               Navigator.pushNamed(context, '/RegistrationPage');
             }),
             const SizedBox(
-              height: 15,
+              height: 15.0,
             ),
             TextButton(
                 onPressed: () {
@@ -46,17 +46,17 @@ class RegistrationPage extends StatelessWidget {
                 child: const Text(
                   'Позже',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 24.0,
                     color: kColorText,
                   ),
                 )),
             const SizedBox(
-              height: 20,
+              height: 15.0,
             ),
             const ContainerShadow(
-              width: 275,
-              height: 100,
-              radius: 20,
+              width: 275.0,
+              height: 100.0,
+              radius: 20.0,
               text:
                   'Регистрация привяжет твои сказки к облаку, после чего они всегда будут с тобой',
             )
@@ -82,7 +82,7 @@ class _AppbarHeader extends StatelessWidget {
         )),
         color: kColorAppbar,
         width: double.infinity,
-        height: 250,
+        height: 285.0,
       ),
     );
   }

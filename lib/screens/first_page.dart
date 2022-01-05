@@ -15,29 +15,31 @@ class FirstPage extends StatelessWidget {
         children: [
           _AppbarHeader(),
           const SizedBox(
-            height: 40,
+            height: 40.0,
           ),
           const Text(
             'Привет!',
             style: TextStyle(
-              fontSize: 24,
+              fontSize: 24.0,
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: 20.0,
           ),
           const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 55),
+            padding: EdgeInsets.symmetric(
+              horizontal: 55.0,
+            ),
             child: Text(
               'Мы рады видеть тебя здесь. Это приложение поможет записывать сказки и держать их в удобном месте не заполняя память на телефоне.',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 16.0,
               ),
             ),
           ),
           const SizedBox(
-            height: 30,
+            height: 30.0,
           ),
           ButtonContinue(onPressed: () {
             Navigator.pushNamed(context, '/RegistrationPage');
@@ -74,7 +76,7 @@ class _AppbarHeader extends StatelessWidget {
           ),
           color: kColorAppbar,
           width: double.infinity,
-          height: 250,
+          height: 285.0,
         ));
   }
 }

@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 
 import 'bloc_all/bloc_all_bloc.dart';
 import 'resources/constants.dart';
-import 'data_model.dart';
+import 'models/data_model_user.dart';
 
 void main() {
   runApp(const MyApp());

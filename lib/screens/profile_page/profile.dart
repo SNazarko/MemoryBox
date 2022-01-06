@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/data_model.dart';
+import 'package:memory_box/models/data_model_user.dart';
 import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
 import 'package:memory_box/screens/screens_element/appbar_menu.dart';
 import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
@@ -122,6 +122,10 @@ class _FotoProfil extends StatelessWidget {
             borderRadius: BorderRadius.all(
               Radius.circular(20),
             ),
+          ),
+          child: Image.file(
+            context.watch<DataModel>().getUserImage,
+            width: double.infinity,
           ),
         ),
       ),

@@ -1,22 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:image_picker/image_picker.dart';
 
 class DataModel with ChangeNotifier {
-  late String _name = '';
-  late String _number = '';
-  late File _image;
+  late String _name = 'Ваше Имя';
+  late String _number = '+3(063)444 22 55';
+  late File _image = File('');
 
-  Future<void> imagePicker() async {
-    final _imageTemp =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-    _image = _imageTemp as File;
-  }
-
-  Future<void> userImage(imageTemp) async {
-    _image = imageTemp as File;
-    imagePicker();
+  void userImage(File userImage) {
+    _image = userImage;
     notifyListeners();
   }
 

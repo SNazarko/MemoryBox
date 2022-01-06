@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:memory_box/data_model.dart';
+import 'package:memory_box/models/data_model_user.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/screens/profile_page/profile.dart';
 import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
@@ -89,14 +89,17 @@ class _FotoProfilEdit extends StatefulWidget {
 }
 
 class _FotoProfilEditState extends State<_FotoProfilEdit> {
-  File? image;
+  File? _image;
 
   Future<void> imagePicker() async {
     try {
       final _image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (_image == null) return;
       final _imageTemp = File(_image.path);
-      setState(() => this.image = _imageTemp);
+      setState(() {
+        this._image = _imageTemp;
+        context.read<DataModel>().userImage(this._image!);
+      });
     } on PlatformException catch (e) {
       print('Ошибка $e');
     }
@@ -119,14 +122,9 @@ class _FotoProfilEditState extends State<_FotoProfilEdit> {
                       Radius.circular(20),
                     ),
                   ),
-                  child: image != null
-                      ? Image.file(image!)
-                      : Image.asset(AppIcons.avatarka))
-
-              // _image == null
-              //     ? Image.asset('images/avatarka.jpg')
-              //     : Image.file(context.watch<DataModel>().getUserImage)),
-              ),
+                  child: _image != null
+                      ? Image.file(_image!)
+                      : Image.asset(AppIcons.avatarka))),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 110),
@@ -148,10 +146,6 @@ class _FotoProfilEditState extends State<_FotoProfilEdit> {
           child: Center(
             child: GestureDetector(
               onTap: imagePicker,
-              //     () {
-              //   imagePicker;
-              //   // context.read<DataModel>().userImage(_image);
-              // },
               child: Container(
                 width: 100,
                 height: 100,

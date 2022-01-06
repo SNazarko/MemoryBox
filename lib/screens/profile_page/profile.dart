@@ -114,19 +114,22 @@ class _FotoProfil extends StatelessWidget {
       padding: const EdgeInsets.only(top: 35),
       child: Align(
         alignment: Alignment.center,
-        child: Container(
-          width: 200,
-          height: 200,
-          decoration: const BoxDecoration(
-            color: Colors.yellow,
-            borderRadius: BorderRadius.all(
-              Radius.circular(20),
+        child: Stack(
+          children: [
+            Container(
+              width: 200,
+              height: 200,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(20),
+                ),
+                child: Image.file(
+                  context.watch<DataModel>().getUserImage,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-          ),
-          child: Image.file(
-            context.watch<DataModel>().getUserImage,
-            width: double.infinity,
-          ),
+          ],
         ),
       ),
     );

@@ -112,19 +112,37 @@ class _FotoProfilEditState extends State<_FotoProfilEdit> {
         Padding(
           padding: const EdgeInsets.only(top: 110),
           child: Align(
-              alignment: Alignment.center,
-              child: Container(
-                  width: 200,
-                  height: 200,
-                  decoration: const BoxDecoration(
-                    color: Colors.yellow,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
+            alignment: Alignment.center,
+            child: Container(
+              width: 200,
+              height: 200,
+              decoration: const BoxDecoration(
+                color: Colors.yellow,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20),
+                ),
+              ),
+              child: _image != null
+                  ? ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                      child: Image.file(
+                        _image!,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                      child: Image.asset(
+                        AppIcons.avatarka,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                  child: _image != null
-                      ? Image.file(_image!)
-                      : Image.asset(AppIcons.avatarka))),
+            ),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 110),

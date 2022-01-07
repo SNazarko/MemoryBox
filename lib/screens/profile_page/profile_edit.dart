@@ -17,8 +17,8 @@ import '../../resources/constants.dart';
 
 class ProfileEdit extends StatelessWidget {
   ProfileEdit({Key? key}) : super(key: key);
-  String userName = 'Андрей';
-  String userNumber = '';
+  String? userName;
+  String? userNumber;
 
   @override
   Widget build(BuildContext context) {

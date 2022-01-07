@@ -4,8 +4,8 @@ import 'package:flutter/foundation.dart';
 
 class DataModel with ChangeNotifier {
   late String _name = 'Ваше Имя';
-  late String _number = '+3(063)444 22 55';
-  late File _image = File('');
+  late String _number = '+0(000)000 00 00';
+  late File _image;
 
   void userImage(File userImage) {
     _image = userImage;

@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/data_model_user.dart';
+import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
 import 'package:memory_box/screens/screens_element/appbar_menu.dart';
 import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
@@ -106,7 +109,8 @@ class Profile extends StatelessWidget {
 }
 
 class _FotoProfil extends StatelessWidget {
-  const _FotoProfil({Key? key}) : super(key: key);
+  _FotoProfil({Key? key}) : super(key: key);
+  File? _image;
 
   @override
   Widget build(BuildContext context) {
@@ -123,10 +127,15 @@ class _FotoProfil extends StatelessWidget {
                 borderRadius: const BorderRadius.all(
                   Radius.circular(20),
                 ),
-                child: Image.file(
-                  context.watch<DataModel>().getUserImage,
-                  fit: BoxFit.cover,
-                ),
+                child: _image != null
+                    ? Image.file(
+                        context.watch<DataModel>().getUserImage,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.asset(
+                        AppIcons.avatarka,
+                        fit: BoxFit.cover,
+                      ),
               ),
             ),
           ],

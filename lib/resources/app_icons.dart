@@ -1,5 +1,5 @@
 abstract class AppIcons {
-  static const avatarka = 'assets/images/avatarka.jpg';
+  static const avatarka = 'assets/images/profile_avatar.png';
   static const drawer_edit = 'assets/images/drawer_edit.png';
   static const drawer_search = 'assets/images/drawer_search.png';
   static const drawer_wallet = 'assets/images/drawer_wallet.png';

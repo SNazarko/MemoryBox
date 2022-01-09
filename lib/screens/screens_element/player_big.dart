@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/screens/screens_element/slider.dart';
 
 class PlayerBig extends StatelessWidget {
@@ -23,13 +24,14 @@ class PlayerBig extends StatelessWidget {
       children: [
         SliderTheme(
           data: SliderTheme.of(context).copyWith(
-              // thumbShape: const RoundedAmebaThumbShape(radius: 10),
-              thumbColor: const Color(0xFF3A3A55),
-              activeTickMarkColor: const Color(0xFF3A3A55),
-              inactiveTrackColor: const Color(0xFF3A3A55),
-              inactiveTickMarkColor: const Color(0xFF3A3A55)),
+            // thumbShape: const RoundedAmebaThumbShape(radius: 10),
+            thumbColor: const Color(ColorApp.colorText),
+            activeTickMarkColor: const Color(ColorApp.colorText),
+            inactiveTrackColor: const Color(ColorApp.colorText),
+            inactiveTickMarkColor: const Color(ColorApp.colorText),
+          ),
           child: Slider(
-            value: 0,
+            value: 0.0,
             min: 0.0,
             max: 2000.0,
             onChanged: (double value) {},
@@ -37,7 +39,7 @@ class PlayerBig extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 22),
+          padding: const EdgeInsets.symmetric(horizontal: 22.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -56,7 +58,7 @@ class PlayerBig extends StatelessWidget {
               ),
             ),
             IconButton(
-              iconSize: 100,
+              iconSize: 100.0,
               onPressed: playStopFunction,
               icon: playStopIcon,
             ),

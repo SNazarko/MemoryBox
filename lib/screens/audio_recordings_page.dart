@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/bloc_all/bloc_all_bloc.dart';
+import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
 import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
@@ -30,7 +31,7 @@ class AudioRecordingsPage extends StatelessWidget {
               onPressed: () {},
               icon: Icon(Icons.more_horiz),
               color: Colors.white,
-              iconSize: 30,
+              iconSize: 30.0,
             )
           ],
         ),
@@ -66,7 +67,7 @@ class _AppbarHeader extends StatelessWidget {
           child: Container(
             color: kColorAppbar,
             width: double.infinity,
-            height: 125,
+            height: 125.0,
           ),
         ),
         Row(
@@ -80,9 +81,9 @@ class _AppbarHeader extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(
-            top: 30,
-            left: 10,
-            right: 10,
+            top: 30.0,
+            left: 10.0,
+            right: 10.0,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,9 +111,9 @@ class _AppbarHeader extends StatelessWidget {
 }
 
 class _AppbarPlayer extends StatelessWidget {
-  const _AppbarPlayer({Key? key, this.playAll, this.repeat}) : super(key: key);
-  final playAll;
-  final repeat;
+  const _AppbarPlayer({
+    Key? key,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final PlayAllRepeatBloc playAllRepeat = context.read<PlayAllRepeatBloc>();
@@ -127,20 +128,20 @@ class _AppbarPlayer extends StatelessWidget {
           child: BlocBuilder<PlayAllRepeatBloc, Color>(
             builder: (context, state) {
               return Container(
-                height: 46,
-                width: 200,
+                height: 46.0,
+                width: 200.0,
                 decoration: BoxDecoration(
                     color: state,
                     borderRadius: const BorderRadius.all(
-                      Radius.circular(50),
+                      Radius.circular(50.0),
                     )),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Container(
-                      width: 40,
-                      height: 40,
+                      width: 40.0,
+                      height: 40.0,
                       child: Image.asset(
                         AppIcons.vector,
                         color: Colors.white,
@@ -160,13 +161,13 @@ class _AppbarPlayer extends StatelessWidget {
           },
           child: Container(
             child: Padding(
-              padding: EdgeInsets.only(right: 1, top: 1),
+              padding: const EdgeInsets.only(right: 1.0, top: 1.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    width: 50,
-                    height: 50,
+                    width: 50.0,
+                    height: 50.0,
                     child: Image.asset(
                       AppIcons.play_aud,
                     ),
@@ -175,19 +176,19 @@ class _AppbarPlayer extends StatelessWidget {
                     'Запустить все',
                     textAlign: TextAlign.end,
                     style: TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFF8C84E2),
+                      fontSize: 14.0,
+                      color: Color(ColorApp.blue100),
                     ),
                   ),
                 ],
               ),
             ),
-            height: 46,
-            width: 150,
+            height: 46.0,
+            width: 150.0,
             decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(
-                  Radius.circular(50),
+                  Radius.circular(50.0),
                 )),
           ),
         ),

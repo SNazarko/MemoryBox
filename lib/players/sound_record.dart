@@ -18,7 +18,7 @@ class SoundRecording {
   bool _mRecorderIsInited = false;
   bool _mplaybackReady = false;
   StreamSubscription? _mPlayerSubscription;
-  double _mSubscriptionDuration = 0;
+  double _mSubscriptionDuration = 0.0;
   int pos = 0;
   String playerTxt = '';
   StreamSubscription? _playerSubscription;

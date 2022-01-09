@@ -10,10 +10,12 @@ class TextFieldInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
-      width: 275,
+      height: 50.0,
+      width: 275.0,
       decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(30.0),
+          ),
           boxShadow: <BoxShadow>[
             BoxShadow(
               color: Colors.grey.shade300,
@@ -34,7 +36,7 @@ class TextFieldInput extends StatelessWidget {
             ),
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(
-                  Radius.circular(30),
+                  Radius.circular(30.0),
                 ),
                 borderSide: BorderSide.none),
           ),

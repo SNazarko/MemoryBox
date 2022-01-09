@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
                       fontWeight: FontWeight.normal))),
           initialRoute: '/',
           routes: {
-            '/': (context) => const FirstPage(),
+            '/': (context) => FirstPage(),
             '/RegistrationPage': (context) => RegistrationPage(),
             '/HomePage': (context) => HomePage(),
             '/PlayPage': (context) => PlayPage(),

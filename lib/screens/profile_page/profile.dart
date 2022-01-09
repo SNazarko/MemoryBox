@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/data_model_user.dart';
+import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
 import 'package:memory_box/screens/screens_element/appbar_menu.dart';
@@ -46,23 +47,23 @@ class Profile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const SizedBox(
-                    height: 5,
+                    height: 5.0,
                   ),
                   Text(
                     context.watch<DataModel>().getName,
                     style: kBodiTextStyle,
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 10.0,
                   ),
                   ContainerShadow(
                     width: screenWidth * 0.75,
-                    height: 60,
-                    radius: 50,
+                    height: 60.0,
+                    radius: 50.0,
                     text: context.watch<DataModel>().getNumber,
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: 15.0,
                   ),
                   _TextLink(
                     onPressed: () {
@@ -71,29 +72,32 @@ class Profile extends StatelessWidget {
                     text: 'Редактировать',
                   ),
                   const SizedBox(
-                    height: 50,
+                    height: 50.0,
                   ),
                   const _TextLink(
                     underline: false,
                     text: 'Подписка',
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: 15.0,
                   ),
                   _ProgressIndicator(),
                   const SizedBox(
-                    height: 30,
+                    height: 30.0,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        _TextLink(text: 'Вийти из приложения'),
-                        Text(
+                      children: [
+                        _TextLink(
+                          text: 'Вийти из приложения',
+                          onPressed: () {},
+                        ),
+                        const Text(
                           'Удалить аккаунт',
-                          style:
-                              TextStyle(fontSize: 14, color: Color(0xFFE27777)),
+                          style: TextStyle(
+                              fontSize: 14.0, color: Color(ColorApp.pink)),
                         ),
                       ],
                     ),
@@ -115,17 +119,17 @@ class _FotoProfil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 35),
+      padding: const EdgeInsets.only(top: 35.0),
       child: Align(
         alignment: Alignment.center,
         child: Stack(
           children: [
             Container(
-              width: 200,
-              height: 200,
+              width: 200.0,
+              height: 200.0,
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(
-                  Radius.circular(20),
+                  Radius.circular(20.0),
                 ),
                 child: _image != null
                     ? Image.file(
@@ -158,7 +162,7 @@ class _AppbarHeaderProfile extends StatelessWidget {
           child: Container(
             color: kColorAppbar,
             width: double.infinity,
-            height: 200,
+            height: 200.0,
           ),
         ),
         const Align(
@@ -204,16 +208,22 @@ class _ProgressIndicator extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(50)),
-              border: Border.all(color: kColorText, width: 2)),
-          margin: EdgeInsets.symmetric(vertical: 5),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(50.0),
+              ),
+              border: Border.all(color: kColorText, width: 2.0)),
+          margin: const EdgeInsets.symmetric(vertical: 5.0),
           width: screenWidth * 0.75,
-          height: 30,
+          height: 30.0,
           child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(50)),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(50.0),
+            ),
             child: LinearProgressIndicator(
               value: value / 500,
-              valueColor: new AlwaysStoppedAnimation<Color>(Color(0xffF1B488)),
+              valueColor: const AlwaysStoppedAnimation<Color>(
+                Color(ColorApp.yellow100),
+              ),
               backgroundColor: Colors.white,
             ),
           ),

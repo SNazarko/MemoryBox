@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
 import 'package:memory_box/screens/screens_element/button_continue.dart';
 import 'package:memory_box/screens/screens_element/container_shadow.dart';
@@ -80,7 +81,7 @@ class _AppbarHeader extends StatelessWidget {
           'Регистрация',
           style: kTitleTextStyle,
         )),
-        color: kColorAppbar,
+        color: Color(ColorApp.colorAppbar),
         width: double.infinity,
         height: 285.0,
       ),

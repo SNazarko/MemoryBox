@@ -1,12 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/models/data_model_user.dart';
+import 'package:memory_box/models/preferences_data_model_user.dart';
 import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
 import 'package:memory_box/screens/screens_element/button_continue.dart';
 
 import '../resources/constants.dart';
 
-class FirstPage extends StatelessWidget {
-  const FirstPage({Key? key}) : super(key: key);
+class FirstPage extends StatefulWidget {
+  FirstPage({Key? key}) : super(key: key);
+
+  @override
+  State<FirstPage> createState() => _FirstPageState();
+}
+
+class _FirstPageState extends State<FirstPage> {
+  @override
+  void initState() {
+    PreferencesDataUser().storage;
+    DataModel().initPreferencesDataUser();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

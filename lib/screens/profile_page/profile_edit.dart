@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:memory_box/models/data_model_user.dart';
+import 'package:memory_box/models/preferences_data_model_user.dart';
+import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/screens/profile_page/profile.dart';
 import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
@@ -38,17 +40,17 @@ class ProfileEdit extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 40,
+                  const SizedBox(
+                    height: 40.0,
                   ),
                   SizedBox(
-                    width: 150,
-                    height: 40,
+                    width: 150.0,
+                    height: 40.0,
                     child: TextField(
                       onChanged: (userName) {
                         context.read<DataModel>().userName(userName);
                       },
-                      style: TextStyle(fontSize: 24),
+                      style: const TextStyle(fontSize: 24.0),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -60,8 +62,8 @@ class ProfileEdit extends StatelessWidget {
                       context.read<DataModel>().userNumber(userNumber);
                     },
                   ),
-                  SizedBox(
-                    height: 20,
+                  const SizedBox(
+                    height: 20.0,
                   ),
                   TextButton(
                       onPressed: () {
@@ -69,7 +71,8 @@ class ProfileEdit extends StatelessWidget {
                       },
                       child: const Text(
                         'Сохранить',
-                        style: TextStyle(fontSize: 14, color: kColorText),
+                        style: TextStyle(
+                            fontSize: 14, color: Color(ColorApp.colorText)),
                       ))
                 ],
               ),
@@ -110,22 +113,22 @@ class _FotoProfilEditState extends State<_FotoProfilEdit> {
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 110),
+          padding: const EdgeInsets.only(top: 110.0),
           child: Align(
             alignment: Alignment.center,
             child: Container(
-              width: 200,
-              height: 200,
+              width: 200.0,
+              height: 200.0,
               decoration: const BoxDecoration(
                 color: Colors.yellow,
                 borderRadius: BorderRadius.all(
-                  Radius.circular(20),
+                  Radius.circular(20.0),
                 ),
               ),
               child: _image != null
                   ? ClipRRect(
                       borderRadius: const BorderRadius.all(
-                        Radius.circular(20),
+                        Radius.circular(20.0),
                       ),
                       child: Image.file(
                         _image!,
@@ -134,7 +137,7 @@ class _FotoProfilEditState extends State<_FotoProfilEdit> {
                     )
                   : ClipRRect(
                       borderRadius: const BorderRadius.all(
-                        Radius.circular(20),
+                        Radius.circular(20.0),
                       ),
                       child: Image.asset(
                         AppIcons.avatarka,
@@ -145,32 +148,32 @@ class _FotoProfilEditState extends State<_FotoProfilEdit> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 110),
+          padding: const EdgeInsets.only(top: 110.0),
           child: Center(
             child: Container(
-                width: 200,
-                height: 200,
+                width: 200.0,
+                height: 200.0,
                 decoration: const BoxDecoration(
-                  color: Color(0x50000000),
+                  color: Color(ColorApp.black50),
                   borderRadius: BorderRadius.all(
-                    Radius.circular(20),
+                    Radius.circular(20.0),
                   ),
                 ),
                 child: Image.asset(AppIcons.camera)),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 160),
+          padding: const EdgeInsets.only(top: 160.0),
           child: Center(
             child: GestureDetector(
               onTap: imagePicker,
               child: Container(
-                width: 100,
-                height: 100,
+                width: 100.0,
+                height: 100.0,
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.white),
                   borderRadius: const BorderRadius.all(
-                    Radius.circular(50),
+                    Radius.circular(50.0),
                   ),
                 ),
               ),
@@ -195,7 +198,7 @@ class _AppbarHeaderProfileEdit extends StatelessWidget {
           child: Container(
             color: kColorAppbar,
             width: double.infinity,
-            height: 280,
+            height: 280.0,
           ),
         ),
         IconBack(
@@ -204,7 +207,11 @@ class _AppbarHeaderProfileEdit extends StatelessWidget {
           },
         ),
         const Padding(
-          padding: EdgeInsets.only(top: 30, left: 10, right: 10),
+          padding: EdgeInsets.only(
+            top: 30.0,
+            left: 10.0,
+            right: 10.0,
+          ),
           child: Align(
             alignment: Alignment.center,
             child: Text(

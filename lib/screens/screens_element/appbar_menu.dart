@@ -19,7 +19,7 @@ class AppbarMenu extends StatelessWidget {
           child: Container(
             color: kColorAppbar,
             width: double.infinity,
-            height: 280,
+            height: 280.0,
           ),
         ),
       ]),

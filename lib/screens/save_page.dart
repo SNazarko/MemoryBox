@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
 import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
 import 'package:memory_box/screens/screens_element/player_big.dart';
@@ -27,33 +28,33 @@ class SavePage extends StatelessWidget {
               ClipPath(
                 clipper: AppbarClipper(),
                 child: Container(
-                  color: kColorAppbar,
+                  color: const Color(ColorApp.colorAppbar),
                   width: double.infinity,
-                  height: 250,
+                  height: 250.0,
                 ),
               ),
               Positioned(
-                left: 5,
-                top: 40,
+                left: 5.0,
+                top: 40.0,
                 child: Container(
-                  height: 900,
+                  height: 900.0,
                   width: screenWidth * 0.97,
                   decoration: kBorderContainer2,
                   child: Column(
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 20),
+                            vertical: 10.0, horizontal: 20.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Icon(Icons.check_circle_outline),
                             IconButton(
-                                iconSize: 30,
+                                iconSize: 30.0,
                                 onPressed: () {},
                                 icon: const Icon(
                                   Icons.more_horiz,
-                                  color: Color(0XFF3A3A55),
+                                  color: Color(ColorApp.colorText),
                                 ))
                           ],
                         ),
@@ -62,17 +63,22 @@ class SavePage extends StatelessWidget {
                         width: screenWidth * 0.8,
                         height: screenHeight * 0.4,
                         decoration: const BoxDecoration(
-                            color: Colors.red,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
+                          color: Colors.red,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20.0),
+                          ),
+                        ),
                       ),
                       Text(
                         titlePodborki,
-                        style: const TextStyle(fontSize: 24),
+                        style: const TextStyle(fontSize: 24.0),
                       ),
-                      Text(titleAudio, style: const TextStyle(fontSize: 14)),
+                      Text(
+                        titleAudio,
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
                       SizedBox(
-                        height: 30,
+                        height: 30.0,
                       ),
                       PlayerBig(
                         playStopFunction: () {},

@@ -79,10 +79,10 @@ class _PlayPageState extends State<PlayPage> {
                 children: [
                   AppbarMenu(),
                   Positioned(
-                    left: 5,
-                    top: 30,
+                    left: 5.0,
+                    top: 30.0,
                     child: Container(
-                      height: 520,
+                      height: 520.0,
                       width: screenWidth * 0.97,
                       decoration: kBorderContainer2,
                       child: Column(
@@ -93,12 +93,12 @@ class _PlayPageState extends State<PlayPage> {
                               visible: !_isVisible,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 20),
+                                    vertical: 10.0, horizontal: 20.0),
                                 child: TextButton(
                                   onPressed: () {},
                                   child: const Text(
                                     'Отменить',
-                                    style: TextStyle(fontSize: 16),
+                                    style: TextStyle(fontSize: 16.0),
                                   ),
                                 ),
                               ),
@@ -108,28 +108,28 @@ class _PlayPageState extends State<PlayPage> {
                             visible: _isVisible,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 20),
+                                  vertical: 10.0, horizontal: 20.0),
                               child: Row(
                                 children: [
                                   IconButton(
                                     onPressed: () {},
                                     icon: Image.asset(AppIcons.rec_upload),
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 15),
+                                        horizontal: 15.0),
                                   ),
                                   IconButton(
                                       onPressed: () {},
                                       icon: Image.asset(
                                           AppIcons.rec_paper_download),
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 15)),
+                                          horizontal: 15.0)),
                                   IconButton(
                                       onPressed: () {},
                                       icon: Image.asset(AppIcons.rec_delete),
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 15)),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 50),
+                                    padding: const EdgeInsets.only(left: 50.0),
                                     child: TextButton(
                                       onPressed: () {
                                         SaveAudio(_saveRecord).saveFile();
@@ -142,7 +142,7 @@ class _PlayPageState extends State<PlayPage> {
                                       child: const Text(
                                         'Сохранить',
                                         style: TextStyle(
-                                          fontSize: 16,
+                                          fontSize: 16.0,
                                         ),
                                       ),
                                     ),
@@ -152,27 +152,27 @@ class _PlayPageState extends State<PlayPage> {
                             ),
                           ),
                           const SizedBox(
-                            height: 20,
+                            height: 20.0,
                           ),
                           Visibility(
                             visible: !_isVisible,
                             child: const Text(
                               'Запись',
                               style: TextStyle(
-                                fontSize: 24,
+                                fontSize: 24.0,
                               ),
                             ),
                           ),
                           const SizedBox(
-                            height: 60,
+                            height: 60.0,
                           ),
                           Visibility(
                             visible: _isVisible,
                             child: SizedBox(
-                              width: 200,
+                              width: 200.0,
                               child: TextField(
                                 textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 24),
+                                style: TextStyle(fontSize: 24.0),
                                 controller: _controller,
                                 onChanged: (value) {
                                   _saveRecord = value;
@@ -184,7 +184,7 @@ class _PlayPageState extends State<PlayPage> {
                           //   timerController: TimerController(),
                           // ),
                           const SizedBox(
-                            height: 70,
+                            height: 70.0,
                           ),
 
                           Visibility(
@@ -192,7 +192,7 @@ class _PlayPageState extends State<PlayPage> {
                             child: SliderTheme(
                               data: SliderTheme.of(context).copyWith(
                                   thumbShape: const RoundSliderThumbShape(
-                                      enabledThumbRadius: 7),
+                                      enabledThumbRadius: 7.0),
                                   thumbColor: const Color(0xFF3A3A55),
                                   activeTickMarkColor: const Color(0xFF3A3A55),
                                   inactiveTrackColor: const Color(0xFF3A3A55),
@@ -216,22 +216,22 @@ class _PlayPageState extends State<PlayPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
-                                  width: 10,
-                                  height: 10,
+                                  width: 10.0,
+                                  height: 10.0,
                                   decoration: const BoxDecoration(
                                     color: Color(0xFFE27777),
                                     borderRadius: BorderRadius.all(
-                                      Radius.circular(20),
+                                      Radius.circular(20.0),
                                     ),
                                   ),
                                 ),
                                 const SizedBox(
-                                  width: 5,
+                                  width: 5.0,
                                 ),
                                 Text(
                                   soundRecord.playerTxt,
                                   style: const TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 18.0,
                                   ),
                                 ),
                               ],
@@ -254,7 +254,7 @@ class _PlayPageState extends State<PlayPage> {
                                 BlocBuilder<IconPlayPauseBloc, Icon>(
                                   builder: (context, stateIconPlayer) {
                                     return IconButton(
-                                        iconSize: 100,
+                                        iconSize: 100.0,
                                         onPressed: () {
                                           _play = !_play;
                                           if (_play) {
@@ -286,7 +286,7 @@ class _PlayPageState extends State<PlayPage> {
                               child: BlocBuilder<IconRecPlayPauseBloc, Icon>(
                                 builder: (context, stateIconPlayer) {
                                   return IconButton(
-                                      iconSize: 100,
+                                      iconSize: 100.0,
                                       onPressed: () async {
                                         _play = !_play;
                                         if (_play) {
@@ -303,7 +303,7 @@ class _PlayPageState extends State<PlayPage> {
                                               .stopRecorder(_mplaybackReady);
                                           setState(() {
                                             _isVisible = !_isVisible;
-                                            height = 0;
+                                            height = 0.0;
                                           });
                                           _mplaybackReady = true;
                                         }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 
 import '../../resources/constants.dart';
@@ -41,7 +42,7 @@ class DrawerMenu extends StatelessWidget {
                       'Меню',
                       style: TextStyle(
                         fontSize: 24.0,
-                        color: Color(0X503A3A55),
+                        color: Color(ColorApp.colorText),
                       ),
                     ),
                   ],

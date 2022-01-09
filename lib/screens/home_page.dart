@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
 import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
 import 'package:memory_box/screens/screens_element/drawer_menu.dart';
@@ -59,7 +60,7 @@ class _AppbarHeader extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 0,
+            top: 0.0,
             child: Container(
               width: screenWidth,
               child: Row(
@@ -129,7 +130,7 @@ class _AppbarHeader extends StatelessWidget {
                 width: screenWidth / 2.3,
                 height: 210.0,
                 decoration: const BoxDecoration(
-                    color: Color(0xD971A59F),
+                    color: Color(ColorApp.green100),
                     borderRadius: BorderRadius.all(
                       Radius.circular(15.0),
                     )),
@@ -138,7 +139,7 @@ class _AppbarHeader extends StatelessWidget {
           ),
           Positioned(
             top: 30.0,
-            right: 0,
+            right: 0.0,
             child: Padding(
               padding: const EdgeInsets.only(
                 top: 16.0,
@@ -158,7 +159,7 @@ class _AppbarHeader extends StatelessWidget {
                 width: screenWidth / 2.3,
                 height: 95.0,
                 decoration: const BoxDecoration(
-                    color: Color(0xD9F1B488),
+                    color: Color(ColorApp.yellow100),
                     borderRadius: BorderRadius.all(
                       Radius.circular(15.0),
                     )),
@@ -167,7 +168,7 @@ class _AppbarHeader extends StatelessWidget {
           ),
           Positioned(
             top: 135.0,
-            right: 0,
+            right: 0.0,
             child: Padding(
               padding: const EdgeInsets.only(
                 right: 16.0,
@@ -187,7 +188,7 @@ class _AppbarHeader extends StatelessWidget {
                 width: screenWidth / 2.3,
                 height: 95.0,
                 decoration: const BoxDecoration(
-                    color: Color(0xD9678BD2),
+                    color: Color(ColorApp.blue200),
                     borderRadius: BorderRadius.all(
                       Radius.circular(15.0),
                     )),
@@ -253,8 +254,8 @@ class _MenuSound extends StatelessWidget {
                 'Как только ты запишешь аудио, она появится здесь.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 20,
-                  color: Color(0x503A3A55),
+                  fontSize: 20.0,
+                  color: Color(ColorApp.colorText),
                 ),
               ),
             ),

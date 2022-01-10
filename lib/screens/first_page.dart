@@ -18,7 +18,7 @@ class _FirstPageState extends State<FirstPage> {
   @override
   void initState() {
     PreferencesDataUser().storage;
-    DataModel().initPreferencesDataUser();
+    PreferencesDataUser().readName();
     super.initState();
   }
 

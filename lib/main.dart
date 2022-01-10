@@ -39,16 +39,6 @@ class MyApp extends StatelessWidget {
                       fontWeight: FontWeight.normal))),
           initialRoute: '/',
           onGenerateRoute: RoutesGenerator.generateRoute,
-          // routes: {
-          //   '/': (context) => FirstPage(),
-          //   '/RegistrationPage': (context) => RegistrationPage(),
-          //   '/HomePage': (context) => HomePage(),
-          //   '/PlayPage': (context) => PlayPage(),
-          //   '/SavePage': (context) => SavePage(),
-          //   '/AudioRecordingsPage': (context) => AudioRecordingsPage(),
-          //   '/Profile': (context) => Profile(),
-          //   '/ProfileEdit': (context) => ProfileEdit(),
-          // },
         ));
   }
 }

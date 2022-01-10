@@ -8,9 +8,9 @@ class PreferencesDataUser {
     storageData.setString('name_key', name);
   }
 
-  Future<String?> readName() async {
+  Future<String> readName() async {
     SharedPreferences storageData = await storage;
-    final name = storageData.getString('name_key');
+    String name = storageData.getString('name_key') ?? '';
     return name;
   }
 
@@ -21,7 +21,7 @@ class PreferencesDataUser {
 
   Future<String?> readNumber() async {
     SharedPreferences storageData = await storage;
-    final number = storageData.getString('number_key');
+    final number = storageData.getString('number_key') ?? '';
     return number;
   }
 }

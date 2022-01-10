@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/data_model_user.dart';
+import 'package:memory_box/models/preferences_data_model_user.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
@@ -16,11 +17,12 @@ import 'package:provider/provider.dart';
 import '../../resources/constants.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({Key? key}) : super(key: key);
+  Profile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       drawer: DrawerMenu(),
       appBar: AppBar(
@@ -128,19 +130,23 @@ class _FotoProfil extends StatelessWidget {
               width: 200.0,
               height: 200.0,
               child: ClipRRect(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(20.0),
-                ),
-                child: _image != null
-                    ? Image.file(
-                        context.watch<DataModel>().getUserImage,
-                        fit: BoxFit.cover,
-                      )
-                    : Image.asset(
-                        AppIcons.avatarka,
-                        fit: BoxFit.cover,
-                      ),
-              ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(20.0),
+                  ),
+                  child: Image.file(
+                    context.watch<DataModel>().getUserImage,
+                    fit: BoxFit.cover,
+                  )
+                  // _image != null
+                  //     ? Image.file(
+                  //         context.watch<DataModel>().getUserImage,
+                  //         fit: BoxFit.cover,
+                  //       )
+                  //     : Image.asset(
+                  //         AppIcons.avatarka,
+                  //         fit: BoxFit.cover,
+                  //       ),
+                  ),
             ),
           ],
         ),

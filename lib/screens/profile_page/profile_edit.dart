@@ -19,8 +19,6 @@ import '../../resources/constants.dart';
 
 class ProfileEdit extends StatelessWidget {
   ProfileEdit({Key? key}) : super(key: key);
-  String? userName;
-  String? userNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +64,14 @@ class ProfileEdit extends StatelessWidget {
                     height: 20.0,
                   ),
                   TextButton(
-                      onPressed: () {
+                      onPressed: () async {
                         Navigator.pop(context);
+                        final String name =
+                            Provider.of<DataModel>(context, listen: false)
+                                .getName;
+                        PreferencesDataUser().saveName(name);
+                        final userName = await PreferencesDataUser().readName();
+                        print(userName);
                       },
                       child: const Text(
                         'Сохранить',

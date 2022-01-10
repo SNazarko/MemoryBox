@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/players/bloc/sound_bloc.dart';
+import 'package:memory_box/routes/routes.dart';
 import 'package:memory_box/screens/audio_recordings_page.dart';
 import 'package:memory_box/screens/first_page.dart';
 import 'package:memory_box/screens/home_page.dart';
@@ -37,16 +38,17 @@ class MyApp extends StatelessWidget {
                       fontFamily: 'TTNorm',
                       fontWeight: FontWeight.normal))),
           initialRoute: '/',
-          routes: {
-            '/': (context) => FirstPage(),
-            '/RegistrationPage': (context) => RegistrationPage(),
-            '/HomePage': (context) => HomePage(),
-            '/PlayPage': (context) => PlayPage(),
-            '/SavePage': (context) => SavePage(),
-            '/AudioRecordingsPage': (context) => AudioRecordingsPage(),
-            '/Profile': (context) => Profile(),
-            '/ProfileEdit': (context) => ProfileEdit(),
-          },
+          onGenerateRoute: RoutesGenerator.generateRoute,
+          // routes: {
+          //   '/': (context) => FirstPage(),
+          //   '/RegistrationPage': (context) => RegistrationPage(),
+          //   '/HomePage': (context) => HomePage(),
+          //   '/PlayPage': (context) => PlayPage(),
+          //   '/SavePage': (context) => SavePage(),
+          //   '/AudioRecordingsPage': (context) => AudioRecordingsPage(),
+          //   '/Profile': (context) => Profile(),
+          //   '/ProfileEdit': (context) => ProfileEdit(),
+          // },
         ));
   }
 }

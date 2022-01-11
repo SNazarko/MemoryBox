@@ -16,9 +16,10 @@ import 'package:provider/provider.dart';
 import 'bloc_all/bloc_all_bloc.dart';
 import 'resources/constants.dart';
 import 'models/data_model_user.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(Phoenix(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

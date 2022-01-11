@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:memory_box/models/data_model_user.dart';
 import 'package:memory_box/models/preferences_data_model_user.dart';
 import 'package:memory_box/resources/app_colors.dart';
@@ -25,7 +26,7 @@ class Profile extends StatelessWidget {
       appBar: AppBar(
         elevation: 0.0,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Профиль',
           style: kTitleTextStyle2,
         ),
@@ -91,18 +92,99 @@ class Profile extends StatelessWidget {
                       children: [
                         _TextLink(
                           text: 'Вийти из приложения',
-                          onPressed: () {},
+                          onPressed: () => exit(0),
                         ),
                         TextButton(
-                          onPressed: () {
-                            PreferencesDataUser().cleanKey();
-                          },
+                          onPressed: () => showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20.0))),
+                              title: const Text(
+                                'Tочно удалить аккаунт?',
+                                style: TextStyle(
+                                    color: Color(ColorApp.colorText),
+                                    fontSize: 20.0),
+                              ),
+                              content: const Text(
+                                'Все аудиофайлы исчезнут и восстановить аккаунт будет невозможно',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Color(ColorApp.colorText50),
+                                    fontSize: 14.0),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    PreferencesDataUser().cleanKey();
+                                    Phoenix.rebirth(context);
+                                  },
+                                  child: const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 5.0, horizontal: 10.0),
+                                    child: Text(
+                                      'Удалить',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        const Color(ColorApp.pink)),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(50.0),
+                                        side: const BorderSide(
+                                          color: Color(ColorApp.pink),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 50.0),
+                                  child: TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 5.0, horizontal: 10.0),
+                                      child: Text(
+                                        'Нет',
+                                        style: TextStyle(
+                                            color: Color(ColorApp.colorText)),
+                                      ),
+                                    ),
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              const Color(ColorApp.white100)),
+                                      shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(50.0),
+                                          side: const BorderSide(
+                                            color: Color(ColorApp.blue300),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                           child: const Text(
                             'Удалить аккаунт',
                             style: TextStyle(
-                                fontSize: 14.0, color: Color(ColorApp.pink)),
+                              fontSize: 14.0,
+                              color: Color(ColorApp.pink),
+                            ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   )

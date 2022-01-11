@@ -7,20 +7,8 @@ import 'package:memory_box/screens/screens_element/button_continue.dart';
 
 import '../resources/constants.dart';
 
-class FirstPage extends StatefulWidget {
+class FirstPage extends StatelessWidget {
   FirstPage({Key? key}) : super(key: key);
-
-  @override
-  State<FirstPage> createState() => _FirstPageState();
-}
-
-class _FirstPageState extends State<FirstPage> {
-  @override
-  void initState() {
-    PreferencesDataUser().storage;
-    PreferencesDataUser().readName();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

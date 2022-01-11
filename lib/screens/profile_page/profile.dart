@@ -5,19 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/models/data_model_user.dart';
 import 'package:memory_box/models/preferences_data_model_user.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
-import 'package:memory_box/screens/screens_element/appbar_menu.dart';
 import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
 import 'package:memory_box/screens/screens_element/container_shadow.dart';
 import 'package:memory_box/screens/screens_element/drawer_menu.dart';
-import 'package:memory_box/screens/screens_element/textfield_input.dart';
 import 'package:provider/provider.dart';
-
 import '../../resources/constants.dart';
 
 class Profile extends StatelessWidget {
   Profile({Key? key}) : super(key: key);
+  DataModel model = DataModel();
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +49,7 @@ class Profile extends StatelessWidget {
                     height: 5.0,
                   ),
                   Text(
-                    context.watch<DataModel>().getName,
+                    '${context.watch<DataModel>().getName}',
                     style: kBodiTextStyle,
                   ),
                   const SizedBox(
@@ -62,7 +59,7 @@ class Profile extends StatelessWidget {
                     width: screenWidth * 0.75,
                     height: 60.0,
                     radius: 50.0,
-                    text: context.watch<DataModel>().getNumber,
+                    text: '${context.watch<DataModel>().getNumber}',
                   ),
                   const SizedBox(
                     height: 15.0,
@@ -74,7 +71,7 @@ class Profile extends StatelessWidget {
                     text: 'Редактировать',
                   ),
                   const SizedBox(
-                    height: 50.0,
+                    height: 40.0,
                   ),
                   const _TextLink(
                     underline: false,
@@ -85,7 +82,7 @@ class Profile extends StatelessWidget {
                   ),
                   _ProgressIndicator(),
                   const SizedBox(
-                    height: 30.0,
+                    height: 25.0,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -96,11 +93,16 @@ class Profile extends StatelessWidget {
                           text: 'Вийти из приложения',
                           onPressed: () {},
                         ),
-                        const Text(
-                          'Удалить аккаунт',
-                          style: TextStyle(
-                              fontSize: 14.0, color: Color(ColorApp.pink)),
-                        ),
+                        TextButton(
+                          onPressed: () {
+                            PreferencesDataUser().cleanKey();
+                          },
+                          child: const Text(
+                            'Удалить аккаунт',
+                            style: TextStyle(
+                                fontSize: 14.0, color: Color(ColorApp.pink)),
+                          ),
+                        )
                       ],
                     ),
                   )
@@ -116,7 +118,7 @@ class Profile extends StatelessWidget {
 
 class _FotoProfil extends StatelessWidget {
   _FotoProfil({Key? key}) : super(key: key);
-  File? _image;
+  // File? _image;
 
   @override
   Widget build(BuildContext context) {

@@ -1,31 +1,40 @@
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
-import 'package:memory_box/models/preferences_data_model_user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DataModel with ChangeNotifier {
-  late String name = 'Имя';
-  late String number = '+0(000)000 00 00';
-  late File image = File('');
+  String? _name;
+  String? _number;
+  late File _image = File('memory_box/assets/images/avatarka.jpg');
 
-  void userImage(File userImage) {
-    image = userImage;
+  DataModel() {
+    init();
+  }
+  Future<void> init() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    _name = sharedPreferences.getString('name_key') ?? 'Имя';
+    _number = sharedPreferences.getString('number_key') ?? '+0(000)000 00 00';
     notifyListeners();
   }
-
-  File get getUserImage => image;
 
   void userName(String userName) {
-    name = userName;
+    _name = userName;
     notifyListeners();
   }
 
-  String get getName => name;
+  String? get getName => _name;
 
   void userNumber(String userNumber) {
-    number = userNumber;
+    _number = userNumber;
     notifyListeners();
   }
 
-  String get getNumber => number;
+  String? get getNumber => _number;
+
+  void userImage(File userImage) {
+    _image = userImage;
+    notifyListeners();
+  }
+
+  File get getUserImage => _image;
 }

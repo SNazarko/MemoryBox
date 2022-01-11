@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
-import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
-import 'package:memory_box/screens/screens_element/drawer_menu.dart';
+import 'package:memory_box/widgets/appbar_clipper.dart';
+import 'package:memory_box/widgets/bottom_nav_bar.dart';
+import 'package:memory_box/widgets/drawer_menu.dart';
 import '../resources/constants.dart';
 
 class HomePage extends StatelessWidget {

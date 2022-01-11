@@ -6,10 +6,10 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:memory_box/models/data_model_user.dart';
 import 'package:memory_box/models/preferences_data_model_user.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
-import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
-import 'package:memory_box/screens/screens_element/container_shadow.dart';
-import 'package:memory_box/screens/screens_element/drawer_menu.dart';
+import 'package:memory_box/widgets/appbar_clipper.dart';
+import 'package:memory_box/widgets/bottom_nav_bar.dart';
+import 'package:memory_box/widgets/container_shadow.dart';
+import 'package:memory_box/widgets/drawer_menu.dart';
 import 'package:provider/provider.dart';
 import '../../resources/constants.dart';
 
@@ -258,7 +258,7 @@ class _AppbarHeaderProfile extends StatelessWidget {
         const Align(
           alignment: Alignment.center,
           child: Text(
-            'Твоя частчка',
+            'Твоя частичка',
             style: kTitle2TextStyle2,
           ),
         ),

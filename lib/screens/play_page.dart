@@ -7,9 +7,9 @@ import 'package:memory_box/players/bloc/sound_bloc.dart';
 import 'package:memory_box/players/save_audio.dart';
 import 'package:memory_box/players/sound_record.dart';
 import 'package:memory_box/resources/app_icons.dart';
-import 'package:memory_box/screens/screens_element/appbar_menu.dart';
-import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
-import 'package:memory_box/screens/screens_element/drawer_menu.dart';
+import 'package:memory_box/widgets/appbar_menu.dart';
+import 'package:memory_box/widgets/bottom_nav_bar.dart';
+import 'package:memory_box/widgets/drawer_menu.dart';
 import 'package:provider/src/provider.dart';
 
 import '../resources/constants.dart';

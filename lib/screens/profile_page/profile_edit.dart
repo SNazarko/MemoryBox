@@ -9,10 +9,10 @@ import 'package:memory_box/models/preferences_data_model_user.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/screens/profile_page/profile.dart';
-import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
-import 'package:memory_box/screens/screens_element/bottom_nav_bar.dart';
-import 'package:memory_box/screens/screens_element/icon_back.dart';
-import 'package:memory_box/screens/screens_element/textfield_input.dart';
+import 'package:memory_box/widgets/appbar_clipper.dart';
+import 'package:memory_box/widgets/bottom_nav_bar.dart';
+import 'package:memory_box/widgets/icon_back.dart';
+import 'package:memory_box/widgets/textfield_input.dart';
 import 'package:provider/provider.dart';
 
 import '../../resources/constants.dart';
@@ -234,7 +234,7 @@ class _AppbarHeaderProfileEdit extends StatelessWidget {
           child: Align(
             alignment: Alignment.center,
             child: Text(
-              'Твоя частчка',
+              'Твоя частичка',
               style: kTitle2TextStyle2,
             ),
           ),

@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/models/data_model_user.dart';
-import 'package:memory_box/models/preferences_data_model_user.dart';
-import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
-import 'package:memory_box/screens/screens_element/button_continue.dart';
+import 'package:memory_box/widgets/appbar_clipper.dart';
+import 'package:memory_box/widgets/button_continue.dart';
 
 import '../resources/constants.dart';
 

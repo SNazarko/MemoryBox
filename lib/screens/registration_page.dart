@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/screens/screens_element/appbar_clipper.dart';
-import 'package:memory_box/screens/screens_element/button_continue.dart';
-import 'package:memory_box/screens/screens_element/container_shadow.dart';
-import 'package:memory_box/screens/screens_element/textfield_input.dart';
-
+import 'package:memory_box/widgets/appbar_clipper.dart';
+import 'package:memory_box/widgets/button_continue.dart';
+import 'package:memory_box/widgets/container_shadow.dart';
+import 'package:memory_box/widgets/textfield_input.dart';
 import '../resources/constants.dart';
 
 class RegistrationPage extends StatelessWidget {

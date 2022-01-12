@@ -11,21 +11,21 @@ import 'package:memory_box/screens/save_page.dart';
 class RoutesGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case '/':
+      case FirstPage.rootName:
         return MaterialPageRoute(builder: (_) => FirstPage());
-      case '/RegistrationPage':
+      case RegistrationPage.rootName:
         return MaterialPageRoute(builder: (_) => RegistrationPage());
-      case '/HomePage':
+      case HomePage.rootName:
         return MaterialPageRoute(builder: (_) => HomePage());
-      case '/PlayPage':
+      case PlayPage.rootName:
         return MaterialPageRoute(builder: (_) => PlayPage());
-      case '/SavePage':
+      case SavePage.rootName:
         return MaterialPageRoute(builder: (_) => SavePage());
-      case '/AudioRecordingsPage':
+      case AudioRecordingsPage.rootName:
         return MaterialPageRoute(builder: (_) => AudioRecordingsPage());
-      case '/Profile':
+      case Profile.rootName:
         return MaterialPageRoute(builder: (_) => Profile());
-      case '/ProfileEdit':
+      case ProfileEdit.rootName:
         return MaterialPageRoute(builder: (_) => ProfileEdit());
       default:
         return MaterialPageRoute(

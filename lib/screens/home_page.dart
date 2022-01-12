@@ -8,6 +8,7 @@ import '../resources/constants.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
+  static const rootName = '/home_page';
 
   @override
   Widget build(BuildContext context) {

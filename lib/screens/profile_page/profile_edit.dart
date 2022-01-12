@@ -19,6 +19,7 @@ import '../../resources/constants.dart';
 
 class ProfileEdit extends StatelessWidget {
   ProfileEdit({Key? key}) : super(key: key);
+  static const rootName = '/profile_edit';
   final PreferencesDataUser _preferencesDataUser = PreferencesDataUser();
 
   @override

@@ -13,6 +13,7 @@ import '../resources/constants.dart';
 
 class AudioRecordingsPage extends StatelessWidget {
   const AudioRecordingsPage({Key? key}) : super(key: key);
+  static const rootName = '/audio_recordings_page';
 
   @override
   Widget build(BuildContext context) {

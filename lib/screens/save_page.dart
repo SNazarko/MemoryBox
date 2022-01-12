@@ -9,6 +9,7 @@ import '../resources/constants.dart';
 
 class SavePage extends StatelessWidget {
   const SavePage({Key? key}) : super(key: key);
+  static const rootName = '/save_page';
   final String titlePodborki = 'Название подборки';
   final String titleAudio = 'Название аудиозаписи';
 

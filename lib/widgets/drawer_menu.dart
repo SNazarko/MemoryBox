@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
+import 'package:memory_box/screens/audio_recordings_page.dart';
+import 'package:memory_box/screens/home_page.dart';
+import 'package:memory_box/screens/profile_page/profile.dart';
 
 import '../../resources/constants.dart';
 
@@ -53,7 +56,7 @@ class DrawerMenu extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  '/HomePage',
+                  HomePage.rootName,
                 );
               },
               leading: Image.asset(
@@ -67,7 +70,7 @@ class DrawerMenu extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  '/Profile',
+                  Profile.rootName,
                 );
               },
               leading: Image.asset(
@@ -91,7 +94,7 @@ class DrawerMenu extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  '/AudioRecordingsPage',
+                  AudioRecordingsPage.rootName,
                 );
               },
               leading: Image.asset(

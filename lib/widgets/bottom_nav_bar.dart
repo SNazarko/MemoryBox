@@ -2,6 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/resources/constants.dart';
+import 'package:memory_box/screens/audio_recordings_page.dart';
+import 'package:memory_box/screens/home_page.dart';
+import 'package:memory_box/screens/play_page.dart';
+import 'package:memory_box/screens/profile_page/profile.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({Key? key}) : super(key: key);
@@ -39,7 +43,7 @@ class BottomNavBar extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(
                   context,
-                  '/HomePage',
+                  HomePage.rootName,
                 );
               },
             ),
@@ -53,7 +57,7 @@ class BottomNavBar extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(
                   context,
-                  '/PlayPage',
+                  PlayPage.rootName,
                 );
               },
             ),
@@ -63,7 +67,7 @@ class BottomNavBar extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(
                   context,
-                  '/AudioRecordingsPage',
+                  AudioRecordingsPage.rootName,
                 );
               },
             ),
@@ -73,7 +77,7 @@ class BottomNavBar extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(
                   context,
-                  '/Profile',
+                  Profile.rootName,
                 );
               },
             ),

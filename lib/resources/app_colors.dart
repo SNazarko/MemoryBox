@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 abstract class ColorApp {
   static const white100 = 0xFFF6F6F6;
   static const white = 0xFFFFFFFF;
@@ -12,4 +14,5 @@ abstract class ColorApp {
   static const blue200 = 0xD9678BD2;
   static const blue300 = 0xFF968EE3;
   static const green100 = 0xD971A59F;
+  static const Color test = Color(0xD971A59F);
 }

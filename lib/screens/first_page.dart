@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/screens/registration_page.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/button_continue.dart';
 
@@ -7,6 +8,7 @@ import '../resources/constants.dart';
 
 class FirstPage extends StatelessWidget {
   FirstPage({Key? key}) : super(key: key);
+  static const rootName = '/';
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,7 @@ class FirstPage extends StatelessWidget {
             height: 30.0,
           ),
           ButtonContinue(onPressed: () {
-            Navigator.pushNamed(context, '/RegistrationPage');
+            Navigator.pushNamed(context, RegistrationPage.rootName);
           })
         ],
       ),

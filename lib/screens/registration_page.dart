@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
+import 'package:memory_box/screens/home_page.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/button_continue.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
@@ -9,6 +10,7 @@ import '../resources/constants.dart';
 
 class RegistrationPage extends StatelessWidget {
   RegistrationPage({Key? key}) : super(key: key);
+  static const rootName = '/registration_page';
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class RegistrationPage extends StatelessWidget {
             ),
             TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/HomePage');
+                  Navigator.pushNamed(context, HomePage.rootName);
                 },
                 child: const Text(
                   'Позже',

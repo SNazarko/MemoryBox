@@ -16,6 +16,7 @@ import '../resources/constants.dart';
 
 class PlayPage extends StatefulWidget {
   PlayPage({Key? key}) : super(key: key);
+  static const rootName = '/play_page';
 
   @override
   State<PlayPage> createState() => _PlayPageState();

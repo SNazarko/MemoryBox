@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/players/bloc/sound_bloc.dart';
+import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/routes/routes.dart';
 import 'package:memory_box/screens/audio_recordings_page.dart';
 import 'package:memory_box/screens/first_page.dart';
@@ -31,10 +32,11 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'MemoryBox',
           theme: ThemeData(
-              appBarTheme: AppBarTheme(backgroundColor: kColorAppbar),
+              appBarTheme:
+                  const AppBarTheme(backgroundColor: AppColor.colorAppbar),
               textTheme: const TextTheme(
                   bodyText2: TextStyle(
-                      color: kColorText,
+                      color: AppColor.colorText,
                       fontFamily: 'TTNorm',
                       fontWeight: FontWeight.normal))),
           initialRoute: '/',

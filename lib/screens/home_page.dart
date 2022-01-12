@@ -55,7 +55,7 @@ class _AppbarHeader extends StatelessWidget {
           ClipPath(
             clipper: AppbarClipper(),
             child: Container(
-              color: kColorAppbar,
+              color: AppColor.colorAppbar,
               width: double.infinity,
               height: 200.0,
             ),
@@ -131,7 +131,7 @@ class _AppbarHeader extends StatelessWidget {
                 width: screenWidth / 2.3,
                 height: 210.0,
                 decoration: const BoxDecoration(
-                    color: Color(ColorApp.green100),
+                    color: AppColor.green100,
                     borderRadius: BorderRadius.all(
                       Radius.circular(15.0),
                     )),
@@ -160,7 +160,7 @@ class _AppbarHeader extends StatelessWidget {
                 width: screenWidth / 2.3,
                 height: 95.0,
                 decoration: const BoxDecoration(
-                    color: Color(ColorApp.yellow100),
+                    color: AppColor.yellow100,
                     borderRadius: BorderRadius.all(
                       Radius.circular(15.0),
                     )),
@@ -189,7 +189,7 @@ class _AppbarHeader extends StatelessWidget {
                 width: screenWidth / 2.3,
                 height: 95.0,
                 decoration: const BoxDecoration(
-                    color: Color(ColorApp.blue200),
+                    color: AppColor.blue200,
                     borderRadius: BorderRadius.all(
                       Radius.circular(15.0),
                     )),
@@ -256,7 +256,7 @@ class _MenuSound extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20.0,
-                  color: Color(ColorApp.colorText),
+                  color: AppColor.colorText,
                 ),
               ),
             ),

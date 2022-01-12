@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/resources/app_colors.dart';
 import '../../resources/constants.dart';
 import 'appbar_clipper.dart';
 
@@ -17,7 +18,7 @@ class AppbarMenu extends StatelessWidget {
         ClipPath(
           clipper: AppbarClipper(),
           child: Container(
-            color: kColorAppbar,
+            color: AppColor.colorAppbar,
             width: double.infinity,
             height: 280.0,
           ),

@@ -45,7 +45,7 @@ class DrawerMenu extends StatelessWidget {
                       'Меню',
                       style: TextStyle(
                         fontSize: 24.0,
-                        color: Color(ColorApp.colorText),
+                        color: AppColor.colorText50,
                       ),
                     ),
                   ],

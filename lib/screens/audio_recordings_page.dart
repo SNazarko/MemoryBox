@@ -66,7 +66,7 @@ class _AppbarHeader extends StatelessWidget {
         ClipPath(
           clipper: AppbarClipper(),
           child: Container(
-            color: kColorAppbar,
+            color: AppColor.colorAppbar,
             width: double.infinity,
             height: 125.0,
           ),
@@ -178,7 +178,7 @@ class _AppbarPlayer extends StatelessWidget {
                     textAlign: TextAlign.end,
                     style: TextStyle(
                       fontSize: 14.0,
-                      color: Color(ColorApp.blue100),
+                      color: AppColor.blue100,
                     ),
                   ),
                 ],

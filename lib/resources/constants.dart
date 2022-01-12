@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
 
-const kColorAppbar = Color(0xFF8C84E2);
-const kColorText = Color(0xFF3A3A55);
 const kTitleTextStyle = TextStyle(
   color: Colors.white,
   fontSize: 48.0,
@@ -27,7 +25,7 @@ const kTitle2TextStyle2 = TextStyle(
 );
 const kDraverTextStyle = TextStyle(
   fontSize: 18.0,
-  color: Color(ColorApp.colorText),
+  color: AppColor.colorText,
 );
 const kBodiTextStyle = TextStyle(
   fontFamily: 'TTNorms',
@@ -36,22 +34,22 @@ const kBodiTextStyle = TextStyle(
 const kBodi2TextStyle = TextStyle(
   fontFamily: 'TTNorms',
   fontSize: 14.0,
-  color: Color(ColorApp.colorText),
+  color: AppColor.colorText,
 );
 const kBodi2ColorRedTextStyle = TextStyle(
   fontFamily: 'TTNorms',
   fontSize: 14.0,
-  color: Color(ColorApp.pink),
+  color: AppColor.pink,
 );
 const kBodiOverlineTextStyle = TextStyle(
   fontFamily: 'TTNorms',
   fontSize: 14.0,
-  color: Color(ColorApp.colorText),
+  color: AppColor.colorText,
   decoration: TextDecoration.underline,
 );
 const kBottombarTextStyle = TextStyle(
   fontSize: 10.0,
-  color: Color(ColorApp.colorText),
+  color: AppColor.colorText,
 );
 
 const kBorderContainer2 = BoxDecoration(

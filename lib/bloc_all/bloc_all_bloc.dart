@@ -8,12 +8,12 @@ part 'bloc_all_event.dart';
 part 'bloc_all_state.dart';
 
 class PlayAllRepeatBloc extends Bloc<PlayAllRepeatEvent, Color> {
-  PlayAllRepeatBloc() : super(const Color(ColorApp.white100)) {
+  PlayAllRepeatBloc() : super(AppColor.white100) {
     on<PlayAllEvent>((event, emit) {
-      emit(const Color(ColorApp.white100));
+      emit(AppColor.white100);
     });
     on<RepeatEvent>((event, emit) {
-      emit(const Color(ColorApp.violet));
+      emit(AppColor.violet);
     });
   }
 }

@@ -25,7 +25,7 @@ class RoundedAmebaThumbShape extends SliderComponentShape {
       required Size sizeWithOverflow}) {
     final Canvas canvas = context.canvas;
 
-    final paint = Paint()..color = Color(ColorApp.colorText);
+    final paint = Paint()..color = AppColor.colorText;
 
     final rect = RRect.fromRectAndRadius(
       Rect.fromPoints(

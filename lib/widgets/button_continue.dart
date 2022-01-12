@@ -23,7 +23,7 @@ class ButtonContinue extends StatelessWidget {
           ),
         ),
         backgroundColor: MaterialStateProperty.all(
-          const Color(ColorApp.yellow100),
+          AppColor.yellow100,
         ),
       ),
     );

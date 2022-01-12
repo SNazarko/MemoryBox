@@ -49,7 +49,7 @@ class RegistrationPage extends StatelessWidget {
                   'Позже',
                   style: TextStyle(
                     fontSize: 24.0,
-                    color: kColorText,
+                    color: AppColor.colorText,
                   ),
                 )),
             const SizedBox(
@@ -82,7 +82,7 @@ class _AppbarHeader extends StatelessWidget {
           'Регистрация',
           style: kTitleTextStyle,
         )),
-        color: Color(ColorApp.colorAppbar),
+        color: AppColor.colorAppbar,
         width: double.infinity,
         height: 285.0,
       ),

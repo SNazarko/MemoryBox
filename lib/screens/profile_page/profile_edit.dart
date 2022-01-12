@@ -8,7 +8,6 @@ import 'package:memory_box/models/data_model_user.dart';
 import 'package:memory_box/models/preferences_data_model_user.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
-import 'package:memory_box/screens/profile_page/profile.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/bottom_nav_bar.dart';
 import 'package:memory_box/widgets/icon_back.dart';
@@ -79,8 +78,8 @@ class ProfileEdit extends StatelessWidget {
                       },
                       child: const Text(
                         'Сохранить',
-                        style: TextStyle(
-                            fontSize: 14, color: Color(ColorApp.colorText)),
+                        style:
+                            TextStyle(fontSize: 14, color: AppColor.colorText),
                       ))
                 ],
               ),
@@ -162,7 +161,7 @@ class _FotoProfilEditState extends State<_FotoProfilEdit> {
                 width: 200.0,
                 height: 200.0,
                 decoration: const BoxDecoration(
-                  color: Color(ColorApp.black50),
+                  color: AppColor.black50,
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.0),
                   ),
@@ -204,7 +203,7 @@ class _AppbarHeaderProfileEdit extends StatelessWidget {
         ClipPath(
           clipper: AppbarClipper(),
           child: Container(
-            color: kColorAppbar,
+            color: AppColor.colorAppbar,
             width: double.infinity,
             height: 280.0,
           ),

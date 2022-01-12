@@ -106,14 +106,13 @@ class Profile extends StatelessWidget {
                               title: const Text(
                                 'Tочно удалить аккаунт?',
                                 style: TextStyle(
-                                    color: Color(ColorApp.colorText),
-                                    fontSize: 20.0),
+                                    color: AppColor.colorText, fontSize: 20.0),
                               ),
                               content: const Text(
                                 'Все аудиофайлы исчезнут и восстановить аккаунт будет невозможно',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    color: Color(ColorApp.colorText50),
+                                    color: AppColor.colorText50,
                                     fontSize: 14.0),
                               ),
                               actions: <Widget>[
@@ -133,13 +132,13 @@ class Profile extends StatelessWidget {
                                   ),
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all(
-                                        const Color(ColorApp.pink)),
+                                        AppColor.pink),
                                     shape: MaterialStateProperty.all(
                                       RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(50.0),
                                         side: const BorderSide(
-                                          color: Color(ColorApp.pink),
+                                          color: AppColor.pink,
                                         ),
                                       ),
                                     ),
@@ -157,19 +156,19 @@ class Profile extends StatelessWidget {
                                       child: Text(
                                         'Нет',
                                         style: TextStyle(
-                                            color: Color(ColorApp.colorText)),
+                                            color: AppColor.colorText),
                                       ),
                                     ),
                                     style: ButtonStyle(
                                       backgroundColor:
                                           MaterialStateProperty.all(
-                                              const Color(ColorApp.white100)),
+                                              AppColor.white100),
                                       shape: MaterialStateProperty.all(
                                         RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(50.0),
                                           side: const BorderSide(
-                                            color: Color(ColorApp.blue300),
+                                            color: AppColor.blue300,
                                           ),
                                         ),
                                       ),
@@ -183,7 +182,7 @@ class Profile extends StatelessWidget {
                             'Удалить аккаунт',
                             style: TextStyle(
                               fontSize: 14.0,
-                              color: Color(ColorApp.pink),
+                              color: AppColor.pink,
                             ),
                           ),
                         ),
@@ -252,7 +251,7 @@ class _AppbarHeaderProfile extends StatelessWidget {
         ClipPath(
           clipper: AppbarClipper(),
           child: Container(
-            color: kColorAppbar,
+            color: AppColor.colorAppbar,
             width: double.infinity,
             height: 200.0,
           ),
@@ -303,7 +302,7 @@ class _ProgressIndicator extends StatelessWidget {
               borderRadius: const BorderRadius.all(
                 Radius.circular(50.0),
               ),
-              border: Border.all(color: kColorText, width: 2.0)),
+              border: Border.all(color: AppColor.colorText, width: 2.0)),
           margin: const EdgeInsets.symmetric(vertical: 5.0),
           width: screenWidth * 0.75,
           height: 30.0,
@@ -314,7 +313,7 @@ class _ProgressIndicator extends StatelessWidget {
             child: LinearProgressIndicator(
               value: value / 500,
               valueColor: const AlwaysStoppedAnimation<Color>(
-                Color(ColorApp.yellow100),
+                AppColor.yellow100,
               ),
               backgroundColor: Colors.white,
             ),

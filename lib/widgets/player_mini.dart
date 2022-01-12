@@ -48,7 +48,7 @@ class PlayerMini extends StatelessWidget {
                   Text(
                     '30 минут',
                     style: TextStyle(
-                      color: Color(ColorApp.colorText),
+                      color: AppColor.colorText,
                     ),
                   ),
                 ],

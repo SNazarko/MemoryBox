@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/players/bloc/sound_bloc.dart';
 import 'package:memory_box/players/save_audio.dart';
 import 'package:memory_box/players/sound_record.dart';
+import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/widgets/appbar_menu.dart';
 import 'package:memory_box/widgets/bottom_nav_bar.dart';
@@ -194,11 +195,10 @@ class _PlayPageState extends State<PlayPage> {
                               data: SliderTheme.of(context).copyWith(
                                   thumbShape: const RoundSliderThumbShape(
                                       enabledThumbRadius: 7.0),
-                                  thumbColor: const Color(0xFF3A3A55),
-                                  activeTickMarkColor: const Color(0xFF3A3A55),
-                                  inactiveTrackColor: const Color(0xFF3A3A55),
-                                  inactiveTickMarkColor:
-                                      const Color(0xFF3A3A55)),
+                                  thumbColor: AppColor.colorText,
+                                  activeTickMarkColor: AppColor.colorText,
+                                  inactiveTrackColor: AppColor.colorText,
+                                  inactiveTickMarkColor: AppColor.colorText),
                               child: Slider(
                                 value: _mSubscriptionDuration,
                                 min: 0.0,
@@ -220,7 +220,7 @@ class _PlayPageState extends State<PlayPage> {
                                   width: 10.0,
                                   height: 10.0,
                                   decoration: const BoxDecoration(
-                                    color: Color(0xFFE27777),
+                                    color: AppColor.pink,
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(20.0),
                                     ),

@@ -29,7 +29,7 @@ class SavePage extends StatelessWidget {
               ClipPath(
                 clipper: AppbarClipper(),
                 child: Container(
-                  color: const Color(ColorApp.colorAppbar),
+                  color: AppColor.colorAppbar,
                   width: double.infinity,
                   height: 250.0,
                 ),
@@ -55,7 +55,7 @@ class SavePage extends StatelessWidget {
                                 onPressed: () {},
                                 icon: const Icon(
                                   Icons.more_horiz,
-                                  color: Color(ColorApp.colorText),
+                                  color: AppColor.colorText,
                                 ))
                           ],
                         ),

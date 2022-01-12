@@ -24,10 +24,10 @@ class PlayerBig extends StatelessWidget {
         SliderTheme(
           data: SliderTheme.of(context).copyWith(
             // thumbShape: const RoundedAmebaThumbShape(radius: 10),
-            thumbColor: const Color(ColorApp.colorText),
-            activeTickMarkColor: const Color(ColorApp.colorText),
-            inactiveTrackColor: const Color(ColorApp.colorText),
-            inactiveTickMarkColor: const Color(ColorApp.colorText),
+            thumbColor: AppColor.colorText,
+            activeTickMarkColor: AppColor.colorText,
+            inactiveTrackColor: AppColor.colorText,
+            inactiveTickMarkColor: AppColor.colorText,
           ),
           child: Slider(
             value: 0.0,

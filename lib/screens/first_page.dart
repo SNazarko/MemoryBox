@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/screens/registration_page.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/button_continue.dart';
@@ -76,7 +77,7 @@ class _AppbarHeader extends StatelessWidget {
               ],
             ),
           ),
-          color: kColorAppbar,
+          color: AppColor.colorAppbar,
           width: double.infinity,
           height: 285.0,
         ));

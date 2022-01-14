@@ -256,7 +256,7 @@ class _MenuSound extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20.0,
-                  color: AppColor.colorText,
+                  color: AppColor.colorText50,
                 ),
               ),
             ),

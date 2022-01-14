@@ -6,6 +6,7 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:memory_box/models/data_model_user.dart';
 import 'package:memory_box/models/preferences_data_model_user.dart';
 import 'package:memory_box/resources/app_colors.dart';
+import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/screens/profile_page/profile_edit.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/bottom_nav_bar.dart';
@@ -201,10 +202,10 @@ class Profile extends StatelessWidget {
 
 class _FotoProfil extends StatelessWidget {
   _FotoProfil({Key? key}) : super(key: key);
-  // File? _image;
 
   @override
   Widget build(BuildContext context) {
+    String? _image = context.watch<DataModel>().getUserImage!;
     return Padding(
       padding: const EdgeInsets.only(top: 35.0),
       child: Align(
@@ -212,27 +213,21 @@ class _FotoProfil extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-              width: 200.0,
-              height: 200.0,
-              child: ClipRRect(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(20.0),
-                  ),
-                  child: Image.file(
-                    context.watch<DataModel>().getUserImage,
-                    fit: BoxFit.cover,
-                  )
-                  // _image != null
-                  //     ? Image.file(
-                  //         context.watch<DataModel>().getUserImage,
-                  //         fit: BoxFit.cover,
-                  //       )
-                  //     : Image.asset(
-                  //         AppIcons.avatarka,
-                  //         fit: BoxFit.cover,
-                  //       ),
-                  ),
-            ),
+                width: 200.0,
+                height: 200.0,
+                child: ClipRRect(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20.0),
+                    ),
+                    child: _image == 'assets/images/profile_avatar.png'
+                        ? Image.asset(
+                            _image,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.file(
+                            File(context.watch<DataModel>().getUserImage!),
+                            fit: BoxFit.cover,
+                          ))),
           ],
         ),
       ),

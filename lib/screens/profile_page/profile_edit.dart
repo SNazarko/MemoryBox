@@ -13,6 +13,7 @@ import 'package:memory_box/widgets/bottom_nav_bar.dart';
 import 'package:memory_box/widgets/icon_back.dart';
 import 'package:memory_box/widgets/textfield_input.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../resources/constants.dart';
 
@@ -100,15 +101,56 @@ class _FotoProfilEdit extends StatefulWidget {
 
 class _FotoProfilEditState extends State<_FotoProfilEdit> {
   File? _image;
+  String filePath = '';
+
+  Future<void> imageadd() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      bool check = prefs.containsKey('image');
+      if (check) {
+        setState(() {
+          filePath = prefs.getString('image')!;
+          print('imageadd $filePath');
+        });
+        return;
+      }
+
+      final _image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (_image == null) return;
+      String imagePath = _image.path;
+      await prefs.setString('image', imagePath);
+      setState(() {
+        filePath = prefs.getString('image')!;
+        print('imageadd2 $filePath');
+        // this._image = _imageTemp;
+        context.read<DataModel>().userImage(this.filePath);
+      });
+    } on PlatformException catch (e) {
+      print('Ошибка $e');
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    imageadd();
+    print('ініціалізація');
+  }
+
+  // File? _image;
 
   Future<void> imagePicker() async {
     try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
       final _image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (_image == null) return;
-      final _imageTemp = File(_image.path);
+      String imagePath = _image.path;
+      await prefs.setString('image', imagePath);
       setState(() {
-        this._image = _imageTemp;
-        context.read<DataModel>().userImage(this._image!);
+        this.filePath = imagePath;
+        print('imagePicker $filePath');
+        context.read<DataModel>().userImage(this.filePath);
       });
     } on PlatformException catch (e) {
       print('Ошибка $e');
@@ -127,18 +169,17 @@ class _FotoProfilEditState extends State<_FotoProfilEdit> {
               width: 200.0,
               height: 200.0,
               decoration: const BoxDecoration(
-                color: Colors.yellow,
                 borderRadius: BorderRadius.all(
                   Radius.circular(20.0),
                 ),
               ),
-              child: _image != null
+              child: filePath == ''
                   ? ClipRRect(
                       borderRadius: const BorderRadius.all(
                         Radius.circular(20.0),
                       ),
-                      child: Image.file(
-                        _image!,
+                      child: Image.asset(
+                        AppIcons.avatarka,
                         fit: BoxFit.cover,
                       ),
                     )
@@ -146,8 +187,8 @@ class _FotoProfilEditState extends State<_FotoProfilEdit> {
                       borderRadius: const BorderRadius.all(
                         Radius.circular(20.0),
                       ),
-                      child: Image.asset(
-                        AppIcons.avatarka,
+                      child: Image.file(
+                        File(filePath),
                         fit: BoxFit.cover,
                       ),
                     ),

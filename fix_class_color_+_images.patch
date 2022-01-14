@@ -1,0 +1,624 @@
+Index: lib/bloc_all/bloc_all_bloc.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/bloc_all/bloc_all_bloc.dart b/lib/bloc_all/bloc_all_bloc.dart
+--- a/lib/bloc_all/bloc_all_bloc.dart	(revision da947778655e8d16104f763ba77ffc8e70b2dd44)
++++ b/lib/bloc_all/bloc_all_bloc.dart	(revision 9752da7515486f896abd924485e7cab4dda174cb)
+@@ -8,12 +8,12 @@
+ part 'bloc_all_state.dart';
+ 
+ class PlayAllRepeatBloc extends Bloc<PlayAllRepeatEvent, Color> {
+-  PlayAllRepeatBloc() : super(const Color(ColorApp.white100)) {
++  PlayAllRepeatBloc() : super(AppColor.white100) {
+     on<PlayAllEvent>((event, emit) {
+-      emit(const Color(ColorApp.white100));
++      emit(AppColor.white100);
+     });
+     on<RepeatEvent>((event, emit) {
+-      emit(const Color(ColorApp.violet));
++      emit(AppColor.violet);
+     });
+   }
+ }
+Index: lib/main.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/main.dart b/lib/main.dart
+--- a/lib/main.dart	(revision da947778655e8d16104f763ba77ffc8e70b2dd44)
++++ b/lib/main.dart	(revision 9752da7515486f896abd924485e7cab4dda174cb)
+@@ -1,6 +1,7 @@
+ import 'package:flutter/material.dart';
+ import 'package:flutter_bloc/flutter_bloc.dart';
+ import 'package:memory_box/players/bloc/sound_bloc.dart';
++import 'package:memory_box/resources/app_colors.dart';
+ import 'package:memory_box/routes/routes.dart';
+ import 'package:memory_box/screens/audio_recordings_page.dart';
+ import 'package:memory_box/screens/first_page.dart';
+@@ -31,10 +32,11 @@
+         child: MaterialApp(
+           title: 'MemoryBox',
+           theme: ThemeData(
+-              appBarTheme: AppBarTheme(backgroundColor: kColorAppbar),
++              appBarTheme:
++                  const AppBarTheme(backgroundColor: AppColor.colorAppbar),
+               textTheme: const TextTheme(
+                   bodyText2: TextStyle(
+-                      color: kColorText,
++                      color: AppColor.colorText,
+                       fontFamily: 'TTNorm',
+                       fontWeight: FontWeight.normal))),
+           initialRoute: '/',
+Index: lib/resources/app_colors.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/resources/app_colors.dart b/lib/resources/app_colors.dart
+--- a/lib/resources/app_colors.dart	(revision da947778655e8d16104f763ba77ffc8e70b2dd44)
++++ b/lib/resources/app_colors.dart	(revision 9752da7515486f896abd924485e7cab4dda174cb)
+@@ -1,18 +1,17 @@
+ import 'package:flutter/material.dart';
+ 
+-abstract class ColorApp {
+-  static const white100 = 0xFFF6F6F6;
+-  static const white = 0xFFFFFFFF;
+-  static const violet = 0xff968ee5;
+-  static const pink = 0xFFE27777;
+-  static const yellow100 = 0xfff1b488;
+-  static const colorText = 0xFF3A3A55;
+-  static const colorText50 = 0x503A3A55;
+-  static const colorAppbar = 0xFF8C84E2;
+-  static const black50 = 0x50000000;
+-  static const blue100 = 0xFF8C84E2;
+-  static const blue200 = 0xD9678BD2;
+-  static const blue300 = 0xFF968EE3;
+-  static const green100 = 0xD971A59F;
+-  static const Color test = Color(0xD971A59F);
++class AppColor {
++  static const Color white100 = Color(0xFFF6F6F6);
++  static const Color white = Color(0xFFFFFFFF);
++  static const Color violet = Color(0xff968ee5);
++  static const Color pink = Color(0xFFE27777);
++  static const Color yellow100 = Color(0xfff1b488);
++  static const Color colorText50 = Color(0x503A3A55);
++  static const Color colorText = Color(0xFF3A3A55);
++  static const Color colorAppbar = Color(0xFF8C84E2);
++  static const Color black50 = Color(0x50000000);
++  static const Color blue100 = Color(0xFF8C84E2);
++  static const Color blue200 = Color(0xD9678BD2);
++  static const Color blue300 = Color(0xFF968EE3);
++  static const Color green100 = Color(0xD971A59F);
+ }
+Index: lib/resources/constants.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/resources/constants.dart b/lib/resources/constants.dart
+--- a/lib/resources/constants.dart	(revision da947778655e8d16104f763ba77ffc8e70b2dd44)
++++ b/lib/resources/constants.dart	(revision 9752da7515486f896abd924485e7cab4dda174cb)
+@@ -1,8 +1,6 @@
+ import 'package:flutter/material.dart';
+ import 'package:memory_box/resources/app_colors.dart';
+ 
+-const kColorAppbar = Color(0xFF8C84E2);
+-const kColorText = Color(0xFF3A3A55);
+ const kTitleTextStyle = TextStyle(
+   color: Colors.white,
+   fontSize: 48.0,
+@@ -27,7 +25,7 @@
+ );
+ const kDraverTextStyle = TextStyle(
+   fontSize: 18.0,
+-  color: Color(ColorApp.colorText),
++  color: AppColor.colorText,
+ );
+ const kBodiTextStyle = TextStyle(
+   fontFamily: 'TTNorms',
+@@ -36,22 +34,22 @@
+ const kBodi2TextStyle = TextStyle(
+   fontFamily: 'TTNorms',
+   fontSize: 14.0,
+-  color: Color(ColorApp.colorText),
++  color: AppColor.colorText,
+ );
+ const kBodi2ColorRedTextStyle = TextStyle(
+   fontFamily: 'TTNorms',
+   fontSize: 14.0,
+-  color: Color(ColorApp.pink),
++  color: AppColor.pink,
+ );
+ const kBodiOverlineTextStyle = TextStyle(
+   fontFamily: 'TTNorms',
+   fontSize: 14.0,
+-  color: Color(ColorApp.colorText),
++  color: AppColor.colorText,
+   decoration: TextDecoration.underline,
+ );
+ const kBottombarTextStyle = TextStyle(
+   fontSize: 10.0,
+-  color: Color(ColorApp.colorText),
++  color: AppColor.colorText,
+ );
+ 
+ const kBorderContainer2 = BoxDecoration(
+Index: lib/screens/audio_recordings_page.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/screens/audio_recordings_page.dart b/lib/screens/audio_recordings_page.dart
+--- a/lib/screens/audio_recordings_page.dart	(revision da947778655e8d16104f763ba77ffc8e70b2dd44)
++++ b/lib/screens/audio_recordings_page.dart	(revision 9752da7515486f896abd924485e7cab4dda174cb)
+@@ -66,7 +66,7 @@
+         ClipPath(
+           clipper: AppbarClipper(),
+           child: Container(
+-            color: kColorAppbar,
++            color: AppColor.colorAppbar,
+             width: double.infinity,
+             height: 125.0,
+           ),
+@@ -178,7 +178,7 @@
+                     textAlign: TextAlign.end,
+                     style: TextStyle(
+                       fontSize: 14.0,
+-                      color: Color(ColorApp.blue100),
++                      color: AppColor.blue100,
+                     ),
+                   ),
+                 ],
+Index: lib/screens/first_page.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/screens/first_page.dart b/lib/screens/first_page.dart
+--- a/lib/screens/first_page.dart	(revision da947778655e8d16104f763ba77ffc8e70b2dd44)
++++ b/lib/screens/first_page.dart	(revision 9752da7515486f896abd924485e7cab4dda174cb)
+@@ -1,5 +1,6 @@
+ import 'package:flutter/cupertino.dart';
+ import 'package:flutter/material.dart';
++import 'package:memory_box/resources/app_colors.dart';
+ import 'package:memory_box/screens/registration_page.dart';
+ import 'package:memory_box/widgets/appbar_clipper.dart';
+ import 'package:memory_box/widgets/button_continue.dart';
+@@ -76,7 +77,7 @@
+               ],
+             ),
+           ),
+-          color: kColorAppbar,
++          color: AppColor.colorAppbar,
+           width: double.infinity,
+           height: 285.0,
+         ));
+Index: lib/screens/home_page.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/screens/home_page.dart b/lib/screens/home_page.dart
+--- a/lib/screens/home_page.dart	(revision da947778655e8d16104f763ba77ffc8e70b2dd44)
++++ b/lib/screens/home_page.dart	(revision 9752da7515486f896abd924485e7cab4dda174cb)
+@@ -55,7 +55,7 @@
+           ClipPath(
+             clipper: AppbarClipper(),
+             child: Container(
+-              color: kColorAppbar,
++              color: AppColor.colorAppbar,
+               width: double.infinity,
+               height: 200.0,
+             ),
+@@ -131,7 +131,7 @@
+                 width: screenWidth / 2.3,
+                 height: 210.0,
+                 decoration: const BoxDecoration(
+-                    color: Color(ColorApp.green100),
++                    color: AppColor.green100,
+                     borderRadius: BorderRadius.all(
+                       Radius.circular(15.0),
+                     )),
+@@ -160,7 +160,7 @@
+                 width: screenWidth / 2.3,
+                 height: 95.0,
+                 decoration: const BoxDecoration(
+-                    color: Color(ColorApp.yellow100),
++                    color: AppColor.yellow100,
+                     borderRadius: BorderRadius.all(
+                       Radius.circular(15.0),
+                     )),
+@@ -189,7 +189,7 @@
+                 width: screenWidth / 2.3,
+                 height: 95.0,
+                 decoration: const BoxDecoration(
+-                    color: Color(ColorApp.blue200),
++                    color: AppColor.blue200,
+                     borderRadius: BorderRadius.all(
+                       Radius.circular(15.0),
+                     )),
+@@ -256,7 +256,7 @@
+                 textAlign: TextAlign.center,
+                 style: TextStyle(
+                   fontSize: 20.0,
+-                  color: Color(ColorApp.colorText),
++                  color: AppColor.colorText,
+                 ),
+               ),
+             ),
+Index: lib/screens/play_page.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/screens/play_page.dart b/lib/screens/play_page.dart
+--- a/lib/screens/play_page.dart	(revision da947778655e8d16104f763ba77ffc8e70b2dd44)
++++ b/lib/screens/play_page.dart	(revision 9752da7515486f896abd924485e7cab4dda174cb)
+@@ -6,6 +6,7 @@
+ import 'package:memory_box/players/bloc/sound_bloc.dart';
+ import 'package:memory_box/players/save_audio.dart';
+ import 'package:memory_box/players/sound_record.dart';
++import 'package:memory_box/resources/app_colors.dart';
+ import 'package:memory_box/resources/app_icons.dart';
+ import 'package:memory_box/widgets/appbar_menu.dart';
+ import 'package:memory_box/widgets/bottom_nav_bar.dart';
+@@ -194,11 +195,10 @@
+                               data: SliderTheme.of(context).copyWith(
+                                   thumbShape: const RoundSliderThumbShape(
+                                       enabledThumbRadius: 7.0),
+-                                  thumbColor: const Color(0xFF3A3A55),
+-                                  activeTickMarkColor: const Color(0xFF3A3A55),
+-                                  inactiveTrackColor: const Color(0xFF3A3A55),
+-                                  inactiveTickMarkColor:
+-                                      const Color(0xFF3A3A55)),
++                                  thumbColor: AppColor.colorText,
++                                  activeTickMarkColor: AppColor.colorText,
++                                  inactiveTrackColor: AppColor.colorText,
++                                  inactiveTickMarkColor: AppColor.colorText),
+                               child: Slider(
+                                 value: _mSubscriptionDuration,
+                                 min: 0.0,
+@@ -220,7 +220,7 @@
+                                   width: 10.0,
+                                   height: 10.0,
+                                   decoration: const BoxDecoration(
+-                                    color: Color(0xFFE27777),
++                                    color: AppColor.pink,
+                                     borderRadius: BorderRadius.all(
+                                       Radius.circular(20.0),
+                                     ),
+Index: lib/screens/profile_page/profile.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/screens/profile_page/profile.dart b/lib/screens/profile_page/profile.dart
+--- a/lib/screens/profile_page/profile.dart	(revision da947778655e8d16104f763ba77ffc8e70b2dd44)
++++ b/lib/screens/profile_page/profile.dart	(revision 9752da7515486f896abd924485e7cab4dda174cb)
+@@ -106,14 +106,13 @@
+                               title: const Text(
+                                 'Tочно удалить аккаунт?',
+                                 style: TextStyle(
+-                                    color: Color(ColorApp.colorText),
+-                                    fontSize: 20.0),
++                                    color: AppColor.colorText, fontSize: 20.0),
+                               ),
+                               content: const Text(
+                                 'Все аудиофайлы исчезнут и восстановить аккаунт будет невозможно',
+                                 textAlign: TextAlign.center,
+                                 style: TextStyle(
+-                                    color: Color(ColorApp.colorText50),
++                                    color: AppColor.colorText50,
+                                     fontSize: 14.0),
+                               ),
+                               actions: <Widget>[
+@@ -133,13 +132,13 @@
+                                   ),
+                                   style: ButtonStyle(
+                                     backgroundColor: MaterialStateProperty.all(
+-                                        const Color(ColorApp.pink)),
++                                        AppColor.pink),
+                                     shape: MaterialStateProperty.all(
+                                       RoundedRectangleBorder(
+                                         borderRadius:
+                                             BorderRadius.circular(50.0),
+                                         side: const BorderSide(
+-                                          color: Color(ColorApp.pink),
++                                          color: AppColor.pink,
+                                         ),
+                                       ),
+                                     ),
+@@ -157,19 +156,19 @@
+                                       child: Text(
+                                         'Нет',
+                                         style: TextStyle(
+-                                            color: Color(ColorApp.colorText)),
++                                            color: AppColor.colorText),
+                                       ),
+                                     ),
+                                     style: ButtonStyle(
+                                       backgroundColor:
+                                           MaterialStateProperty.all(
+-                                              const Color(ColorApp.white100)),
++                                              AppColor.white100),
+                                       shape: MaterialStateProperty.all(
+                                         RoundedRectangleBorder(
+                                           borderRadius:
+                                               BorderRadius.circular(50.0),
+                                           side: const BorderSide(
+-                                            color: Color(ColorApp.blue300),
++                                            color: AppColor.blue300,
+                                           ),
+                                         ),
+                                       ),
+@@ -183,7 +182,7 @@
+                             'Удалить аккаунт',
+                             style: TextStyle(
+                               fontSize: 14.0,
+-                              color: Color(ColorApp.pink),
++                              color: AppColor.pink,
+                             ),
+                           ),
+                         ),
+@@ -252,7 +251,7 @@
+         ClipPath(
+           clipper: AppbarClipper(),
+           child: Container(
+-            color: kColorAppbar,
++            color: AppColor.colorAppbar,
+             width: double.infinity,
+             height: 200.0,
+           ),
+@@ -303,7 +302,7 @@
+               borderRadius: const BorderRadius.all(
+                 Radius.circular(50.0),
+               ),
+-              border: Border.all(color: kColorText, width: 2.0)),
++              border: Border.all(color: AppColor.colorText, width: 2.0)),
+           margin: const EdgeInsets.symmetric(vertical: 5.0),
+           width: screenWidth * 0.75,
+           height: 30.0,
+@@ -314,7 +313,7 @@
+             child: LinearProgressIndicator(
+               value: value / 500,
+               valueColor: const AlwaysStoppedAnimation<Color>(
+-                Color(ColorApp.yellow100),
++                AppColor.yellow100,
+               ),
+               backgroundColor: Colors.white,
+             ),
+Index: lib/screens/profile_page/profile_edit.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/screens/profile_page/profile_edit.dart b/lib/screens/profile_page/profile_edit.dart
+--- a/lib/screens/profile_page/profile_edit.dart	(revision da947778655e8d16104f763ba77ffc8e70b2dd44)
++++ b/lib/screens/profile_page/profile_edit.dart	(revision 9752da7515486f896abd924485e7cab4dda174cb)
+@@ -8,7 +8,6 @@
+ import 'package:memory_box/models/preferences_data_model_user.dart';
+ import 'package:memory_box/resources/app_colors.dart';
+ import 'package:memory_box/resources/app_icons.dart';
+-import 'package:memory_box/screens/profile_page/profile.dart';
+ import 'package:memory_box/widgets/appbar_clipper.dart';
+ import 'package:memory_box/widgets/bottom_nav_bar.dart';
+ import 'package:memory_box/widgets/icon_back.dart';
+@@ -79,8 +78,8 @@
+                       },
+                       child: const Text(
+                         'Сохранить',
+-                        style: TextStyle(
+-                            fontSize: 14, color: Color(ColorApp.colorText)),
++                        style:
++                            TextStyle(fontSize: 14, color: AppColor.colorText),
+                       ))
+                 ],
+               ),
+@@ -162,7 +161,7 @@
+                 width: 200.0,
+                 height: 200.0,
+                 decoration: const BoxDecoration(
+-                  color: Color(ColorApp.black50),
++                  color: AppColor.black50,
+                   borderRadius: BorderRadius.all(
+                     Radius.circular(20.0),
+                   ),
+@@ -204,7 +203,7 @@
+         ClipPath(
+           clipper: AppbarClipper(),
+           child: Container(
+-            color: kColorAppbar,
++            color: AppColor.colorAppbar,
+             width: double.infinity,
+             height: 280.0,
+           ),
+Index: lib/screens/registration_page.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/screens/registration_page.dart b/lib/screens/registration_page.dart
+--- a/lib/screens/registration_page.dart	(revision da947778655e8d16104f763ba77ffc8e70b2dd44)
++++ b/lib/screens/registration_page.dart	(revision 9752da7515486f896abd924485e7cab4dda174cb)
+@@ -49,7 +49,7 @@
+                   'Позже',
+                   style: TextStyle(
+                     fontSize: 24.0,
+-                    color: kColorText,
++                    color: AppColor.colorText,
+                   ),
+                 )),
+             const SizedBox(
+@@ -82,7 +82,7 @@
+           'Регистрация',
+           style: kTitleTextStyle,
+         )),
+-        color: Color(ColorApp.colorAppbar),
++        color: AppColor.colorAppbar,
+         width: double.infinity,
+         height: 285.0,
+       ),
+Index: lib/screens/save_page.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/screens/save_page.dart b/lib/screens/save_page.dart
+--- a/lib/screens/save_page.dart	(revision da947778655e8d16104f763ba77ffc8e70b2dd44)
++++ b/lib/screens/save_page.dart	(revision 9752da7515486f896abd924485e7cab4dda174cb)
+@@ -29,7 +29,7 @@
+               ClipPath(
+                 clipper: AppbarClipper(),
+                 child: Container(
+-                  color: const Color(ColorApp.colorAppbar),
++                  color: AppColor.colorAppbar,
+                   width: double.infinity,
+                   height: 250.0,
+                 ),
+@@ -55,7 +55,7 @@
+                                 onPressed: () {},
+                                 icon: const Icon(
+                                   Icons.more_horiz,
+-                                  color: Color(ColorApp.colorText),
++                                  color: AppColor.colorText,
+                                 ))
+                           ],
+                         ),
+Index: lib/widgets/appbar_menu.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/widgets/appbar_menu.dart b/lib/widgets/appbar_menu.dart
+--- a/lib/widgets/appbar_menu.dart	(revision da947778655e8d16104f763ba77ffc8e70b2dd44)
++++ b/lib/widgets/appbar_menu.dart	(revision 9752da7515486f896abd924485e7cab4dda174cb)
+@@ -1,5 +1,6 @@
+ import 'package:flutter/cupertino.dart';
+ import 'package:flutter/material.dart';
++import 'package:memory_box/resources/app_colors.dart';
+ import '../../resources/constants.dart';
+ import 'appbar_clipper.dart';
+ 
+@@ -17,7 +18,7 @@
+         ClipPath(
+           clipper: AppbarClipper(),
+           child: Container(
+-            color: kColorAppbar,
++            color: AppColor.colorAppbar,
+             width: double.infinity,
+             height: 280.0,
+           ),
+Index: lib/widgets/button_continue.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/widgets/button_continue.dart b/lib/widgets/button_continue.dart
+--- a/lib/widgets/button_continue.dart	(revision da947778655e8d16104f763ba77ffc8e70b2dd44)
++++ b/lib/widgets/button_continue.dart	(revision 9752da7515486f896abd924485e7cab4dda174cb)
+@@ -23,7 +23,7 @@
+           ),
+         ),
+         backgroundColor: MaterialStateProperty.all(
+-          const Color(ColorApp.yellow100),
++          AppColor.yellow100,
+         ),
+       ),
+     );
+Index: lib/widgets/drawer_menu.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/widgets/drawer_menu.dart b/lib/widgets/drawer_menu.dart
+--- a/lib/widgets/drawer_menu.dart	(revision da947778655e8d16104f763ba77ffc8e70b2dd44)
++++ b/lib/widgets/drawer_menu.dart	(revision 9752da7515486f896abd924485e7cab4dda174cb)
+@@ -45,7 +45,7 @@
+                       'Меню',
+                       style: TextStyle(
+                         fontSize: 24.0,
+-                        color: Color(ColorApp.colorText),
++                        color: AppColor.colorText50,
+                       ),
+                     ),
+                   ],
+Index: lib/widgets/player_big.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/widgets/player_big.dart b/lib/widgets/player_big.dart
+--- a/lib/widgets/player_big.dart	(revision da947778655e8d16104f763ba77ffc8e70b2dd44)
++++ b/lib/widgets/player_big.dart	(revision 9752da7515486f896abd924485e7cab4dda174cb)
+@@ -24,10 +24,10 @@
+         SliderTheme(
+           data: SliderTheme.of(context).copyWith(
+             // thumbShape: const RoundedAmebaThumbShape(radius: 10),
+-            thumbColor: const Color(ColorApp.colorText),
+-            activeTickMarkColor: const Color(ColorApp.colorText),
+-            inactiveTrackColor: const Color(ColorApp.colorText),
+-            inactiveTickMarkColor: const Color(ColorApp.colorText),
++            thumbColor: AppColor.colorText,
++            activeTickMarkColor: AppColor.colorText,
++            inactiveTrackColor: AppColor.colorText,
++            inactiveTickMarkColor: AppColor.colorText,
+           ),
+           child: Slider(
+             value: 0.0,
+Index: lib/widgets/player_mini.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/widgets/player_mini.dart b/lib/widgets/player_mini.dart
+--- a/lib/widgets/player_mini.dart	(revision da947778655e8d16104f763ba77ffc8e70b2dd44)
++++ b/lib/widgets/player_mini.dart	(revision 9752da7515486f896abd924485e7cab4dda174cb)
+@@ -48,7 +48,7 @@
+                   Text(
+                     '30 минут',
+                     style: TextStyle(
+-                      color: Color(ColorApp.colorText),
++                      color: AppColor.colorText,
+                     ),
+                   ),
+                 ],
+Index: lib/widgets/slider.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/widgets/slider.dart b/lib/widgets/slider.dart
+--- a/lib/widgets/slider.dart	(revision da947778655e8d16104f763ba77ffc8e70b2dd44)
++++ b/lib/widgets/slider.dart	(revision 9752da7515486f896abd924485e7cab4dda174cb)
+@@ -25,7 +25,7 @@
+       required Size sizeWithOverflow}) {
+     final Canvas canvas = context.canvas;
+ 
+-    final paint = Paint()..color = Color(ColorApp.colorText);
++    final paint = Paint()..color = AppColor.colorText;
+ 
+     final rect = RRect.fromRectAndRadius(
+       Rect.fromPoints(
+Index: lib/widgets/simple_dialog_profile.dart
+===================================================================
+diff --git a/lib/widgets/simple_dialog_profile.dart b/lib/widgets/simple_dialog_profile.dart
+deleted file mode 100644
+--- a/lib/widgets/simple_dialog_profile.dart	(revision da947778655e8d16104f763ba77ffc8e70b2dd44)
++++ /dev/null	(revision da947778655e8d16104f763ba77ffc8e70b2dd44)
+@@ -1,13 +0,0 @@
+-import 'package:flutter/cupertino.dart';
+-import 'package:flutter/material.dart';
+-
+-class SimpledDialogProfile extends StatelessWidget {
+-  const SimpledDialogProfile({Key? key}) : super(key: key);
+-
+-  @override
+-  Widget build(BuildContext context) {
+-    return AlertDialog(
+-      title: const Text('Select assignment'),
+-    );
+-  }
+-}

@@ -9,6 +9,7 @@ class AppColor {
   static const Color colorText50 = Color(0x503A3A55);
   static const Color colorText = Color(0xFF3A3A55);
   static const Color colorAppbar = Color(0xFF8C84E2);
+  static const Color colorAppbar2 = Color(0xFF71A59F);
   static const Color black50 = Color(0x50000000);
   static const Color blue100 = Color(0xFF8C84E2);
   static const Color blue200 = Color(0xD9678BD2);

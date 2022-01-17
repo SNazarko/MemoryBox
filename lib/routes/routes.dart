@@ -3,6 +3,7 @@ import 'package:memory_box/screens/audio_recordings_page.dart';
 import 'package:memory_box/screens/first_page.dart';
 import 'package:memory_box/screens/home_page.dart';
 import 'package:memory_box/screens/play_page.dart';
+import 'package:memory_box/screens/podborki_page/podborki.dart';
 import 'package:memory_box/screens/profile_page/profile.dart';
 import 'package:memory_box/screens/profile_page/profile_edit.dart';
 import 'package:memory_box/screens/registration_page.dart';
@@ -27,6 +28,8 @@ class RoutesGenerator {
         return MaterialPageRoute(builder: (_) => Profile());
       case ProfileEdit.rootName:
         return MaterialPageRoute(builder: (_) => ProfileEdit());
+      case Podborki.rootName:
+        return MaterialPageRoute(builder: (_) => Podborki());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

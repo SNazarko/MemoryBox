@@ -55,7 +55,7 @@ class ProfileEdit extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    height: 80,
+                    height: 80.0,
                   ),
                   TextFieldInput(
                     onChanged: (userNumber) {
@@ -270,7 +270,7 @@ class _AppbarHeaderProfileEdit extends StatelessWidget {
         ),
         const Padding(
           padding: EdgeInsets.only(
-            top: 75,
+            top: 75.0,
           ),
           child: Align(
             alignment: Alignment.center,

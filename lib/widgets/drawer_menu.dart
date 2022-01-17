@@ -4,6 +4,7 @@ import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/screens/audio_recordings_page.dart';
 import 'package:memory_box/screens/home_page.dart';
+import 'package:memory_box/screens/podborki_page/podborki.dart';
 import 'package:memory_box/screens/profile_page/profile.dart';
 
 import '../../resources/constants.dart';
@@ -82,6 +83,12 @@ class DrawerMenu extends StatelessWidget {
               ),
             ),
             ListTile(
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  Podborki.rootName,
+                );
+              },
               leading: Image.asset(
                 AppIcons.tabbar_category,
               ),

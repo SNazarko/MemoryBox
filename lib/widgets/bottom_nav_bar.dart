@@ -5,6 +5,7 @@ import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/screens/audio_recordings_page.dart';
 import 'package:memory_box/screens/home_page.dart';
 import 'package:memory_box/screens/play_page.dart';
+import 'package:memory_box/screens/podborki_page/podborki.dart';
 import 'package:memory_box/screens/profile_page/profile.dart';
 
 class BottomNavBar extends StatelessWidget {
@@ -49,7 +50,15 @@ class BottomNavBar extends StatelessWidget {
             ),
             _ItemBar(
               name: 'Подбoрки',
-              icon: Image.asset(AppIcons.tabbar_category),
+              icon: Image.asset(
+                AppIcons.tabbar_category,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  Podborki.rootName,
+                );
+              },
             ),
             _ItemBar(
               name: 'Запись',

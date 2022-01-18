@@ -59,8 +59,14 @@ class RegistrationPage extends StatelessWidget {
               width: 275.0,
               height: 100.0,
               radius: 20.0,
-              text:
-                  'Регистрация привяжет твои сказки к облаку, после чего они всегда будут с тобой',
+              widget: Text(
+                'Регистрация привяжет твои сказки к облаку, после чего они всегда будут с тобой',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black,
+                ),
+              ),
             )
           ],
         ),

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/constants.dart';
+import 'package:memory_box/screens/podborki_page/podborki_edit.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/bottom_nav_bar.dart';
 import 'package:memory_box/widgets/icon_back.dart';
@@ -128,7 +129,9 @@ class _AppbarHeaderProfileEdit extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, PodborkiEdit.rootName);
+                },
                 icon: const Icon(
                   Icons.add,
                   size: 35.0,
@@ -154,7 +157,7 @@ class _AppbarHeaderProfileEdit extends StatelessWidget {
           padding: EdgeInsets.only(top: 40.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               Text(
                 'Все в одном месте',
                 style: kTitle2TextStyle2,

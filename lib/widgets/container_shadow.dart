@@ -8,13 +8,13 @@ class ContainerShadow extends StatelessWidget {
       {Key? key,
       required this.width,
       required this.height,
-      required this.text,
+      required this.widget,
       required this.radius})
       : super(key: key);
   final double radius;
   final double width;
   final double height;
-  final String text;
+  final Widget widget;
 
   @override
   Widget build(BuildContext context) {
@@ -44,14 +44,7 @@ class ContainerShadow extends StatelessWidget {
         child: Center(
           child: Padding(
             padding: EdgeInsets.all(10.0),
-            child: Text(
-              text,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 16,
-                color: Colors.black,
-              ),
-            ),
+            child: widget,
           ),
         ),
       ),

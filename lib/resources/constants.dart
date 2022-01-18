@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
 
@@ -32,10 +33,10 @@ const kBodiTextStyle = TextStyle(
   fontSize: 24.0,
 );
 const kBodi2TextStyle = TextStyle(
-  fontFamily: 'TTNorms',
-  fontSize: 14.0,
-  color: AppColor.colorText,
-);
+    fontFamily: 'TTNorms',
+    fontSize: 14.0,
+    color: AppColor.colorText,
+    fontWeight: FontWeight.w400);
 const kBodi2ColorRedTextStyle = TextStyle(
   fontFamily: 'TTNorms',
   fontSize: 14.0,
@@ -47,6 +48,8 @@ const kBodiOverlineTextStyle = TextStyle(
   color: AppColor.colorText,
   decoration: TextDecoration.underline,
 );
+const kLinkColorText = TextStyle(
+    fontSize: 16, fontWeight: FontWeight.w400, color: AppColor.colorTextLink);
 const kBottombarTextStyle = TextStyle(
   fontSize: 10.0,
   color: AppColor.colorText,

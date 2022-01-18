@@ -11,6 +11,7 @@ import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/bottom_nav_bar.dart';
 import 'package:memory_box/widgets/icon_back.dart';
+import 'package:memory_box/widgets/icon_camera.dart';
 import 'package:memory_box/widgets/textfield_input.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -197,35 +198,11 @@ class _FotoProfilEditState extends State<_FotoProfilEdit> {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 110.0),
-          child: Center(
-            child: Container(
-                width: 200.0,
-                height: 200.0,
-                decoration: const BoxDecoration(
-                  color: AppColor.black50,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20.0),
-                  ),
-                ),
-                child: Image.asset(AppIcons.camera)),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 160.0),
-          child: Center(
-            child: GestureDetector(
-              onTap: imagePicker,
-              child: Container(
-                width: 100.0,
-                height: 100.0,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(50.0),
-                  ),
-                ),
-              ),
-            ),
+          child: IconCamera(
+            colorBorder: Colors.white,
+            onTap: imagePicker,
+            color: AppColor.black50,
+            position: 50.0,
           ),
         )
       ],
@@ -249,10 +226,17 @@ class _AppbarHeaderProfileEdit extends StatelessWidget {
             height: 280.0,
           ),
         ),
-        IconBack(
-          onPressed: () {
-            Navigator.pop(context);
-          },
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 30.0,
+            left: 15.0,
+            right: 10.0,
+          ),
+          child: IconBack(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
         ),
         const Padding(
           padding: EdgeInsets.only(

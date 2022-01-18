@@ -63,7 +63,7 @@ class Profile extends StatelessWidget {
                     width: screenWidth * 0.75,
                     height: 60.0,
                     radius: 50.0,
-                    text: '${context.watch<DataModel>().getNumber}',
+                    widget: Text('${context.watch<DataModel>().getNumber}'),
                   ),
                   const SizedBox(
                     height: 15.0,

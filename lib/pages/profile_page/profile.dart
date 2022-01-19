@@ -7,7 +7,7 @@ import 'package:memory_box/models/data_model_user.dart';
 import 'package:memory_box/models/preferences_data_model_user.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
-import 'package:memory_box/screens/profile_page/profile_edit.dart';
+import 'package:memory_box/pages/profile_page/profile_edit.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/bottom_nav_bar.dart';
 import 'package:memory_box/widgets/container_shadow.dart';

@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/pages/home_page.dart';
+import 'package:memory_box/pages/play_page.dart';
+import 'package:memory_box/pages/podborki_page/podborki.dart';
+import 'package:memory_box/pages/profile_page/profile.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/resources/constants.dart';
-import 'package:memory_box/screens/audio_recordings_page.dart';
-import 'package:memory_box/screens/home_page.dart';
-import 'package:memory_box/screens/play_page.dart';
-import 'package:memory_box/screens/podborki_page/podborki.dart';
-import 'package:memory_box/screens/profile_page/profile.dart';
+import 'package:memory_box/pages/audio_recordings_page.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({Key? key}) : super(key: key);

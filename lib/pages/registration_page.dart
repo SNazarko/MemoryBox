@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/screens/home_page.dart';
+import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/button_continue.dart';
 import 'package:memory_box/widgets/container_shadow.dart';

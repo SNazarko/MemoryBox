@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "638477256556",
+    "project_id": "memory-box-6cb96",
+    "storage_bucket": "memory-box-6cb96.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:638477256556:android:68205897cffe284336d549",
+        "android_client_info": {
+          "package_name": "com.sorokinnazarmemorybox.memory_box"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "638477256556-as8efgt72eolt46hdqqpk1blt47f9rf5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sorokinnazarmemorybox.memory_box",
+            "certificate_hash": "4c9a7b22b1890239f08448c6998c9c211bb9f235"
+          }
+        },
+        {
+          "client_id": "638477256556-8h1lmgpgmvgg3mga1sl1hmlkfe9ii7fr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiZZ9De5LltvQadTCMtqCwqaEWUqNQhgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "638477256556-8h1lmgpgmvgg3mga1sl1hmlkfe9ii7fr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

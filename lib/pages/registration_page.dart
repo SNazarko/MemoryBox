@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
@@ -8,13 +9,154 @@ import 'package:memory_box/widgets/container_shadow.dart';
 import 'package:memory_box/widgets/textfield_input.dart';
 import '../resources/constants.dart';
 
-class RegistrationPage extends StatelessWidget {
+enum MobileVerificationState {
+  showMobileFormState,
+  showOtpFormState,
+}
+
+class RegistrationPage extends StatefulWidget {
   RegistrationPage({Key? key}) : super(key: key);
   static const rootName = '/registration_page';
 
   @override
+  State<RegistrationPage> createState() => _RegistrationPageState();
+}
+
+class _RegistrationPageState extends State<RegistrationPage> {
+  MobileVerificationState currentState =
+      MobileVerificationState.showMobileFormState;
+
+  final phoneController = TextEditingController();
+
+  final otpController = TextEditingController();
+
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
+  String? verificationId;
+
+  bool showLoading = false;
+
+  void singInWithPhoneAuthCredential(
+      PhoneAuthCredential phoneAuthCredential) async {
+    setState(() {
+      showLoading = true;
+    });
+    try {
+      final authCredential =
+          await _auth.signInWithCredential(phoneAuthCredential);
+      setState(() {
+        showLoading = false;
+        if (authCredential.user != null) {
+          Navigator.pushNamed(context, HomePage.rootName);
+        }
+      });
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        showLoading = false;
+      });
+      _scaffoldKey.currentState!.showSnackBar(
+        SnackBar(
+          content: Text(e.message!),
+        ),
+      );
+    }
+  }
+
+  getMobileFormWidget(context) {
+    return Column(
+      children: [
+        const Text(
+          'Введи номер телефона',
+          style: TextStyle(
+            fontSize: 16.0,
+          ),
+        ),
+        const SizedBox(
+          height: 15.0,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          child: TextField(
+            controller: phoneController,
+            decoration: const InputDecoration(hintText: 'Номер телефона'),
+          ),
+        ),
+        const SizedBox(
+          height: 60.0,
+        ),
+        ButtonContinue(onPressed: () async {
+          setState(() {
+            showLoading = true;
+          });
+          await _auth.verifyPhoneNumber(
+            phoneNumber: phoneController.text,
+            verificationCompleted: (phoneAuthCredential) async {
+              setState(() {
+                showLoading = false;
+              });
+              // singInWithPhoneAuthCredential(phoneAuthCredential);
+            },
+            verificationFailed: (verificationFailed) async {
+              setState(() {
+                showLoading = false;
+              });
+              _scaffoldKey.currentState!.showSnackBar(
+                SnackBar(
+                  content: Text(verificationFailed.message!),
+                ),
+              );
+            },
+            codeSent: (verificationId, resendingToken) async {
+              setState(() {
+                showLoading = false;
+                currentState = MobileVerificationState.showOtpFormState;
+                this.verificationId = verificationId;
+              });
+            },
+            codeAutoRetrievalTimeout: (verificationId) async {},
+          );
+        }),
+      ],
+    );
+  }
+
+  getOtpFormWidget(context) {
+    return Column(
+      children: [
+        const Text(
+          'Введи код из смс, чтобы мы \n тебя запомнили',
+          style: TextStyle(
+            fontSize: 16.0,
+          ),
+        ),
+        const SizedBox(
+          height: 10.0,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          child: TextField(
+            controller: otpController,
+            decoration: const InputDecoration(hintText: 'Код'),
+          ),
+        ),
+        const SizedBox(
+          height: 60.0,
+        ),
+        ButtonContinue(onPressed: () {
+          PhoneAuthCredential phoneAuthCredential =
+              PhoneAuthProvider.credential(
+                  verificationId: verificationId!, smsCode: otpController.text);
+          singInWithPhoneAuthCredential(phoneAuthCredential);
+        }),
+      ],
+    );
+  }
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -22,22 +164,26 @@ class RegistrationPage extends StatelessWidget {
             const SizedBox(
               height: 30.0,
             ),
-            const Text(
-              'Введи номер телефона',
-              style: TextStyle(
-                fontSize: 16.0,
-              ),
-            ),
-            const SizedBox(
-              height: 15.0,
-            ),
-            TextFieldInput(),
-            const SizedBox(
-              height: 60.0,
-            ),
-            ButtonContinue(onPressed: () {
-              Navigator.pushNamed(context, '/RegistrationPage');
-            }),
+            showLoading
+                ? CircularProgressIndicator()
+                : currentState == MobileVerificationState.showMobileFormState
+                    ? getMobileFormWidget(context)
+                    : getOtpFormWidget(context),
+
+            // const Text(
+            //   'Введи номер телефона',
+            //   style: TextStyle(
+            //     fontSize: 16.0,
+            //   ),
+            // ),
+            // const SizedBox(
+            //   height: 15.0,
+            // ),
+            // TextFieldInput(),
+            // const SizedBox(
+            //   height: 60.0,
+            // ),
+            // ButtonContinue(onPressed: () {}),
             const SizedBox(
               height: 15.0,
             ),

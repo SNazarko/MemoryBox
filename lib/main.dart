@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/players/bloc/sound_bloc.dart';
@@ -7,7 +8,9 @@ import 'package:provider/provider.dart';
 import 'models/data_model_user.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(Phoenix(child: const MyApp()));
 }
 

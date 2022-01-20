@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/pages/audio_recordings_page.dart';
 import 'package:memory_box/pages/first_page.dart';
 import 'package:memory_box/pages/home_page.dart';
+import 'package:memory_box/pages/initializer_widget.dart';
 import 'package:memory_box/pages/play_page.dart';
 import 'package:memory_box/pages/podborki_page/podborki.dart';
 import 'package:memory_box/pages/podborki_page/podborki_edit.dart';
@@ -9,7 +10,6 @@ import 'package:memory_box/pages/profile_page/profile.dart';
 import 'package:memory_box/pages/profile_page/profile_edit.dart';
 import 'package:memory_box/pages/registration_page.dart';
 import 'package:memory_box/pages/save_page.dart';
-
 
 class RoutesGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -34,6 +34,8 @@ class RoutesGenerator {
         return MaterialPageRoute(builder: (_) => Podborki());
       case PodborkiEdit.rootName:
         return MaterialPageRoute(builder: (_) => PodborkiEdit());
+      case InitializerWidget.rootName:
+        return MaterialPageRoute(builder: (_) => InitializerWidget());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/formatters/masked_input_formatter.dart';
 
 class TextFieldInput extends StatelessWidget {
-  TextFieldInput({Key? key, this.onChanged}) : super(key: key);
-  // late String phoneNumber = '+3(066) 123 45 67';
+  TextFieldInput({Key? key, this.onChanged, this.controller}) : super(key: key);
   final onChanged;
+  final controller;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,8 @@ class TextFieldInput extends StatelessWidget {
             )
           ]),
       child: TextField(
-          inputFormatters: [MaskedInputFormatter('+#(###) ## ## ###')],
+          controller: controller,
+          inputFormatters: [MaskedInputFormatter('+##(###) ## ## ###')],
           keyboardType: TextInputType.phone,
           textAlign: TextAlign.center,
           style: const TextStyle(color: Colors.black),

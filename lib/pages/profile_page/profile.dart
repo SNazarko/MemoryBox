@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
@@ -19,6 +20,7 @@ class Profile extends StatelessWidget {
   Profile({Key? key}) : super(key: key);
   static const rootName = '/profile';
   DataModel model = DataModel();
+  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +97,10 @@ class Profile extends StatelessWidget {
                       children: [
                         _TextLink(
                           text: 'Вийти из приложения',
-                          onPressed: () => exit(0),
+                          onPressed: () async {
+                            await _auth.signOut();
+                            exit(0);
+                          },
                         ),
                         TextButton(
                           onPressed: () => showDialog<String>(
@@ -118,7 +123,7 @@ class Profile extends StatelessWidget {
                               ),
                               actions: <Widget>[
                                 TextButton(
-                                  onPressed: () {
+                                  onPressed: () async {
                                     Navigator.pop(context);
                                     PreferencesDataUser().cleanKey();
                                     Phoenix.rebirth(context);

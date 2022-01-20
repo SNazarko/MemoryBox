@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/pages/screensaver_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/bottom_nav_bar.dart';
@@ -234,14 +235,19 @@ class _MenuSound extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     'Аудиозаписи',
                     style: TextStyle(fontSize: 24.0),
                   ),
-                  Text(
-                    'Открыть все',
-                    style: TextStyle(fontSize: 14.0),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, Screensaver.rootName);
+                    },
+                    child: const Text(
+                      'Открыть все',
+                      style: TextStyle(fontSize: 14.0),
+                    ),
                   )
                 ],
               ),

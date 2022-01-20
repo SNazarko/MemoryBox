@@ -10,6 +10,7 @@ import 'package:memory_box/pages/profile_page/profile.dart';
 import 'package:memory_box/pages/profile_page/profile_edit.dart';
 import 'package:memory_box/pages/registration_page.dart';
 import 'package:memory_box/pages/save_page.dart';
+import 'package:memory_box/pages/screensaver_page.dart';
 
 class RoutesGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -36,6 +37,8 @@ class RoutesGenerator {
         return MaterialPageRoute(builder: (_) => PodborkiEdit());
       case InitializerWidget.rootName:
         return MaterialPageRoute(builder: (_) => InitializerWidget());
+      case Screensaver.rootName:
+        return MaterialPageRoute(builder: (_) => Screensaver());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

@@ -18,4 +18,5 @@ class AppIcons {
   static const String tabbar_profile = '$path/tabbar_profile.png';
   static const String vector = '$path/vector.png';
   static const String camera = '$path/сamera.png';
+  static const String microfon = '$path/microfon.png';
 }

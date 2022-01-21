@@ -1,9 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/first_page.dart';
-import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 
 class Screensaver extends StatefulWidget {
@@ -22,6 +20,7 @@ class _ScreensaverState extends State<Screensaver>
   late Animation animationColor;
   late Animation animationColor2;
   late Animation animationColor3;
+  bool shouldPop = false;
   @override
   void initState() {
     super.initState();
@@ -60,47 +59,55 @@ class _ScreensaverState extends State<Screensaver>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  colors: [animationColor3.value, Color(0xFF8077E4)],
-                  begin: Alignment.bottomCenter),
-            ),
-          ),
-          Center(
-            child: Container(
-              child: Center(
-                child: Text(
-                  'MemoryBox',
-                  style: TextStyle(
-                      color: animationColor2.value,
-                      fontSize: controller.value * 45,
-                      fontWeight: FontWeight.w700),
-                ),
-              ),
-              height: 60.0,
-              width: 250.0,
+    return WillPopScope(
+      onWillPop: () async {
+        return shouldPop;
+      },
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Container(
               decoration: BoxDecoration(
-                color: animationColor.value,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(50.0),
+                gradient: LinearGradient(
+                    colors: [animationColor3.value, Color(0xFF8077E4)],
+                    begin: Alignment.bottomCenter),
+              ),
+            ),
+            Center(
+              child: Hero(
+                tag: 'logo',
+                child: Container(
+                  child: Center(
+                    child: Text(
+                      'MemoryBox',
+                      style: TextStyle(
+                          color: animationColor2.value,
+                          fontSize: controller.value * 45,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  height: 60.0,
+                  width: 250.0,
+                  decoration: BoxDecoration(
+                    color: animationColor.value,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(50.0),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-          Positioned(
-            top: 400,
-            left: 130,
-            child: Image.asset(
-              'assets/images/microfon.png',
-              width: 100,
-              height: 100,
-            ),
-          )
-        ],
+            Positioned(
+              top: 400,
+              left: 130,
+              child: Image.asset(
+                'assets/images/microfon.png',
+                width: 100,
+                height: 100,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

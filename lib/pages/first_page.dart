@@ -11,44 +11,50 @@ import '../resources/constants.dart';
 class FirstPage extends StatelessWidget {
   FirstPage({Key? key}) : super(key: key);
   static const rootName = '/';
+  bool shouldPop = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          _AppbarHeader(),
-          const SizedBox(
-            height: 40.0,
-          ),
-          const Text(
-            'Привет!',
-            style: TextStyle(
-              fontSize: 24.0,
+    return WillPopScope(
+      onWillPop: () async {
+        return shouldPop;
+      },
+      child: Scaffold(
+        body: Column(
+          children: [
+            _AppbarHeader(),
+            const SizedBox(
+              height: 40.0,
             ),
-          ),
-          const SizedBox(
-            height: 20.0,
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 55.0,
-            ),
-            child: Text(
-              'Мы рады видеть тебя здесь. Это приложение поможет записывать сказки и держать их в удобном месте не заполняя память на телефоне.',
-              textAlign: TextAlign.center,
+            const Text(
+              'Привет!',
               style: TextStyle(
-                fontSize: 16.0,
+                fontSize: 24.0,
               ),
             ),
-          ),
-          const SizedBox(
-            height: 30.0,
-          ),
-          ButtonContinue(onPressed: () {
-            Navigator.pushNamed(context, InitializerWidget.rootName);
-          })
-        ],
+            const SizedBox(
+              height: 20.0,
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 55.0,
+              ),
+              child: Text(
+                'Мы рады видеть тебя здесь. Это приложение поможет записывать сказки и держать их в удобном месте не заполняя память на телефоне.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16.0,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 30.0,
+            ),
+            ButtonContinue(onPressed: () {
+              Navigator.pushNamed(context, InitializerWidget.rootName);
+            })
+          ],
+        ),
       ),
     );
   }
@@ -66,12 +72,17 @@ class _AppbarHeader extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
-              children: const [
-                Text(
-                  'MemoryBox',
-                  style: kTitleTextStyle,
+              children: [
+                Hero(
+                  tag: 'logo',
+                  child: Container(
+                    child: const Text(
+                      'MemoryBox',
+                      style: kTitleTextStyle,
+                    ),
+                  ),
                 ),
-                Text(
+                const Text(
                   'Твой голос всегда рядом',
                   style: kTitle2TextStyle,
                 )

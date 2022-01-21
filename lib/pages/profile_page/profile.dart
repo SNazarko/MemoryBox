@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -125,6 +126,16 @@ class Profile extends StatelessWidget {
                                 TextButton(
                                   onPressed: () async {
                                     Navigator.pop(context);
+                                    final docUser = FirebaseFirestore.instance
+                                        .collection('user')
+                                        .doc('id');
+                                    docUser.update(
+                                      {
+                                        'name': 'Имя',
+                                        'number': '+00(000)0000000',
+                                      },
+                                    );
+                                    // _auth.signOut();
                                     PreferencesDataUser().cleanKey();
                                     Phoenix.rebirth(context);
                                   },

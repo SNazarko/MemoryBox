@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -77,6 +78,10 @@ class ProfileEdit extends StatelessWidget {
                             Provider.of<DataModel>(context, listen: false)
                                 .getNumber!;
                         _preferencesDataUser.saveNumber(number);
+                        final docUser = FirebaseFirestore.instance
+                            .collection('user')
+                            .doc('id');
+                        docUser.update({'name': name, 'number': number});
                       },
                       child: const Text(
                         'Сохранить',

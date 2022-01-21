@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/pages/first_page.dart';
+import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/resources/app_icons.dart';
 
 class Screensaver extends StatefulWidget {
   const Screensaver({Key? key}) : super(key: key);
@@ -37,12 +40,19 @@ class _ScreensaverState extends State<Screensaver>
             .animate(controller2);
     controller2.forward();
     controller2.addListener(() {});
+    animationColor3.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {}
+    });
 
     controller.forward();
-    controller.addListener(() {
-      setState(() {});
-      print(controller.value);
-      print(animationColor.value);
+    controller.addListener(() {});
+
+    controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        final duration = Duration(seconds: 5);
+        sleep(duration);
+        Navigator.pushNamed(context, FirstPage.rootName);
+      }
     });
   }
 
@@ -88,7 +98,8 @@ class _ScreensaverState extends State<Screensaver>
             ),
           ),
           Positioned(
-            top: 430,
+            top: 400,
+            left: 130,
             child: Image.asset(
               'assets/images/microfon.png',
               width: 100,

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:memory_box/pages/screensaver_page.dart';
 import 'package:memory_box/players/bloc/sound_bloc.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/routes/routes.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
                       color: AppColor.colorText,
                       fontFamily: 'TTNorm',
                       fontWeight: FontWeight.normal))),
-          initialRoute: '/',
+          initialRoute: Screensaver.rootName,
           onGenerateRoute: RoutesGenerator.generateRoute,
         ));
   }

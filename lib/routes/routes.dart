@@ -3,6 +3,7 @@ import 'package:memory_box/pages/audio_recordings_page.dart';
 import 'package:memory_box/pages/first_page.dart';
 import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/pages/initializer_widget.dart';
+import 'package:memory_box/pages/logo_page.dart';
 import 'package:memory_box/pages/play_page.dart';
 import 'package:memory_box/pages/podborki_page/podborki.dart';
 import 'package:memory_box/pages/podborki_page/podborki_edit.dart';
@@ -39,6 +40,8 @@ class RoutesGenerator {
         return MaterialPageRoute(builder: (_) => InitializerWidget());
       case Screensaver.rootName:
         return MaterialPageRoute(builder: (_) => Screensaver());
+      case LogoPage.rootName:
+        return MaterialPageRoute(builder: (_) => LogoPage());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

@@ -26,9 +26,9 @@ class _ScreensaverState extends State<Screensaver>
   void initState() {
     super.initState();
     controller =
-        AnimationController(duration: Duration(seconds: 2), vsync: this);
+        AnimationController(duration: Duration(seconds: 3), vsync: this);
     controller2 =
-        AnimationController(duration: Duration(seconds: 1), vsync: this);
+        AnimationController(duration: Duration(seconds: 2), vsync: this);
     animation = CurvedAnimation(parent: controller, curve: Curves.decelerate);
     animationColor = ColorTween(begin: Colors.white, end: AppColor.glass)
         .animate(controller);
@@ -45,22 +45,17 @@ class _ScreensaverState extends State<Screensaver>
     });
 
     controller.forward();
-    controller.addListener(() {});
+    controller.addListener(() {
+      setState(() {});
+    });
 
     controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        final duration = Duration(seconds: 5);
+        final duration = Duration(seconds: 2);
         sleep(duration);
         Navigator.pushNamed(context, FirstPage.rootName);
       }
     });
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    controller2.dispose();
-    super.dispose();
   }
 
   @override
@@ -73,7 +68,6 @@ class _ScreensaverState extends State<Screensaver>
               gradient: LinearGradient(
                   colors: [animationColor3.value, Color(0xFF8077E4)],
                   begin: Alignment.bottomCenter),
-              color: Colors.cyan,
             ),
           ),
           Center(

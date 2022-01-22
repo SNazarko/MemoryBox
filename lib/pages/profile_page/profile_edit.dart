@@ -1,6 +1,7 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -106,61 +107,77 @@ class _FotoProfilEdit extends StatefulWidget {
 }
 
 class _FotoProfilEditState extends State<_FotoProfilEdit> {
-  File? _image;
-  String filePath = '';
-
-  Future<void> imageadd() async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      bool check = prefs.containsKey('image');
-      if (check) {
-        setState(() {
-          filePath = prefs.getString('image')!;
-          print('imageadd $filePath');
-        });
-        return;
-      }
-
-      final _image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (_image == null) return;
-      String imagePath = _image.path;
-      await prefs.setString('image', imagePath);
-      setState(() {
-        filePath = prefs.getString('image')!;
-        print('imageadd2 $filePath');
-        // this._image = _imageTemp;
-        context.read<DataModel>().userImage(this.filePath);
-      });
-    } on PlatformException catch (e) {
-      print('Ошибка $e');
-    }
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    imageadd();
-    print('ініціалізація');
-  }
-
   // File? _image;
+  // String filePath = '';
+  //
+  // Future<void> imageadd() async {
+  //   try {
+  //     SharedPreferences prefs = await SharedPreferences.getInstance();
+  //     bool check = prefs.containsKey('image');
+  //     if (check) {
+  //       setState(() {
+  //         filePath = prefs.getString('image')!;
+  //         print('imageadd $filePath');
+  //       });
+  //       return;
+  //     }
+  //
+  //     final _image = await ImagePicker().pickImage(source: ImageSource.gallery);
+  //     if (_image == null) return;
+  //     String imagePath = _image.path;
+  //     await prefs.setString('image', imagePath);
+  //     setState(() {
+  //       filePath = prefs.getString('image')!;
+  //       print('imageadd2 $filePath');
+  //       // this._image = _imageTemp;
+  //       context.read<DataModel>().userImage(this.filePath);
+  //     });
+  //   } on PlatformException catch (e) {
+  //     print('Ошибка $e');
+  //   }
+  // }
+  //
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   imageadd();
+  //   print('ініціалізація');
+  // }
+  //
+  // Future<void> imagePicker() async {
+  //   try {
+  //     SharedPreferences prefs = await SharedPreferences.getInstance();
+  //     final _image = await ImagePicker().pickImage(source: ImageSource.gallery);
+  //     if (_image == null) return;
+  //     String imagePath = _image.path;
+  //     await prefs.setString('image', imagePath);
+  //     setState(() {
+  //       this.filePath = imagePath;
+  //       print('imagePicker $filePath');
+  //       context.read<DataModel>().userImage(this.filePath);
+  //     });
+  //   } on PlatformException catch (e) {
+  //     print('Ошибка $e');
+  //   }
+  // }
 
-  Future<void> imagePicker() async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      final _image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (_image == null) return;
-      String imagePath = _image.path;
-      await prefs.setString('image', imagePath);
-      setState(() {
-        this.filePath = imagePath;
-        print('imagePicker $filePath');
-        context.read<DataModel>().userImage(this.filePath);
-      });
-    } on PlatformException catch (e) {
-      print('Ошибка $e');
-    }
+  String? singleImage;
+
+  Future<XFile?> singleImagePick() async {
+    return await ImagePicker().pickImage(source: ImageSource.gallery);
+  }
+
+  Future<String> uploadImage(XFile image) async {
+    Reference bd =
+        FirebaseStorage.instance.ref('testFolder/${getImageName(image)}');
+    await bd.putFile(File(image.path));
+
+    return bd.getDownloadURL();
+  }
+
+  String getImageName(XFile image) {
+    return image.path.split('/').last;
   }
 
   @override
@@ -170,42 +187,69 @@ class _FotoProfilEditState extends State<_FotoProfilEdit> {
         Padding(
           padding: const EdgeInsets.only(top: 110.0),
           child: Align(
-            alignment: Alignment.center,
-            child: Container(
-              width: 200.0,
-              height: 200.0,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20.0),
+              alignment: Alignment.center,
+              child: Container(
+                width: 200.0,
+                height: 200.0,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20.0),
+                  ),
                 ),
-              ),
-              child: filePath == ''
-                  ? ClipRRect(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(20.0),
+                child: singleImage != null && singleImage!.isNotEmpty
+                    ? ClipRRect(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(20.0),
+                        ),
+                        child: Image.network(
+                          singleImage!,
+                          fit: BoxFit.cover,
+                        ))
+                    : ClipRRect(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(20.0),
+                        ),
+                        child: Image.asset(
+                          AppIcons.avatarka,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                      child: Image.asset(
-                        AppIcons.avatarka,
-                        fit: BoxFit.cover,
-                      ),
-                    )
-                  : ClipRRect(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(20.0),
-                      ),
-                      child: Image.file(
-                        File(filePath),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-            ),
-          ),
+              )),
+          // filePath == ''
+          //     ? ClipRRect(
+          //         borderRadius: const BorderRadius.all(
+          //           Radius.circular(20.0),
+          //         ),
+          //         child: Image.asset(
+          //           AppIcons.avatarka,
+          //           fit: BoxFit.cover,
+          //         ),
+          //       )
+          //     : ClipRRect(
+          //         borderRadius: const BorderRadius.all(
+          //           Radius.circular(20.0),
+          //         ),
+          //         child: Image.file(
+          //           File(filePath),
+          //           fit: BoxFit.cover,
+          //         ),
+          //       ),
         ),
+        //   ),
+        // ),
         Padding(
           padding: const EdgeInsets.only(top: 110.0),
           child: IconCamera(
             colorBorder: Colors.white,
-            onTap: imagePicker,
+            onTap: () async {
+              XFile? _image = await singleImagePick();
+              if (_image != null && _image.path.isNotEmpty) {
+                singleImage = await uploadImage(_image);
+                setState(() {});
+                print(await uploadImage(_image));
+              }
+            },
+            // imagePicker,
             color: AppColor.black50,
             position: 50.0,
           ),

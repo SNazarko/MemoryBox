@@ -11,7 +11,7 @@ class IconCamera extends StatelessWidget {
       required this.colorBorder,
       required this.position})
       : super(key: key);
-  final Function onTap;
+  final onTap;
   final Color color;
   final Color colorBorder;
   final double position;
@@ -38,7 +38,7 @@ class IconCamera extends StatelessWidget {
           padding: EdgeInsets.only(top: position),
           child: Center(
             child: GestureDetector(
-              onTap: () {},
+              onTap: onTap,
               child: Container(
                 width: 100.0,
                 height: 100.0,

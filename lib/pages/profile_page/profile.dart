@@ -222,6 +222,7 @@ class _FotoProfil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? _image = context.watch<DataModel>().getUserImage!;
+    // String? _image = context.watch<DataModel>().getUserImage!;
     return Padding(
       padding: const EdgeInsets.only(top: 35.0),
       child: Align(

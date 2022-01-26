@@ -4,6 +4,7 @@ import 'package:memory_box/pages/first_authorization_page.dart';
 import 'package:memory_box/pages/first_page.dart';
 import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/pages/initializer_widget.dart';
+import 'package:memory_box/pages/last_authorization_page.dart';
 import 'package:memory_box/pages/logo_page.dart';
 import 'package:memory_box/pages/play_page.dart';
 import 'package:memory_box/pages/podborki_page/podborki.dart';
@@ -45,6 +46,8 @@ class RoutesGenerator {
         return MaterialPageRoute(builder: (_) => LogoPage());
       case FirstAuthorizationPage.rootName:
         return MaterialPageRoute(builder: (_) => FirstAuthorizationPage());
+      case LastAuthorizationPage.rootName:
+        return MaterialPageRoute(builder: (_) => LastAuthorizationPage());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

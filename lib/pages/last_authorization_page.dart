@@ -9,15 +9,15 @@ import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
 
-class FirstAuthorizationPage extends StatefulWidget {
-  const FirstAuthorizationPage({Key? key}) : super(key: key);
-  static const rootName = '/first_authorization_page';
+class LastAuthorizationPage extends StatefulWidget {
+  const LastAuthorizationPage({Key? key}) : super(key: key);
+  static const rootName = '/last_authorization_page';
 
   @override
-  State<FirstAuthorizationPage> createState() => _FirstAuthorizationPageState();
+  State<LastAuthorizationPage> createState() => _LastAuthorizationPageState();
 }
 
-class _FirstAuthorizationPageState extends State<FirstAuthorizationPage> {
+class _LastAuthorizationPageState extends State<LastAuthorizationPage> {
   final bool shouldPop = false;
   @override
   void initState() {
@@ -52,17 +52,6 @@ class _FirstAuthorizationPageState extends State<FirstAuthorizationPage> {
               height: 50.0,
             ),
             Image.asset(AppIcons.heart),
-            const SizedBox(
-              height: 50.0,
-            ),
-            const ContainerShadow(
-                width: 250,
-                height: 75,
-                widget: Text(
-                  'Взрослые иногда нуждаются в \n сказке даже больше, чем дети',
-                  style: kBodi2TextStyle,
-                ),
-                radius: 20),
           ],
         ),
       ),
@@ -78,25 +67,10 @@ class _AppbarHeader extends StatelessWidget {
     return ClipPath(
         clipper: AppbarClipper(),
         child: Container(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Hero(
-                  tag: 'logo',
-                  child: Container(
-                    child: const Text(
-                      'MemoryBox',
-                      style: kTitleTextStyle,
-                    ),
-                  ),
-                ),
-                const Text(
-                  'Твой голос всегда рядом',
-                  style: kTitle2TextStyle,
-                )
-              ],
+          child: const Center(
+            child: Text(
+              'Ти супер!',
+              style: kTitleTextStyle,
             ),
           ),
           color: AppColor.colorAppbar,

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/pages/last_authorization_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
@@ -47,7 +48,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       setState(() {
         showLoading = false;
         if (authCredential.user != null) {
-          Navigator.pushNamed(context, HomePage.rootName);
+          Navigator.pushNamed(context, LastAuthorizationPage.rootName);
         }
       });
     } on FirebaseAuthException catch (e) {

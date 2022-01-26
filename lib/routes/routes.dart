@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/audio_recordings_page.dart';
+import 'package:memory_box/pages/first_authorization_page.dart';
 import 'package:memory_box/pages/first_page.dart';
 import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/pages/initializer_widget.dart';
@@ -42,6 +43,8 @@ class RoutesGenerator {
         return MaterialPageRoute(builder: (_) => Screensaver());
       case LogoPage.rootName:
         return MaterialPageRoute(builder: (_) => LogoPage());
+      case FirstAuthorizationPage.rootName:
+        return MaterialPageRoute(builder: (_) => FirstAuthorizationPage());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

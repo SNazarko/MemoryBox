@@ -1,13 +1,9 @@
-import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:memory_box/models/data_model_user.dart';
 import 'package:memory_box/models/preferences_data_model_user.dart';
+import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
@@ -16,14 +12,13 @@ import 'package:memory_box/widgets/icon_back.dart';
 import 'package:memory_box/widgets/icon_camera.dart';
 import 'package:memory_box/widgets/textfield_input.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../resources/constants.dart';
 
 class ProfileEdit extends StatelessWidget {
   ProfileEdit({Key? key}) : super(key: key);
   static const rootName = '/profile_edit';
   final PreferencesDataUser _preferencesDataUser = PreferencesDataUser();
+  final UserRepositories _repositories = UserRepositories();
 
   @override
   Widget build(BuildContext context) {
@@ -79,10 +74,8 @@ class ProfileEdit extends StatelessWidget {
                             Provider.of<DataModel>(context, listen: false)
                                 .getNumber!;
                         _preferencesDataUser.saveNumber(number);
-                        final docUser = FirebaseFirestore.instance
-                            .collection('user')
-                            .doc('id');
-                        docUser.update({'name': name, 'number': number});
+                        _repositories.updateName(name);
+                        _repositories.updateNumber(number);
                       },
                       child: const Text(
                         'Сохранить',
@@ -161,24 +154,7 @@ class _FotoProfilEditState extends State<_FotoProfilEdit> {
   //     print('Ошибка $e');
   //   }
   // }
-
   String? singleImage;
-
-  Future<XFile?> singleImagePick() async {
-    return await ImagePicker().pickImage(source: ImageSource.gallery);
-  }
-
-  Future<String> uploadImage(XFile image) async {
-    Reference bd =
-        FirebaseStorage.instance.ref('testFolder/${getImageName(image)}');
-    await bd.putFile(File(image.path));
-
-    return bd.getDownloadURL();
-  }
-
-  String getImageName(XFile image) {
-    return image.path.split('/').last;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -242,11 +218,12 @@ class _FotoProfilEditState extends State<_FotoProfilEdit> {
           child: IconCamera(
             colorBorder: Colors.white,
             onTap: () async {
-              XFile? _image = await singleImagePick();
+              XFile? _image = await UserRepositories().singleImagePick();
               if (_image != null && _image.path.isNotEmpty) {
-                singleImage = await uploadImage(_image);
+                singleImage = await UserRepositories().uploadImage(_image);
+                context.read<DataModel>().userImage(singleImage!);
                 setState(() {});
-                print(await uploadImage(_image));
+                // print(await uploadImage(_image));
               }
             },
             // imagePicker,

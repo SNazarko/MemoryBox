@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/pages/first_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 
+import 'initializer_widget.dart';
+
 class Screensaver extends StatefulWidget {
   const Screensaver({Key? key}) : super(key: key);
   static const rootName = 'screensaver_page';
@@ -52,7 +54,7 @@ class _ScreensaverState extends State<Screensaver>
       if (status == AnimationStatus.completed) {
         final duration = Duration(seconds: 2);
         sleep(duration);
-        Navigator.pushNamed(context, FirstPage.rootName);
+        Navigator.pushNamed(context, InitializerWidget.rootName);
       }
     });
   }

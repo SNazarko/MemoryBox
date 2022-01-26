@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/pages/first_authorization_page.dart';
+import 'package:memory_box/pages/first_page.dart';
 import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/pages/registration_page.dart';
 
@@ -34,7 +36,7 @@ class _InitializerWidgetState extends State<InitializerWidget> {
             ),
           )
         : _user == null
-            ? RegistrationPage()
-            : HomePage();
+            ? FirstPage()
+            : FirstAuthorizationPage();
   }
 }

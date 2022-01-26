@@ -2,9 +2,13 @@ import 'dart:io';
 
 import 'package:memory_box/players/sound_record.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class SaveAudio {
+  firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instance;
   String nameAudio;
+  final audioFile = SoundRecording().mPath;
   List audiolist = [];
 
   SaveAudio(this.nameAudio);

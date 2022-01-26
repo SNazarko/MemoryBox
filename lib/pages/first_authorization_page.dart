@@ -1,17 +1,32 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/initializer_widget.dart';
-import 'package:memory_box/pages/registration_page.dart';
+import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
+import 'package:memory_box/resources/app_icons.dart';
+import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
-import 'package:memory_box/widgets/button_continue.dart';
+import 'package:memory_box/widgets/container_shadow.dart';
+import 'initializer_widget.dart';
 
-import '../resources/constants.dart';
+class FirstAuthorizationPage extends StatefulWidget {
+  const FirstAuthorizationPage({Key? key}) : super(key: key);
+  static const rootName = '/first_authorization_page';
 
-class FirstPage extends StatelessWidget {
-  FirstPage({Key? key}) : super(key: key);
-  static const rootName = '/';
-  bool shouldPop = false;
+  @override
+  State<FirstAuthorizationPage> createState() => _FirstAuthorizationPageState();
+}
+
+class _FirstAuthorizationPageState extends State<FirstAuthorizationPage> {
+  final bool shouldPop = false;
+  @override
+  void initState() {
+    Timer(Duration(seconds: 3), () {
+      Navigator.pushNamed(context, HomePage.rootName);
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,37 +37,33 @@ class FirstPage extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
-            _AppbarHeader(),
+            const _AppbarHeader(),
             const SizedBox(
               height: 40.0,
             ),
-            const Text(
-              'Привет!',
-              style: TextStyle(
-                fontSize: 24.0,
-              ),
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 55.0,
-              ),
-              child: Text(
-                'Мы рады видеть тебя здесь. Это приложение поможет записывать сказки и держать их в удобном месте не заполняя память на телефоне.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16.0,
+            const ContainerShadow(
+                width: 300,
+                height: 80,
+                widget: Text(
+                  'Мы рады тебя видеть',
+                  style: kBodiTextStyle,
                 ),
-              ),
-            ),
+                radius: 20),
             const SizedBox(
-              height: 30.0,
+              height: 50.0,
             ),
-            ButtonContinue(onPressed: () {
-              Navigator.pushNamed(context, RegistrationPage.rootName);
-            })
+            Image.asset(AppIcons.heart),
+            const SizedBox(
+              height: 50.0,
+            ),
+            const ContainerShadow(
+                width: 250,
+                height: 75,
+                widget: Text(
+                  'Взрослые иногда нуждаются в \n сказке даже больше, чем дети',
+                  style: kBodi2TextStyle,
+                ),
+                radius: 20),
           ],
         ),
       ),

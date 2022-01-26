@@ -19,4 +19,5 @@ class AppIcons {
   static const String vector = '$path/vector.png';
   static const String camera = '$path/сamera.png';
   static const String microfon = '$path/microfon.png';
+  static const String heart = '$path/heart.png';
 }

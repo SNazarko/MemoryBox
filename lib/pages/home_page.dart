@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/pages/first_authorization_page.dart';
 import 'package:memory_box/pages/screensaver_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
@@ -42,12 +43,16 @@ class HomePage extends StatelessWidget {
 
 class _AppbarHeader extends StatelessWidget {
   const _AppbarHeader({Key? key}) : super(key: key);
+  final bool shouldPop = false;
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
-    return Container(
+    return WillPopScope(
+      onWillPop: () async {
+        return shouldPop;
+      },
       child: Stack(
         children: [
           Container(
@@ -67,8 +72,8 @@ class _AppbarHeader extends StatelessWidget {
               width: screenWidth,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Padding(
+                children: [
+                  const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
                       'Подборки',
@@ -79,12 +84,18 @@ class _AppbarHeader extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text(
-                      'Открыть все',
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        color: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, FirstAuthorizationPage.rootName);
+                      },
+                      child: const Text(
+                        'Открыть все',
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),

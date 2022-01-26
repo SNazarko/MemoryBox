@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:memory_box/models/data_model_user.dart';
 import 'package:memory_box/models/preferences_data_model_user.dart';
+import 'package:memory_box/models/user_model.dart';
+import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/pages/profile_page/profile_edit.dart';
@@ -22,6 +24,7 @@ class Profile extends StatelessWidget {
   static const rootName = '/profile';
   DataModel model = DataModel();
   final _auth = FirebaseAuth.instance;
+  final UserRepositories _repositories = UserRepositories();
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +83,12 @@ class Profile extends StatelessWidget {
                   const SizedBox(
                     height: 40.0,
                   ),
-                  const _TextLink(
+                  _TextLink(
+                    onPressed: () {
+                      print(UserModel().displayName);
+                      print(UserModel().phoneNumb);
+                      print(UserModel().avatarUrl);
+                    },
                     underline: false,
                     text: 'Подписка',
                   ),
@@ -126,17 +134,9 @@ class Profile extends StatelessWidget {
                                 TextButton(
                                   onPressed: () async {
                                     Navigator.pop(context);
-                                    final docUser = FirebaseFirestore.instance
-                                        .collection('user')
-                                        .doc('id');
-                                    docUser.update(
-                                      {
-                                        'name': 'Имя',
-                                        'number': '+00(000)0000000',
-                                      },
-                                    );
-                                    // _auth.signOut();
+                                    _repositories.deleteAccount();
                                     PreferencesDataUser().cleanKey();
+                                    _auth.signOut();
                                     Phoenix.rebirth(context);
                                   },
                                   child: const Padding(
@@ -241,8 +241,8 @@ class _FotoProfil extends StatelessWidget {
                             _image,
                             fit: BoxFit.cover,
                           )
-                        : Image.file(
-                            File(context.watch<DataModel>().getUserImage!),
+                        : Image.network(
+                            context.watch<DataModel>().getUserImage!,
                             fit: BoxFit.cover,
                           ))),
           ],

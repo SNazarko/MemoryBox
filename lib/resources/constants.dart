@@ -31,6 +31,8 @@ const kDraverTextStyle = TextStyle(
 const kBodiTextStyle = TextStyle(
   fontFamily: 'TTNorms',
   fontSize: 24.0,
+  fontWeight: FontWeight.w400,
+  color: AppColor.colorText,
 );
 const kBodi2TextStyle = TextStyle(
     fontFamily: 'TTNorms',

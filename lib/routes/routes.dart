@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/audio_recordings_page.dart';
-import 'package:memory_box/pages/first_authorization_page.dart';
-import 'package:memory_box/pages/first_page.dart';
+import 'package:memory_box/pages/authorization_page/first_authorization_page.dart';
+import 'package:memory_box/pages/authorization_page/first_page.dart';
 import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/pages/initializer_widget.dart';
-import 'package:memory_box/pages/last_authorization_page.dart';
-import 'package:memory_box/pages/logo_page.dart';
+import 'package:memory_box/pages/authorization_page/last_authorization_page.dart';
+import 'package:memory_box/pages/logo_page/logo_page.dart';
 import 'package:memory_box/pages/play_page.dart';
 import 'package:memory_box/pages/podborki_page/podborki.dart';
 import 'package:memory_box/pages/podborki_page/podborki_edit.dart';
 import 'package:memory_box/pages/profile_page/profile.dart';
 import 'package:memory_box/pages/profile_page/profile_edit.dart';
-import 'package:memory_box/pages/registration_page.dart';
+import 'package:memory_box/pages/authorization_page/registration_page.dart';
+import 'package:memory_box/pages/recordings_page/record_page.dart';
 import 'package:memory_box/pages/save_page.dart';
-import 'package:memory_box/pages/screensaver_page.dart';
+import 'package:memory_box/pages/logo_page/screensaver_page.dart';
 
 class RoutesGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -48,6 +49,8 @@ class RoutesGenerator {
         return MaterialPageRoute(builder: (_) => FirstAuthorizationPage());
       case LastAuthorizationPage.rootName:
         return MaterialPageRoute(builder: (_) => LastAuthorizationPage());
+      case RecordPage.rootName:
+        return MaterialPageRoute(builder: (_) => RecordPage());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

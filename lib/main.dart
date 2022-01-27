@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:memory_box/pages/first_page.dart';
-import 'package:memory_box/pages/logo_page.dart';
-import 'package:memory_box/pages/screensaver_page.dart';
+import 'package:memory_box/pages/authorization_page/first_page.dart';
+import 'package:memory_box/pages/logo_page/logo_page.dart';
+import 'package:memory_box/pages/logo_page/screensaver_page.dart';
 import 'package:memory_box/players/bloc/sound_bloc.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/routes/routes.dart';

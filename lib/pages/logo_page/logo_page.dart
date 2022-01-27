@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
-import 'package:memory_box/pages/screensaver_page.dart';
+import 'package:memory_box/pages/logo_page/screensaver_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 
-import 'first_page.dart';
+import '../authorization_page/first_page.dart';
 
 class LogoPage extends StatefulWidget {
   const LogoPage({Key? key}) : super(key: key);

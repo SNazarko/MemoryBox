@@ -2,11 +2,12 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:image_picker/image_picker.dart';
-import 'package:memory_box/models/user_model.dart';
+import 'package:memory_box/players/sound_record.dart';
 
 class UserRepositories {
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
+
   Future<XFile?> singleImagePick() async {
     return await ImagePicker().pickImage(
       source: ImageSource.gallery,
@@ -46,14 +47,17 @@ class UserRepositories {
     );
   }
 
-  Future<String> uploadAudio(XFile image) async {
-    firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
-        .ref('userAudio/${getAudioName(image)}');
-    await ref.putFile(File(image.path));
+  Future<String> uploadAudio(String name) async {
+    firebase_storage.Reference ref =
+        firebase_storage.FirebaseStorage.instance.ref('userAudio/$name');
+    final audioFile = SoundRecording().mPath;
+    await ref.putFile(File(audioFile));
+    print(ref.getDownloadURL());
+    print(audioFile);
     return ref.getDownloadURL();
   }
 
-  String getAudioName(XFile image) {
-    return image.path.split('/').last;
-  }
+  // String getAudioName(XFile file) {
+  //   return file.path.split('/').last;
+  // }
 }

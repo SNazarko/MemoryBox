@@ -24,6 +24,11 @@ const kTitle2TextStyle2 = TextStyle(
   fontSize: 16.0,
   color: Colors.white,
 );
+const kTitle3TextStyle3 = TextStyle(
+  fontFamily: 'TTNorms',
+  fontSize: 16.0,
+  color: AppColor.colorText,
+);
 const kDraverTextStyle = TextStyle(
   fontSize: 18.0,
   color: AppColor.colorText,

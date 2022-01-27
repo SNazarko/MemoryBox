@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/initializer_widget.dart';
-import 'package:memory_box/pages/registration_page.dart';
+import 'package:memory_box/pages/authorization_page/registration_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/button_continue.dart';
 
-import '../resources/constants.dart';
+import '../../resources/constants.dart';
 
 class FirstPage extends StatelessWidget {
   FirstPage({Key? key}) : super(key: key);

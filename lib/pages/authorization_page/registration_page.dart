@@ -1,14 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/last_authorization_page.dart';
+import 'package:memory_box/pages/authorization_page/last_authorization_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/button_continue.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
 import 'package:memory_box/widgets/textfield_input.dart';
-import '../resources/constants.dart';
+import '../../resources/constants.dart';
 
 enum MobileVerificationState {
   showMobileFormState,

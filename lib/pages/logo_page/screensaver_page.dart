@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/first_page.dart';
+import 'package:memory_box/pages/authorization_page/first_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 
-import 'initializer_widget.dart';
+import '../initializer_widget.dart';
 
 class Screensaver extends StatefulWidget {
   const Screensaver({Key? key}) : super(key: key);
@@ -76,25 +76,22 @@ class _ScreensaverState extends State<Screensaver>
               ),
             ),
             Center(
-              child: Hero(
-                tag: 'logo',
-                child: Container(
-                  child: Center(
-                    child: Text(
-                      'MemoryBox',
-                      style: TextStyle(
-                          color: animationColor2.value,
-                          fontSize: controller.value * 45,
-                          fontWeight: FontWeight.w700),
-                    ),
+              child: Container(
+                child: Center(
+                  child: Text(
+                    'MemoryBox',
+                    style: TextStyle(
+                        color: animationColor2.value,
+                        fontSize: controller.value * 45,
+                        fontWeight: FontWeight.w700),
                   ),
-                  height: 60.0,
-                  width: 250.0,
-                  decoration: BoxDecoration(
-                    color: animationColor.value,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(50.0),
-                    ),
+                ),
+                height: 60.0,
+                width: 250.0,
+                decoration: BoxDecoration(
+                  color: animationColor.value,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(50.0),
                   ),
                 ),
               ),

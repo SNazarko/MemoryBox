@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/players/bloc/sound_bloc.dart';
 import 'package:memory_box/players/save_audio.dart';
 import 'package:memory_box/players/sound_record.dart';
+import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/widgets/appbar_menu.dart';
@@ -134,7 +135,9 @@ class _PlayPageState extends State<PlayPage> {
                                     padding: const EdgeInsets.only(left: 50.0),
                                     child: TextButton(
                                       onPressed: () {
-                                        SaveAudio(_saveRecord).saveFile();
+                                        // SaveAudio(_saveRecord).saveFile();
+                                        UserRepositories()
+                                            .uploadAudio(_saveRecord);
 
                                         // Navigator.pushNamed(
                                         //   context,

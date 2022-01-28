@@ -95,10 +95,16 @@ class _AudioRecorderState extends State<AudioRecorder> {
   bool _isRecording = false;
   bool _isPaused = false;
   int _recordDuration = 0;
+  double _incWidth = 0;
   Timer? _timer;
   Timer? _ampTimer;
+  Timer? _timerAmplitude;
   final _audioRecorder = Record();
   Amplitude? _amplitude;
+  Record? _record;
+  double _dcb = 0;
+  List _listAmplitude = [];
+  ScrollController? _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -111,6 +117,7 @@ class _AudioRecorderState extends State<AudioRecorder> {
     _timer?.cancel();
     _ampTimer?.cancel();
     _audioRecorder.dispose();
+    _timerAmplitude!.cancel();
     super.dispose();
   }
 
@@ -129,15 +136,17 @@ class _AudioRecorderState extends State<AudioRecorder> {
           ),
         ),
         const SizedBox(
-          height: 40,
+          height: 50,
         ),
         const Text(
           'Запись',
           style: kBodiTextStyle,
         ),
         const SizedBox(
-          height: 250,
+          height: 120,
         ),
+
+        _amplitudRecords(),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -175,6 +184,23 @@ class _AudioRecorderState extends State<AudioRecorder> {
         //   // ],
         // ])
       ],
+    );
+  }
+
+  void _getAmplituder() {
+    _timerAmplitude = Timer.periodic(
+      const Duration(milliseconds: 40),
+      (_) async {
+        _incWidth++;
+        // _amplitude = await _record!.getAmplitude();
+        _dcb = _amplitude!.current + 45;
+        if (_dcb < 2) {
+          _dcb = 2;
+        }
+
+        _listAmplitude.add(_dcb);
+        setState(() {});
+      },
     );
   }
 
@@ -234,6 +260,41 @@ class _AudioRecorderState extends State<AudioRecorder> {
     );
   }
 
+  Widget _amplitudRecords() {
+    return SizedBox(
+      width: double.infinity,
+      height: 120,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        reverse: true,
+        controller: _scrollController,
+        itemCount: _listAmplitude.length,
+        itemBuilder: (BuildContext context, int index) {
+          _scrollController!
+              .jumpTo(_scrollController!.position.maxScrollExtent);
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 50),
+                height: _listAmplitude[index] * 3,
+                width: 2,
+                color: Colors.black,
+              ),
+              SizedBox(
+                width: 2,
+                height: 6,
+                child: Container(
+                  color: Colors.black,
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
   Widget _buildText() {
     if (_isRecording || _isPaused) {
       return _buildTimer();
@@ -248,7 +309,7 @@ class _AudioRecorderState extends State<AudioRecorder> {
 
     return Text(
       '$minutes : $seconds',
-      style: TextStyle(color: Colors.red),
+      style: const TextStyle(color: Colors.red),
     );
   }
 
@@ -273,6 +334,7 @@ class _AudioRecorderState extends State<AudioRecorder> {
         });
 
         _startTimer();
+        _getAmplituder();
       }
     } catch (e) {
       print(e);
@@ -280,6 +342,7 @@ class _AudioRecorderState extends State<AudioRecorder> {
   }
 
   Future<void> _stop() async {
+    print('list$_listAmplitude');
     _timer?.cancel();
     _ampTimer?.cancel();
     final path = await _audioRecorder.stop();
@@ -387,21 +450,24 @@ class _AudioPlayerState extends State<AudioPlayer> {
         return Column(
           children: [
             _icon(),
-            SizedBox(
+            const SizedBox(
               height: 75,
             ),
             SizedBox(
               width: 200.0,
               child: TextField(
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24.0),
+                style: const TextStyle(fontSize: 24.0),
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                ),
                 controller: _controller,
                 onChanged: (value) {
                   _saveRecord = value;
                 },
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 100,
             ),
             _buildSlider(constraints.maxWidth),

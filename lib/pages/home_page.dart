@@ -87,9 +87,7 @@ class _AppbarHeader extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, RecordPage.rootName);
-                      },
+                      onTap: () {},
                       child: const Text(
                         'Открыть все',
                         style: TextStyle(

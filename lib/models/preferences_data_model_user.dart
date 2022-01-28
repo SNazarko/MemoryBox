@@ -16,6 +16,10 @@ class PreferencesDataUser {
   //     await file.readAsBytes();
   //   }
   // }
+  Future<void> counter(String counter) async {
+    SharedPreferences storageData = await _storage;
+    storageData.setString('counter_key', counter);
+  }
 
   Future<void> saveName(String name) async {
     SharedPreferences storageData = await _storage;

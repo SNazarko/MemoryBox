@@ -2,9 +2,10 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:image_picker/image_picker.dart';
-import 'package:memory_box/players/sound_record.dart';
+import 'package:memory_box/models/user_model.dart';
 
 class UserRepositories {
+  UserModel userModel = UserModel();
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
 
@@ -19,17 +20,20 @@ class UserRepositories {
   Future<void> updateName(String name) async {
     final docUser = FirebaseFirestore.instance.collection('user').doc('id');
     docUser.update({'name': name});
+    UserModel(displayName: name);
   }
 
   Future<void> updateNumber(String number) async {
     final docUser = FirebaseFirestore.instance.collection('user').doc('id');
     docUser.update({'number': number});
+    UserModel(phoneNumb: number);
   }
 
   Future<String> uploadImage(XFile image) async {
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
         .ref('userImage/${getImageName(image)}');
     await ref.putFile(File(image.path));
+    UserModel(avatarUrl: '${ref.getDownloadURL()}');
     return ref.getDownloadURL();
   }
 
@@ -48,16 +52,13 @@ class UserRepositories {
   }
 
   Future<String> uploadAudio(String name) async {
-    firebase_storage.Reference ref =
-        firebase_storage.FirebaseStorage.instance.ref('userAudio/$name');
-    final audioFile = SoundRecording().mPath;
-    await ref.putFile(File(audioFile));
-    print(ref.getDownloadURL());
-    print(audioFile);
+    firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+        .ref('userAudio/${getAudioName(name)}');
+    await ref.putFile(File(name));
     return ref.getDownloadURL();
   }
 
-  // String getAudioName(XFile file) {
-  //   return file.path.split('/').last;
-  // }
+  String getAudioName(String name) {
+    return name.split('/').last;
+  }
 }

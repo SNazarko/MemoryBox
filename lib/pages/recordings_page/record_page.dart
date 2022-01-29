@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/resources/constants.dart';
@@ -350,6 +352,8 @@ class _AudioRecorderState extends State<AudioRecorder> {
     widget.onStop(path!);
 
     setState(() => _isRecording = false);
+    print('ссилка $path');
+    UserRepositories().uploadAudio(path);
   }
 
   Future<void> _pause() async {
@@ -503,10 +507,11 @@ class _AudioPlayerState extends State<AudioPlayer> {
           padding: const EdgeInsets.only(left: 35.0),
           child: TextButton(
             onPressed: () {
+              final hopeFile = widget.source;
+              print(hopeFile);
               // SaveAudio(_saveRecord).saveFile();
               // UserRepositories()
               //     .uploadAudio(_saveRecord);
-
               // Navigator.pushNamed(
               //   context,
               //   '/SavePage',

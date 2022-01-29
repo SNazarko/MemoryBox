@@ -12,6 +12,7 @@ import 'package:memory_box/widgets/icon_back.dart';
 import 'package:memory_box/widgets/icon_camera.dart';
 import 'package:memory_box/widgets/textfield_input.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../resources/constants.dart';
 
 class ProfileEdit extends StatelessWidget {
@@ -218,12 +219,14 @@ class _FotoProfilEditState extends State<_FotoProfilEdit> {
           child: IconCamera(
             colorBorder: Colors.white,
             onTap: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
               XFile? _image = await UserRepositories().singleImagePick();
               if (_image != null && _image.path.isNotEmpty) {
                 singleImage = await UserRepositories().uploadImage(_image);
                 context.read<DataModel>().userImage(singleImage!);
+                await prefs.setString(
+                    'image', await UserRepositories().uploadImage(_image));
                 setState(() {});
-                // print(await uploadImage(_image));
               }
             },
             // imagePicker,

@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 
 class DataModel with ChangeNotifier {
-  UserModel _userModel = UserModel();
   String? _name;
   String? _number;
   String? _image = 'assets/images/profile_avatar.png';
@@ -19,7 +18,6 @@ class DataModel with ChangeNotifier {
     _number = sharedPreferences.getString('number_key') ?? '+0(000)000 00 00';
     _image = sharedPreferences.getString('image') ??
         'assets/images/profile_avatar.png';
-    _userModel.displayName = _name;
     notifyListeners();
   }
 

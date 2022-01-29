@@ -69,7 +69,7 @@ class _AppbarHeader extends StatelessWidget {
         child: Container(
           child: const Center(
             child: Text(
-              'Ти супер!',
+              'Ты супер!',
               style: kTitleTextStyle,
             ),
           ),

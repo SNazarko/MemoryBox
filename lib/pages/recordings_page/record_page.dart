@@ -3,6 +3,9 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/models/audio_model.dart';
+import 'package:memory_box/models/audio_model.dart';
+import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
@@ -25,6 +28,7 @@ class RecordPage extends StatefulWidget {
 class _RecordPageState extends State<RecordPage> {
   bool showPlayer = false;
   ap.AudioSource? audioSource;
+  String? path;
 
   @override
   void initState() {
@@ -347,10 +351,10 @@ class _AudioRecorderState extends State<AudioRecorder> {
     print('list$_listAmplitude');
     _timer?.cancel();
     _ampTimer?.cancel();
-    final path = await _audioRecorder.stop();
+    final path = await _audioRecorder.stop() ?? '';
 
-    widget.onStop(path!);
-
+    widget.onStop(path);
+    AudioModel().setAudioUrl(path);
     setState(() => _isRecording = false);
     print('ссилка $path');
     UserRepositories().uploadAudio(path);
@@ -507,8 +511,6 @@ class _AudioPlayerState extends State<AudioPlayer> {
           padding: const EdgeInsets.only(left: 35.0),
           child: TextButton(
             onPressed: () {
-              final hopeFile = widget.source;
-              print(hopeFile);
               // SaveAudio(_saveRecord).saveFile();
               // UserRepositories()
               //     .uploadAudio(_saveRecord);

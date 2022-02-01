@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/models/data_model_user.dart';
+import 'package:memory_box/models/user_model.dart';
 import 'package:memory_box/pages/logo_page/screensaver_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 
@@ -12,6 +14,8 @@ class LogoPage extends StatefulWidget {
   LogoPage({Key? key}) : super(key: key);
   static const rootName = 'logo_page';
   DataModel _dataModel = DataModel();
+  AudioModel _audioModel = AudioModel();
+  UserModel _userModel = UserModel();
 
   @override
   _LogoPageState createState() => _LogoPageState();

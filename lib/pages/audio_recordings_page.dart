@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/bloc_all/bloc_all_bloc.dart';
+import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
@@ -204,29 +206,6 @@ class _ListPlayers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      height: screenHeight * 0.79,
-      child: Flexible(
-        flex: 1,
-        child: Container(
-          child: ListView(
-            children: [
-              SizedBox(
-                height: screenHeight * 0.19,
-              ),
-              PlayerMini(),
-              PlayerMini(),
-              PlayerMini(),
-              PlayerMini(),
-              PlayerMini(),
-              PlayerMini(),
-              PlayerMini(),
-              PlayerMini(),
-              PlayerMini(),
-            ],
-          ),
-        ),
-      ),
-    );
+    return Column();
   }
 }

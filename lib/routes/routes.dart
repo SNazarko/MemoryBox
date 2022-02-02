@@ -15,6 +15,7 @@ import 'package:memory_box/pages/authorization_page/registration_page.dart';
 import 'package:memory_box/pages/recordings_page/record_page.dart';
 import 'package:memory_box/pages/save_page.dart';
 import 'package:memory_box/pages/logo_page/screensaver_page.dart';
+import 'package:memory_box/pages/test.dart';
 
 class RoutesGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -51,6 +52,8 @@ class RoutesGenerator {
         return MaterialPageRoute(builder: (_) => LastAuthorizationPage());
       case RecordPage.rootName:
         return MaterialPageRoute(builder: (_) => RecordPage());
+      case Test.rootName:
+        return MaterialPageRoute(builder: (_) => Test());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

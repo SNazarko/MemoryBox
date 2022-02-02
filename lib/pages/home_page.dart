@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/pages/authorization_page/first_authorization_page.dart';
 import 'package:memory_box/pages/logo_page/screensaver_page.dart';
 import 'package:memory_box/pages/recordings_page/record_page.dart';
+import 'package:memory_box/pages/test.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/bottom_nav_bar.dart';
@@ -87,7 +88,9 @@ class _AppbarHeader extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, Test.rootName);
+                      },
                       child: const Text(
                         'Открыть все',
                         style: TextStyle(

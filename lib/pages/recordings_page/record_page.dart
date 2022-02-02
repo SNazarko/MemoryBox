@@ -15,7 +15,10 @@ import 'package:memory_box/widgets/bottom_nav_bar.dart';
 import 'package:memory_box/widgets/drawer_menu.dart';
 import 'package:just_audio/just_audio.dart' as ap;
 import 'package:memory_box/widgets/slider.dart';
+import 'package:provider/provider.dart';
 import 'package:record/record.dart';
+
+import 'model_recordings_page.dart';
 
 class RecordPage extends StatefulWidget {
   const RecordPage({Key? key}) : super(key: key);
@@ -39,50 +42,53 @@ class _RecordPageState extends State<RecordPage> {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-      ),
-      drawer: DrawerMenu(),
-      bottomNavigationBar: BottomNavBar(),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Stack(
-              children: [
-                AppbarMenu(),
-                Positioned(
-                    left: 5.0,
-                    top: 30.0,
-                    child: Container(
-                      height: 520.0,
-                      width: screenWidth * 0.97,
-                      decoration: kBorderContainer2,
-                      child: showPlayer
-                          ? Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 25),
-                              child: AudioPlayer(
-                                source: audioSource!,
-                                onDelete: () {
-                                  setState(() => showPlayer = false);
+    return ChangeNotifierProvider<ModelRP>(
+      create: (BuildContext context) => ModelRP(),
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0.0,
+        ),
+        drawer: DrawerMenu(),
+        bottomNavigationBar: BottomNavBar(),
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Stack(
+                children: [
+                  AppbarMenu(),
+                  Positioned(
+                      left: 5.0,
+                      top: 30.0,
+                      child: Container(
+                        height: 520.0,
+                        width: screenWidth * 0.97,
+                        decoration: kBorderContainer2,
+                        child: showPlayer
+                            ? Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 25),
+                                child: AudioPlayer(
+                                  source: audioSource!,
+                                  onDelete: () {
+                                    setState(() => showPlayer = false);
+                                  },
+                                ),
+                              )
+                            : AudioRecorder(
+                                onStop: (path) {
+                                  setState(() {
+                                    audioSource =
+                                        ap.AudioSource.uri(Uri.parse(path));
+                                    showPlayer = true;
+                                  });
                                 },
                               ),
-                            )
-                          : AudioRecorder(
-                              onStop: (path) {
-                                setState(() {
-                                  audioSource =
-                                      ap.AudioSource.uri(Uri.parse(path));
-                                  showPlayer = true;
-                                });
-                              },
-                            ),
-                    ))
-              ],
-            ),
-          ],
+                      ))
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -348,16 +354,13 @@ class _AudioRecorderState extends State<AudioRecorder> {
   }
 
   Future<void> _stop() async {
-    print('list$_listAmplitude');
     _timer?.cancel();
     _ampTimer?.cancel();
     final path = await _audioRecorder.stop() ?? '';
 
     widget.onStop(path);
-    AudioModel().setAudioUrl(path);
     setState(() => _isRecording = false);
-    print('ссилка $path');
-    UserRepositories().uploadAudio(path);
+    context.read<ModelRP>().changeString(path);
   }
 
   Future<void> _pause() async {
@@ -418,7 +421,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
   late StreamSubscription<Duration> _positionChangedSubscription;
   final TextEditingController _controller =
       TextEditingController(text: 'Аудиофайл');
-  String _saveRecord = 'Аудио';
+  String _saveRecord = 'Аудиофайл';
 
   @override
   void initState() {
@@ -512,8 +515,11 @@ class _AudioPlayerState extends State<AudioPlayer> {
           child: TextButton(
             onPressed: () {
               // SaveAudio(_saveRecord).saveFile();
-              // UserRepositories()
-              //     .uploadAudio(_saveRecord);
+              UserRepositories().uploadAudio(
+                  Provider.of<ModelRP>(context, listen: false).getData,
+                  _saveRecord);
+              print(Provider.of<ModelRP>(context, listen: false).getData);
+              print(_saveRecord);
               // Navigator.pushNamed(
               //   context,
               //   '/SavePage',

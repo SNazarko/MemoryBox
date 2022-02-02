@@ -50,14 +50,14 @@ class UserRepositories {
     );
   }
 
-  Future<void> uploadAudio(String path) async {
+  Future<void> uploadAudio(String path, String name) async {
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
         .ref('userAudio/${getAudioName(path)}');
     await ref.putFile(File(path));
-    final model = AudioModel(
-        audioName: 'audioName', audioUrl: '${await ref.getDownloadURL()}');
+    final model =
+        AudioModel(audioName: name, audioUrl: '${await ref.getDownloadURL()}');
     final json = model.toJson();
-    FirebaseFirestore.instance.collection('user').doc('audio').set(json);
+    FirebaseFirestore.instance.collection('Колекции').doc(name).set(json);
   }
 
   String getAudioName(String name) {

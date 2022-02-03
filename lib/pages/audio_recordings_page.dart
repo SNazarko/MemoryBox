@@ -202,10 +202,40 @@ class _AppbarPlayer extends StatelessWidget {
 
 class _ListPlayers extends StatelessWidget {
   const _ListPlayers({Key? key}) : super(key: key);
+  Stream<List<AudioModel>> readAudio() => FirebaseFirestore.instance
+      .collection('Колекции')
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
+
+  Widget buildAudio(AudioModel audio) => PlayerMini(
+        url: '${audio.audioUrl}',
+        name: '${audio.audioName}',
+      );
 
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    return Column();
+    return Container(
+      height: screenHeight * 0.785,
+      child: StreamBuilder<List<AudioModel>>(
+        stream: readAudio(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const Text('Ошибка');
+          }
+          if (snapshot.hasData) {
+            final audio = snapshot.data!;
+            return ListView(
+              children: audio.map(buildAudio).toList(),
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
+    );
   }
 }

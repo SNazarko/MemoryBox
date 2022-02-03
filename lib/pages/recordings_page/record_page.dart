@@ -482,7 +482,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
               height: 100,
             ),
             _buildSlider(constraints.maxWidth),
-            SizedBox(
+            const SizedBox(
               height: 100,
             ),
             _buildControl(),
@@ -518,8 +518,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
               UserRepositories().uploadAudio(
                   Provider.of<ModelRP>(context, listen: false).getData,
                   _saveRecord);
-              print(Provider.of<ModelRP>(context, listen: false).getData);
-              print(_saveRecord);
+
               // Navigator.pushNamed(
               //   context,
               //   '/SavePage',

@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:just_audio/just_audio.dart' as ap;
+import 'package:memory_box/resources/app_icons.dart';
 
 class PlayerMini extends StatefulWidget {
   const PlayerMini({Key? key, required this.url, required this.name})
@@ -13,15 +16,24 @@ class PlayerMini extends StatefulWidget {
 }
 
 class _PlayerMiniState extends State<PlayerMini> {
+  late StreamSubscription<ap.PlayerState> _playerStateChangedSubscription;
   final player = ap.AudioPlayer();
   @override
   void initState() {
+    _playerStateChangedSubscription =
+        player.playerStateStream.listen((state) async {
+      if (state.processingState == ap.ProcessingState.completed) {
+        await stop();
+      }
+      setState(() {});
+    });
     _init();
     super.initState();
   }
 
   @override
   void dispose() {
+    _playerStateChangedSubscription.cancel();
     player.dispose();
     super.dispose();
   }
@@ -44,32 +56,43 @@ class _PlayerMiniState extends State<PlayerMini> {
   }
 
   Widget _buildControl() {
-    Icon icon;
-    Color color;
+    Widget icon;
 
     if (player.playerState.playing) {
-      icon = Icon(Icons.pause, color: Colors.red, size: 70);
-      color = Colors.red.withOpacity(0.1);
+      icon = Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Container(
+          child: Image.asset(
+            AppIcons.stop,
+            fit: BoxFit.fill,
+          ),
+        ),
+      );
     } else {
-      final theme = Theme.of(context);
-      icon = Icon(Icons.play_arrow, color: theme.primaryColor, size: 70);
-      color = theme.primaryColor.withOpacity(0.1);
+      icon = Container(
+        child: Image.asset(
+          'assets/images/4x/play_aud.png',
+          fit: BoxFit.fill,
+        ),
+      );
     }
 
-    return ClipOval(
-      child: Material(
-        color: color,
-        child: InkWell(
-          child: SizedBox(width: 80, height: 80, child: icon),
-          onTap: () {
-            if (player.playerState.playing) {
-              pause();
-              setState(() {});
-            } else {
-              setState(() {});
-              play();
-            }
-          },
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: ClipOval(
+        child: Material(
+          child: InkWell(
+            child: SizedBox(width: 70, height: 70, child: icon),
+            onTap: () {
+              if (player.playerState.playing) {
+                pause();
+                setState(() {});
+              } else {
+                setState(() {});
+                play();
+              }
+            },
+          ),
         ),
       ),
     );

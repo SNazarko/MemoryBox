@@ -39,16 +39,18 @@ class AudioRecordingsPage extends StatelessWidget {
           ],
         ),
         drawer: DrawerMenu(),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Stack(
-              children: [
-                _ListPlayers(),
-                _AppbarHeader(),
-              ],
-            ),
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Stack(
+                children: [
+                  _ListPlayers(),
+                  _AppbarHeader(),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -216,26 +218,31 @@ class _ListPlayers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      height: screenHeight * 0.785,
-      child: StreamBuilder<List<AudioModel>>(
-        stream: readAudio(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Text('Ошибка');
-          }
-          if (snapshot.hasData) {
-            final audio = snapshot.data!;
-            return ListView(
-              children: audio.map(buildAudio).toList(),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 127),
+          height: screenHeight * 0.60,
+          child: StreamBuilder<List<AudioModel>>(
+            stream: readAudio(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return const Text('Ошибка');
+              }
+              if (snapshot.hasData) {
+                final audio = snapshot.data!;
+                return ListView(
+                  children: audio.map(buildAudio).toList(),
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
+        ),
+      ],
     );
   }
 }

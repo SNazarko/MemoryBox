@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/models/audio_model.dart';
+import 'package:memory_box/pages/audio_recordings_page.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
@@ -490,7 +491,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
               ),
             ),
             const SizedBox(
-              height: 90.0,
+              height: 70.0,
             ),
             _buildControl(),
           ],
@@ -527,10 +528,10 @@ class _AudioPlayerState extends State<AudioPlayer> {
                   _saveRecord,
                   Provider.of<ModelRP>(context, listen: false).getDuration);
 
-              // Navigator.pushNamed(
-              //   context,
-              //   '/SavePage',
-              // );
+              Navigator.pushNamed(
+                context,
+                AudioRecordingsPage.rootName,
+              );
             },
             child: const Text(
               'Сохранить',
@@ -543,30 +544,43 @@ class _AudioPlayerState extends State<AudioPlayer> {
   }
 
   Widget _buildControl() {
-    Icon icon;
-    Color color;
+    Widget icon;
 
     if (_audioPlayer.playerState.playing) {
-      icon = Icon(Icons.pause, color: Colors.red, size: 70);
-      color = Colors.red.withOpacity(0.1);
+      icon = Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          child: Image.asset(
+            AppIcons.stop,
+            fit: BoxFit.fill,
+          ),
+        ),
+      );
     } else {
-      final theme = Theme.of(context);
-      icon = Icon(Icons.play_arrow, color: theme.primaryColor, size: 70);
-      color = theme.primaryColor.withOpacity(0.1);
+      icon = Container(
+        child: Image.asset(
+          AppIcons.play,
+          fit: BoxFit.fill,
+        ),
+      );
     }
 
-    return ClipOval(
-      child: Material(
-        color: color,
-        child: InkWell(
-          child: SizedBox(width: 80, height: 80, child: icon),
-          onTap: () {
-            if (_audioPlayer.playerState.playing) {
-              pause();
-            } else {
-              play();
-            }
-          },
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: ClipOval(
+        child: Material(
+          child: InkWell(
+            child: SizedBox(width: 97, height: 97, child: icon),
+            onTap: () {
+              if (_audioPlayer.playerState.playing) {
+                pause();
+                setState(() {});
+              } else {
+                setState(() {});
+                play();
+              }
+            },
+          ),
         ),
       ),
     );

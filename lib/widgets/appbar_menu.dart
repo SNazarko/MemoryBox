@@ -13,7 +13,7 @@ class AppbarMenu extends StatelessWidget {
     return Container(
       child: Stack(children: [
         Container(
-          height: screenHeight / 1.1038,
+          height: screenHeight / 1.27,
         ),
         ClipPath(
           clipper: AppbarClipper(),

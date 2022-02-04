@@ -7,10 +7,12 @@ import 'package:just_audio/just_audio.dart' as ap;
 import 'package:memory_box/resources/app_icons.dart';
 
 class PlayerMini extends StatefulWidget {
-  const PlayerMini({Key? key, required this.url, required this.name})
+  const PlayerMini(
+      {Key? key, required this.url, required this.name, required this.duration})
       : super(key: key);
   final url;
   final name;
+  final duration;
   @override
   State<PlayerMini> createState() => _PlayerMiniState();
 }
@@ -139,9 +141,9 @@ class _PlayerMiniState extends State<PlayerMini> {
                       fontSize: 14.0,
                     ),
                   ),
-                  const Text(
-                    '30 минут',
-                    style: TextStyle(
+                  Text(
+                    '${widget.duration} минут',
+                    style: const TextStyle(
                       color: AppColor.colorText,
                     ),
                   ),

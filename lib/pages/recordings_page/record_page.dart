@@ -157,7 +157,6 @@ class _AudioRecorderState extends State<AudioRecorder> {
         const SizedBox(
           height: 120,
         ),
-
         _amplitudRecords(),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -182,19 +181,6 @@ class _AudioRecorderState extends State<AudioRecorder> {
           height: 40,
         ),
         _buildRecordStopControl(),
-
-        // Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        //   _buildRecordStopControl(),
-        //   const SizedBox(width: 20),
-        //   // _buildPauseResumeControl(),
-        //   const SizedBox(width: 20),
-        //   _buildText(),
-        //   // if (_amplitude != null) ...[
-        //   //   const SizedBox(height: 40),
-        //   //   Text('Current: ${_amplitude?.current ?? 0.0}'),
-        //   //   Text('Max: ${_amplitude?.max ?? 0.0}'),
-        //   // ],
-        // ])
       ],
     );
   }
@@ -217,16 +203,18 @@ class _AudioRecorderState extends State<AudioRecorder> {
   }
 
   Widget _buildRecordStopControl() {
-    late Icon icon;
+    late Widget icon;
     late Color color;
 
     if (_isRecording || _isPaused) {
-      icon = Icon(Icons.pause_circle_filled, color: Colors.orange, size: 70);
+      icon = Image.asset(
+        AppIcons.stop,
+        fit: BoxFit.fill,
+      );
       color = Colors.red.withOpacity(0.1);
     } else {
-      final theme = Theme.of(context);
-      icon = Icon(Icons.mic, color: theme.primaryColor, size: 70);
-      color = theme.primaryColor.withOpacity(0.1);
+      icon = Icon(Icons.mic, color: AppColor.white, size: 70);
+      color = Colors.orange.withOpacity(0.5);
     }
 
     return ClipOval(
@@ -242,35 +230,35 @@ class _AudioRecorderState extends State<AudioRecorder> {
     );
   }
 
-  Widget _buildPauseResumeControl() {
-    if (!_isRecording && !_isPaused) {
-      return const SizedBox.shrink();
-    }
-
-    late Icon icon;
-    late Color color;
-
-    if (!_isPaused) {
-      icon = Icon(Icons.pause, color: Colors.red, size: 30);
-      color = Colors.red.withOpacity(0.1);
-    } else {
-      final theme = Theme.of(context);
-      icon = Icon(Icons.play_arrow, color: Colors.red, size: 30);
-      color = theme.primaryColor.withOpacity(0.1);
-    }
-
-    return ClipOval(
-      child: Material(
-        color: color,
-        child: InkWell(
-          child: SizedBox(width: 56, height: 56, child: icon),
-          onTap: () {
-            _isPaused ? _resume() : _pause();
-          },
-        ),
-      ),
-    );
-  }
+  // Widget _buildPauseResumeControl() {
+  //   if (!_isRecording && !_isPaused) {
+  //     return const SizedBox.shrink();
+  //   }
+  //
+  //   late Icon icon;
+  //   late Color color;
+  //
+  //   if (!_isPaused) {
+  //     icon = Icon(Icons.pause, color: Colors.red, size: 30);
+  //     color = Colors.red.withOpacity(0.1);
+  //   } else {
+  //     final theme = Theme.of(context);
+  //     icon = Icon(Icons.play_arrow, color: Colors.red, size: 30);
+  //     color = theme.primaryColor.withOpacity(0.1);
+  //   }
+  //
+  //   return ClipOval(
+  //     child: Material(
+  //       color: color,
+  //       child: InkWell(
+  //         child: SizedBox(width: 56, height: 56, child: icon),
+  //         onTap: () {
+  //           _isPaused ? _resume() : _pause();
+  //         },
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _amplitudRecords() {
     return SizedBox(
@@ -318,7 +306,7 @@ class _AudioRecorderState extends State<AudioRecorder> {
   Widget _buildTimer() {
     final String minutes = _formatNumber(_recordDuration ~/ 60);
     final String seconds = _formatNumber(_recordDuration % 60);
-
+    context.read<ModelRP>().setDuration(minutes, seconds);
     return Text(
       '$minutes : $seconds',
       style: const TextStyle(color: Colors.red),
@@ -517,7 +505,8 @@ class _AudioPlayerState extends State<AudioPlayer> {
               // SaveAudio(_saveRecord).saveFile();
               UserRepositories().uploadAudio(
                   Provider.of<ModelRP>(context, listen: false).getData,
-                  _saveRecord);
+                  _saveRecord,
+                  Provider.of<ModelRP>(context, listen: false).getDuration);
 
               // Navigator.pushNamed(
               //   context,

@@ -211,6 +211,7 @@ class _ListPlayers extends StatelessWidget {
           snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
 
   Widget buildAudio(AudioModel audio) => PlayerMini(
+        duration: '${audio.duration}',
         url: '${audio.audioUrl}',
         name: '${audio.audioName}',
       );

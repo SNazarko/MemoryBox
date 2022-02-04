@@ -25,6 +25,7 @@ class _TestState extends State<Test> {
   Widget buildAudio(AudioModel audio) => PlayerMini(
         url: '${audio.audioUrl}',
         name: '${audio.audioName}',
+        duration: null,
       );
 
   @override

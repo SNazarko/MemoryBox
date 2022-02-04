@@ -400,8 +400,8 @@ class AudioPlayer extends StatefulWidget {
 }
 
 class _AudioPlayerState extends State<AudioPlayer> {
-  // static const double _controlSize = 56;
-  // static const double _deleteBtnSize = 24;
+  static const double _controlSize = 56;
+  static const double _deleteBtnSize = 24;
 
   final _audioPlayer = ap.AudioPlayer();
   late StreamSubscription<ap.PlayerState> _playerStateChangedSubscription;
@@ -410,6 +410,12 @@ class _AudioPlayerState extends State<AudioPlayer> {
   final TextEditingController _controller =
       TextEditingController(text: 'Аудиофайл');
   String _saveRecord = 'Аудиофайл';
+  bool _isPlay = false;
+  bool _isPaused = false;
+  Timer? _timer;
+  Timer? _ampTimer;
+  Amplitude? _amplitude;
+  int _recordDuration = 0;
 
   @override
   void initState() {
@@ -430,11 +436,13 @@ class _AudioPlayerState extends State<AudioPlayer> {
   }
 
   Future<void> _init() async {
+    bool _isPlay = false;
     await _audioPlayer.setAudioSource(widget.source);
   }
 
   @override
   void dispose() {
+    _timer?.cancel();
     _playerStateChangedSubscription.cancel();
     _positionChangedSubscription.cancel();
     _durationChangedSubscription.cancel();
@@ -450,7 +458,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
           children: [
             _icon(),
             const SizedBox(
-              height: 75,
+              height: 75.0,
             ),
             SizedBox(
               width: 200.0,
@@ -467,11 +475,22 @@ class _AudioPlayerState extends State<AudioPlayer> {
               ),
             ),
             const SizedBox(
-              height: 100,
+              height: 100.0,
             ),
             _buildSlider(constraints.maxWidth),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _buildText(),
+                  Text(
+                      '${Provider.of<ModelRP>(context, listen: false).getDuration}'),
+                ],
+              ),
+            ),
             const SizedBox(
-              height: 100,
+              height: 90.0,
             ),
             _buildControl(),
           ],
@@ -562,11 +581,11 @@ class _AudioPlayerState extends State<AudioPlayer> {
       canSetValue &= position.inMilliseconds < duration.inMilliseconds;
     }
 
-    // double width = widgetWidth - _controlSize - _deleteBtnSize;
-    // width -= _deleteBtnSize;
+    double width = widgetWidth - _controlSize - _deleteBtnSize;
+    width -= _deleteBtnSize;
 
     return SizedBox(
-      width: 300,
+      width: width * 2,
       child: SliderTheme(
         data: SliderTheme.of(context).copyWith(
             thumbShape: RoundedAmebaThumbShape(radius: 8),
@@ -589,15 +608,61 @@ class _AudioPlayerState extends State<AudioPlayer> {
   }
 
   Future<void> play() {
+    setState(() => _isPlay = true);
+    _startTimer();
     return _audioPlayer.play();
   }
 
   Future<void> pause() {
+    setState(() => _isPaused = true);
+    _timer?.cancel();
     return _audioPlayer.pause();
   }
 
   Future<void> stop() async {
     await _audioPlayer.stop();
+    _timer?.cancel();
+    setState(() => _recordDuration = 0);
     return _audioPlayer.seek(const Duration(milliseconds: 0));
+  }
+
+  void _startTimer() {
+    _timer?.cancel();
+    // _ampTimer?.cancel();
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
+      setState(() => _recordDuration++);
+    });
+
+    // _ampTimer =
+    //     Timer.periodic(const Duration(milliseconds: 200), (Timer t) async {
+    //       _amplitude = await _audioRecorder.getAmplitude();
+    //       setState(() {});
+    //     });
+  }
+
+  Widget _buildText() {
+    if (_isPlay || _isPaused) {
+      return _buildTimer();
+    }
+
+    return Text('00:00');
+  }
+
+  Widget _buildTimer() {
+    final String minutes = _formatNumber(_recordDuration ~/ 60);
+    final String seconds = _formatNumber(_recordDuration % 60);
+    return Text(
+      '$minutes : $seconds',
+    );
+  }
+
+  String _formatNumber(int number) {
+    String numberStr = number.toString();
+    if (number < 10) {
+      numberStr = '0' + numberStr;
+    }
+
+    return numberStr;
   }
 }

@@ -84,7 +84,7 @@ class _PlayerMiniState extends State<PlayerMini> {
       child: ClipOval(
         child: Material(
           child: InkWell(
-            child: SizedBox(width: 70, height: 70, child: icon),
+            child: SizedBox(width: 65, height: 65, child: icon),
             onTap: () {
               if (player.playerState.playing) {
                 pause();
@@ -137,6 +137,9 @@ class _PlayerMiniState extends State<PlayerMini> {
                 children: [
                   Text(
                     widget.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.fade,
+                    softWrap: true,
                     style: const TextStyle(
                       fontSize: 14.0,
                     ),
@@ -144,7 +147,7 @@ class _PlayerMiniState extends State<PlayerMini> {
                   Text(
                     '${widget.duration} минут',
                     style: const TextStyle(
-                      color: AppColor.colorText,
+                      color: AppColor.colorText50,
                     ),
                   ),
                 ],

@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/models/audio_model.dart';
+import 'package:memory_box/pages/audio_recordings_page.dart';
 import 'package:memory_box/pages/authorization_page/first_authorization_page.dart';
 import 'package:memory_box/pages/logo_page/screensaver_page.dart';
 import 'package:memory_box/pages/recordings_page/record_page.dart';
@@ -8,6 +11,7 @@ import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/bottom_nav_bar.dart';
 import 'package:memory_box/widgets/drawer_menu.dart';
+import 'package:memory_box/widgets/player_mini.dart';
 import '../resources/constants.dart';
 
 class HomePage extends StatelessWidget {
@@ -218,6 +222,17 @@ class _AppbarHeader extends StatelessWidget {
 class _MenuSound extends StatelessWidget {
   _MenuSound({Key? key, required this.screenHeight}) : super(key: key);
   final double screenHeight;
+  Stream<List<AudioModel>> readAudio() => FirebaseFirestore.instance
+      .collection('Колекции')
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
+
+  Widget buildAudio(AudioModel audio) => PlayerMini(
+        duration: '${audio.duration}',
+        url: '${audio.audioUrl}',
+        name: '${audio.audioName}',
+      );
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -254,7 +269,8 @@ class _MenuSound extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, Screensaver.rootName);
+                      Navigator.pushNamed(
+                          context, AudioRecordingsPage.rootName);
                     },
                     child: const Text(
                       'Открыть все',
@@ -264,20 +280,41 @@ class _MenuSound extends StatelessWidget {
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: 50.0,
-                horizontal: 40.0,
+            Container(
+              height: screenHeight * 0.78,
+              child: StreamBuilder<List<AudioModel>>(
+                stream: readAudio(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return const Text('Ошибка');
+                  }
+                  if (snapshot.hasData) {
+                    final audio = snapshot.data!;
+                    return ListView(
+                      children: audio.map(buildAudio).toList(),
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
               ),
-              child: Text(
-                'Как только ты запишешь аудио, она появится здесь.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: AppColor.colorText50,
-                ),
-              ),
-            ),
+            )
+            // const Padding(
+            //   padding: EdgeInsets.symmetric(
+            //     vertical: 50.0,
+            //     horizontal: 40.0,
+            //   ),
+            //   child: Text(
+            //     'Как только ты запишешь аудио, она появится здесь.',
+            //     textAlign: TextAlign.center,
+            //     style: TextStyle(
+            //       fontSize: 20.0,
+            //       color: AppColor.colorText50,
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

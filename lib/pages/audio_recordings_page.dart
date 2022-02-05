@@ -222,8 +222,7 @@ class _ListPlayers extends StatelessWidget {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.only(top: 127),
-          height: screenHeight * 0.60,
+          height: screenHeight * 0.95,
           child: StreamBuilder<List<AudioModel>>(
             stream: readAudio(),
             builder: (context, snapshot) {
@@ -233,6 +232,7 @@ class _ListPlayers extends StatelessWidget {
               if (snapshot.hasData) {
                 final audio = snapshot.data!;
                 return ListView(
+                  padding: EdgeInsets.only(top: 127),
                   children: audio.map(buildAudio).toList(),
                 );
               } else {

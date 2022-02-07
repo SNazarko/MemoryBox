@@ -1,7 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/pages/authorization_page/first_authorization_page/widgets/appbar_header.dart';
 import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
@@ -9,8 +9,13 @@ import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
 
+class _FirstAuthorizationPageArguments {
+  _FirstAuthorizationPageArguments({this.shouldPop});
+  bool? shouldPop = false;
+}
+
 class FirstAuthorizationPage extends StatefulWidget {
-  const FirstAuthorizationPage({Key? key}) : super(key: key);
+  FirstAuthorizationPage({Key? key}) : super(key: key);
   static const rootName = '/first_authorization_page';
 
   @override
@@ -18,10 +23,12 @@ class FirstAuthorizationPage extends StatefulWidget {
 }
 
 class _FirstAuthorizationPageState extends State<FirstAuthorizationPage> {
-  final bool shouldPop = false;
+  _FirstAuthorizationPageArguments arguments =
+      _FirstAuthorizationPageArguments();
+
   @override
   void initState() {
-    Timer(Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.pushNamed(context, HomePage.rootName);
     });
     super.initState();
@@ -31,23 +38,23 @@ class _FirstAuthorizationPageState extends State<FirstAuthorizationPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return shouldPop;
+        return arguments.shouldPop!;
       },
       child: Scaffold(
         body: Column(
           children: [
-            const _AppbarHeader(),
+            const AppbarHeader(),
             const SizedBox(
               height: 40.0,
             ),
             const ContainerShadow(
-                width: 300,
-                height: 80,
+                width: 300.0,
+                height: 80.0,
                 widget: Text(
                   'Мы рады тебя видеть',
                   style: kBodiTextStyle,
                 ),
-                radius: 20),
+                radius: 20.0),
             const SizedBox(
               height: 50.0,
             ),
@@ -56,52 +63,16 @@ class _FirstAuthorizationPageState extends State<FirstAuthorizationPage> {
               height: 50.0,
             ),
             const ContainerShadow(
-                width: 250,
-                height: 75,
+                width: 250.0,
+                height: 75.0,
                 widget: Text(
                   'Взрослые иногда нуждаются в \n сказке даже больше, чем дети',
                   style: kBodi2TextStyle,
                 ),
-                radius: 20),
+                radius: 20.0),
           ],
         ),
       ),
     );
-  }
-}
-
-class _AppbarHeader extends StatelessWidget {
-  const _AppbarHeader({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipPath(
-        clipper: AppbarClipper(),
-        child: Container(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Hero(
-                  tag: 'logo',
-                  child: Container(
-                    child: const Text(
-                      'MemoryBox',
-                      style: kTitleTextStyle,
-                    ),
-                  ),
-                ),
-                const Text(
-                  'Твой голос всегда рядом',
-                  style: kTitle2TextStyle,
-                )
-              ],
-            ),
-          ),
-          color: AppColor.colorAppbar,
-          width: double.infinity,
-          height: 285.0,
-        ));
   }
 }

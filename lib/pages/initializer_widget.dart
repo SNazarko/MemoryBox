@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/authorization_page/first_authorization_page.dart';
+import 'package:memory_box/pages/authorization_page/first_authorization_page/first_authorization_page.dart';
 import 'package:memory_box/pages/authorization_page/first_page.dart';
 import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/pages/authorization_page/registration_page.dart';

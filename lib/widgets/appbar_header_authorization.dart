@@ -3,8 +3,11 @@ import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 
-class AppbarHeader extends StatelessWidget {
-  const AppbarHeader({Key? key}) : super(key: key);
+class AppbarHeaderAuthorization extends StatelessWidget {
+  const AppbarHeaderAuthorization({Key? key, this.title, this.subtitle})
+      : super(key: key);
+  final String? title;
+  final String? subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +20,13 @@ class AppbarHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Container(
-                  child: const Text(
-                    'MemoryBox',
+                  child: Text(
+                    title!,
                     style: kTitleTextStyle,
                   ),
                 ),
-                const Text(
-                  'Твой голос всегда рядом',
+                Text(
+                  subtitle!,
                   style: kTitle2TextStyle,
                 )
               ],

@@ -41,7 +41,10 @@ class _FirstAuthorizationPageState extends State<FirstAuthorizationPage> {
       child: Scaffold(
         body: Column(
           children: [
-            const AppbarHeader(),
+            const AppbarHeaderAuthorization(
+              title: 'MemoryBox',
+              subtitle: 'Твой голос всегда рядом',
+            ),
             const SizedBox(
               height: 40.0,
             ),

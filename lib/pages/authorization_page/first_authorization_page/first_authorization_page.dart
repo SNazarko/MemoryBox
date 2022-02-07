@@ -3,10 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/authorization_page/first_authorization_page/widgets/appbar_header.dart';
 import 'package:memory_box/pages/home_page.dart';
-import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/resources/constants.dart';
-import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
 
 class _FirstAuthorizationPageArguments {
@@ -15,7 +13,7 @@ class _FirstAuthorizationPageArguments {
 }
 
 class FirstAuthorizationPage extends StatefulWidget {
-  FirstAuthorizationPage({Key? key}) : super(key: key);
+  const FirstAuthorizationPage({Key? key}) : super(key: key);
   static const rootName = '/first_authorization_page';
 
   @override

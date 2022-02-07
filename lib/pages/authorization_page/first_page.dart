@@ -1,28 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/initializer_widget.dart';
 import 'package:memory_box/pages/authorization_page/registration_page.dart';
-import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/button_continue.dart';
+import 'first_authorization_page/widgets/appbar_header.dart';
 
-import '../../resources/constants.dart';
+class _FirstPageArguments {
+  _FirstPageArguments({this.shouldPop});
+  bool? shouldPop = false;
+}
 
 class FirstPage extends StatelessWidget {
   FirstPage({Key? key}) : super(key: key);
   static const rootName = '/';
-  bool shouldPop = false;
+  final _FirstPageArguments _arguments = _FirstPageArguments();
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return shouldPop;
+        return _arguments.shouldPop!;
       },
       child: Scaffold(
         body: Column(
           children: [
-            _AppbarHeader(),
+            const AppbarHeader(),
             const SizedBox(
               height: 40.0,
             ),
@@ -57,41 +58,5 @@ class FirstPage extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class _AppbarHeader extends StatelessWidget {
-  const _AppbarHeader({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipPath(
-        clipper: AppbarClipper(),
-        child: Container(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Hero(
-                  tag: 'logo',
-                  child: Container(
-                    child: const Text(
-                      'MemoryBox',
-                      style: kTitleTextStyle,
-                    ),
-                  ),
-                ),
-                const Text(
-                  'Твой голос всегда рядом',
-                  style: kTitle2TextStyle,
-                )
-              ],
-            ),
-          ),
-          color: AppColor.colorAppbar,
-          width: double.infinity,
-          height: 285.0,
-        ));
   }
 }

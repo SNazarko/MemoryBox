@@ -493,7 +493,32 @@ class _AudioPlayerState extends State<AudioPlayer> {
             const SizedBox(
               height: 70.0,
             ),
-            _buildControl(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  onPressed: () async {
+                    await _audioPlayer.seek(
+                      Duration(seconds: _audioPlayer.position.inSeconds - 15),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.replay_10,
+                  ),
+                ),
+                _buildControl(),
+                IconButton(
+                  onPressed: () async {
+                    await _audioPlayer.seek(
+                      Duration(seconds: _audioPlayer.position.inSeconds + 15),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.forward_10,
+                  ),
+                ),
+              ],
+            ),
           ],
         );
       },
@@ -523,7 +548,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
           child: TextButton(
             onPressed: () {
               // SaveAudio(_saveRecord).saveFile();
-              UserRepositories().uploadAudio(
+              AudioRepositories().uploadAudio(
                   Provider.of<ModelRP>(context, listen: false).getData,
                   _saveRecord,
                   Provider.of<ModelRP>(context, listen: false).getDuration);

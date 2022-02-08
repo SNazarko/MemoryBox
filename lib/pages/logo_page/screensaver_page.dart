@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/pages/authorization_page/first_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 
-import '../initializer_widget.dart';
+import '../authorization_page/initializer_widget.dart';
 
 class Screensaver extends StatefulWidget {
   const Screensaver({Key? key}) : super(key: key);

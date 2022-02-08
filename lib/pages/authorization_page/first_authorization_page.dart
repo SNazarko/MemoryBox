@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/authorization_page/first_authorization_page/widgets/appbar_header.dart';
+import 'package:memory_box/widgets/appbar_header_authorization.dart';
 import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/resources/constants.dart';

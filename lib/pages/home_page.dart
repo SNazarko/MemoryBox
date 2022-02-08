@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/pages/audio_recordings_page.dart';
-import 'package:memory_box/pages/authorization_page/first_authorization_page/first_authorization_page.dart';
+import 'package:memory_box/pages/authorization_page/first_authorization_page.dart';
 import 'package:memory_box/pages/logo_page/screensaver_page.dart';
 import 'package:memory_box/pages/recordings_page/record_page.dart';
 import 'package:memory_box/pages/test.dart';
@@ -223,7 +223,7 @@ class _MenuSound extends StatelessWidget {
   _MenuSound({Key? key, required this.screenHeight}) : super(key: key);
   final double screenHeight;
   Stream<List<AudioModel>> readAudio() => FirebaseFirestore.instance
-      .collection('Колекции')
+      .collection('Collections')
       .snapshots()
       .map((snapshot) =>
           snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());

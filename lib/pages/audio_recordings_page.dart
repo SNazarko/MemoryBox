@@ -205,7 +205,7 @@ class _AppbarPlayer extends StatelessWidget {
 class _ListPlayers extends StatelessWidget {
   const _ListPlayers({Key? key}) : super(key: key);
   Stream<List<AudioModel>> readAudio() => FirebaseFirestore.instance
-      .collection('Колекции')
+      .collection('Collections')
       .snapshots()
       .map((snapshot) =>
           snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
@@ -232,7 +232,7 @@ class _ListPlayers extends StatelessWidget {
               if (snapshot.hasData) {
                 final audio = snapshot.data!;
                 return ListView(
-                  padding: EdgeInsets.only(top: 127),
+                  padding: EdgeInsets.only(top: 127, bottom: 110),
                   children: audio.map(buildAudio).toList(),
                 );
               } else {

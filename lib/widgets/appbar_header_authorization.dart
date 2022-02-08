@@ -19,11 +19,9 @@ class AppbarHeaderAuthorization extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Container(
-                  child: Text(
-                    title!,
-                    style: kTitleTextStyle,
-                  ),
+                Text(
+                  title!,
+                  style: kTitleTextStyle,
                 ),
                 Text(
                   subtitle!,

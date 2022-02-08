@@ -2,13 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/authorization_page/last_authorization_page.dart';
+import 'package:memory_box/pages/authorization_page/registration_page/widget/text_field_captcha.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/button_continue.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
 import 'package:memory_box/widgets/textfield_input.dart';
-import '../../resources/constants.dart';
+import '../../../resources/constants.dart';
+import '../../../widgets/appbar_header_authorization.dart';
 
 enum MobileVerificationState {
   showMobileFormState,
@@ -156,30 +158,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const _AppbarHeader(),
+            const AppbarHeaderAuthorization(
+              title: 'Регистрация',
+              subtitle: '',
+            ),
             const SizedBox(
               height: 20.0,
             ),
             showLoading
-                ? CircularProgressIndicator()
+                ? const CircularProgressIndicator()
                 : currentState == MobileVerificationState.showMobileFormState
                     ? getMobileFormWidget(context)
                     : getOtpFormWidget(context),
-
-            // const Text(
-            //   'Введи номер телефона',
-            //   style: TextStyle(
-            //     fontSize: 16.0,
-            //   ),
-            // ),
-            // const SizedBox(
-            //   height: 15.0,
-            // ),
-            // TextFieldInput(),
-            // const SizedBox(
-            //   height: 60.0,
-            // ),
-            // ButtonContinue(onPressed: () {}),
             const SizedBox(
               height: 15.0,
             ),
@@ -211,69 +201,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
               ),
             )
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class _AppbarHeader extends StatelessWidget {
-  const _AppbarHeader({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipPath(
-      clipper: AppbarClipper(),
-      child: Container(
-        child: const Center(
-            child: Text(
-          'Регистрация',
-          style: kTitleTextStyle,
-        )),
-        color: AppColor.colorAppbar,
-        width: double.infinity,
-        height: 285.0,
-      ),
-    );
-  }
-}
-
-class TextFieldCaptcha extends StatelessWidget {
-  const TextFieldCaptcha({Key? key, this.controller}) : super(key: key);
-  final controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 50.0,
-      width: 275.0,
-      decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(30.0),
-          ),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Colors.grey.shade300,
-              offset: const Offset(0.0, 5.0),
-              blurRadius: 5.0,
-            )
-          ]),
-      child: TextField(
-        controller: controller,
-        keyboardType: TextInputType.number,
-        textAlign: TextAlign.center,
-        style: const TextStyle(color: Colors.black),
-        decoration: const InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          hintStyle: TextStyle(
-            color: Colors.black,
-          ),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(30.0),
-              ),
-              borderSide: BorderSide.none),
         ),
       ),
     );

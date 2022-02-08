@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/authorization_page/registration_page.dart';
+import 'package:memory_box/pages/authorization_page/registration_page/registration_page.dart';
 import 'package:memory_box/widgets/button_continue.dart';
-import 'first_authorization_page/widgets/appbar_header.dart';
+import '../../widgets/appbar_header_authorization.dart';
 
 class _FirstPageArguments {
   _FirstPageArguments({this.shouldPop});
@@ -23,7 +23,10 @@ class FirstPage extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
-            const AppbarHeader(),
+            const AppbarHeaderAuthorization(
+              title: 'MemoryBox',
+              subtitle: 'Твой голос всегда рядом',
+            ),
             const SizedBox(
               height: 40.0,
             ),

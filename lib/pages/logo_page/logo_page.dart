@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:memory_box/models/audio_model.dart';
-import 'package:memory_box/models/data_model_user.dart';
+import 'package:memory_box/pages/profile_page/data_model_user.dart';
 import 'package:memory_box/models/user_model.dart';
 import 'package:memory_box/pages/logo_page/screensaver_page.dart';
 import 'package:memory_box/resources/app_colors.dart';

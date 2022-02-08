@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:memory_box/models/data_model_user.dart';
+import 'package:memory_box/pages/profile_page/data_model_user.dart';
 import 'package:memory_box/models/preferences_data_model_user.dart';
 import 'package:memory_box/models/user_model.dart';
 import 'package:memory_box/repositories/user_repositories.dart';

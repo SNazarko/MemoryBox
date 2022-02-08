@@ -501,6 +501,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
                     await _audioPlayer.seek(
                       Duration(seconds: _audioPlayer.position.inSeconds - 15),
                     );
+                    _recordDuration - 15;
                   },
                   icon: const Icon(
                     Icons.replay_10,
@@ -512,6 +513,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
                     await _audioPlayer.seek(
                       Duration(seconds: _audioPlayer.position.inSeconds + 15),
                     );
+                    _recordDuration + 15;
                   },
                   icon: const Icon(
                     Icons.forward_10,

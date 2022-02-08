@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:memory_box/pages/podborki_page/podborki_edit_model.dart';
+import 'package:memory_box/repositories/collections_repositories.dart';
+import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
@@ -7,6 +11,7 @@ import 'package:memory_box/widgets/bottom_nav_bar.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
 import 'package:memory_box/widgets/icon_back.dart';
 import 'package:memory_box/widgets/icon_camera.dart';
+import 'package:provider/provider.dart';
 
 class PodborkiEdit extends StatelessWidget {
   const PodborkiEdit({Key? key}) : super(key: key);
@@ -21,8 +26,8 @@ class PodborkiEdit extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
-              children: const [
-                _AppbarHeaderProfileEdit(),
+              children: [
+                const _AppbarHeaderProfileEdit(),
                 _FotoContainer(),
               ],
             ),
@@ -43,7 +48,9 @@ class PodborkiEdit extends StatelessWidget {
                 horizontal: 16.0,
               ),
               child: TextField(
-                onChanged: (userName) {},
+                onChanged: (subTitle) {
+                  context.read<PodborkiEditModel>().userSubTitle(subTitle);
+                },
                 style: const TextStyle(
                   fontSize: 16.0,
                 ),
@@ -84,8 +91,15 @@ class PodborkiEdit extends StatelessWidget {
   }
 }
 
-class _FotoContainer extends StatelessWidget {
-  const _FotoContainer({Key? key}) : super(key: key);
+class _FotoContainer extends StatefulWidget {
+  _FotoContainer({Key? key}) : super(key: key);
+
+  @override
+  State<_FotoContainer> createState() => _FotoContainerState();
+}
+
+class _FotoContainerState extends State<_FotoContainer> {
+  String? singleImage;
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +115,14 @@ class _FotoContainer extends StatelessWidget {
           height: 240.0,
           widget: IconCamera(
             color: AppColor.glass,
-            onTap: () {},
+            onTap: () async {
+              XFile? _image = await UserRepositories().singleImagePick();
+              if (_image != null && _image.path.isNotEmpty) {
+                singleImage = await UserRepositories().uploadImage(_image);
+                context.read<PodborkiEditModel>().image(singleImage!);
+                setState(() {});
+              }
+            },
             colorBorder: AppColor.colorText80,
             position: 0.0,
           ),
@@ -145,7 +166,16 @@ class _AppbarHeaderProfileEdit extends StatelessWidget {
                 ),
               ),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    CollectionsRepositories().addCollections(
+                      Provider.of<PodborkiEditModel>(context, listen: false)
+                          .getTitle,
+                      Provider.of<PodborkiEditModel>(context, listen: false)
+                          .getSubTitle,
+                      Provider.of<PodborkiEditModel>(context, listen: false)
+                          .getImage,
+                    );
+                  },
                   child: const Text(
                     'Готово',
                     style: TextStyle(
@@ -156,15 +186,18 @@ class _AppbarHeaderProfileEdit extends StatelessWidget {
             ],
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.only(top: 90.0, left: 15.0, right: 15.0),
+        Padding(
+          padding: const EdgeInsets.only(top: 90.0, left: 15.0, right: 15.0),
           child: TextField(
-            style: TextStyle(
+            onChanged: (title) {
+              context.read<PodborkiEditModel>().userTitle(title);
+            },
+            style: const TextStyle(
               fontSize: 24.0,
               color: AppColor.white100,
               fontWeight: FontWeight.w700,
             ),
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               border: InputBorder.none,
               hintText: 'Название',
               hintStyle: TextStyle(fontSize: 24.0, color: AppColor.white100),

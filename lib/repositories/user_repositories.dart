@@ -2,11 +2,9 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:image_picker/image_picker.dart';
-import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/models/user_model.dart';
 
 class UserRepositories {
-  UserModel userModel = UserModel();
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
 

@@ -10,6 +10,12 @@ class AudioRepositories {
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
 
+  Stream<List<AudioModel>> readAudio() => FirebaseFirestore.instance
+      .collection('Collections')
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
+
   Future<void> uploadAudio(String path, String name, String duration) async {
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
         .ref('userAudio/${getAudioName(path)}');

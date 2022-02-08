@@ -7,6 +7,7 @@ import 'package:memory_box/pages/authorization_page/first_authorization_page.dar
 import 'package:memory_box/pages/logo_page/screensaver_page.dart';
 import 'package:memory_box/pages/recordings_page/record_page.dart';
 import 'package:memory_box/pages/test.dart';
+import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/bottom_nav_bar.dart';
@@ -221,12 +222,8 @@ class _AppbarHeader extends StatelessWidget {
 
 class _MenuSound extends StatelessWidget {
   _MenuSound({Key? key, required this.screenHeight}) : super(key: key);
+  AudioRepositories repositories = AudioRepositories();
   final double screenHeight;
-  Stream<List<AudioModel>> readAudio() => FirebaseFirestore.instance
-      .collection('Collections')
-      .snapshots()
-      .map((snapshot) =>
-          snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
 
   Widget buildAudio(AudioModel audio) => PlayerMini(
         duration: '${audio.duration}',
@@ -283,7 +280,7 @@ class _MenuSound extends StatelessWidget {
             Container(
               height: screenHeight * 0.78,
               child: StreamBuilder<List<AudioModel>>(
-                stream: readAudio(),
+                stream: repositories.readAudio(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return const Text('Ошибка');

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/bloc_all/bloc_all_bloc.dart';
 import 'package:memory_box/models/audio_model.dart';
+import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
@@ -203,13 +204,8 @@ class _AppbarPlayer extends StatelessWidget {
 }
 
 class _ListPlayers extends StatelessWidget {
-  const _ListPlayers({Key? key}) : super(key: key);
-  Stream<List<AudioModel>> readAudio() => FirebaseFirestore.instance
-      .collection('Collections')
-      .snapshots()
-      .map((snapshot) =>
-          snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
-
+  _ListPlayers({Key? key}) : super(key: key);
+  AudioRepositories repositories = AudioRepositories();
   Widget buildAudio(AudioModel audio) => PlayerMini(
         duration: '${audio.duration}',
         url: '${audio.audioUrl}',
@@ -224,7 +220,7 @@ class _ListPlayers extends StatelessWidget {
         Container(
           height: screenHeight * 0.95,
           child: StreamBuilder<List<AudioModel>>(
-            stream: readAudio(),
+            stream: repositories.readAudio(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return const Text('Ошибка');

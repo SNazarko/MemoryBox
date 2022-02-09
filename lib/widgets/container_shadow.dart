@@ -9,12 +9,14 @@ class ContainerShadow extends StatelessWidget {
       required this.width,
       required this.height,
       required this.widget,
-      required this.radius})
+      required this.radius,
+      required this.image})
       : super(key: key);
   final double radius;
   final double width;
   final double height;
   final Widget widget;
+  final Widget image;
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +43,23 @@ class ContainerShadow extends StatelessWidget {
             Radius.circular(radius),
           ),
         ),
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.all(10.0),
-            child: widget,
-          ),
+        child: Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+              child: SizedBox(
+                width: width,
+                height: height,
+                child: image,
+              ),
+            ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: widget,
+              ),
+            ),
+          ],
         ),
       ),
     );

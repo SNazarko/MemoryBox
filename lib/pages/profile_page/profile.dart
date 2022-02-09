@@ -66,6 +66,7 @@ class Profile extends StatelessWidget {
                     height: 10.0,
                   ),
                   ContainerShadow(
+                    image: Text(''),
                     width: screenWidth * 0.75,
                     height: 60.0,
                     radius: 50.0,

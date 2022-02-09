@@ -49,6 +49,7 @@ class _FirstAuthorizationPageState extends State<FirstAuthorizationPage> {
               height: 40.0,
             ),
             const ContainerShadow(
+                image: Text(''),
                 width: 300.0,
                 height: 80.0,
                 widget: Text(
@@ -64,6 +65,7 @@ class _FirstAuthorizationPageState extends State<FirstAuthorizationPage> {
               height: 50.0,
             ),
             const ContainerShadow(
+                image: Text(''),
                 width: 250.0,
                 height: 75.0,
                 widget: Text(

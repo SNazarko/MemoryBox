@@ -11,6 +11,7 @@ import 'package:memory_box/widgets/bottom_nav_bar.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
 import 'package:memory_box/widgets/icon_back.dart';
 import 'package:memory_box/widgets/icon_camera.dart';
+import 'package:memory_box/widgets/image_pick.dart';
 import 'package:provider/provider.dart';
 
 class PodborkiEdit extends StatelessWidget {
@@ -99,6 +100,7 @@ class _FotoContainer extends StatefulWidget {
 }
 
 class _FotoContainerState extends State<_FotoContainer> {
+  ImagePick imagePick = ImagePick();
   String? singleImage;
 
   @override
@@ -111,22 +113,29 @@ class _FotoContainerState extends State<_FotoContainer> {
         right: 15.0,
       ),
       child: ContainerShadow(
-          width: screenWidth * 0.955,
-          height: 240.0,
-          widget: IconCamera(
-            color: AppColor.glass,
-            onTap: () async {
-              XFile? _image = await UserRepositories().singleImagePick();
-              if (_image != null && _image.path.isNotEmpty) {
-                singleImage = await UserRepositories().uploadImage(_image);
-                context.read<PodborkiEditModel>().image(singleImage!);
-                setState(() {});
-              }
-            },
-            colorBorder: AppColor.colorText80,
-            position: 0.0,
-          ),
-          radius: 20.0),
+        image: singleImage != null
+            ? Image.network(
+                '$singleImage',
+                fit: BoxFit.fitWidth,
+              )
+            : Text(''),
+        width: screenWidth * 0.955,
+        height: 240.0,
+        widget: IconCamera(
+          color: AppColor.glass,
+          onTap: () async {
+            XFile? _image = await imagePick.singleImagePick();
+            if (_image != null && _image.path.isNotEmpty) {
+              singleImage = await UserRepositories().uploadImage(_image);
+              context.read<PodborkiEditModel>().image(singleImage!);
+              setState(() {});
+            }
+          },
+          colorBorder: AppColor.colorText80,
+          position: 0.0,
+        ),
+        radius: 20.0,
+      ),
     );
   }
 }
@@ -175,6 +184,7 @@ class _AppbarHeaderProfileEdit extends StatelessWidget {
                       Provider.of<PodborkiEditModel>(context, listen: false)
                           .getImage,
                     );
+                    Navigator.pop(context);
                   },
                   child: const Text(
                     'Готово',

@@ -49,6 +49,7 @@ class _LastAuthorizationPageState extends State<LastAuthorizationPage> {
               height: 40.0,
             ),
             const ContainerShadow(
+                image: Text(''),
                 width: 300.0,
                 height: 80.0,
                 widget: Text(

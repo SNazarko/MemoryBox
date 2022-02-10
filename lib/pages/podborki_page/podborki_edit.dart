@@ -49,6 +49,7 @@ class PodborkiEdit extends StatelessWidget {
                 horizontal: 16.0,
               ),
               child: TextField(
+                maxLines: 3,
                 onChanged: (subTitle) {
                   context.read<PodborkiEditModel>().userSubTitle(subTitle);
                 },

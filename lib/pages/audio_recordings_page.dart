@@ -47,7 +47,7 @@ class AudioRecordingsPage extends StatelessWidget {
               Stack(
                 children: [
                   _ListPlayers(),
-                  _AppbarHeader(),
+                  const _AppbarHeader(),
                 ],
               ),
             ],
@@ -205,7 +205,7 @@ class _AppbarPlayer extends StatelessWidget {
 
 class _ListPlayers extends StatelessWidget {
   _ListPlayers({Key? key}) : super(key: key);
-  AudioRepositories repositories = AudioRepositories();
+  final AudioRepositories repositories = AudioRepositories();
   Widget buildAudio(AudioModel audio) => PlayerMini(
         duration: '${audio.duration}',
         url: '${audio.audioUrl}',

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColor {
+  const AppColor._();
   static const Color white100 = Color(0xFFF6F6F6);
   static const Color white = Color(0xFFFFFFFF);
   static const Color glass = Color(0xFFFFFF);

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:image_picker/image_picker.dart';
+import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/models/collections_model.dart';
 
 class CollectionsRepositories {
@@ -27,5 +27,24 @@ class CollectionsRepositories {
     );
     final json = model.toJson();
     FirebaseFirestore.instance.collection('CollectionsTale').doc().set(json);
+  }
+
+  Future<void> addAudioForCollection(
+    String audioName,
+    String audioUrl,
+    String duration,
+  ) async {
+    final model = AudioModel(
+      audioName: audioName,
+      audioUrl: audioUrl,
+      duration: duration,
+    );
+    final json = model.toJson();
+    FirebaseFirestore.instance
+        .collection('CollectionsTale')
+        .doc()
+        .collection('Audio')
+        .doc()
+        .set(json);
   }
 }

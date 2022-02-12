@@ -4,10 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/pages/authorization_page/first_page.dart';
 import 'package:memory_box/pages/logo_page/logo_page.dart';
 import 'package:memory_box/pages/logo_page/screensaver_page.dart';
+import 'package:memory_box/pages/podborki_page/podborki_add_audio_model.dart';
 import 'package:memory_box/pages/podborki_page/podborki_edit_model.dart';
 import 'package:memory_box/players/bloc/sound_bloc.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/routes/routes.dart';
+import 'package:memory_box/widgets/done_widget/model_done.dart';
 import 'package:provider/provider.dart';
 import 'pages/profile_page/data_model_user.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
@@ -25,6 +27,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider<PodborkiAddAudioModel>(
+            create: (BuildContext context) => PodborkiAddAudioModel()),
         ChangeNotifierProvider<DataModel>(
             create: (BuildContext context) => DataModel()),
         ChangeNotifierProvider<PodborkiEditModel>(

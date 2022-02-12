@@ -8,6 +8,7 @@ import 'package:memory_box/pages/authorization_page/last_authorization_page.dart
 import 'package:memory_box/pages/logo_page/logo_page.dart';
 import 'package:memory_box/pages/play_page.dart';
 import 'package:memory_box/pages/podborki_page/podborki.dart';
+import 'package:memory_box/pages/podborki_page/podborki_add_audio.dart';
 import 'package:memory_box/pages/podborki_page/podborki_edit.dart';
 import 'package:memory_box/pages/profile_page/profile.dart';
 import 'package:memory_box/pages/profile_page/profile_edit.dart';
@@ -52,6 +53,8 @@ class RoutesGenerator {
         return MaterialPageRoute(builder: (_) => LastAuthorizationPage());
       case RecordPage.rootName:
         return MaterialPageRoute(builder: (_) => RecordPage());
+      case PodborkiAddAudio.rootName:
+        return MaterialPageRoute(builder: (_) => PodborkiAddAudio());
       case Test.rootName:
         return MaterialPageRoute(builder: (_) => Test());
       default:

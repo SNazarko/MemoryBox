@@ -5,23 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:just_audio/just_audio.dart' as ap;
 import 'package:memory_box/resources/app_icons.dart';
-import 'package:memory_box/widgets/done_widget/done_widget.dart';
-import 'package:provider/provider.dart';
 
-import 'model_player_mini_podborki.dart';
+import 'done_widget/done_widget.dart';
 
 class PlayerMiniPodborki extends StatefulWidget {
-  const PlayerMiniPodborki(
-      {Key? key,
-      required this.url,
-      required this.name,
-      required this.duration,
-      required this.doneWidget})
-      : super(key: key);
+  const PlayerMiniPodborki({
+    Key? key,
+    required this.url,
+    required this.name,
+    required this.duration,
+  }) : super(key: key);
   final url;
   final name;
   final duration;
-  final Widget doneWidget;
+
   @override
   State<PlayerMiniPodborki> createState() => _PlayerMiniPodborkiState();
 }
@@ -165,7 +162,11 @@ class _PlayerMiniPodborkiState extends State<PlayerMiniPodborki> {
             const Expanded(
               child: SizedBox(),
             ),
-            widget.doneWidget
+            DoneWidget(
+              name: widget.name,
+              audio: widget.url,
+              duration: widget.duration,
+            )
           ],
         ),
       ),

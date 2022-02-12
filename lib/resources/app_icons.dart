@@ -20,4 +20,7 @@ class AppIcons {
   static const String camera = '$path/сamera.png';
   static const String microfon = '$path/microfon.png';
   static const String heart = '$path/heart.png';
+  static const String search = '$path/search.png';
+  static const String play_podborki = '$path/play_podborki.png';
+  static const String stop_podborki = '$path/stop_podborki.png';
 }

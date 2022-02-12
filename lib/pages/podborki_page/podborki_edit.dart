@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:memory_box/pages/podborki_page/podborki_add_audio.dart';
 import 'package:memory_box/pages/podborki_page/podborki_edit_model.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
@@ -75,7 +76,9 @@ class PodborkiEdit extends StatelessWidget {
               ),
             ),
             TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, PodborkiAddAudio.rootName);
+                },
                 child: const Center(
                   child: Text(
                     'Добавить аудиофайл',

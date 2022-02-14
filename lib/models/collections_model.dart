@@ -2,13 +2,13 @@ class CollectionsModel {
   String? titleCollections;
   String? subTitleCollections;
   String? avatarCollections;
-  List? audioCollections;
+  int? qualityCollections;
 
   CollectionsModel({
     this.titleCollections,
     this.subTitleCollections,
     this.avatarCollections,
-    this.audioCollections,
+    this.qualityCollections,
   });
 
   factory CollectionsModel.fromJson(Map<String, dynamic> json) {
@@ -16,7 +16,7 @@ class CollectionsModel {
       titleCollections: json['titleCollections'],
       subTitleCollections: json['subTitleCollections'],
       avatarCollections: json['avatarCollections'],
-      audioCollections: json['audioCollections'],
+      qualityCollections: json['qualityCollections'],
     );
   }
 
@@ -24,6 +24,6 @@ class CollectionsModel {
         'titleCollections': titleCollections,
         'subTitleCollections': subTitleCollections,
         'avatarCollections': avatarCollections,
-        'audioCollections': audioCollections
+        'qualityCollections': qualityCollections
       };
 }

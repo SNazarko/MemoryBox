@@ -77,6 +77,21 @@ class PodborkiEdit extends StatelessWidget {
             ),
             TextButton(
                 onPressed: () {
+                  CollectionsRepositories().addCollections(
+                    Provider.of<PodborkiEditModel>(context, listen: false)
+                            .getTitle ??
+                        '',
+                    Provider.of<PodborkiEditModel>(context, listen: false)
+                            .getTitle ??
+                        '',
+                    Provider.of<PodborkiEditModel>(context, listen: false)
+                            .getSubTitle ??
+                        '',
+                    Provider.of<PodborkiEditModel>(context, listen: false)
+                            .getImage ??
+                        '',
+                  );
+
                   Navigator.pushNamed(context, PodborkiAddAudio.rootName);
                 },
                 child: const Center(
@@ -181,6 +196,8 @@ class _AppbarHeaderProfileEdit extends StatelessWidget {
               TextButton(
                   onPressed: () {
                     CollectionsRepositories().addCollections(
+                      Provider.of<PodborkiEditModel>(context, listen: false)
+                          .getTitle,
                       Provider.of<PodborkiEditModel>(context, listen: false)
                           .getTitle,
                       Provider.of<PodborkiEditModel>(context, listen: false)

@@ -162,6 +162,7 @@ class _ListPlayers extends StatelessWidget {
         duration: '${audio.duration}',
         url: '${audio.audioUrl}',
         name: '${audio.audioName}',
+        done: audio.done ?? false,
       );
 
   @override

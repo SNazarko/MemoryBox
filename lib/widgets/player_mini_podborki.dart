@@ -14,10 +14,12 @@ class PlayerMiniPodborki extends StatefulWidget {
     required this.url,
     required this.name,
     required this.duration,
+    required this.done,
   }) : super(key: key);
-  final url;
-  final name;
-  final duration;
+  final String url;
+  final String name;
+  final String duration;
+  final bool done;
 
   @override
   State<PlayerMiniPodborki> createState() => _PlayerMiniPodborkiState();
@@ -166,6 +168,7 @@ class _PlayerMiniPodborkiState extends State<PlayerMiniPodborki> {
               name: widget.name,
               audio: widget.url,
               duration: widget.duration,
+              done: widget.done,
             )
           ],
         ),

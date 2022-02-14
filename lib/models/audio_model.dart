@@ -2,11 +2,13 @@ class AudioModel {
   String? audioName;
   String? audioUrl;
   String? duration;
+  bool? done;
 
   AudioModel({
     this.audioName,
     this.audioUrl,
     this.duration,
+    this.done,
   });
 
   factory AudioModel.fromJson(Map<String, dynamic> json) {
@@ -14,6 +16,7 @@ class AudioModel {
       audioName: json['audioName'],
       audioUrl: json['audioUrl'],
       duration: json['duration'],
+      done: json['done'],
     );
   }
 
@@ -21,5 +24,6 @@ class AudioModel {
         'audioName': audioName,
         'audioUrl': audioUrl,
         'duration': duration,
+        'done': done,
       };
 }

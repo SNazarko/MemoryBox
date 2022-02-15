@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/authorization_page/first_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
-
 import '../authorization_page/initializer_widget.dart';
 
 class Screensaver extends StatefulWidget {
@@ -26,6 +25,10 @@ class _ScreensaverState extends State<Screensaver>
   @override
   void initState() {
     super.initState();
+    anim();
+  }
+
+  void anim() {
     controller =
         AnimationController(duration: Duration(seconds: 3), vsync: this);
     controller2 =
@@ -66,17 +69,17 @@ class _ScreensaverState extends State<Screensaver>
         return shouldPop;
       },
       child: Scaffold(
-        body: Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [animationColor3.value, Color(0xFF8077E4)],
-                    begin: Alignment.bottomCenter),
-              ),
-            ),
-            Center(
-              child: Container(
+        body: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [animationColor3.value, Color(0xFF8077E4)],
+                begin: Alignment.bottomCenter),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
                 child: Center(
                   child: Text(
                     'MemoryBox',
@@ -95,17 +98,16 @@ class _ScreensaverState extends State<Screensaver>
                   ),
                 ),
               ),
-            ),
-            Positioned(
-              top: 420,
-              left: 130,
-              child: Image.asset(
-                'assets/images/microfon.png',
-                width: 100,
-                height: 100,
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Image.asset(
+                  'assets/images/microfon.png',
+                  width: 100,
+                  height: 100,
+                ),
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );

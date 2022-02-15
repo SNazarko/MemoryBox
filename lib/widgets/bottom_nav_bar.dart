@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/pages/play_page.dart';
-import 'package:memory_box/pages/podborki_page/podborki.dart';
+import 'package:memory_box/pages/podborki_page/podborki/podborki.dart';
 import 'package:memory_box/pages/profile_page/profile.dart';
 import 'package:memory_box/pages/recordings_page/record_page.dart';
 import 'package:memory_box/resources/app_icons.dart';

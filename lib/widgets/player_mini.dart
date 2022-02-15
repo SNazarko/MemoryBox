@@ -84,7 +84,7 @@ class _PlayerMiniState extends State<PlayerMini> {
       child: ClipOval(
         child: Material(
           child: InkWell(
-            child: SizedBox(width: 65, height: 65, child: icon),
+            child: SizedBox(width: 55, height: 55, child: icon),
             onTap: () {
               if (player.playerState.playing) {
                 pause();
@@ -117,7 +117,7 @@ class _PlayerMiniState extends State<PlayerMini> {
             Radius.circular(50.0),
           ),
         ),
-        height: 75.0,
+        height: 65.0,
         width: double.infinity,
         child: Row(
           children: [

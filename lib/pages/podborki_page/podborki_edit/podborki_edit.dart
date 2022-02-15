@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:memory_box/pages/podborki_page/podborki_add_audio.dart';
-import 'package:memory_box/pages/podborki_page/podborki_edit_model.dart';
+import 'package:memory_box/pages/podborki_page/podborki_add_audio/podborki_add_audio.dart';
+import 'package:memory_box/pages/podborki_page/podborki_edit/podborki_edit_model.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
@@ -139,7 +139,7 @@ class _FotoContainerState extends State<_FotoContainer> {
               )
             : Text(''),
         width: screenWidth * 0.955,
-        height: 240.0,
+        height: 200.0,
         widget: IconCamera(
           color: AppColor.glass,
           onTap: () async {

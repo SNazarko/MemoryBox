@@ -92,7 +92,7 @@ class _PlayerMiniPodborkiState extends State<PlayerMiniPodborki> {
       child: ClipOval(
         child: Material(
           child: InkWell(
-            child: SizedBox(width: 65, height: 65, child: icon),
+            child: SizedBox(width: 55, height: 55, child: icon),
             onTap: () {
               if (player.playerState.playing) {
                 pause();
@@ -125,7 +125,7 @@ class _PlayerMiniPodborkiState extends State<PlayerMiniPodborki> {
             Radius.circular(50.0),
           ),
         ),
-        height: 75.0,
+        height: 60.0,
         width: double.infinity,
         child: Row(
           children: [

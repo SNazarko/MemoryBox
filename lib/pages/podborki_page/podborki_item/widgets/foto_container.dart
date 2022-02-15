@@ -16,7 +16,7 @@ class FotoContainer extends StatelessWidget {
       ),
       child: ContainerShadow(
         image: Image.network(
-          'https://firebasestorage.googleapis.com/v0/b/memory-box-6cb96.appspot.com/o/userAudio%2Faudio1821989074040555513.m4a?alt=media&token=391d314b-7a2b-49cb-8bf6-09d28c7fe067',
+          'https://www.google.com/url?sa=i&url=https%3A%2F%2Fbigpicture.ru%2F100-luchshix-foto-bez-fotoshopa%2F&psig=AOvVaw1ITqI9ihoRE6ko9u_GEj7S&ust=1645014037801000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCPDDhf3YgfYCFQAAAAAdAAAAABAD',
           fit: BoxFit.fitWidth,
         ),
         width: screenWidth * 0.955,

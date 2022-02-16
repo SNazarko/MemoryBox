@@ -31,7 +31,7 @@ class _ButtonPlayPauseState extends State<ButtonPlayPause> {
         child: Stack(
           children: [
             Opacity(
-              opacity: 0.50,
+              opacity: 0.75,
               child: Container(
                 width: 168.0,
                 height: 48.0,

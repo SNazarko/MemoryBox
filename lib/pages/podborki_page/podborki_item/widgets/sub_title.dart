@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:memory_box/pages/podborki_page/podborki_item/podborki_item_page_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/constants.dart';
+import 'package:provider/provider.dart';
 
 class SubTitle extends StatefulWidget {
   SubTitle({Key? key}) : super(key: key);
@@ -23,10 +25,7 @@ class _SubTitleState extends State<SubTitle> {
           padding: const EdgeInsets.only(
             left: 28.0,
           ),
-          child: Text(
-              'Сказка о маленьком принце. Он родился в старой деревне и задавался всего-лишь '
-              'одним вопросом - “Кто я такой?”. Он познакомился со старенькой бабушкой, '
-              'которая рассказала ему легенду о малыше Кокки...',
+          child: Text('${context.watch<PodborkiItemPageModel>().getSubTitle}',
               style: kBodi2TextStyle,
               maxLines: allText ? 4 : 100,
               overflow: TextOverflow.ellipsis),

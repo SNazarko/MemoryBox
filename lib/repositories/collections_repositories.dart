@@ -7,27 +7,27 @@ import 'package:memory_box/models/collections_model.dart';
 class CollectionsRepositories {
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
-  int _counter = 0;
-  List<int> _counterQuality = [];
+  // int _counter = 0;
+  // List<int> _counterQuality = [];
+  //
+  // void counterAdd(int counter) {
+  //   _counter = counter++;
+  //
+  //   print(_counter);
+  // }
 
-  void counterAdd(int counter) {
-    _counter = counter++;
-
-    print(_counter);
-  }
-
-  int counterDelete(int counter) {
-    _counter = counter + 1;
-    try {
-      _counterQuality.remove(_counterQuality.last);
-    } on Exception catch (e) {
-      print(e);
-    }
-    _counter = _counterQuality.length;
-    print(_counter);
-    print(_counterQuality);
-    return _counter;
-  }
+  // int counterDelete(int counter) {
+  //   _counter = counter + 1;
+  //   try {
+  //     _counterQuality.remove(_counterQuality.last);
+  //   } on Exception catch (e) {
+  //     print(e);
+  //   }
+  //   _counter = _counterQuality.length;
+  //   print(_counter);
+  //   print(_counterQuality);
+  //   return _counter;
+  // }
 
   Stream<List<CollectionsModel>> readAudio() => FirebaseFirestore.instance
       .collection('CollectionsTale')

@@ -15,10 +15,15 @@ const kTitleTextStyle2 = TextStyle(
   fontWeight: FontWeight.bold,
 );
 const kTitle2TextStyle = TextStyle(
-  fontFamily: 'TTNorms',
-  fontSize: 14.0,
-  color: Colors.white,
-);
+    fontFamily: 'TTNorms',
+    fontSize: 14.0,
+    color: Colors.white,
+    fontWeight: FontWeight.w400);
+const kTitle4TextStyle = TextStyle(
+    fontFamily: 'TTNorms',
+    fontSize: 14.0,
+    color: Colors.white,
+    fontWeight: FontWeight.w700);
 const kTitle2TextStyle2 = TextStyle(
   fontFamily: 'TTNorms',
   fontSize: 16.0,

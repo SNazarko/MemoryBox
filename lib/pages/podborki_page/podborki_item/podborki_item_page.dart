@@ -7,7 +7,9 @@ import 'package:memory_box/pages/podborki_page/podborki_item/widgets/sub_title.d
 import 'package:memory_box/widgets/bottom_nav_bar.dart';
 
 class PodborkiItemPage extends StatelessWidget {
-  const PodborkiItemPage({Key? key}) : super(key: key);
+  const PodborkiItemPage({
+    Key? key,
+  }) : super(key: key);
   static const rootName = '/podborki_item_page';
 
   @override
@@ -26,7 +28,7 @@ class PodborkiItemPage extends StatelessWidget {
               ],
             ),
             SubTitle(),
-            ListPodborok(
+            ListPodborokAudio(
               screenHeight: screenHeight / 2.4,
             ),
           ],

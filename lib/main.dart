@@ -6,6 +6,7 @@ import 'package:memory_box/pages/logo_page/logo_page.dart';
 import 'package:memory_box/pages/logo_page/screensaver_page.dart';
 import 'package:memory_box/pages/podborki_page/podborki_add_audio/podborki_add_audio_model.dart';
 import 'package:memory_box/pages/podborki_page/podborki_edit/podborki_edit_model.dart';
+import 'package:memory_box/pages/podborki_page/podborki_item/podborki_item_page_model.dart';
 import 'package:memory_box/players/bloc/sound_bloc.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/routes/routes.dart';
@@ -27,6 +28,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider<PodborkiItemPageModel>(
+            create: (BuildContext context) => PodborkiItemPageModel()),
         ChangeNotifierProvider<PodborkiAddAudioModel>(
             create: (BuildContext context) => PodborkiAddAudioModel()),
         ChangeNotifierProvider<DataModel>(

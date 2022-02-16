@@ -11,6 +11,7 @@ class listPodborki extends StatelessWidget {
   Widget buildCollections(CollectionsModel collections) => PodborkiItem(
         image: '${collections.avatarCollections}',
         title: '${collections.titleCollections}',
+        subTitle: '${collections.subTitleCollections}',
       );
 
   @override

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/pages/podborki_page/podborki_item/podborki_item_page_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/icon_back.dart';
+import 'package:provider/provider.dart';
 
 class AppbarHeaderProfileEdit extends StatelessWidget {
   const AppbarHeaderProfileEdit({Key? key}) : super(key: key);
@@ -41,15 +43,15 @@ class AppbarHeaderProfileEdit extends StatelessWidget {
             ],
           ),
         ),
-        const Padding(
-            padding: EdgeInsets.only(
+        Padding(
+            padding: const EdgeInsets.only(
               top: 90.0,
               left: 15.0,
               right: 15.0,
             ),
             child: Text(
-              'Сказка о малыше Коки',
-              style: TextStyle(
+              '${context.watch<PodborkiItemPageModel>().getTitle}',
+              style: const TextStyle(
                 fontSize: 24.0,
                 color: AppColor.white100,
                 fontWeight: FontWeight.w700,

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:memory_box/models/audio_model.dart';
+import 'package:memory_box/models/collections_model.dart';
 import 'package:memory_box/models/user_model.dart';
 
 class AudioRepositories {
@@ -12,6 +13,15 @@ class AudioRepositories {
 
   Stream<List<AudioModel>> readAudio() => FirebaseFirestore.instance
       .collection('Collections')
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
+
+  Stream<List<AudioModel>> readAudioPodbirka(String name) => FirebaseFirestore
+      .instance
+      .collection('CollectionsTale')
+      .doc(name)
+      .collection('Audio')
       .snapshots()
       .map((snapshot) =>
           snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());

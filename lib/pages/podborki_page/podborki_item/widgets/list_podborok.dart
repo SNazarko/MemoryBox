@@ -19,7 +19,7 @@ class ListPodborokAudio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: screenHeight * 0.78,
+      height: screenHeight * 0.5,
       child: StreamBuilder<List<AudioModel>>(
         stream: repositories.readAudioPodbirka(
             '${context.watch<PodborkiItemPageModel>().getTitle}'),
@@ -30,7 +30,7 @@ class ListPodborokAudio extends StatelessWidget {
           if (snapshot.hasData) {
             final audio = snapshot.data!;
             return ListView(
-              padding: const EdgeInsets.only(bottom: 210.0),
+              padding: const EdgeInsets.only(bottom: 80.0),
               children: audio.map(buildAudio).toList(),
             );
           } else {

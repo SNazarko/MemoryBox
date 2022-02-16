@@ -13,7 +13,6 @@ class AppbarHeaderProfileEdit extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(),
         ClipPath(
           clipper: AppbarClipper(),
           child: Container(

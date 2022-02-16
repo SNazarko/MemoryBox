@@ -14,15 +14,30 @@ class ButtonPlayPause extends StatefulWidget {
   State<ButtonPlayPause> createState() => _ButtonPlayPauseState();
 }
 
-class _ButtonPlayPauseState extends State<ButtonPlayPause> {
+class _ButtonPlayPauseState extends State<ButtonPlayPause>
+    with TickerProviderStateMixin {
   bool playPause = true;
+  late AnimationController controller;
+  // late Animation animation;
+
+  void anim() {
+    controller =
+        AnimationController(duration: Duration(seconds: 1), vsync: this);
+    controller.forward();
+    controller.addListener(() {
+      print(controller.value);
+      // setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        anim();
         playPause = !playPause;
         context.read<PodborkiItemPageModel>().setPlayPause(!playPause);
+        context.read<PodborkiItemPageModel>().setAnim(controller.value);
         setState(() {});
       },
       child: SizedBox(

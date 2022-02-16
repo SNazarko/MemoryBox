@@ -5,15 +5,16 @@ import 'package:memory_box/resources/constants.dart';
 import 'package:provider/provider.dart';
 
 class PlayerPodborki extends StatelessWidget {
-  const PlayerPodborki({Key? key}) : super(key: key);
-
+  PlayerPodborki({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: context.watch<PodborkiItemPageModel>().getPlayPause ?? false,
+      visible: true,
+      // context.watch<PodborkiItemPageModel>().getPlayPause ?? false,
       child: Container(
           width: double.infinity,
-          height: 80.0,
+          height: 75.0,
+          // context.watch<PodborkiItemPageModel>().getAnim * 75,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
@@ -30,8 +31,8 @@ class PlayerPodborki extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: SizedBox(
-                width: 60.0,
-                height: 60.0,
+                width: 50.0,
+                height: 50.0,
                 child: Image.asset(
                   AppIcons.play_white,
                   fit: BoxFit.fill,
@@ -69,7 +70,8 @@ class PlayerPodborki extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(right: 30.0),
-              child: Image.asset(AppIcons.next),
+              child: GestureDetector(
+                  onTap: () {}, child: Image.asset(AppIcons.next)),
             )
           ])),
     );

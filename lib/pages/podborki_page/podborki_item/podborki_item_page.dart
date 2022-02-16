@@ -35,17 +35,17 @@ class PodborkiItemPage extends StatelessWidget {
                 ),
                 SubTitle(),
                 ListPodborokAudio(
-                  screenHeight: screenHeight / 1.5,
+                  screenHeight: screenHeight * 0.66,
                 ),
               ],
             ),
             SizedBox(
-              height: screenHeight,
+              height: screenHeight * 0.9,
               width: screenWight,
-              child: const Align(
+              child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding: EdgeInsets.only(bottom: 70.0),
+                    padding: EdgeInsets.only(bottom: 0.0),
                     child: PlayerPodborki(),
                   )),
             )

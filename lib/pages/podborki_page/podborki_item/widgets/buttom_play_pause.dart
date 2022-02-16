@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/pages/podborki_page/podborki_item/podborki_item_page_model.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/resources/constants.dart';
+import 'package:provider/provider.dart';
 
 class ButtonPlayPause extends StatefulWidget {
   const ButtonPlayPause({
@@ -20,6 +22,7 @@ class _ButtonPlayPauseState extends State<ButtonPlayPause> {
     return GestureDetector(
       onTap: () {
         playPause = !playPause;
+        context.read<PodborkiItemPageModel>().setPlayPause(!playPause);
         setState(() {});
       },
       child: SizedBox(

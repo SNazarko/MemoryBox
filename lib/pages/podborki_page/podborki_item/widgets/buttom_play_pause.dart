@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/podborki_page/podborki_item/podborki_item_page_model.dart';
@@ -18,15 +20,32 @@ class _ButtonPlayPauseState extends State<ButtonPlayPause>
     with TickerProviderStateMixin {
   bool playPause = true;
   late AnimationController controller;
+  late Animation animation;
+  Timer? _timerAmplitude;
   // late Animation animation;
 
-  void anim() {
+  void animPlus() {
     controller =
-        AnimationController(duration: Duration(seconds: 1), vsync: this);
+        AnimationController(duration: const Duration(seconds: 1), vsync: this);
+    animation = CurvedAnimation(parent: controller, curve: Curves.decelerate);
     controller.forward();
-    controller.addListener(() {
-      print(controller.value);
-      // setState(() {});
+    controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _timerAmplitude!.cancel();
+      }
+    });
+  }
+
+  void animMinus() {
+    controller =
+        AnimationController(duration: const Duration(seconds: 1), vsync: this);
+    animation = CurvedAnimation(parent: controller, curve: Curves.easeInQuart);
+    controller.reverse(from: 1);
+    controller.addStatusListener((status) {
+      if (status == AnimationStatus.dismissed) {
+        _timerAmplitude!.cancel();
+        print(animation.value);
+      }
     });
   }
 
@@ -34,10 +53,20 @@ class _ButtonPlayPauseState extends State<ButtonPlayPause>
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        anim();
         playPause = !playPause;
-        context.read<PodborkiItemPageModel>().setPlayPause(!playPause);
-        context.read<PodborkiItemPageModel>().setAnim(controller.value);
+        if (!playPause) {
+          animPlus();
+        }
+
+        if (playPause) {
+          animMinus();
+        }
+
+        // context.read<PodborkiItemPageModel>().setPlayPause(!playPause);
+        _timerAmplitude =
+            Timer.periodic(const Duration(milliseconds: 1), (_) async {
+          context.read<PodborkiItemPageModel>().setAnim(animation.value);
+        });
         setState(() {});
       },
       child: SizedBox(

@@ -5,8 +5,6 @@ import 'package:memory_box/pages/podborki_page/podborki_item/widgets/foto_contai
 import 'package:memory_box/pages/podborki_page/podborki_item/widgets/list_podborok.dart';
 import 'package:memory_box/pages/podborki_page/podborki_item/widgets/player_podborki.dart';
 import 'package:memory_box/pages/podborki_page/podborki_item/widgets/sub_title.dart';
-import 'package:memory_box/resources/app_icons.dart';
-import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/bottom_nav_bar.dart';
 
 class PodborkiItemPage extends StatelessWidget {
@@ -45,7 +43,7 @@ class PodborkiItemPage extends StatelessWidget {
               child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding: EdgeInsets.only(bottom: 0.0),
+                    padding: const EdgeInsets.only(bottom: 0.0),
                     child: PlayerPodborki(),
                   )),
             )

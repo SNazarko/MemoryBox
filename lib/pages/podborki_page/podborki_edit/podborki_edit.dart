@@ -205,6 +205,7 @@ class _AppbarHeaderProfileEdit extends StatelessWidget {
                       Provider.of<PodborkiEditModel>(context, listen: false)
                           .getImage,
                     );
+
                     Navigator.pop(context);
                   },
                   child: const Text(

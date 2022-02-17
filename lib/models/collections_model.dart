@@ -2,12 +2,14 @@ class CollectionsModel {
   String? titleCollections;
   String? subTitleCollections;
   String? avatarCollections;
+  String? data;
   int? qualityCollections;
 
   CollectionsModel({
     this.titleCollections,
     this.subTitleCollections,
     this.avatarCollections,
+    this.data,
     this.qualityCollections,
   });
 
@@ -16,6 +18,7 @@ class CollectionsModel {
       titleCollections: json['titleCollections'],
       subTitleCollections: json['subTitleCollections'],
       avatarCollections: json['avatarCollections'],
+      data: json['data'],
       qualityCollections: json['qualityCollections'],
     );
   }
@@ -24,6 +27,7 @@ class CollectionsModel {
         'titleCollections': titleCollections,
         'subTitleCollections': subTitleCollections,
         'avatarCollections': avatarCollections,
+        'data': data,
         'qualityCollections': qualityCollections
       };
 }

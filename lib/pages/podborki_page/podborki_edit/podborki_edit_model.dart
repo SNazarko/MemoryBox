@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
 class PodborkiEditModel with ChangeNotifier {
-  String? _title;
-  String? _subTitle;
-  String? _image;
+  String? _title = 'Без названия';
+  String? _subTitle = '...';
+  String? _image = '';
 
   void userTitle(String title) {
     _title = title;

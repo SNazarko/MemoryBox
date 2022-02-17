@@ -25,20 +25,20 @@ class DoneWidget extends StatefulWidget {
 }
 
 class _DoneWidgetState extends State<DoneWidget> {
-  Set<AudioModel> listPodbork = Set<AudioModel>();
   CollectionsRepositories repositories = CollectionsRepositories();
   bool done = false;
-  int _counter = 0;
-  List<int> _counterQuality = [];
+
   @override
   void initState() {
-    done = widget.done;
+    done == widget.done;
     print(done);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    print(widget.done);
+    print(done);
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Stack(

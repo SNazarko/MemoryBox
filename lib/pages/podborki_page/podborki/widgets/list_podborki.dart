@@ -12,6 +12,8 @@ class listPodborki extends StatelessWidget {
         image: '${collections.avatarCollections}',
         title: '${collections.titleCollections}',
         subTitle: '${collections.subTitleCollections}',
+        data: '${collections.data}',
+        quality: '${collections.qualityCollections}',
       );
 
   @override
@@ -19,7 +21,7 @@ class listPodborki extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 90.0),
       child: StreamBuilder<List<CollectionsModel>>(
-        stream: repositories.readAudio(),
+        stream: repositories.readCollections(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Text('Ошибка');

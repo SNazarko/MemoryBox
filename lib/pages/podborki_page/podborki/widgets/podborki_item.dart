@@ -1,16 +1,24 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:memory_box/pages/podborki_page/podborki_item/podborki_item_page.dart';
 import 'package:memory_box/pages/podborki_page/podborki_item/podborki_item_page_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:provider/provider.dart';
 
 class PodborkiItem extends StatelessWidget {
-  PodborkiItem({Key? key, this.title, this.quality, this.image, this.subTitle})
+  PodborkiItem(
+      {Key? key,
+      this.title,
+      this.quality,
+      this.image,
+      this.subTitle,
+      this.data})
       : super(key: key);
   String? title;
   String? subTitle;
-  int? quality = 5;
+  String? quality;
   String? image;
+  String? data;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +31,8 @@ class PodborkiItem extends StatelessWidget {
           context.read<PodborkiItemPageModel>().setTitle(title!);
           context.read<PodborkiItemPageModel>().setSubTitle(subTitle!);
           context.read<PodborkiItemPageModel>().setPhoto(image!);
+          context.read<PodborkiItemPageModel>().setData(data!);
+          context.read<PodborkiItemPageModel>().setQuality(quality!);
           Navigator.pushNamed(
             context,
             PodborkiItemPage.rootName,
@@ -33,10 +43,12 @@ class PodborkiItem extends StatelessWidget {
           height: 250.0,
           child: Stack(
             children: [
-              Image.network(
-                image!,
-                fit: BoxFit.fill,
-              ),
+              image != ''
+                  ? Image.network(
+                      image!,
+                      fit: BoxFit.fill,
+                    )
+                  : const ColoredBox(color: Colors.cyan),
               Padding(
                 padding: const EdgeInsets.only(left: 10, right: 5, bottom: 10),
                 child: Row(

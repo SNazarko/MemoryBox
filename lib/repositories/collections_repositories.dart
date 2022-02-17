@@ -1,35 +1,11 @@
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:date_format/date_format.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/models/collections_model.dart';
 
 class CollectionsRepositories {
-  firebase_storage.FirebaseStorage storage =
-      firebase_storage.FirebaseStorage.instance;
-  // int _counter = 0;
-  // List<int> _counterQuality = [];
-  //
-  // void counterAdd(int counter) {
-  //   _counter = counter++;
-  //
-  //   print(_counter);
-  // }
-
-  // int counterDelete(int counter) {
-  //   _counter = counter + 1;
-  //   try {
-  //     _counterQuality.remove(_counterQuality.last);
-  //   } on Exception catch (e) {
-  //     print(e);
-  //   }
-  //   _counter = _counterQuality.length;
-  //   print(_counter);
-  //   print(_counterQuality);
-  //   return _counter;
-  // }
-
-  Stream<List<CollectionsModel>> readAudio() => FirebaseFirestore.instance
+  int documents = 0;
+  Stream<List<CollectionsModel>> readCollections() => FirebaseFirestore.instance
       .collection('CollectionsTale')
       .snapshots()
       .map((snapshot) => snapshot.docs
@@ -42,11 +18,25 @@ class CollectionsRepositories {
     String subTitleCollections,
     String avatarCollections,
   ) async {
+    final QuerySnapshot qSnap = await FirebaseFirestore.instance
+        .collection('CollectionsTale')
+        .doc(nameCollection)
+        .collection('Audio')
+        .get();
+    final int documents = qSnap.docs.length;
+    final _todayDate = DateTime.now();
     final model = CollectionsModel(
-      titleCollections: titleCollections,
-      subTitleCollections: subTitleCollections,
-      avatarCollections: avatarCollections,
-    );
+        qualityCollections: documents,
+        titleCollections: titleCollections,
+        subTitleCollections: subTitleCollections,
+        avatarCollections: avatarCollections,
+        data: formatDate(_todayDate, [
+          dd,
+          '.',
+          mm,
+          '.',
+          yy,
+        ]));
     final json = model.toJson();
     FirebaseFirestore.instance
         .collection('CollectionsTale')

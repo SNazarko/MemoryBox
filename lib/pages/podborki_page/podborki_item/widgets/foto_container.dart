@@ -36,8 +36,8 @@ class FotoContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  '24.12.2021',
+                Text(
+                  '${context.watch<PodborkiItemPageModel>().getData}',
                   style: kTitle4TextStyle,
                 ),
                 Row(
@@ -45,12 +45,12 @@ class FotoContainer extends StatelessWidget {
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
-                          '7 аудио',
+                          '${context.watch<PodborkiItemPageModel>().getQuality} аудио',
                           style: kTitle2TextStyle,
                         ),
-                        Text(
+                        const Text(
                           '2:30 часа',
                           style: kTitle2TextStyle,
                         ),

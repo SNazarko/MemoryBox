@@ -4,8 +4,15 @@ class PodborkiItemPageModel extends ChangeNotifier {
   String? _title;
   String? _subTitle;
   String? _photo;
-  bool? _playPause;
-  double? _anim;
+  String? _data;
+  String? _quality;
+  double? _anim = 0.0;
+
+  get getData => _data;
+  void setData(String data) {
+    _data = data;
+    notifyListeners();
+  }
 
   void setAnim(double anim) {
     _anim = anim;
@@ -14,10 +21,10 @@ class PodborkiItemPageModel extends ChangeNotifier {
 
   get getAnim => _anim;
 
-  get getPlayPause => _playPause;
+  get getQuality => _quality;
 
-  void setPlayPause(bool playPause) {
-    _playPause = playPause;
+  void setQuality(String quality) {
+    _quality = quality;
     notifyListeners();
   }
 

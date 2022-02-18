@@ -16,7 +16,7 @@ class _LastAuthorizationPageArguments {
 
 class LastAuthorizationPage extends StatefulWidget {
   const LastAuthorizationPage({Key? key}) : super(key: key);
-  static const rootName = '/last_authorization_page';
+  static const routeName = '/last_authorization_page';
   static Widget create() {
     return const LastAuthorizationPage();
   }

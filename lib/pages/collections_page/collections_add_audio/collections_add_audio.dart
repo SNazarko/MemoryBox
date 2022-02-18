@@ -1,29 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
-import 'package:memory_box/pages/podborki_page/podborki_add_audio/podborki_add_audio_model.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
-import 'package:memory_box/widgets/bottom_nav_bar.dart';
-import 'package:memory_box/widgets/done_widget/done_widget.dart';
 import 'package:memory_box/widgets/icon_back.dart';
-import 'package:memory_box/widgets/player_mini.dart';
 import 'package:memory_box/widgets/player_mini_podborki.dart';
 import 'package:provider/provider.dart';
 
-class PodborkiAddAudio extends StatelessWidget {
-  const PodborkiAddAudio({Key? key}) : super(key: key);
-  static const rootName = '/podborki_add_audio';
+import 'collections_add_audio_model.dart';
+
+class CollectionsAddAudio extends StatelessWidget {
+  const CollectionsAddAudio({Key? key}) : super(key: key);
+  static const routeName = '/collections_add_audio';
   static Widget create() {
-    return const PodborkiAddAudio();
+    return const CollectionsAddAudio();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const BottomNavBar(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,7 +108,7 @@ class SearchPanel extends StatelessWidget {
       padding: const EdgeInsets.only(left: 20.0, top: 121.0, right: 12.0),
       child: Expanded(
         child: Container(
-          height: 60,
+          height: 60.0,
           decoration: const BoxDecoration(
             color: AppColor.white,
             borderRadius: BorderRadius.all(Radius.circular(30.0)),
@@ -126,7 +123,7 @@ class SearchPanel extends StatelessWidget {
                     child: TextField(
                       onChanged: (_searchtxt) {
                         context
-                            .read<PodborkiAddAudioModel>()
+                            .read<CollectionsAddAudioModel>()
                             .setSearchtxt(_searchtxt);
                       },
                       style: const TextStyle(

@@ -4,14 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/pages/authorization_page/last_authorization_page.dart';
 import 'package:memory_box/pages/authorization_page/registration_page/widget/text_field_captcha.dart';
 import 'package:memory_box/pages/main_page.dart';
-import 'package:memory_box/pages/test.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/pages/home_page.dart';
-import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/button_continue.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
 import 'package:memory_box/widgets/textfield_input.dart';
-import '../../../resources/constants.dart';
+
 import '../../../widgets/appbar_header_authorization.dart';
 
 enum MobileVerificationState {
@@ -21,7 +18,7 @@ enum MobileVerificationState {
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
-  static const rootName = '/registration_page';
+  static const routeName = '/registration_page';
 
   static Widget create() {
     return const RegistrationPage();
@@ -39,7 +36,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   final otpController = TextEditingController();
 
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   String? verificationId;
 
@@ -56,7 +53,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       setState(() {
         showLoading = false;
         if (authCredential.user != null) {
-          Navigator.pushNamed(context, LastAuthorizationPage.rootName);
+          Navigator.pushNamed(context, LastAuthorizationPage.routeName);
         }
       });
     } on FirebaseAuthException catch (e) {

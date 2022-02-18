@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/pages/collections_page/collection_edit/collections_edit.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
-
-import '../../podborki_edit/podborki_edit.dart';
 
 class AppbarHeaderProfile extends StatelessWidget {
   const AppbarHeaderProfile({Key? key}) : super(key: key);
@@ -29,7 +28,7 @@ class AppbarHeaderProfile extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, PodborkiEdit.rootName);
+                  Navigator.pushNamed(context, CollectionsEdit.routeName);
                 },
                 icon: const Icon(
                   Icons.add,
@@ -53,7 +52,7 @@ class AppbarHeaderProfile extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(top: 40.0),
+          padding: const EdgeInsets.only(top: 40.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [

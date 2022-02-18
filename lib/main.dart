@@ -1,16 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:memory_box/pages/authorization_page/first_page.dart';
+import 'package:memory_box/pages/collections_page/collection_edit/collections_edit_model.dart';
+import 'package:memory_box/pages/collections_page/collections_add_audio/collections_add_audio_model.dart';
+import 'package:memory_box/pages/collections_page/collections_item/collections_item_page_model.dart';
 import 'package:memory_box/pages/logo_page/logo_page.dart';
-import 'package:memory_box/pages/logo_page/screensaver_page.dart';
-import 'package:memory_box/pages/podborki_page/podborki_add_audio/podborki_add_audio_model.dart';
-import 'package:memory_box/pages/podborki_page/podborki_edit/podborki_edit_model.dart';
-import 'package:memory_box/pages/podborki_page/podborki_item/podborki_item_page_model.dart';
-import 'package:memory_box/players/bloc/sound_bloc.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/routes/routes.dart';
-import 'package:memory_box/widgets/done_widget/model_done.dart';
 import 'package:provider/provider.dart';
 import 'models/view_model.dart';
 import 'pages/profile_page/data_model_user.dart';
@@ -31,14 +26,14 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<Navigation>(
             create: (BuildContext context) => Navigation()),
-        ChangeNotifierProvider<PodborkiItemPageModel>(
-            create: (BuildContext context) => PodborkiItemPageModel()),
-        ChangeNotifierProvider<PodborkiAddAudioModel>(
-            create: (BuildContext context) => PodborkiAddAudioModel()),
+        ChangeNotifierProvider<CollectionsItemPageModel>(
+            create: (BuildContext context) => CollectionsItemPageModel()),
+        ChangeNotifierProvider<CollectionsAddAudioModel>(
+            create: (BuildContext context) => CollectionsAddAudioModel()),
         ChangeNotifierProvider<DataModel>(
             create: (BuildContext context) => DataModel()),
-        ChangeNotifierProvider<PodborkiEditModel>(
-          create: (BuildContext context) => PodborkiEditModel(),
+        ChangeNotifierProvider<CollectionsEditModel>(
+          create: (BuildContext context) => CollectionsEditModel(),
         )
       ],
       child: MaterialApp(
@@ -51,7 +46,7 @@ class MyApp extends StatelessWidget {
                       color: AppColor.colorText,
                       fontFamily: 'TTNorm',
                       fontWeight: FontWeight.normal))),
-          initialRoute: LogoPage.rootName,
+          initialRoute: LogoPage.routeName,
           onGenerateRoute: AppRouter.generateRoute),
     );
   }

@@ -7,7 +7,7 @@ import '../authorization_page/initializer_widget.dart';
 
 class Screensaver extends StatefulWidget {
   const Screensaver({Key? key}) : super(key: key);
-  static const rootName = 'screensaver_page';
+  static const routeName = 'screensaver_page';
   static Widget create() {
     return const Screensaver();
   }
@@ -60,7 +60,7 @@ class _ScreensaverState extends State<Screensaver>
       if (status == AnimationStatus.completed) {
         final duration = Duration(seconds: 2);
         sleep(duration);
-        Navigator.pushNamed(context, InitializerWidget.rootName);
+        Navigator.pushNamed(context, InitializerWidget.routeName);
       }
     });
   }

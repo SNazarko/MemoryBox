@@ -11,7 +11,7 @@ class _FirstPageArguments {
 
 class FirstPage extends StatelessWidget {
   FirstPage({Key? key}) : super(key: key);
-  static const rootName = '/';
+  static const routeName = '/first_page';
   final _FirstPageArguments _arguments = _FirstPageArguments();
 
   static Widget create() {
@@ -59,7 +59,7 @@ class FirstPage extends StatelessWidget {
               height: 30.0,
             ),
             ButtonContinue(onPressed: () {
-              Navigator.pushNamed(context, RegistrationPage.rootName);
+              Navigator.pushNamed(context, RegistrationPage.routeName);
             })
           ],
         ),

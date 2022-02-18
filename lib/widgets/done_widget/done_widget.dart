@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
-import 'package:memory_box/pages/podborki_page/podborki_edit/podborki_edit_model.dart';
+import 'package:memory_box/pages/podborki_page/collection_edit/collections_edit_model.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/done_widget/model_done.dart';

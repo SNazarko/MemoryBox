@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/podborki_page/podborki_item/podborki_item_page_model.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
 import 'package:provider/provider.dart';
-
+import '../collections_item_page_model.dart';
 import 'buttom_play_pause.dart';
 
-class FotoContainer extends StatelessWidget {
-  FotoContainer({Key? key}) : super(key: key);
-  String? singleImage;
+class PhotoContainer extends StatelessWidget {
+  const PhotoContainer({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class FotoContainer extends StatelessWidget {
       ),
       child: ContainerShadow(
           image: Image.network(
-            '${context.watch<PodborkiItemPageModel>().getPhoto}',
+            '${context.watch<CollectionsItemPageModel>().getPhoto}',
             fit: BoxFit.fitWidth,
           ),
           width: screenWidth * 0.955,
@@ -35,7 +35,7 @@ class FotoContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${context.watch<PodborkiItemPageModel>().getData}',
+                  '${context.watch<CollectionsItemPageModel>().getData}',
                   style: kTitle4TextStyle,
                 ),
                 Row(
@@ -45,7 +45,7 @@ class FotoContainer extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${context.watch<PodborkiItemPageModel>().getQuality} аудио',
+                          '${context.watch<CollectionsItemPageModel>().getQuality} аудио',
                           style: kTitle2TextStyle,
                         ),
                         const Text(

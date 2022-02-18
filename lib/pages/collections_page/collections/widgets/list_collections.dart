@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/collections_model.dart';
-import 'package:memory_box/pages/podborki_page/podborki/widgets/podborki_item.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 
-class listPodborki extends StatelessWidget {
-  listPodborki({Key? key}) : super(key: key);
-  CollectionsRepositories repositories = CollectionsRepositories();
+import 'collections_item.dart';
 
-  Widget buildCollections(CollectionsModel collections) => PodborkiItem(
+class ListCollections extends StatelessWidget {
+  ListCollections({Key? key}) : super(key: key);
+  final CollectionsRepositories repositories = CollectionsRepositories();
+
+  Widget buildCollections(CollectionsModel collections) => CollectionsItem(
         image: '${collections.avatarCollections}',
         title: '${collections.titleCollections}',
         subTitle: '${collections.subTitleCollections}',

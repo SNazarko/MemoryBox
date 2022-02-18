@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/podborki_page/podborki_item/podborki_item_page_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/icon_back.dart';
 import 'package:provider/provider.dart';
+
+import '../collections_item_page_model.dart';
 
 class AppbarHeaderProfileEdit extends StatelessWidget {
   const AppbarHeaderProfileEdit({Key? key}) : super(key: key);
@@ -49,7 +50,7 @@ class AppbarHeaderProfileEdit extends StatelessWidget {
               right: 15.0,
             ),
             child: Text(
-              '${context.watch<PodborkiItemPageModel>().getTitle}',
+              '${context.watch<CollectionsItemPageModel>().getTitle}',
               style: const TextStyle(
                 fontSize: 24.0,
                 color: AppColor.white100,

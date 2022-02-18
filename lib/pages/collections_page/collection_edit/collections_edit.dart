@@ -1,39 +1,38 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:memory_box/pages/podborki_page/podborki_add_audio/podborki_add_audio.dart';
-import 'package:memory_box/pages/podborki_page/podborki_edit/podborki_edit_model.dart';
+import 'package:memory_box/pages/collections_page/collections_add_audio/collections_add_audio.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
-import 'package:memory_box/widgets/bottom_nav_bar.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
 import 'package:memory_box/widgets/icon_back.dart';
 import 'package:memory_box/widgets/icon_camera.dart';
 import 'package:memory_box/widgets/image_pick.dart';
 import 'package:provider/provider.dart';
 
-class PodborkiEdit extends StatelessWidget {
-  const PodborkiEdit({Key? key}) : super(key: key);
-  static const rootName = 'podborki_edit';
+import 'collections_edit_model.dart';
+
+class CollectionsEdit extends StatelessWidget {
+  const CollectionsEdit({Key? key}) : super(key: key);
+  static const routeName = 'collection_edit';
   static Widget create() {
-    return const PodborkiEdit();
+    return const CollectionsEdit();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const BottomNavBar(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
-              children: [
-                const _AppbarHeaderProfileEdit(),
-                _FotoContainer(),
+              children: const [
+                _AppbarHeaderProfileEdit(),
+                _PhotoContainer(),
               ],
             ),
             const SizedBox(
@@ -55,7 +54,7 @@ class PodborkiEdit extends StatelessWidget {
               child: TextField(
                 maxLines: 3,
                 onChanged: (subTitle) {
-                  context.read<PodborkiEditModel>().userSubTitle(subTitle);
+                  context.read<CollectionsEditModel>().userSubTitle(subTitle);
                 },
                 style: const TextStyle(
                   fontSize: 16.0,
@@ -81,21 +80,21 @@ class PodborkiEdit extends StatelessWidget {
             TextButton(
                 onPressed: () {
                   CollectionsRepositories().addCollections(
-                    Provider.of<PodborkiEditModel>(context, listen: false)
+                    Provider.of<CollectionsEditModel>(context, listen: false)
                             .getTitle ??
                         '',
-                    Provider.of<PodborkiEditModel>(context, listen: false)
+                    Provider.of<CollectionsEditModel>(context, listen: false)
                             .getTitle ??
                         '',
-                    Provider.of<PodborkiEditModel>(context, listen: false)
+                    Provider.of<CollectionsEditModel>(context, listen: false)
                             .getSubTitle ??
                         '',
-                    Provider.of<PodborkiEditModel>(context, listen: false)
+                    Provider.of<CollectionsEditModel>(context, listen: false)
                             .getImage ??
                         '',
                   );
 
-                  Navigator.pushNamed(context, PodborkiAddAudio.rootName);
+                  Navigator.pushNamed(context, CollectionsAddAudio.routeName);
                 },
                 child: const Center(
                   child: Text(
@@ -114,14 +113,14 @@ class PodborkiEdit extends StatelessWidget {
   }
 }
 
-class _FotoContainer extends StatefulWidget {
-  _FotoContainer({Key? key}) : super(key: key);
+class _PhotoContainer extends StatefulWidget {
+  const _PhotoContainer({Key? key}) : super(key: key);
 
   @override
-  State<_FotoContainer> createState() => _FotoContainerState();
+  State<_PhotoContainer> createState() => _PhotoContainerState();
 }
 
-class _FotoContainerState extends State<_FotoContainer> {
+class _PhotoContainerState extends State<_PhotoContainer> {
   ImagePick imagePick = ImagePick();
   String? singleImage;
 
@@ -140,7 +139,7 @@ class _FotoContainerState extends State<_FotoContainer> {
                 '$singleImage',
                 fit: BoxFit.fitWidth,
               )
-            : Text(''),
+            : const Text(''),
         width: screenWidth * 0.955,
         height: 200.0,
         widget: IconCamera(
@@ -149,7 +148,7 @@ class _FotoContainerState extends State<_FotoContainer> {
             XFile? _image = await imagePick.singleImagePick();
             if (_image != null && _image.path.isNotEmpty) {
               singleImage = await UserRepositories().uploadImage(_image);
-              context.read<PodborkiEditModel>().image(singleImage!);
+              context.read<CollectionsEditModel>().image(singleImage!);
               setState(() {});
             }
           },
@@ -199,13 +198,13 @@ class _AppbarHeaderProfileEdit extends StatelessWidget {
               TextButton(
                   onPressed: () {
                     CollectionsRepositories().addCollections(
-                      Provider.of<PodborkiEditModel>(context, listen: false)
+                      Provider.of<CollectionsEditModel>(context, listen: false)
                           .getTitle,
-                      Provider.of<PodborkiEditModel>(context, listen: false)
+                      Provider.of<CollectionsEditModel>(context, listen: false)
                           .getTitle,
-                      Provider.of<PodborkiEditModel>(context, listen: false)
+                      Provider.of<CollectionsEditModel>(context, listen: false)
                           .getSubTitle,
-                      Provider.of<PodborkiEditModel>(context, listen: false)
+                      Provider.of<CollectionsEditModel>(context, listen: false)
                           .getImage,
                     );
 
@@ -225,7 +224,7 @@ class _AppbarHeaderProfileEdit extends StatelessWidget {
           padding: const EdgeInsets.only(top: 90.0, left: 15.0, right: 15.0),
           child: TextField(
             onChanged: (title) {
-              context.read<PodborkiEditModel>().userTitle(title);
+              context.read<CollectionsEditModel>().userTitle(title);
             },
             style: const TextStyle(
               fontSize: 24.0,

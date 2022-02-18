@@ -1,11 +1,11 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/podborki_page/podborki_item/podborki_item_page_model.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:provider/provider.dart';
+
+import '../collections_item_page_model.dart';
 
 class ButtonPlayPause extends StatefulWidget {
   const ButtonPlayPause({
@@ -44,7 +44,6 @@ class _ButtonPlayPauseState extends State<ButtonPlayPause>
     controller.addStatusListener((status) {
       if (status == AnimationStatus.dismissed) {
         _timerAmplitude!.cancel();
-        print(animation.value);
       }
     });
   }
@@ -62,10 +61,9 @@ class _ButtonPlayPauseState extends State<ButtonPlayPause>
           animMinus();
         }
 
-        // context.read<PodborkiItemPageModel>().setPlayPause(!playPause);
         _timerAmplitude =
             Timer.periodic(const Duration(milliseconds: 1), (_) async {
-          context.read<PodborkiItemPageModel>().setAnim(animation.value);
+          context.read<CollectionsItemPageModel>().setAnim(animation.value);
         });
         setState(() {});
       },

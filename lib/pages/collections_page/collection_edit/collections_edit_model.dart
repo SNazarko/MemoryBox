@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class PodborkiEditModel with ChangeNotifier {
+class CollectionsEditModel with ChangeNotifier {
   String? _title = 'Без названия';
   String? _subTitle = '...';
   String? _image = '';

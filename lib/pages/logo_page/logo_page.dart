@@ -1,13 +1,10 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
-import 'package:memory_box/models/audio_model.dart';
-import 'package:memory_box/pages/profile_page/data_model_user.dart';
-import 'package:memory_box/models/user_model.dart';
 import 'package:memory_box/pages/logo_page/screensaver_page.dart';
 
 class LogoPage extends StatefulWidget {
   const LogoPage({Key? key}) : super(key: key);
-  static const rootName = 'logo_page';
+  static const routeName = 'logo_page';
   static Widget create() {
     return const LogoPage();
   }
@@ -20,7 +17,7 @@ class _LogoPageState extends State<LogoPage> {
   @override
   void initState() {
     Timer(const Duration(seconds: 1), () {
-      Navigator.pushNamed(context, Screensaver.rootName);
+      Navigator.pushNamed(context, Screensaver.routeName);
     });
     super.initState();
   }

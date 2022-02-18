@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class PodborkiItemPageModel extends ChangeNotifier {
+class CollectionsItemPageModel extends ChangeNotifier {
   String? _title;
   String? _subTitle;
   String? _photo;

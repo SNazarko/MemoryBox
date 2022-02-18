@@ -21,7 +21,7 @@ class _InitializerWidgetArguments {
 
 class InitializerWidget extends StatelessWidget {
   InitializerWidget({Key? key}) : super(key: key);
-  static const rootName = 'initializer_widget';
+  static const routeName = 'initializer_widget';
   final _InitializerWidgetArguments arguments = _InitializerWidgetArguments();
   static Widget create() {
     return InitializerWidget();
@@ -36,7 +36,7 @@ class InitializerWidget extends StatelessWidget {
             ),
           )
         : arguments.user == null
-            ? FirstPage()
-            : const FirstAuthorizationPage();
+            ? FirstPage.create()
+            : FirstAuthorizationPage.create();
   }
 }

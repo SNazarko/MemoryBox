@@ -8,10 +8,10 @@
 // import 'package:memory_box/pages/authorization_page/last_authorization_page.dart';
 // import 'package:memory_box/pages/logo_page/logo_page.dart';
 // import 'package:memory_box/pages/play_page.dart';
-// import 'package:memory_box/pages/podborki_page/podborki/podborki.dart';
-// import 'package:memory_box/pages/podborki_page/podborki_add_audio/podborki_add_audio.dart';
-// import 'package:memory_box/pages/podborki_page/podborki_edit/podborki_edit.dart';
-// import 'package:memory_box/pages/podborki_page/podborki_item/podborki_item_page.dart';
+// import 'package:memory_box/pages/collections_page/collections/collections.dart';
+// import 'package:memory_box/pages/collections_page/collections_add_audio/collections_add_audio.dart';
+// import 'package:memory_box/pages/collections_page/collection_edit/collection_edit.dart';
+// import 'package:memory_box/pages/collections_page/collections_item/collections_item_page.dart';
 // import 'package:memory_box/pages/profile_page/profile.dart';
 // import 'package:memory_box/pages/profile_page/profile_edit.dart';
 // import 'package:memory_box/pages/authorization_page/registration_page/registration_page.dart';
@@ -87,10 +87,10 @@ import 'package:memory_box/pages/logo_page/logo_page.dart';
 import 'package:memory_box/pages/logo_page/screensaver_page.dart';
 import 'package:memory_box/pages/main_page.dart';
 import 'package:memory_box/pages/play_page.dart';
-import 'package:memory_box/pages/podborki_page/podborki/podborki.dart';
-import 'package:memory_box/pages/podborki_page/podborki_add_audio/podborki_add_audio.dart';
-import 'package:memory_box/pages/podborki_page/podborki_edit/podborki_edit.dart';
-import 'package:memory_box/pages/podborki_page/podborki_item/podborki_item_page.dart';
+import 'package:memory_box/pages/podborki_page/collections/collections.dart';
+import 'package:memory_box/pages/podborki_page/collections_add_audio/collections_add_audio.dart';
+import 'package:memory_box/pages/podborki_page/collection_edit/collection_edit.dart';
+import 'package:memory_box/pages/podborki_page/collections_item/collections_item_page.dart';
 import 'package:memory_box/pages/profile_page/profile.dart';
 import 'package:memory_box/pages/profile_page/profile_edit.dart';
 import 'package:memory_box/pages/recordings_page/record_page.dart';
@@ -105,58 +105,58 @@ class AppRouter {
     WidgetBuilder builder;
 
     switch (settings.name) {
-      case FirstPage.rootName:
+      case FirstPage.routeName:
         builder = (_) => FirstPage.create();
         break;
-      case RegistrationPage.rootName:
+      case RegistrationPage.routeName:
         builder = (_) => RegistrationPage.create();
         break;
-      case HomePage.rootName:
+      case HomePage.routeName:
         builder = (_) => HomePage.create();
         break;
-      case AudioRecordingsPage.rootName:
+      case AudioRecordingsPage.routeName:
         builder = (_) => AudioRecordingsPage.create();
         break;
-      case Profile.rootName:
+      case Profile.routeName:
         builder = (_) => Profile.create();
         break;
-      case ProfileEdit.rootName:
+      case ProfileEdit.routeName:
         builder = (_) => ProfileEdit.create();
         break;
-      case Podborki.rootName:
+      case Collections.routeName:
         builder = (_) => Podborki.create();
         break;
-      case PodborkiEdit.rootName:
+      case CollectionsEdit.routeName:
         builder = (_) => PodborkiEdit.create();
         break;
-      case InitializerWidget.rootName:
+      case InitializerWidget.routeName:
         builder = (_) => InitializerWidget.create();
         break;
-      case Screensaver.rootName:
+      case Screensaver.routeName:
         builder = (_) => Screensaver.create();
         break;
-      case LogoPage.rootName:
+      case LogoPage.routeName:
         builder = (_) => LogoPage.create();
         break;
-      case FirstAuthorizationPage.rootName:
+      case FirstAuthorizationPage.routeName:
         builder = (_) => FirstAuthorizationPage.create();
         break;
       case LastAuthorizationPage.rootName:
         builder = (_) => LastAuthorizationPage.create();
         break;
-      case RecordPage.rootName:
+      case RecordPage.routeName:
         builder = (_) => RecordPage.create();
         break;
-      case PodborkiAddAudio.rootName:
+      case CollectionsAddAudio.routeName:
         builder = (_) => PodborkiAddAudio.create();
         break;
-      case PodborkiItemPage.rootName:
+      case CollectionsItemPage.routeName:
         builder = (_) => PodborkiItemPage.create();
         break;
       case Main.routeName:
         builder = (_) => Main.create();
         break;
-      case Test.rootName:
+      case Test.routeName:
         builder = (_) => const Test();
         break;
       default:

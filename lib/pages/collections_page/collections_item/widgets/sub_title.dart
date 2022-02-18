@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
-import 'package:memory_box/pages/podborki_page/podborki_item/podborki_item_page_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:provider/provider.dart';
 
+import '../collections_item_page_model.dart';
+
 class SubTitle extends StatefulWidget {
-  SubTitle({Key? key}) : super(key: key);
+  const SubTitle({Key? key}) : super(key: key);
 
   @override
   State<SubTitle> createState() => _SubTitleState();
@@ -25,7 +26,8 @@ class _SubTitleState extends State<SubTitle> {
           padding: const EdgeInsets.only(
             left: 28.0,
           ),
-          child: Text('${context.watch<PodborkiItemPageModel>().getSubTitle}',
+          child: Text(
+              '${context.watch<CollectionsItemPageModel>().getSubTitle}',
               style: kBodi2TextStyle,
               maxLines: allText ? 4 : 100,
               overflow: TextOverflow.ellipsis),

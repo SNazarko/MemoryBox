@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/widgets/appbar_header_authorization.dart';
-import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
@@ -16,7 +15,8 @@ class _FirstAuthorizationPageArguments {
 
 class FirstAuthorizationPage extends StatefulWidget {
   const FirstAuthorizationPage({Key? key}) : super(key: key);
-  static const rootName = '/first_authorization_page';
+  static const routeName = '/first_authorization_page';
+
   static Widget create() {
     return const FirstAuthorizationPage();
   }

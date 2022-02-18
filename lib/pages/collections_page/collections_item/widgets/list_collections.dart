@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
-import 'package:memory_box/pages/podborki_page/podborki_item/podborki_item_page_model.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/widgets/player_mini.dart';
 import 'package:provider/provider.dart';
 
-class ListPodborokAudio extends StatelessWidget {
-  ListPodborokAudio({Key? key, required this.screenHeight}) : super(key: key);
-  AudioRepositories repositories = AudioRepositories();
+import '../collections_item_page_model.dart';
+
+class ListCollectionsAudio extends StatelessWidget {
+  ListCollectionsAudio({Key? key, required this.screenHeight})
+      : super(key: key);
+  final AudioRepositories repositories = AudioRepositories();
   final double screenHeight;
 
   Widget buildAudio(AudioModel audio) => PlayerMini(
@@ -22,7 +24,7 @@ class ListPodborokAudio extends StatelessWidget {
       height: screenHeight * 0.5,
       child: StreamBuilder<List<AudioModel>>(
         stream: repositories.readAudioPodbirka(
-            '${context.watch<PodborkiItemPageModel>().getTitle}'),
+            '${context.watch<CollectionsItemPageModel>().getTitle}'),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Text('Ошибка');

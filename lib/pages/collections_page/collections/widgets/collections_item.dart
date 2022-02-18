@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/podborki_page/podborki_item/podborki_item_page.dart';
-import 'package:memory_box/pages/podborki_page/podborki_item/podborki_item_page_model.dart';
+import 'package:memory_box/pages/collections_page/collections_item/collections_item_page.dart';
+import 'package:memory_box/pages/collections_page/collections_item/collections_item_page_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:provider/provider.dart';
 
-class PodborkiItem extends StatelessWidget {
-  PodborkiItem(
+class CollectionsItem extends StatelessWidget {
+  const CollectionsItem(
       {Key? key,
       this.title,
       this.quality,
@@ -14,11 +14,11 @@ class PodborkiItem extends StatelessWidget {
       this.subTitle,
       this.data})
       : super(key: key);
-  String? title;
-  String? subTitle;
-  String? quality;
-  String? image;
-  String? data;
+  final String? title;
+  final String? subTitle;
+  final String? quality;
+  final String? image;
+  final String? data;
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +28,14 @@ class PodborkiItem extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {
-          context.read<PodborkiItemPageModel>().setTitle(title!);
-          context.read<PodborkiItemPageModel>().setSubTitle(subTitle!);
-          context.read<PodborkiItemPageModel>().setPhoto(image!);
-          context.read<PodborkiItemPageModel>().setData(data!);
-          context.read<PodborkiItemPageModel>().setQuality(quality!);
+          context.read<CollectionsItemPageModel>().setTitle(title!);
+          context.read<CollectionsItemPageModel>().setSubTitle(subTitle!);
+          context.read<CollectionsItemPageModel>().setPhoto(image!);
+          context.read<CollectionsItemPageModel>().setData(data!);
+          context.read<CollectionsItemPageModel>().setQuality(quality!);
           Navigator.pushNamed(
             context,
-            PodborkiItemPage.rootName,
+            CollectionsItemPage.routeName,
           );
         },
         child: SizedBox(

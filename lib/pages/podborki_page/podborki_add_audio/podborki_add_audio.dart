@@ -16,6 +16,9 @@ import 'package:provider/provider.dart';
 class PodborkiAddAudio extends StatelessWidget {
   const PodborkiAddAudio({Key? key}) : super(key: key);
   static const rootName = '/podborki_add_audio';
+  static Widget create() {
+    return const PodborkiAddAudio();
+  }
 
   @override
   Widget build(BuildContext context) {

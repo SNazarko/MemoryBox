@@ -1,12 +1,91 @@
+// import 'package:flutter/material.dart';
+// import 'package:memory_box/models/collections_model.dart';
+// import 'package:memory_box/pages/audio_recordings_page.dart';
+// import 'package:memory_box/pages/authorization_page/first_authorization_page.dart';
+// import 'package:memory_box/pages/authorization_page/first_page.dart';
+// import 'package:memory_box/pages/home_page.dart';
+// import 'package:memory_box/pages/authorization_page/initializer_widget.dart';
+// import 'package:memory_box/pages/authorization_page/last_authorization_page.dart';
+// import 'package:memory_box/pages/logo_page/logo_page.dart';
+// import 'package:memory_box/pages/play_page.dart';
+// import 'package:memory_box/pages/podborki_page/podborki/podborki.dart';
+// import 'package:memory_box/pages/podborki_page/podborki_add_audio/podborki_add_audio.dart';
+// import 'package:memory_box/pages/podborki_page/podborki_edit/podborki_edit.dart';
+// import 'package:memory_box/pages/podborki_page/podborki_item/podborki_item_page.dart';
+// import 'package:memory_box/pages/profile_page/profile.dart';
+// import 'package:memory_box/pages/profile_page/profile_edit.dart';
+// import 'package:memory_box/pages/authorization_page/registration_page/registration_page.dart';
+// import 'package:memory_box/pages/recordings_page/record_page.dart';
+// import 'package:memory_box/pages/save_page.dart';
+// import 'package:memory_box/pages/logo_page/screensaver_page.dart';
+// import 'package:memory_box/pages/test.dart';
+//
+// class RoutesGenerator {
+//
+//   static Route<dynamic> generateRoute(RouteSettings settings) {
+//     switch (settings.name) {
+//       case FirstPage.rootName:
+//         return MaterialPageRoute(builder: (_) => FirstPage());
+//       case RegistrationPage.rootName:
+//         return MaterialPageRoute(builder: (_) => RegistrationPage());
+//       case HomePage.rootName:
+//         return MaterialPageRoute(builder: (_) => HomePage());
+//       case PlayPage.rootName:
+//         return MaterialPageRoute(builder: (_) => PlayPage());
+//       case SavePage.rootName:
+//         return MaterialPageRoute(builder: (_) => SavePage());
+//       case AudioRecordingsPage.rootName:
+//         return MaterialPageRoute(builder: (_) => AudioRecordingsPage());
+//       case Profile.rootName:
+//         return MaterialPageRoute(builder: (_) => Profile());
+//       case ProfileEdit.rootName:
+//         return MaterialPageRoute(builder: (_) => ProfileEdit());
+//       case Podborki.rootName:
+//         return MaterialPageRoute(builder: (_) => Podborki());
+//       case PodborkiEdit.rootName:
+//         return MaterialPageRoute(builder: (_) => PodborkiEdit());
+//       case InitializerWidget.rootName:
+//         return MaterialPageRoute(builder: (_) => InitializerWidget());
+//       case Screensaver.rootName:
+//         return MaterialPageRoute(builder: (_) => Screensaver());
+//       case LogoPage.rootName:
+//         return MaterialPageRoute(builder: (_) => LogoPage());
+//       case FirstAuthorizationPage.rootName:
+//         return MaterialPageRoute(builder: (_) => FirstAuthorizationPage());
+//       case LastAuthorizationPage.rootName:
+//         return MaterialPageRoute(builder: (_) => LastAuthorizationPage());
+//       case RecordPage.rootName:
+//         return MaterialPageRoute(builder: (_) => RecordPage());
+//       case PodborkiAddAudio.rootName:
+//         return MaterialPageRoute(builder: (_) => PodborkiAddAudio());
+//       case PodborkiItemPage.rootName:
+//         return MaterialPageRoute(builder: (_) => PodborkiItemPage());
+
+//       case Test.rootName:
+//         return MaterialPageRoute(builder: (_) => Test());
+//       default:
+//         return MaterialPageRoute(
+//             builder: (_) => Scaffold(
+//                   body: Center(
+//                     child: Text('No route defined for ${settings.name}'),
+//                   ),
+//                 ));
+//     }
+//   }
+// }
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/models/collections_model.dart';
 import 'package:memory_box/pages/audio_recordings_page.dart';
 import 'package:memory_box/pages/authorization_page/first_authorization_page.dart';
 import 'package:memory_box/pages/authorization_page/first_page.dart';
-import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/pages/authorization_page/initializer_widget.dart';
 import 'package:memory_box/pages/authorization_page/last_authorization_page.dart';
+import 'package:memory_box/pages/authorization_page/registration_page/registration_page.dart';
+import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/pages/logo_page/logo_page.dart';
+import 'package:memory_box/pages/logo_page/screensaver_page.dart';
+import 'package:memory_box/pages/main_page.dart';
 import 'package:memory_box/pages/play_page.dart';
 import 'package:memory_box/pages/podborki_page/podborki/podborki.dart';
 import 'package:memory_box/pages/podborki_page/podborki_add_audio/podborki_add_audio.dart';
@@ -14,60 +93,79 @@ import 'package:memory_box/pages/podborki_page/podborki_edit/podborki_edit.dart'
 import 'package:memory_box/pages/podborki_page/podborki_item/podborki_item_page.dart';
 import 'package:memory_box/pages/profile_page/profile.dart';
 import 'package:memory_box/pages/profile_page/profile_edit.dart';
-import 'package:memory_box/pages/authorization_page/registration_page/registration_page.dart';
 import 'package:memory_box/pages/recordings_page/record_page.dart';
-import 'package:memory_box/pages/save_page.dart';
-import 'package:memory_box/pages/logo_page/screensaver_page.dart';
 import 'package:memory_box/pages/test.dart';
 
-class RoutesGenerator {
+class AppRouter {
+  const AppRouter._();
+
   static Route<dynamic> generateRoute(RouteSettings settings) {
+    final Object? arguments = settings.arguments;
+
+    WidgetBuilder builder;
+
     switch (settings.name) {
       case FirstPage.rootName:
-        return MaterialPageRoute(builder: (_) => FirstPage());
+        builder = (_) => FirstPage.create();
+        break;
       case RegistrationPage.rootName:
-        return MaterialPageRoute(builder: (_) => RegistrationPage());
+        builder = (_) => RegistrationPage.create();
+        break;
       case HomePage.rootName:
-        return MaterialPageRoute(builder: (_) => HomePage());
-      case PlayPage.rootName:
-        return MaterialPageRoute(builder: (_) => PlayPage());
-      case SavePage.rootName:
-        return MaterialPageRoute(builder: (_) => SavePage());
+        builder = (_) => HomePage.create();
+        break;
       case AudioRecordingsPage.rootName:
-        return MaterialPageRoute(builder: (_) => AudioRecordingsPage());
+        builder = (_) => AudioRecordingsPage.create();
+        break;
       case Profile.rootName:
-        return MaterialPageRoute(builder: (_) => Profile());
+        builder = (_) => Profile.create();
+        break;
       case ProfileEdit.rootName:
-        return MaterialPageRoute(builder: (_) => ProfileEdit());
+        builder = (_) => ProfileEdit.create();
+        break;
       case Podborki.rootName:
-        return MaterialPageRoute(builder: (_) => Podborki());
+        builder = (_) => Podborki.create();
+        break;
       case PodborkiEdit.rootName:
-        return MaterialPageRoute(builder: (_) => PodborkiEdit());
+        builder = (_) => PodborkiEdit.create();
+        break;
       case InitializerWidget.rootName:
-        return MaterialPageRoute(builder: (_) => InitializerWidget());
+        builder = (_) => InitializerWidget.create();
+        break;
       case Screensaver.rootName:
-        return MaterialPageRoute(builder: (_) => Screensaver());
+        builder = (_) => Screensaver.create();
+        break;
       case LogoPage.rootName:
-        return MaterialPageRoute(builder: (_) => LogoPage());
+        builder = (_) => LogoPage.create();
+        break;
       case FirstAuthorizationPage.rootName:
-        return MaterialPageRoute(builder: (_) => FirstAuthorizationPage());
+        builder = (_) => FirstAuthorizationPage.create();
+        break;
       case LastAuthorizationPage.rootName:
-        return MaterialPageRoute(builder: (_) => LastAuthorizationPage());
+        builder = (_) => LastAuthorizationPage.create();
+        break;
       case RecordPage.rootName:
-        return MaterialPageRoute(builder: (_) => RecordPage());
+        builder = (_) => RecordPage.create();
+        break;
       case PodborkiAddAudio.rootName:
-        return MaterialPageRoute(builder: (_) => PodborkiAddAudio());
+        builder = (_) => PodborkiAddAudio.create();
+        break;
       case PodborkiItemPage.rootName:
-        return MaterialPageRoute(builder: (_) => PodborkiItemPage());
+        builder = (_) => PodborkiItemPage.create();
+        break;
+      case Main.routeName:
+        builder = (_) => Main.create();
+        break;
       case Test.rootName:
-        return MaterialPageRoute(builder: (_) => Test());
+        builder = (_) => const Test();
+        break;
       default:
-        return MaterialPageRoute(
-            builder: (_) => Scaffold(
-                  body: Center(
-                    child: Text('No route defined for ${settings.name}'),
-                  ),
-                ));
+        throw Exception('Invalid route: ${settings.name}');
     }
+
+    return MaterialPageRoute(
+      builder: builder,
+      settings: settings,
+    );
   }
 }

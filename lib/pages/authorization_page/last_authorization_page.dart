@@ -7,6 +7,7 @@ import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
 
 import '../../widgets/appbar_header_authorization.dart';
+import '../main_page.dart';
 
 class _LastAuthorizationPageArguments {
   _LastAuthorizationPageArguments({this.shouldPop});
@@ -16,6 +17,9 @@ class _LastAuthorizationPageArguments {
 class LastAuthorizationPage extends StatefulWidget {
   const LastAuthorizationPage({Key? key}) : super(key: key);
   static const rootName = '/last_authorization_page';
+  static Widget create() {
+    return const LastAuthorizationPage();
+  }
 
   @override
   State<LastAuthorizationPage> createState() => _LastAuthorizationPageState();
@@ -27,7 +31,7 @@ class _LastAuthorizationPageState extends State<LastAuthorizationPage> {
   @override
   void initState() {
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushNamed(context, HomePage.rootName);
+      Navigator.pushNamed(context, Main.routeName);
     });
     super.initState();
   }

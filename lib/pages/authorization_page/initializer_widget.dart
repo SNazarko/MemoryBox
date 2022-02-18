@@ -23,6 +23,9 @@ class InitializerWidget extends StatelessWidget {
   InitializerWidget({Key? key}) : super(key: key);
   static const rootName = 'initializer_widget';
   final _InitializerWidgetArguments arguments = _InitializerWidgetArguments();
+  static Widget create() {
+    return InitializerWidget();
+  }
 
   @override
   Widget build(BuildContext context) {

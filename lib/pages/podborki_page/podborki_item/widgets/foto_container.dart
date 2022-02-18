@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/podborki_page/podborki_item/podborki_item_page_model.dart';
-import 'package:memory_box/pages/test.dart';
-import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
 import 'package:provider/provider.dart';

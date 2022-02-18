@@ -17,13 +17,15 @@ import '../resources/constants.dart';
 class AudioRecordingsPage extends StatelessWidget {
   const AudioRecordingsPage({Key? key}) : super(key: key);
   static const rootName = '/audio_recordings_page';
+  static Widget create() {
+    return const AudioRecordingsPage();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => PlayAllRepeatBloc(),
       child: Scaffold(
-        bottomNavigationBar: BottomNavBar(),
         appBar: AppBar(
           elevation: 0.0,
           title: const Text(

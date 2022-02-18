@@ -14,6 +14,10 @@ class FirstPage extends StatelessWidget {
   static const rootName = '/';
   final _FirstPageArguments _arguments = _FirstPageArguments();
 
+  static Widget create() {
+    return FirstPage();
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

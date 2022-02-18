@@ -8,6 +8,9 @@ import 'package:memory_box/widgets/bottom_nav_bar.dart';
 class Podborki extends StatelessWidget {
   const Podborki({Key? key}) : super(key: key);
   static const rootName = '/podborki';
+  static Widget create() {
+    return const Podborki();
+  }
 
   @override
   Widget build(BuildContext context) {

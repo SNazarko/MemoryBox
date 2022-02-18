@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/home_page.dart';
-import 'package:memory_box/pages/podborki_page/podborki/podborki.dart';
-import 'package:memory_box/pages/profile_page/profile.dart';
+import 'package:memory_box/models/view_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
-import 'package:memory_box/pages/audio_recordings_page.dart';
+import 'package:provider/provider.dart';
 import '../../resources/constants.dart';
 
 class DrawerMenu extends StatelessWidget {
@@ -52,116 +50,111 @@ class DrawerMenu extends StatelessWidget {
                 ),
               ),
             ),
-            ListTile(
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  HomePage.rootName,
-                );
-              },
-              leading: Image.asset(
-                AppIcons.tabbar_home,
-                width: 20.0,
-                height: 20.0,
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _DrawerItem(
+                      index: 0,
+                      icon: Image.asset(
+                        AppIcons.tabbar_home,
+                        width: 20.0,
+                        height: 20.0,
+                      ),
+                      title: 'Главная'),
+                  _DrawerItem(
+                      index: 1,
+                      icon: Image.asset(
+                        AppIcons.tabbar_profile,
+                      ),
+                      title: 'Профиль'),
+                  _DrawerItem(
+                      index: 2,
+                      icon: Image.asset(
+                        AppIcons.tabbar_category,
+                      ),
+                      title: 'Подборки'),
+                  _DrawerItem(
+                      index: 3,
+                      icon: Image.asset(
+                        AppIcons.tabbar_paper,
+                      ),
+                      title: 'Все аудеофайлы'),
+                  _DrawerItem(
+                      index: 4,
+                      icon: Image.asset(
+                        AppIcons.drawer_search,
+                        width: 24.0,
+                        height: 24.0,
+                      ),
+                      title: 'Поиск'),
+                  _DrawerItem(
+                      index: 5,
+                      icon: Image.asset(
+                        AppIcons.rec_delete,
+                      ),
+                      title: 'Недавно удальонные'),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  _DrawerItem(
+                      index: 6,
+                      icon: Image.asset(
+                        AppIcons.drawer_wallet,
+                        width: 24.0,
+                        height: 24.0,
+                      ),
+                      title: 'Подписка'),
+                  const SizedBox(
+                    height: 5.0,
+                  ),
+                  _DrawerItem(
+                      index: 7,
+                      icon: Image.asset(
+                        AppIcons.drawer_edit,
+                        width: 24.0,
+                        height: 24.0,
+                      ),
+                      title: 'Написать в \n поддержку'),
+                ],
               ),
-              title: const Text('Главная', style: kDraverTextStyle),
-            ),
-            ListTile(
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  Profile.rootName,
-                );
-              },
-              leading: Image.asset(
-                AppIcons.tabbar_profile,
-              ),
-              title: const Text(
-                'Профиль',
-                style: kDraverTextStyle,
-              ),
-            ),
-            ListTile(
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  Podborki.rootName,
-                );
-              },
-              leading: Image.asset(
-                AppIcons.tabbar_category,
-              ),
-              title: const Text(
-                'Подборки',
-                style: kDraverTextStyle,
-              ),
-            ),
-            ListTile(
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  AudioRecordingsPage.rootName,
-                );
-              },
-              leading: Image.asset(
-                AppIcons.tabbar_paper,
-              ),
-              title: const Text(
-                'Все аудеофайлы',
-                style: kDraverTextStyle,
-              ),
-            ),
-            ListTile(
-              leading: Image.asset(
-                AppIcons.drawer_search,
-                width: 24.0,
-                height: 24.0,
-              ),
-              title: const Text(
-                'Поиск',
-                style: kDraverTextStyle,
-              ),
-            ),
-            ListTile(
-              leading: Image.asset(
-                AppIcons.rec_delete,
-              ),
-              title: const Text(
-                'Недавно удальонные',
-                style: kDraverTextStyle,
-              ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            ListTile(
-              leading: Image.asset(
-                AppIcons.drawer_wallet,
-                width: 24.0,
-                height: 24.0,
-              ),
-              title: const Text(
-                'Подписка',
-                style: kDraverTextStyle,
-              ),
-            ),
-            const SizedBox(
-              height: 5.0,
-            ),
-            ListTile(
-              leading: Image.asset(
-                AppIcons.drawer_edit,
-                width: 24.0,
-                height: 24.0,
-              ),
-              title: const Text(
-                'Написать в \n поддержку',
-                style: kDraverTextStyle,
-              ),
-            ),
+            )
           ],
         ),
       ),
+    );
+  }
+}
+
+class _DrawerItem extends StatelessWidget {
+  final int index;
+  final Widget icon;
+  final String title;
+
+  const _DrawerItem({
+    Key? key,
+    required this.index,
+    required this.icon,
+    required this.title,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.watch<Navigation>();
+
+    void _setIndex(int index) {
+      model.setCurrentIndex = index;
+    }
+
+    return TextButton.icon(
+      onPressed: () {
+        _setIndex(index);
+        Navigator.pop(context);
+      },
+      icon: icon,
+      label: Text(title, style: kDraverTextStyle),
     );
   }
 }

@@ -12,6 +12,9 @@ class PodborkiItemPage extends StatelessWidget {
     Key? key,
   }) : super(key: key);
   static const rootName = '/podborki_item_page';
+  static Widget create() {
+    return const PodborkiItemPage();
+  }
 
   @override
   Widget build(BuildContext context) {

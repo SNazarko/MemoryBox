@@ -20,6 +20,9 @@ class ProfileEdit extends StatelessWidget {
   static const rootName = '/profile_edit';
   final PreferencesDataUser _preferencesDataUser = PreferencesDataUser();
   final UserRepositories _repositories = UserRepositories();
+  static Widget create() {
+    return ProfileEdit();
+  }
 
   @override
   Widget build(BuildContext context) {

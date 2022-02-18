@@ -24,6 +24,9 @@ import 'model_recordings_page.dart';
 class RecordPage extends StatefulWidget {
   const RecordPage({Key? key}) : super(key: key);
   static const rootName = '/record_page';
+  static Widget create() {
+    return const RecordPage();
+  }
 
   @override
   _RecordPageState createState() => _RecordPageState();
@@ -215,7 +218,7 @@ class _AudioRecorderState extends State<AudioRecorder> {
       color = Colors.red.withOpacity(0.1);
     } else {
       icon = Icon(Icons.mic, color: AppColor.white, size: 70);
-      color = Colors.orange.withOpacity(0.5);
+      color = AppColor.pinkRec;
     }
 
     return ClipOval(

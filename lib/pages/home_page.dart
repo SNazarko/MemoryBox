@@ -20,23 +20,31 @@ class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
   static const rootName = '/home_page';
 
+  static Widget create() {
+    return const HomePage();
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+          icon: const Icon(Icons.menu),
+        ),
         elevation: 0.0,
       ),
-      drawer: DrawerMenu(),
-      bottomNavigationBar: BottomNavBar(),
       body: Column(
         children: [
           SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _AppbarHeader(),
+                const _AppbarHeader(),
                 _MenuSound(
                   screenHeight: screenHeight / 2.4,
                 ),

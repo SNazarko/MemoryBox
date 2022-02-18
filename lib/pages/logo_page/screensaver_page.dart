@@ -8,6 +8,9 @@ import '../authorization_page/initializer_widget.dart';
 class Screensaver extends StatefulWidget {
   const Screensaver({Key? key}) : super(key: key);
   static const rootName = 'screensaver_page';
+  static Widget create() {
+    return const Screensaver();
+  }
 
   @override
   _ScreensaverState createState() => _ScreensaverState();

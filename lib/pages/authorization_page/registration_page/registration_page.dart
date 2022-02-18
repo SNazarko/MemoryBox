@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/authorization_page/last_authorization_page.dart';
 import 'package:memory_box/pages/authorization_page/registration_page/widget/text_field_captcha.dart';
+import 'package:memory_box/pages/main_page.dart';
 import 'package:memory_box/pages/test.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/pages/home_page.dart';
@@ -19,8 +20,12 @@ enum MobileVerificationState {
 }
 
 class RegistrationPage extends StatefulWidget {
-  RegistrationPage({Key? key}) : super(key: key);
+  const RegistrationPage({Key? key}) : super(key: key);
   static const rootName = '/registration_page';
+
+  static Widget create() {
+    return const RegistrationPage();
+  }
 
   @override
   State<RegistrationPage> createState() => _RegistrationPageState();
@@ -176,7 +181,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ),
             TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, HomePage.rootName);
+                  Navigator.pushNamed(context, Main.routeName);
                 },
                 child: const Text(
                   'Позже',

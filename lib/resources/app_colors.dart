@@ -7,6 +7,7 @@ class AppColor {
   static const Color glass = Color(0xFFFFFF);
   static const Color violet = Color(0xff968ee5);
   static const Color pink = Color(0xFFE27777);
+  static const Color pinkRec = Color(0xFFF1B488);
   static const Color yellow100 = Color(0xfff1b488);
   static const Color colorText50 = Color(0x503A3A55);
   static const Color colorText80 = Color(0x803A3A55);

@@ -18,6 +18,9 @@ import 'package:provider/provider.dart';
 class PodborkiEdit extends StatelessWidget {
   const PodborkiEdit({Key? key}) : super(key: key);
   static const rootName = 'podborki_edit';
+  static Widget create() {
+    return const PodborkiEdit();
+  }
 
   @override
   Widget build(BuildContext context) {

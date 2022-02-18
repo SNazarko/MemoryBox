@@ -7,6 +7,8 @@ import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
 
+import '../main_page.dart';
+
 class _FirstAuthorizationPageArguments {
   _FirstAuthorizationPageArguments({this.shouldPop});
   bool? shouldPop = false;
@@ -15,6 +17,9 @@ class _FirstAuthorizationPageArguments {
 class FirstAuthorizationPage extends StatefulWidget {
   const FirstAuthorizationPage({Key? key}) : super(key: key);
   static const rootName = '/first_authorization_page';
+  static Widget create() {
+    return const FirstAuthorizationPage();
+  }
 
   @override
   State<FirstAuthorizationPage> createState() => _FirstAuthorizationPageState();
@@ -27,7 +32,7 @@ class _FirstAuthorizationPageState extends State<FirstAuthorizationPage> {
   @override
   void initState() {
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushNamed(context, HomePage.rootName);
+      Navigator.pushNamed(context, Main.routeName);
     });
     super.initState();
   }

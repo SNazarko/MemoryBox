@@ -26,6 +26,13 @@ class Profile extends StatelessWidget {
   final _auth = FirebaseAuth.instance;
   final UserRepositories _repositories = UserRepositories();
 
+  static Widget create() {
+    return Profile();
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;

@@ -5,7 +5,6 @@ import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/pages/audio_recordings_page.dart';
 import 'package:memory_box/pages/authorization_page/first_authorization_page.dart';
 import 'package:memory_box/pages/logo_page/screensaver_page.dart';
-import 'package:memory_box/pages/podborki_page/collections_item/collections_item_page.dart';
 import 'package:memory_box/pages/recordings_page/record_page.dart';
 import 'package:memory_box/pages/test.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
@@ -15,6 +14,7 @@ import 'package:memory_box/widgets/bottom_nav_bar.dart';
 import 'package:memory_box/widgets/drawer_menu.dart';
 import 'package:memory_box/widgets/player_mini.dart';
 import '../resources/constants.dart';
+import 'collections_page/collections_item/collections_item_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -103,7 +103,8 @@ class _AppbarHeader extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, PodborkiItemPage.rootName);
+                        Navigator.pushNamed(
+                            context, CollectionsItemPage.routeName);
                       },
                       child: const Text(
                         'Открыть все',
@@ -276,7 +277,7 @@ class _MenuSound extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(
-                          context, AudioRecordingsPage.rootName);
+                          context, AudioRecordingsPage.routeName);
                     },
                     child: const Text(
                       'Открыть все',

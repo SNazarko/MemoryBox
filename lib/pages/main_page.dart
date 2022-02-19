@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/view_model.dart';
 import 'package:memory_box/pages/home_page.dart';
-import 'package:memory_box/pages/podborki_page/collections/collections.dart';
-import 'package:memory_box/pages/profile_page/profile.dart';
+import 'package:memory_box/pages/profile_page/profile_page/profile.dart';
 import 'package:memory_box/pages/recordings_page/record_page.dart';
 import 'package:memory_box/routes/routes.dart';
 import 'package:memory_box/widgets/bottom_nav_bar.dart';
 import 'package:memory_box/widgets/drawer_menu.dart';
 import 'package:provider/provider.dart';
 import 'audio_recordings_page.dart';
+import 'collections_page/collections/collections.dart';
 
 class Main extends StatelessWidget {
   const Main({Key? key}) : super(key: key);
@@ -35,24 +35,24 @@ class Main extends StatelessWidget {
 
     switch (_currentIndex) {
       case 0:
-        _globalKey.currentState?.pushReplacementNamed(HomePage.rootName);
+        _globalKey.currentState?.pushReplacementNamed(HomePage.routeName);
 
         break;
       case 1:
-        _globalKey.currentState?.pushReplacementNamed(Podborki.rootName);
+        _globalKey.currentState?.pushReplacementNamed(Collections.routeName);
 
         break;
       case 2:
-        _globalKey.currentState?.pushReplacementNamed(RecordPage.rootName);
+        _globalKey.currentState?.pushReplacementNamed(RecordPage.routeName);
 
         break;
       case 3:
         _globalKey.currentState
-            ?.pushReplacementNamed(AudioRecordingsPage.rootName);
+            ?.pushReplacementNamed(AudioRecordingsPage.routeName);
 
         break;
       case 4:
-        _globalKey.currentState?.pushReplacementNamed(Profile.rootName);
+        _globalKey.currentState?.pushReplacementNamed(Profile.routeName);
 
         break;
       case 5:
@@ -65,7 +65,7 @@ class Main extends StatelessWidget {
 
         break;
       default:
-        _globalKey.currentState?.pushReplacementNamed(HomePage.rootName);
+        _globalKey.currentState?.pushReplacementNamed(HomePage.routeName);
         break;
     }
 
@@ -77,7 +77,7 @@ class Main extends StatelessWidget {
         drawer: const DrawerMenu(),
         extendBody: true,
         body: Navigator(
-          initialRoute: HomePage.rootName,
+          initialRoute: HomePage.routeName,
           key: _globalKey,
           onGenerateRoute: AppRouter.generateRoute,
         ),

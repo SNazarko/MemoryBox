@@ -82,16 +82,15 @@ import 'package:memory_box/pages/authorization_page/first_page.dart';
 import 'package:memory_box/pages/authorization_page/initializer_widget.dart';
 import 'package:memory_box/pages/authorization_page/last_authorization_page.dart';
 import 'package:memory_box/pages/authorization_page/registration_page/registration_page.dart';
+import 'package:memory_box/pages/collections_page/collection_edit/collections_edit.dart';
+import 'package:memory_box/pages/collections_page/collections/collections.dart';
+import 'package:memory_box/pages/collections_page/collections_add_audio/collections_add_audio.dart';
+import 'package:memory_box/pages/collections_page/collections_item/collections_item_page.dart';
 import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/pages/logo_page/logo_page.dart';
 import 'package:memory_box/pages/logo_page/screensaver_page.dart';
 import 'package:memory_box/pages/main_page.dart';
-import 'package:memory_box/pages/play_page.dart';
-import 'package:memory_box/pages/podborki_page/collections/collections.dart';
-import 'package:memory_box/pages/podborki_page/collections_add_audio/collections_add_audio.dart';
-import 'package:memory_box/pages/podborki_page/collection_edit/collection_edit.dart';
-import 'package:memory_box/pages/podborki_page/collections_item/collections_item_page.dart';
-import 'package:memory_box/pages/profile_page/profile.dart';
+import 'package:memory_box/pages/profile_page/profile_page/profile.dart';
 import 'package:memory_box/pages/profile_page/profile_edit.dart';
 import 'package:memory_box/pages/recordings_page/record_page.dart';
 import 'package:memory_box/pages/test.dart';
@@ -124,10 +123,10 @@ class AppRouter {
         builder = (_) => ProfileEdit.create();
         break;
       case Collections.routeName:
-        builder = (_) => Podborki.create();
+        builder = (_) => Collections.create();
         break;
       case CollectionsEdit.routeName:
-        builder = (_) => PodborkiEdit.create();
+        builder = (_) => CollectionsEdit.create();
         break;
       case InitializerWidget.routeName:
         builder = (_) => InitializerWidget.create();
@@ -141,17 +140,17 @@ class AppRouter {
       case FirstAuthorizationPage.routeName:
         builder = (_) => FirstAuthorizationPage.create();
         break;
-      case LastAuthorizationPage.rootName:
+      case LastAuthorizationPage.routeName:
         builder = (_) => LastAuthorizationPage.create();
         break;
       case RecordPage.routeName:
         builder = (_) => RecordPage.create();
         break;
       case CollectionsAddAudio.routeName:
-        builder = (_) => PodborkiAddAudio.create();
+        builder = (_) => CollectionsAddAudio.create();
         break;
       case CollectionsItemPage.routeName:
-        builder = (_) => PodborkiItemPage.create();
+        builder = (_) => CollectionsItemPage.create();
         break;
       case Main.routeName:
         builder = (_) => Main.create();

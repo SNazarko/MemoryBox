@@ -24,8 +24,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<Navigation>(
-            create: (BuildContext context) => Navigation()),
         ChangeNotifierProvider<CollectionsItemPageModel>(
             create: (BuildContext context) => CollectionsItemPageModel()),
         ChangeNotifierProvider<CollectionsAddAudioModel>(

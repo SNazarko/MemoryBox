@@ -17,7 +17,7 @@ import '../../resources/constants.dart';
 
 class ProfileEdit extends StatelessWidget {
   ProfileEdit({Key? key}) : super(key: key);
-  static const rootName = '/profile_edit';
+  static const routeName = '/profile_edit';
   final PreferencesDataUser _preferencesDataUser = PreferencesDataUser();
   final UserRepositories _repositories = UserRepositories();
   static Widget create() {
@@ -27,7 +27,6 @@ class ProfileEdit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavBar(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

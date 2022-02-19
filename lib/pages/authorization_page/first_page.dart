@@ -11,7 +11,7 @@ class _FirstPageArguments {
 
 class FirstPage extends StatelessWidget {
   FirstPage({Key? key}) : super(key: key);
-  static const routeName = '/first_page';
+  static const routeName = '/';
   final _FirstPageArguments _arguments = _FirstPageArguments();
 
   static Widget create() {

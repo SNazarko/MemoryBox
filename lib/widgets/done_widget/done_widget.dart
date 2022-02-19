@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/models/audio_model.dart';
-import 'package:memory_box/pages/podborki_page/collection_edit/collections_edit_model.dart';
+import 'package:memory_box/pages/collections_page/collection_edit/collections_edit_model.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/widgets/done_widget/model_done.dart';
 import 'package:provider/provider.dart';
 
 class DoneWidget extends StatefulWidget {
@@ -48,7 +46,7 @@ class _DoneWidgetState extends State<DoneWidget> {
               done = !done;
               if (done) {
                 repositories.addAudioForCollection(
-                  Provider.of<PodborkiEditModel>(context, listen: false)
+                  Provider.of<CollectionsEditModel>(context, listen: false)
                       .getTitle,
                   widget.name,
                   widget.audio,
@@ -64,7 +62,7 @@ class _DoneWidgetState extends State<DoneWidget> {
               }
               if (!done) {
                 repositories.deleteAudioForCollection(
-                  Provider.of<PodborkiEditModel>(context, listen: false)
+                  Provider.of<CollectionsEditModel>(context, listen: false)
                       .getTitle,
                   widget.name,
                 );

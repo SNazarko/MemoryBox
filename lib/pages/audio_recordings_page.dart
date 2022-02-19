@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,15 +7,12 @@ import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
-import 'package:memory_box/widgets/bottom_nav_bar.dart';
-import 'package:memory_box/widgets/drawer_menu.dart';
 import 'package:memory_box/widgets/player_mini.dart';
-
 import '../resources/constants.dart';
 
 class AudioRecordingsPage extends StatelessWidget {
   const AudioRecordingsPage({Key? key}) : super(key: key);
-  static const rootName = '/audio_recordings_page';
+  static const routeName = '/audio_recordings_page';
   static Widget create() {
     return const AudioRecordingsPage();
   }
@@ -27,6 +23,12 @@ class AudioRecordingsPage extends StatelessWidget {
       create: (context) => PlayAllRepeatBloc(),
       child: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: const Icon(Icons.menu),
+          ),
           elevation: 0.0,
           title: const Text(
             'Аудиозаписи',
@@ -35,13 +37,12 @@ class AudioRecordingsPage extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {},
-              icon: Icon(Icons.more_horiz),
+              icon: const Icon(Icons.more_horiz),
               color: Colors.white,
               iconSize: 30.0,
             )
           ],
         ),
-        drawer: DrawerMenu(),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

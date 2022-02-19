@@ -4,7 +4,7 @@ import 'package:memory_box/pages/logo_page/screensaver_page.dart';
 
 class LogoPage extends StatefulWidget {
   const LogoPage({Key? key}) : super(key: key);
-  static const routeName = 'logo_page';
+  static const routeName = '/logo_page';
   static Widget create() {
     return const LogoPage();
   }

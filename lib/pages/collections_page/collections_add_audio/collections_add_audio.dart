@@ -15,7 +15,7 @@ class CollectionsAddAudio extends StatelessWidget {
   const CollectionsAddAudio({Key? key}) : super(key: key);
   static const routeName = '/collections_add_audio';
   static Widget create() {
-    return const CollectionsAddAudio();
+    return MultiProvider(providers: [], child: const CollectionsAddAudio());
   }
 
   @override

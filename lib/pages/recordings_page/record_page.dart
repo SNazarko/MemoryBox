@@ -23,7 +23,7 @@ import 'model_recordings_page.dart';
 
 class RecordPage extends StatefulWidget {
   const RecordPage({Key? key}) : super(key: key);
-  static const rootName = '/record_page';
+  static const routeName = '/record_page';
   static Widget create() {
     return const RecordPage();
   }
@@ -50,17 +50,21 @@ class _RecordPageState extends State<RecordPage> {
       create: (BuildContext context) => ModelRP(),
       child: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: const Icon(Icons.menu),
+          ),
           elevation: 0.0,
         ),
-        drawer: DrawerMenu(),
-        bottomNavigationBar: BottomNavBar(),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Stack(
                 children: [
-                  AppbarMenu(),
+                  const AppbarMenu(),
                   Positioned(
                       left: 5.0,
                       top: 30.0,
@@ -560,7 +564,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
 
               Navigator.pushNamed(
                 context,
-                AudioRecordingsPage.rootName,
+                AudioRecordingsPage.routeName,
               );
             },
             child: const Text(

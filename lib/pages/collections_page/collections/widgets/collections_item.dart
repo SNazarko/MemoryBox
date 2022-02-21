@@ -47,6 +47,8 @@ class CollectionsItem extends StatelessWidget {
                   ? Image.network(
                       image!,
                       fit: BoxFit.fill,
+                      width: 185.0,
+                      height: 250.0,
                     )
                   : const ColoredBox(color: Colors.cyan),
               Padding(

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 
-class PopupMenuCollectionPage extends StatelessWidget {
-  const PopupMenuCollectionPage({Key? key}) : super(key: key);
+class PopupMenuCollectionItemPage extends StatelessWidget {
+  const PopupMenuCollectionItemPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

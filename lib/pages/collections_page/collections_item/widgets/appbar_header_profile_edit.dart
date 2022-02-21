@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/pages/collections_page/collections_item/widgets/popup_menu_collection_item_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/icon_back.dart';
@@ -33,13 +34,7 @@ class AppbarHeaderProfileEdit extends StatelessWidget {
                   Navigator.pop(context);
                 },
               ),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.more_horiz,
-                    size: 30.0,
-                    color: AppColor.white,
-                  ))
+              const PopupMenuCollectionItemPage(),
             ],
           ),
         ),

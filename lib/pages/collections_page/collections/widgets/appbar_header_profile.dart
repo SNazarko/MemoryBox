@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/collections_page/collection_edit/collections_edit.dart';
+import 'package:memory_box/pages/collections_page/collections/widgets/popup_menu_collection_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
@@ -41,7 +42,7 @@ class AppbarHeaderProfile extends StatelessWidget {
                 'Подборки',
                 style: kTitleTextStyle2,
               ),
-              PopupMenuCollectionPage(),
+              const PopupMenuCollectionPage(),
             ],
           ),
         ),
@@ -56,36 +57,6 @@ class AppbarHeaderProfile extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ],
-    );
-  }
-}
-
-class PopupMenuCollectionPage extends StatelessWidget {
-  const PopupMenuCollectionPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton(
-      icon: const Icon(
-        Icons.more_horiz,
-        color: AppColor.white,
-      ),
-      iconSize: 40,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(15),
-        ),
-      ),
-      itemBuilder: (context) => [
-        popupMenuItem(
-          'Вибрать подбарки',
-          () {},
-        ),
-        popupMenuItem(
-          'Удалить все',
-          () {},
         ),
       ],
     );

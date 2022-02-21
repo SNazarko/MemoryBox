@@ -163,7 +163,7 @@ class _PlayerMiniState extends State<PlayerMini> {
             const Expanded(
               child: SizedBox(),
             ),
-            const PopupMenuPlayerMini()
+            widget.popupMenu
           ],
         ),
       ),

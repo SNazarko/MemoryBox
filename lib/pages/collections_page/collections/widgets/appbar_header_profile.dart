@@ -4,6 +4,7 @@ import 'package:memory_box/pages/collections_page/collection_edit/collections_ed
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
+import 'package:memory_box/widgets/popup_menu_button.dart';
 
 class AppbarHeaderProfile extends StatelessWidget {
   const AppbarHeaderProfile({Key? key}) : super(key: key);
@@ -40,14 +41,7 @@ class AppbarHeaderProfile extends StatelessWidget {
                 'Подборки',
                 style: kTitleTextStyle2,
               ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.more_horiz,
-                  size: 35.0,
-                  color: Colors.white,
-                ),
-              ),
+              PopupMenuCollectionPage(),
             ],
           ),
         ),
@@ -62,6 +56,36 @@ class AppbarHeaderProfile extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ],
+    );
+  }
+}
+
+class PopupMenuCollectionPage extends StatelessWidget {
+  const PopupMenuCollectionPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton(
+      icon: const Icon(
+        Icons.more_horiz,
+        color: AppColor.white,
+      ),
+      iconSize: 40,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(15),
+        ),
+      ),
+      itemBuilder: (context) => [
+        popupMenuItem(
+          'Вибрать подбарки',
+          () {},
+        ),
+        popupMenuItem(
+          'Удалить все',
+          () {},
         ),
       ],
     );

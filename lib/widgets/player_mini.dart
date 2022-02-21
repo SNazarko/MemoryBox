@@ -2,17 +2,24 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/pages/collections_page/collections_item/widgets/list_collections.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:just_audio/just_audio.dart' as ap;
 import 'package:memory_box/resources/app_icons.dart';
+import 'package:memory_box/widgets/popup_menu_button.dart';
 
 class PlayerMini extends StatefulWidget {
   const PlayerMini(
-      {Key? key, required this.url, required this.name, required this.duration})
+      {Key? key,
+      required this.url,
+      required this.name,
+      required this.duration,
+      required this.popupMenu})
       : super(key: key);
-  final url;
-  final name;
-  final duration;
+  final String url;
+  final String name;
+  final String duration;
+  final Widget popupMenu;
   @override
   State<PlayerMini> createState() => _PlayerMiniState();
 }
@@ -156,12 +163,7 @@ class _PlayerMiniState extends State<PlayerMini> {
             const Expanded(
               child: SizedBox(),
             ),
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.more_horiz,
-                  size: 30.0,
-                ))
+            const PopupMenuPlayerMini()
           ],
         ),
       ),

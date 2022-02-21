@@ -8,6 +8,7 @@ import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/player_mini.dart';
+import 'package:memory_box/widgets/popup_menu_button.dart';
 import '../resources/constants.dart';
 
 class AudioRecordingsPage extends StatelessWidget {
@@ -213,6 +214,7 @@ class _ListPlayers extends StatelessWidget {
         duration: '${audio.duration}',
         url: '${audio.audioUrl}',
         name: '${audio.audioName}',
+        popupMenu: const PopupMenuAudioRecordingPage(),
       );
 
   @override
@@ -241,6 +243,43 @@ class _ListPlayers extends StatelessWidget {
               }
             },
           ),
+        ),
+      ],
+    );
+  }
+}
+
+class PopupMenuAudioRecordingPage extends StatelessWidget {
+  const PopupMenuAudioRecordingPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton(
+      icon: const Icon(
+        Icons.more_horiz,
+      ),
+      iconSize: 40,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(15),
+        ),
+      ),
+      itemBuilder: (context) => [
+        popupMenuItem(
+          'Переименовать',
+          () {},
+        ),
+        popupMenuItem(
+          'Добавить в подборку',
+          () {},
+        ),
+        popupMenuItem(
+          'Удалить ',
+          () {},
+        ),
+        popupMenuItem(
+          'Поделиться',
+          () {},
         ),
       ],
     );

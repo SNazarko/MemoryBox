@@ -8,7 +8,7 @@ import 'package:memory_box/widgets/bottom_nav_bar.dart';
 import 'package:memory_box/widgets/drawer_menu.dart';
 import 'package:provider/provider.dart';
 import 'audio_recordings_page.dart';
-import 'collections_page/collections/collections.dart';
+import 'collections_pages/collections/collections.dart';
 
 class Main extends StatelessWidget {
   const Main({Key? key}) : super(key: key);
@@ -28,6 +28,10 @@ class Main extends StatelessWidget {
     );
   }
 
+  void globalKey(route) {
+    _globalKey.currentState?.pushReplacementNamed(route);
+  }
+
   @override
   Widget build(BuildContext context) {
     final int _currentIndex =
@@ -35,37 +39,28 @@ class Main extends StatelessWidget {
 
     switch (_currentIndex) {
       case 0:
-        _globalKey.currentState?.pushReplacementNamed(HomePage.routeName);
+        globalKey(HomePage.routeName);
 
         break;
       case 1:
-        _globalKey.currentState?.pushReplacementNamed(Collections.routeName);
+        globalKey(Collections.routeName);
 
         break;
       case 2:
-        _globalKey.currentState?.pushReplacementNamed(RecordPage.routeName);
+        globalKey(RecordPage.routeName);
 
         break;
       case 3:
-        _globalKey.currentState
-            ?.pushReplacementNamed(AudioRecordingsPage.routeName);
+        globalKey(AudioRecordingsPage.routeName);
 
         break;
       case 4:
-        _globalKey.currentState?.pushReplacementNamed(Profile.routeName);
+        globalKey(Profile.routeName);
 
         break;
-      case 5:
-        // _globalKey.currentState?.pushReplacementNamed();
 
-        break;
-      case 6:
-        // _globalKey.currentState
-        //     ?.pushReplacementNamed();
-
-        break;
       default:
-        _globalKey.currentState?.pushReplacementNamed(HomePage.routeName);
+        globalKey(HomePage.routeName);
         break;
     }
 

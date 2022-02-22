@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/collections_page/collections_item/widgets/appbar_header_profile_edit.dart';
-import 'package:memory_box/pages/collections_page/collections_item/widgets/foto_container.dart';
-import 'package:memory_box/pages/collections_page/collections_item/widgets/list_collections.dart';
-import 'package:memory_box/pages/collections_page/collections_item/widgets/player_collections.dart';
-import 'package:memory_box/pages/collections_page/collections_item/widgets/sub_title.dart';
+import 'package:memory_box/pages/collections_pages/collections_item/widgets/appbar_header_profile_edit.dart';
+import 'package:memory_box/pages/collections_pages/collections_item/widgets/foto_container.dart';
+import 'package:memory_box/pages/collections_pages/collections_item/widgets/list_collections.dart';
+import 'package:memory_box/pages/collections_pages/collections_item/widgets/player_collections.dart';
+import 'package:memory_box/pages/collections_pages/collections_item/widgets/sub_title.dart';
 
 class CollectionsItemPage extends StatelessWidget {
   const CollectionsItemPage({

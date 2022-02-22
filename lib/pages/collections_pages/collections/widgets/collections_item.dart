@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/collections_page/collections_item/collections_item_page.dart';
-import 'package:memory_box/pages/collections_page/collections_item/collections_item_page_model.dart';
+import 'package:memory_box/pages/collections_pages/collections_item/collections_item_page.dart';
+import 'package:memory_box/pages/collections_pages/collections_item/collections_item_page_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:provider/provider.dart';
 

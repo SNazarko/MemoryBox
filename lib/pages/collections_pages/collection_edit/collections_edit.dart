@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:memory_box/pages/collections_page/collections_add_audio/collections_add_audio.dart';
+import 'package:memory_box/pages/collections_pages/collections_add_audio/collections_add_audio.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';

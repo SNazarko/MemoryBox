@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/collections_page/collection_edit/collections_edit_model.dart';
-import 'package:memory_box/pages/collections_page/collections_add_audio/collections_add_audio_model.dart';
-import 'package:memory_box/pages/collections_page/collections_item/collections_item_page_model.dart';
+import 'package:memory_box/pages/collections_pages/collection_edit/collections_edit_model.dart';
+import 'package:memory_box/pages/collections_pages/collections_add_audio/collections_add_audio_model.dart';
+import 'package:memory_box/pages/collections_pages/collections_item/collections_item_page_model.dart';
 import 'package:memory_box/pages/logo_page/logo_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/routes/routes.dart';

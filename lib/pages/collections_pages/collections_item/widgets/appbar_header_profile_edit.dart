@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/collections_page/collections_item/widgets/popup_menu_collection_item_page.dart';
+import 'package:memory_box/pages/collections_pages/collections_item/widgets/popup_menu_collection_item_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/icon_back.dart';

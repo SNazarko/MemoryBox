@@ -1,21 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/pages/audio_recordings_page.dart';
-import 'package:memory_box/pages/authorization_page/first_authorization_page.dart';
-import 'package:memory_box/pages/logo_page/screensaver_page.dart';
-import 'package:memory_box/pages/recordings_page/record_page.dart';
-import 'package:memory_box/pages/test.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
-import 'package:memory_box/widgets/bottom_nav_bar.dart';
-import 'package:memory_box/widgets/drawer_menu.dart';
 import 'package:memory_box/widgets/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 import '../resources/constants.dart';
-import 'collections_page/collections_item/collections_item_page.dart';
+import 'collections_pages/collection_item_edit/collection_item_edit_page.dart';
+import 'collections_pages/collections_item/collections_item_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -105,7 +99,7 @@ class _AppbarHeader extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(
-                            context, CollectionsItemPage.routeName);
+                            context, CollectionItemEditPage.routeName);
                       },
                       child: const Text(
                         'Открыть все',
@@ -350,18 +344,22 @@ class PopupMenuHomePage extends StatelessWidget {
         popupMenuItem(
           'Переименовать',
           () {},
+          0
         ),
         popupMenuItem(
           'Добавить в подборку',
           () {},
+          1
         ),
         popupMenuItem(
           'Удалить ',
           () {},
+          2
         ),
         popupMenuItem(
           'Поделиться',
           () {},
+          3
         ),
       ],
     );

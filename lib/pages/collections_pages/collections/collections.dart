@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/collections_page/collections/widgets/appbar_header_profile.dart';
-import 'package:memory_box/pages/collections_page/collections/widgets/list_collections.dart';
+import 'package:memory_box/pages/collections_pages/collections/widgets/appbar_header_profile.dart';
+import 'package:memory_box/pages/collections_pages/collections/widgets/list_collections.dart';
 
 class Collections extends StatelessWidget {
   const Collections({Key? key}) : super(key: key);

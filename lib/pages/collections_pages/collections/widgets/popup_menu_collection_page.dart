@@ -23,18 +23,22 @@ class PopupMenuCollectionPage extends StatelessWidget {
         popupMenuItem(
           'Редактировать',
           () {},
+          0
         ),
         popupMenuItem(
           'Выбрать несколько',
           () {},
+          1
         ),
         popupMenuItem(
           'Удалить подборку',
           () {},
+          2
         ),
         popupMenuItem(
           'Поделиться',
           () {},
+          3
         ),
       ],
     );

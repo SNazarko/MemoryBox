@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/pages/collections_pages/collection_item_edit/collection_item_edit_page.dart';
+import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 
@@ -20,22 +22,16 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
         ),
       ),
       itemBuilder: (context) => [
-        popupMenuItem(
-          'Редактировать',
-          () {},
-        ),
-        popupMenuItem(
-          'Выбрать несколько',
-          () {},
-        ),
-        popupMenuItem(
-          'Удалить подборку',
-          () {},
-        ),
-        popupMenuItem(
-          'Поделиться',
-          () {},
-        ),
+        popupMenuItem('Редактировать', () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return const CollectionItemEditPage();
+          }));
+        }, 0),
+        popupMenuItem('Выбрать несколько', () {}, 1),
+        popupMenuItem('Удалить подборку', () {
+          Navigator.pushNamed(context, HomePage.routeName);
+        }, 2),
+        popupMenuItem('Поделиться', () {}, 3),
       ],
     );
   }

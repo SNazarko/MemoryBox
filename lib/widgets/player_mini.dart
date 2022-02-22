@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/collections_page/collections_item/widgets/list_collections.dart';
+import 'package:memory_box/pages/collections_pages/collections_item/widgets/list_collections.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:just_audio/just_audio.dart' as ap;
 import 'package:memory_box/resources/app_icons.dart';
@@ -129,13 +129,6 @@ class _PlayerMiniState extends State<PlayerMini> {
         child: Row(
           children: [
             _buildControl(),
-            // Container(
-            //   width: 70.0,
-            //   height: 70.0,
-            //   child: Image.asset(
-            //     'assets/images/4x/play_aud.png',
-            //   ),
-            // ),
             Padding(
               padding: const EdgeInsets.only(left: 20.0),
               child: Column(

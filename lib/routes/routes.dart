@@ -8,10 +8,10 @@
 // import 'package:memory_box/pages/authorization_page/last_authorization_page.dart';
 // import 'package:memory_box/pages/logo_page/logo_page.dart';
 // import 'package:memory_box/pages/play_page.dart';
-// import 'package:memory_box/pages/collections_page/collections/collections.dart';
-// import 'package:memory_box/pages/collections_page/collections_add_audio/collections_add_audio.dart';
-// import 'package:memory_box/pages/collections_page/collection_edit/collection_edit.dart';
-// import 'package:memory_box/pages/collections_page/collections_item/collections_item_page.dart';
+// import 'package:memory_box/pages/collections_pages/collections/collections.dart';
+// import 'package:memory_box/pages/collections_pages/collections_add_audio/collections_add_audio.dart';
+// import 'package:memory_box/pages/collections_pages/collection_edit/collection_edit.dart';
+// import 'package:memory_box/pages/collections_pages/collections_item/collections_item_page.dart';
 // import 'package:memory_box/pages/profile_page/profile.dart';
 // import 'package:memory_box/pages/profile_page/profile_edit.dart';
 // import 'package:memory_box/pages/authorization_page/registration_page/registration_page.dart';
@@ -82,10 +82,11 @@ import 'package:memory_box/pages/authorization_page/first_page.dart';
 import 'package:memory_box/pages/authorization_page/initializer_widget.dart';
 import 'package:memory_box/pages/authorization_page/last_authorization_page.dart';
 import 'package:memory_box/pages/authorization_page/registration_page/registration_page.dart';
-import 'package:memory_box/pages/collections_page/collection_edit/collections_edit.dart';
-import 'package:memory_box/pages/collections_page/collections/collections.dart';
-import 'package:memory_box/pages/collections_page/collections_add_audio/collections_add_audio.dart';
-import 'package:memory_box/pages/collections_page/collections_item/collections_item_page.dart';
+import 'package:memory_box/pages/collections_pages/collection_edit/collections_edit.dart';
+import 'package:memory_box/pages/collections_pages/collection_item_edit/collection_item_edit_page.dart';
+import 'package:memory_box/pages/collections_pages/collections/collections.dart';
+import 'package:memory_box/pages/collections_pages/collections_add_audio/collections_add_audio.dart';
+import 'package:memory_box/pages/collections_pages/collections_item/collections_item_page.dart';
 import 'package:memory_box/pages/home_page.dart';
 import 'package:memory_box/pages/logo_page/logo_page.dart';
 import 'package:memory_box/pages/logo_page/screensaver_page.dart';
@@ -154,6 +155,9 @@ class AppRouter {
         break;
       case Main.routeName:
         builder = (_) => Main.create();
+        break;
+      case CollectionItemEditPage.routeName:
+        builder = (_) => const CollectionItemEditPage();
         break;
       case Test.routeName:
         builder = (_) => const Test();

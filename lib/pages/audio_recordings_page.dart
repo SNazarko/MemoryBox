@@ -268,18 +268,22 @@ class PopupMenuAudioRecordingPage extends StatelessWidget {
         popupMenuItem(
           'Переименовать',
           () {},
+          0
         ),
         popupMenuItem(
           'Добавить в подборку',
           () {},
+          1
         ),
         popupMenuItem(
           'Удалить ',
           () {},
+          2
         ),
         popupMenuItem(
           'Поделиться',
           () {},
+          3
         ),
       ],
     );

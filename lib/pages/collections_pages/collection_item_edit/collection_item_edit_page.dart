@@ -5,9 +5,12 @@ import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/pages/collections_pages/collection_edit/collections_edit_model.dart';
 import 'package:memory_box/pages/collections_pages/collections_add_audio/collections_add_audio.dart';
 import 'package:memory_box/pages/collections_pages/collections_item/collections_item_page_model.dart';
+import 'package:memory_box/pages/test.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
+import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
+import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
 import 'package:memory_box/widgets/icon_back.dart';
@@ -16,6 +19,8 @@ import 'package:memory_box/widgets/image_pick.dart';
 import 'package:memory_box/widgets/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:provider/provider.dart';
+
+import 'collection_item_edit_page_model.dart';
 
 class CollectionItemEditPage extends StatelessWidget {
   const CollectionItemEditPage({Key? key}) : super(key: key);
@@ -38,7 +43,7 @@ class CollectionItemEditPage extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 300.0,
+              height: 450.0,
               child: Column(
                 children: [
                   const SizedBox(
@@ -46,7 +51,7 @@ class CollectionItemEditPage extends StatelessWidget {
                   ),
                   const Flexible(fit: FlexFit.loose, child: SubTitle()),
                   Flexible(
-                      fit: FlexFit.tight,
+                      fit: FlexFit.loose,
                       child: ListCollectionsAudioItemEditPage()),
                 ],
               ),
@@ -85,7 +90,7 @@ class _PhotoContainerState extends State<_PhotoContainer> {
                 fit: BoxFit.fitWidth,
               )
             : Image.network(
-                '${context.watch<CollectionsItemPageModel>().getPhoto}',
+                '${Provider.of<CollectionsItemPageModel>(context, listen: false).getPhoto}',
                 fit: BoxFit.fitWidth,
               ),
         width: screenWidth * 0.955,
@@ -96,7 +101,9 @@ class _PhotoContainerState extends State<_PhotoContainer> {
             XFile? _image = await imagePick.singleImagePick();
             if (_image != null && _image.path.isNotEmpty) {
               singleImage = await UserRepositories().uploadImage(_image);
-              context.read<CollectionsEditModel>().image(singleImage!);
+              context
+                  .read<CollectionItemEditPageModel>()
+                  .setAvatarCollectionsEdit(singleImage!);
               setState(() {});
             }
           },
@@ -119,10 +126,12 @@ class _AppbarHeaderProfileEdit extends StatefulWidget {
 
 class _AppbarHeaderProfileEditState extends State<_AppbarHeaderProfileEdit> {
   final TextEditingController _controller = TextEditingController();
+  final CollectionsRepositories _repositories = CollectionsRepositories();
 
   @override
   void didChangeDependencies() {
-    _controller.text = '${context.watch<CollectionsItemPageModel>().getTitle}';
+    _controller.text =
+        '${Provider.of<CollectionsItemPageModel>(context, listen: false).getTitle}';
     super.didChangeDependencies();
   }
 
@@ -130,6 +139,23 @@ class _AppbarHeaderProfileEditState extends State<_AppbarHeaderProfileEdit> {
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  void editCollections(BuildContext context) {
+    _repositories.addCollections(
+      Provider.of<CollectionItemEditPageModel>(context, listen: false)
+          .getTitleCollectionsEdit,
+      Provider.of<CollectionItemEditPageModel>(context, listen: false)
+          .getTitleCollectionsEdit,
+      Provider.of<CollectionItemEditPageModel>(context, listen: false)
+          .getSubTitleCollectionsEdit,
+      Provider.of<CollectionItemEditPageModel>(context, listen: false)
+          .getAvatarCollectionsEdit,
+    );
+    // _repositories.deleteCollection(
+    //   Provider.of<CollectionsItemPageModel>(context, listen: false).getTitle,
+    // );
+    Navigator.pop(context);
   }
 
   @override
@@ -152,11 +178,17 @@ class _AppbarHeaderProfileEditState extends State<_AppbarHeaderProfileEdit> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconBack(
+                onPressed: () => editCollections(context),
+              ),
+              TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
+                child: const Text(
+                  'Отменить',
+                  style: kTitle2TextStyle2,
+                ),
               ),
-              const PopupMenuCollectionEditItemPage()
             ],
           ),
         ),
@@ -164,7 +196,11 @@ class _AppbarHeaderProfileEditState extends State<_AppbarHeaderProfileEdit> {
           padding: const EdgeInsets.only(top: 90.0, left: 15.0, right: 15.0),
           child: TextField(
             controller: _controller,
-            onChanged: (title) {},
+            onChanged: (titleCollectionsEdit) {
+              context
+                  .read<CollectionItemEditPageModel>()
+                  .setTitleCollectionsEdit(titleCollectionsEdit);
+            },
             style: const TextStyle(
               fontSize: 24.0,
               color: AppColor.white100,
@@ -175,32 +211,6 @@ class _AppbarHeaderProfileEditState extends State<_AppbarHeaderProfileEdit> {
             ),
           ),
         ),
-      ],
-    );
-  }
-}
-
-class PopupMenuCollectionEditItemPage extends StatelessWidget {
-  const PopupMenuCollectionEditItemPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton(
-      icon: const Icon(
-        Icons.more_horiz,
-        color: AppColor.white,
-      ),
-      iconSize: 40,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(15),
-        ),
-      ),
-      itemBuilder: (context) => [
-        popupMenuItem('Редактировать', () {}, 0),
-        popupMenuItem('Выбрать несколько', () {}, 1),
-        popupMenuItem('Удалить подборку', () {}, 2),
-        popupMenuItem('Поделиться', () {}, 3),
       ],
     );
   }
@@ -219,7 +229,7 @@ class _SubTitleState extends State<SubTitle> {
   @override
   void didChangeDependencies() {
     _controller.text =
-        '${context.watch<CollectionsItemPageModel>().getSubTitle}';
+        '${context.read<CollectionsItemPageModel>().getSubTitle}';
     super.didChangeDependencies();
   }
 
@@ -239,14 +249,17 @@ class _SubTitleState extends State<SubTitle> {
         controller: _controller,
         maxLines: 10,
         minLines: 1,
-        onChanged: (subTitle) {},
+        onChanged: (subTitleCollectionsEdit) {
+          Provider.of<CollectionItemEditPageModel>(context, listen: false)
+              .setSubTitleCollectionsEdit(subTitleCollectionsEdit);
+        },
         decoration: const InputDecoration(
           border: InputBorder.none,
         ),
         style: const TextStyle(
           fontSize: 16.0,
         ),
-        textAlign: TextAlign.center,
+        textAlign: TextAlign.start,
       ),
     );
   }
@@ -257,11 +270,17 @@ class ListCollectionsAudioItemEditPage extends StatelessWidget {
   final AudioRepositories repositories = AudioRepositories();
 
   Widget buildAudio(AudioModel audio) => PlayerMini(
-        duration: '${audio.duration}',
-        url: '${audio.audioUrl}',
-        name: '${audio.audioName}',
-        popupMenu: const PopupMenuPlayerMiniItemEditPage(),
-      );
+      duration: '${audio.duration}',
+      url: '${audio.audioUrl}',
+      name: '${audio.audioName}',
+      popupMenu: const Padding(
+        padding: EdgeInsets.only(right: 16.0),
+        child: Icon(
+          Icons.more_horiz,
+          color: AppColor.colorText,
+          size: 40.0,
+        ),
+      ));
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -277,7 +296,7 @@ class ListCollectionsAudioItemEditPage extends StatelessWidget {
               if (snapshot.hasData) {
                 final audio = snapshot.data!;
                 return ListView(
-                  padding: const EdgeInsets.only(bottom: 50.0),
+                  padding: const EdgeInsets.only(bottom: 0.0),
                   children: audio.map(buildAudio).toList(),
                 );
               } else {
@@ -293,31 +312,6 @@ class ListCollectionsAudioItemEditPage extends StatelessWidget {
             color: Colors.white.withOpacity(0.4),
           ),
         ),
-      ],
-    );
-  }
-}
-
-class PopupMenuPlayerMiniItemEditPage extends StatelessWidget {
-  const PopupMenuPlayerMiniItemEditPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton(
-      icon: const Icon(
-        Icons.more_horiz,
-      ),
-      iconSize: 40,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(15),
-        ),
-      ),
-      itemBuilder: (context) => [
-        popupMenuItem('Переименовать', () {}, 0),
-        popupMenuItem('Добавить в подборку', () {}, 1),
-        popupMenuItem('Удалить ', () {}, 2),
-        popupMenuItem('Поделиться', () {}, 3),
       ],
     );
   }

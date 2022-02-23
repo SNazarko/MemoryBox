@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/collections_pages/collection_edit/collections_edit_model.dart';
+import 'package:memory_box/pages/collections_pages/collection_item_edit/collection_item_edit_page_model.dart';
 import 'package:memory_box/pages/collections_pages/collections_add_audio/collections_add_audio_model.dart';
 import 'package:memory_box/pages/collections_pages/collections_item/collections_item_page_model.dart';
 import 'package:memory_box/pages/logo_page/logo_page.dart';
@@ -24,6 +25,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider<CollectionItemEditPageModel>(
+            create: (BuildContext context) => CollectionItemEditPageModel()),
         ChangeNotifierProvider<CollectionsItemPageModel>(
             create: (BuildContext context) => CollectionsItemPageModel()),
         ChangeNotifierProvider<CollectionsAddAudioModel>(

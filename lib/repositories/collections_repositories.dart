@@ -81,4 +81,15 @@ class CollectionsRepositories {
         .doc(audioName)
         .delete();
   }
+
+  Future<void> deleteCollection(
+    String nameCollection,
+  ) async {
+    FirebaseFirestore.instance
+        .collection('CollectionsTale')
+        .doc(
+          nameCollection,
+        )
+        .delete();
+  }
 }

@@ -6,7 +6,7 @@ import 'package:memory_box/resources/app_colors.dart';
 import 'package:provider/provider.dart';
 
 class DoneWidget extends StatefulWidget {
-  DoneWidget(
+  const DoneWidget(
       {Key? key,
       required this.name,
       required this.audio,
@@ -16,7 +16,7 @@ class DoneWidget extends StatefulWidget {
   final String name;
   final String audio;
   final String duration;
-  late final bool done;
+  final bool done;
 
   @override
   State<DoneWidget> createState() => _DoneWidgetState();
@@ -29,14 +29,11 @@ class _DoneWidgetState extends State<DoneWidget> {
   @override
   void initState() {
     done == widget.done;
-    print(done);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print(widget.done);
-    print(done);
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Stack(

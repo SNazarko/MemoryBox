@@ -10,12 +10,16 @@ import 'package:memory_box/widgets/player_mini_podborki.dart';
 import 'package:provider/provider.dart';
 
 import 'collections_add_audio_model.dart';
+import 'done_widget/model_done.dart';
 
 class CollectionsAddAudio extends StatelessWidget {
   const CollectionsAddAudio({Key? key}) : super(key: key);
   static const routeName = '/collections_add_audio';
   static Widget create() {
-    return const CollectionsAddAudio();
+    return ChangeNotifierProvider<ModelDone>(
+      create: (BuildContext context) => ModelDone(),
+      child: const CollectionsAddAudio(),
+    );
   }
 
   @override
@@ -162,7 +166,7 @@ class _ListPlayers extends StatelessWidget {
         duration: '${audio.duration}',
         url: '${audio.audioUrl}',
         name: '${audio.audioName}',
-        done: audio.done ?? true,
+        done: audio.done ?? false,
       );
 
   @override

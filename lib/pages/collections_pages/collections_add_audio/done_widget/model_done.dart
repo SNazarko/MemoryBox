@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class ModelPlayerMiniPodborki extends ChangeNotifier {
+class ModelDone extends ChangeNotifier {
   bool _done = false;
 
   bool get getDone => _done;

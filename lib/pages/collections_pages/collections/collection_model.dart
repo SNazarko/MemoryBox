@@ -2,6 +2,19 @@ import 'package:flutter/cupertino.dart';
 
 class CollectionModel extends ChangeNotifier {
   bool _done = false;
+  bool _itemDone = false;
+
+  get getItemDone => _itemDone;
+
+  void stateCollections() {
+    if (_itemDone) {
+      _itemDone = false;
+      notifyListeners();
+    } else {
+      _itemDone = true;
+      notifyListeners();
+    }
+  }
 
   get getStateDone => _done;
 

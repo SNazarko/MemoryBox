@@ -165,8 +165,6 @@ class _PlayerMiniPodborkiState extends State<PlayerMiniPodborki> {
             ),
             DoneWidget(
               name: widget.name,
-              audio: widget.url,
-              duration: widget.duration,
               done: widget.done,
             )
           ],

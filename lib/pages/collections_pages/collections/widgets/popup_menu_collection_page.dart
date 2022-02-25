@@ -1,7 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
+import 'package:provider/provider.dart';
+
+import '../collection_model.dart';
 
 class PopupMenuCollectionPage extends StatelessWidget {
   const PopupMenuCollectionPage({Key? key}) : super(key: key);
@@ -20,26 +25,13 @@ class PopupMenuCollectionPage extends StatelessWidget {
         ),
       ),
       itemBuilder: (context) => [
-        popupMenuItem(
-          'Редактировать',
-          () {},
-          0
-        ),
-        popupMenuItem(
-          'Выбрать несколько',
-          () {},
-          1
-        ),
-        popupMenuItem(
-          'Удалить подборку',
-          () {},
-          2
-        ),
-        popupMenuItem(
-          'Поделиться',
-          () {},
-          3
-        ),
+        popupMenuItem('Выбрать несколько', () {
+          Timer(const Duration(seconds: 1), () {
+            context.read<CollectionModel>().getItemDone;
+          });
+        }, 1),
+        popupMenuItem('Удалить подборку', () {}, 2),
+        popupMenuItem('Поделиться', () {}, 3),
       ],
     );
   }

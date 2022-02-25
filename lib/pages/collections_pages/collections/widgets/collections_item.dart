@@ -27,11 +27,12 @@ class CollectionsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool itemDone = context.watch<CollectionModel>().getItemDone;
     return ClipRRect(
       borderRadius: const BorderRadius.all(
         Radius.circular(20.0),
       ),
-      child: getCollectionDone(context),
+      child: itemDone ? getCollectionDone(context) : getCollectionItem(context),
     );
   }
 
@@ -200,15 +201,14 @@ class CollectionsItem extends StatelessWidget {
                   onPressed: () {
                     CollectionsRepositories().doneCollections(title!, done);
                     context.read<CollectionModel>().stateDone();
-                    print(doneCollection);
                   },
                   icon: Icon(
                     Icons.done,
                     color: doneCollection ?? false
                         // done
                         // context.watch<ModelPlayerMiniPodborki>().done
-                        ? AppColor.colorText
-                        : AppColor.white,
+                        ? AppColor.white
+                        : AppColor.glass,
                   ),
                 ),
               ],

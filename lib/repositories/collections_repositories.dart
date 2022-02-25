@@ -97,12 +97,18 @@ class CollectionsRepositories {
 
   Future<void> doneCollections(
       String nameCollection, bool doneCollection) async {
-    final model = CollectionsModel(
-      doneCollection: false,
-    );
     FirebaseFirestore.instance
         .collection('CollectionsTale')
         .doc(nameCollection)
         .update({'doneCollection': doneCollection});
+  }
+
+  Future<void> doneAudioItem(String nameCollection, bool done) async {
+    FirebaseFirestore.instance
+        .collection('CollectionsTale')
+        .doc(nameCollection)
+        .collection('Audio')
+        .doc(nameCollection)
+        .update({'done': done});
   }
 }

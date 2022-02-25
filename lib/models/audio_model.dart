@@ -24,6 +24,6 @@ class AudioModel {
         'audioName': audioName,
         'audioUrl': audioUrl,
         'duration': duration,
-        'done': done,
+        'done': done
       };
 }

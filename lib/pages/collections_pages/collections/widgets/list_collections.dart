@@ -15,6 +15,7 @@ class ListCollections extends StatelessWidget {
         subTitle: '${collections.subTitleCollections}',
         data: '${collections.data}',
         quality: '${collections.qualityCollections}',
+        doneCollection: collections.doneCollection,
       );
 
   @override

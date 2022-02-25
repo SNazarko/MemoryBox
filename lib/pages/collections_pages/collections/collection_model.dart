@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 
-class ModelPlayerMiniPodborki extends ChangeNotifier {
+class CollectionModel extends ChangeNotifier {
   bool _done = false;
 
-  bool get getDone => _done;
+  get getStateDone => _done;
 
-  void doneWidget() {
+  void stateDone() {
     if (_done) {
       _done = false;
       notifyListeners();

@@ -26,17 +26,19 @@ class CollectionsRepositories {
     final int documents = qSnap.docs.length;
     final _todayDate = DateTime.now();
     final model = CollectionsModel(
-        qualityCollections: documents,
-        titleCollections: titleCollections,
-        subTitleCollections: subTitleCollections,
-        avatarCollections: avatarCollections,
-        data: formatDate(_todayDate, [
-          dd,
-          '.',
-          mm,
-          '.',
-          yy,
-        ]));
+      qualityCollections: documents,
+      titleCollections: titleCollections,
+      subTitleCollections: subTitleCollections,
+      avatarCollections: avatarCollections,
+      data: formatDate(_todayDate, [
+        dd,
+        '.',
+        mm,
+        '.',
+        yy,
+      ]),
+      doneCollection: false,
+    );
     final json = model.toJson();
     FirebaseFirestore.instance
         .collection('CollectionsTale')
@@ -91,5 +93,16 @@ class CollectionsRepositories {
           nameCollection,
         )
         .delete();
+  }
+
+  Future<void> doneCollections(
+      String nameCollection, bool doneCollection) async {
+    final model = CollectionsModel(
+      doneCollection: false,
+    );
+    FirebaseFirestore.instance
+        .collection('CollectionsTale')
+        .doc(nameCollection)
+        .update({'doneCollection': doneCollection});
   }
 }

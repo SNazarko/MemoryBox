@@ -84,16 +84,16 @@ class CollectionsRepositories {
         .delete();
   }
 
-  Future<void> deleteCollection(
-    String nameCollection,
-  ) async {
-    FirebaseFirestore.instance
-        .collection('CollectionsTale')
-        .doc(
-          nameCollection,
-        )
-        .delete();
-  }
+  // Future<void> deleteCollection(
+  //   String nameCollection,
+  // ) async {
+  //   FirebaseFirestore.instance
+  //       .collection('CollectionsTale')
+  //       .doc(
+  //         nameCollection,
+  //       )
+  //       .delete();
+  // }
 
   Future<void> doneCollections(
       String nameCollection, bool doneCollection) async {
@@ -101,6 +101,41 @@ class CollectionsRepositories {
         .collection('CollectionsTale')
         .doc(nameCollection)
         .update({'doneCollection': doneCollection});
+  }
+
+  Future<void> deleteCollections(String nameCollection) async {
+    FirebaseFirestore.instance
+        .collection('CollectionsTale')
+        .get()
+        .then((querySnapshot) {
+      querySnapshot.docs.forEach((result) {
+        FirebaseFirestore.instance
+            .collection('DeleteCollections')
+            .doc(nameCollection)
+            .set(result.data());
+      });
+    });
+    FirebaseFirestore.instance
+        .collection('CollectionsTale')
+        .doc(nameCollection)
+        .collection('Audio')
+        .get()
+        .then((querySnapshot) {
+      querySnapshot.docs.forEach((result) {
+        FirebaseFirestore.instance
+            .collection('DeleteCollections')
+            .doc(nameCollection)
+            .collection('Audio')
+            .doc()
+            .set(result.data());
+      });
+    });
+
+    // print(collections);
+    // FirebaseFirestore.instance
+    //     .collection('DeleteCollections')
+    //     .doc(nameCollection)
+    //     .set(collections.join());
   }
 
   Future<void> doneAudioItem(String nameCollection, bool done) async {

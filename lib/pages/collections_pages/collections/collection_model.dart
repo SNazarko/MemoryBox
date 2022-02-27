@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class CollectionModel extends ChangeNotifier {
-  bool _done = false;
+  bool _done = true;
   bool _itemDone = false;
 
   get getItemDone => _itemDone;

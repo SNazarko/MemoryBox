@@ -8,6 +8,7 @@ import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:provider/provider.dart';
 
 import '../collection_model.dart';
+import 'collections_item.dart';
 
 class PopupMenuCollectionPage extends StatelessWidget {
   const PopupMenuCollectionPage({Key? key}) : super(key: key);
@@ -32,7 +33,7 @@ class PopupMenuCollectionPage extends StatelessWidget {
                     context.read<CollectionModel>().stateCollections();
                   }, 1),
                   popupMenuItem('Удалить подборку', () {
-                    print('Удалить подборку');
+                    const CollectionsItem().alerDialog(context);
                   }, 2),
                   popupMenuItem('Поделиться', () {}, 3),
                 ]

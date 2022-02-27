@@ -10,6 +10,7 @@ class AppColor {
   static const Color pinkRec = Color(0xFFF1B488);
   static const Color yellow100 = Color(0xfff1b488);
   static const Color colorText50 = Color(0x503A3A55);
+  static const Color colorText70 = Color(0x703A3A55);
   static const Color colorText80 = Color(0x803A3A55);
   static const Color colorText = Color(0xFF3A3A55);
   static const Color colorTextLink = Color(0xFF616177);

@@ -84,16 +84,17 @@ class CollectionsRepositories {
         .delete();
   }
 
-  // Future<void> deleteCollection(
-  //   String nameCollection,
-  // ) async {
-  //   FirebaseFirestore.instance
-  //       .collection('CollectionsTale')
-  //       .doc(
-  //         nameCollection,
-  //       )
-  //       .delete();
-  // }
+  Future<void> deleteCollection(
+    String nameCollection,
+    String collectionFirestore,
+  ) async {
+    FirebaseFirestore.instance
+        .collection(collectionFirestore)
+        .doc(
+          nameCollection,
+        )
+        .delete();
+  }
 
   Future<void> doneCollections(
       String nameCollection, bool doneCollection) async {
@@ -103,27 +104,31 @@ class CollectionsRepositories {
         .update({'doneCollection': doneCollection});
   }
 
-  Future<void> deleteCollections(String nameCollection) async {
+  Future<void> copyPastCollections(
+    String nameCollection,
+    String fromTheCollection,
+    String inTheCollection,
+  ) async {
     FirebaseFirestore.instance
-        .collection('CollectionsTale')
+        .collection(fromTheCollection)
         .get()
         .then((querySnapshot) {
       querySnapshot.docs.forEach((result) {
         FirebaseFirestore.instance
-            .collection('DeleteCollections')
+            .collection(inTheCollection)
             .doc(nameCollection)
             .set(result.data());
       });
     });
     FirebaseFirestore.instance
-        .collection('CollectionsTale')
+        .collection(fromTheCollection)
         .doc(nameCollection)
         .collection('Audio')
         .get()
         .then((querySnapshot) {
       querySnapshot.docs.forEach((result) {
         FirebaseFirestore.instance
-            .collection('DeleteCollections')
+            .collection(inTheCollection)
             .doc(nameCollection)
             .collection('Audio')
             .doc()

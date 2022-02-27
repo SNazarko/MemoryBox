@@ -199,9 +199,24 @@ class CollectionsItem extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                    CollectionsRepositories().deleteCollections(title!);
-                    CollectionsRepositories().doneCollections(title!, done);
                     context.read<CollectionModel>().stateDone();
+                    CollectionsRepositories().doneCollections(
+                      title!,
+                      done,
+                    );
+                    if (!doneCollection!) {
+                      CollectionsRepositories().copyPastCollections(
+                        title!,
+                        'CollectionsTale',
+                        'DeleteCollections',
+                      );
+                    }
+                    if (doneCollection!) {
+                      CollectionsRepositories().deleteCollection(
+                        title!,
+                        'DeleteCollections',
+                      );
+                    }
                   },
                   icon: Icon(
                     Icons.done,

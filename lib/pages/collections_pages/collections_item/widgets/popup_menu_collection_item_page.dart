@@ -6,6 +6,8 @@ import 'package:memory_box/pages/collections_pages/collection_item_edit/collecti
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 
+import 'appbar_header_profile_edit.dart';
+
 class PopupMenuCollectionItemPage extends StatelessWidget {
   const PopupMenuCollectionItemPage({Key? key}) : super(key: key);
 
@@ -28,7 +30,11 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
             Navigator.pushNamed(context, CollectionItemEditPage.routeName);
           });
         }, 0),
-        popupMenuItem('Выбрать несколько', () {}, 1),
+        popupMenuItem('Выбрать несколько', () {
+          Timer(const Duration(seconds: 1), () {
+            AppbarHeaderProfileEdit().alertDialog(context);
+          });
+        }, 1),
         popupMenuItem('Удалить подборку', () {}, 2),
         popupMenuItem('Поделиться', () {}, 3),
       ],

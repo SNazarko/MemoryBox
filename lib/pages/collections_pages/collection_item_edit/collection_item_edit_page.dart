@@ -17,7 +17,6 @@ import 'package:memory_box/widgets/icon_back.dart';
 import 'package:memory_box/widgets/icon_camera.dart';
 import 'package:memory_box/widgets/image_pick.dart';
 import 'package:memory_box/widgets/player_mini.dart';
-import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:provider/provider.dart';
 
 import 'collection_item_edit_page_model.dart';

@@ -33,7 +33,7 @@ class PopupMenuCollectionPage extends StatelessWidget {
                     context.read<CollectionModel>().stateCollections();
                   }, 1),
                   popupMenuItem('Удалить подборку', () {
-                    const CollectionsItem().alerDialog(context);
+                    const CollectionsItem().alertDialog(context);
                   }, 2),
                   popupMenuItem('Поделиться', () {}, 3),
                 ]

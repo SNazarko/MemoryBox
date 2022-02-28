@@ -1,12 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/collections_pages/collections_item/collections_item_page.dart';
 import 'package:memory_box/pages/collections_pages/collections_item/collections_item_page_model.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
+import 'package:memory_box/resources/app_icons.dart';
 import 'package:provider/provider.dart';
 
 import '../collection_model.dart';
+import '../collections.dart';
 
 class CollectionsItem extends StatelessWidget {
   const CollectionsItem({
@@ -25,7 +29,32 @@ class CollectionsItem extends StatelessWidget {
   final String? data;
   final bool? doneCollection;
 
-  void alerDialog(BuildContext context) => showDialog<String>(
+  void alertDone(BuildContext context) {
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) {
+          Timer(const Duration(seconds: 3), () {
+            Navigator.pushNamed(context, Collections.routeName);
+          });
+          return AlertDialog(
+            insetPadding: const EdgeInsets.all(75.0),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(
+                  20.0,
+                ),
+              ),
+            ),
+            content: Image.asset(
+              AppIcons.tick,
+              width: 175.0,
+              height: 175.0,
+            ),
+          );
+        });
+  }
+
+  void alertDialog(BuildContext context) => showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
           shape: const RoundedRectangleBorder(
@@ -43,7 +72,10 @@ class CollectionsItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: TextButton(
-                onPressed: () async {},
+                onPressed: () async {
+                  Navigator.pop(context);
+                  alertDone(context);
+                },
                 child: const Padding(
                   padding:
                       EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),

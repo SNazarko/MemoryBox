@@ -27,9 +27,9 @@ class CollectionsItemPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Stack(
-                  children: const [
+                  children: [
                     AppbarHeaderProfileEdit(),
-                    PhotoContainer(),
+                    const PhotoContainer(),
                   ],
                 ),
                 const SubTitle(),

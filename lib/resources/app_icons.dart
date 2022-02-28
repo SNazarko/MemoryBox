@@ -26,4 +26,5 @@ class AppIcons {
   static const String search = '$path/search.png';
   static const String play_podborki = '$path/play_podborki.png';
   static const String stop_podborki = '$path/stop_podborki.png';
+  static const String tick = '$path/tick.png';
 }

@@ -135,12 +135,6 @@ class CollectionsRepositories {
             .set(result.data());
       });
     });
-
-    // print(collections);
-    // FirebaseFirestore.instance
-    //     .collection('DeleteCollections')
-    //     .doc(nameCollection)
-    //     .set(collections.join());
   }
 
   Future<void> doneAudioItem(String nameCollection, bool done) async {

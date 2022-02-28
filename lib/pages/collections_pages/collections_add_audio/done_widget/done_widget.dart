@@ -38,7 +38,7 @@ class _DoneWidgetState extends State<DoneWidget> {
             onTap: () {
               repositories.doneAudioItem(widget.name!, doneProvider);
               context.read<ModelDone>().doneWidget();
-              done = !done!;
+              done = !done;
               if (done) {
                 repositories.addAudioForCollection(
                   Provider.of<CollectionsEditModel>(context, listen: false)
@@ -46,10 +46,10 @@ class _DoneWidgetState extends State<DoneWidget> {
                   widget.name!,
                   widget.audio!,
                   widget.duration!,
-                  done!,
+                  done,
                 );
               }
-              if (!done!) {
+              if (!done) {
                 repositories.deleteAudioForCollection(
                   Provider.of<CollectionsEditModel>(context, listen: false)
                       .getTitle,

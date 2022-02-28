@@ -12,7 +12,7 @@ import 'package:memory_box/pages/collections_pages/collections/collections.dart'
 import 'package:memory_box/pages/collections_pages/collections_add_audio/collections_add_audio.dart';
 import 'package:memory_box/pages/collections_pages/collections_item/collections_item_page.dart';
 import 'package:memory_box/pages/delete_pages/delete_page.dart';
-import 'package:memory_box/pages/home_page.dart';
+import 'package:memory_box/pages/home_page/home_page.dart';
 import 'package:memory_box/pages/logo_page/logo_page.dart';
 import 'package:memory_box/pages/logo_page/screensaver_page.dart';
 import 'package:memory_box/pages/main_page.dart';

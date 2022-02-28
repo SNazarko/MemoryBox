@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/view_model.dart';
-import 'package:memory_box/pages/home_page.dart';
+import 'package:memory_box/pages/home_page/home_page.dart';
 import 'package:memory_box/pages/profile_page/profile_page/profile.dart';
 import 'package:memory_box/pages/recordings_page/record_page.dart';
 import 'package:memory_box/routes/routes.dart';

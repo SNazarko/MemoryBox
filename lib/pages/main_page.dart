@@ -9,6 +9,7 @@ import 'package:memory_box/widgets/drawer_menu.dart';
 import 'package:provider/provider.dart';
 import 'audio_recordings_page.dart';
 import 'collections_pages/collections/collections.dart';
+import 'delete_pages/delete_page.dart';
 
 class Main extends StatelessWidget {
   const Main({Key? key}) : super(key: key);
@@ -56,6 +57,10 @@ class Main extends StatelessWidget {
         break;
       case 4:
         globalKey(Profile.routeName);
+
+        break;
+      case 5:
+        globalKey(DeletePage.routeName);
 
         break;
 

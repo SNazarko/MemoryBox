@@ -10,6 +10,7 @@ import 'package:memory_box/widgets/popup_menu_button.dart';
 import '../resources/constants.dart';
 import 'collections_pages/collection_item_edit/collection_item_edit_page.dart';
 import 'collections_pages/collections_item/collections_item_page.dart';
+import 'delete_pages/delete_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -98,8 +99,7 @@ class _AppbarHeader extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(
-                            context, CollectionItemEditPage.routeName);
+                        Navigator.pushNamed(context, DeletePage.routeName);
                       },
                       child: const Text(
                         'Открыть все',
@@ -341,26 +341,10 @@ class PopupMenuHomePage extends StatelessWidget {
         ),
       ),
       itemBuilder: (context) => [
-        popupMenuItem(
-          'Переименовать',
-          () {},
-          0
-        ),
-        popupMenuItem(
-          'Добавить в подборку',
-          () {},
-          1
-        ),
-        popupMenuItem(
-          'Удалить ',
-          () {},
-          2
-        ),
-        popupMenuItem(
-          'Поделиться',
-          () {},
-          3
-        ),
+        popupMenuItem('Переименовать', () {}, 0),
+        popupMenuItem('Добавить в подборку', () {}, 1),
+        popupMenuItem('Удалить ', () {}, 2),
+        popupMenuItem('Поделиться', () {}, 3),
       ],
     );
   }

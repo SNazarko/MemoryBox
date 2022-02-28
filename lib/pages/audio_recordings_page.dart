@@ -222,7 +222,7 @@ class _ListPlayers extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
     return Column(
       children: [
-        Container(
+        SizedBox(
           height: screenHeight * 0.95,
           child: StreamBuilder<List<AudioModel>>(
             stream: repositories.readAudio(),
@@ -233,7 +233,7 @@ class _ListPlayers extends StatelessWidget {
               if (snapshot.hasData) {
                 final audio = snapshot.data!;
                 return ListView(
-                  padding: EdgeInsets.only(top: 127, bottom: 110),
+                  padding: const EdgeInsets.only(top: 127, bottom: 110),
                   children: audio.map(buildAudio).toList(),
                 );
               } else {
@@ -265,26 +265,10 @@ class PopupMenuAudioRecordingPage extends StatelessWidget {
         ),
       ),
       itemBuilder: (context) => [
-        popupMenuItem(
-          'Переименовать',
-          () {},
-          0
-        ),
-        popupMenuItem(
-          'Добавить в подборку',
-          () {},
-          1
-        ),
-        popupMenuItem(
-          'Удалить ',
-          () {},
-          2
-        ),
-        popupMenuItem(
-          'Поделиться',
-          () {},
-          3
-        ),
+        popupMenuItem('Переименовать', () {}, 0),
+        popupMenuItem('Добавить в подборку', () {}, 1),
+        popupMenuItem('Удалить ', () {}, 2),
+        popupMenuItem('Поделиться', () {}, 3),
       ],
     );
   }

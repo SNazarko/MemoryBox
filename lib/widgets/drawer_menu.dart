@@ -65,13 +65,13 @@ class DrawerMenu extends StatelessWidget {
                       ),
                       title: 'Главная'),
                   _DrawerItem(
-                      index: 1,
+                      index: 4,
                       icon: Image.asset(
                         AppIcons.tabbar_profile,
                       ),
                       title: 'Профиль'),
                   _DrawerItem(
-                      index: 2,
+                      index: 1,
                       icon: Image.asset(
                         AppIcons.tabbar_category,
                       ),

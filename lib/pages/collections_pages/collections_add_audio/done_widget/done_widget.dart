@@ -1,18 +1,32 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/pages/collections_pages/collection_edit/collections_edit_model.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:provider/provider.dart';
 
 import 'model_done.dart';
 
-class DoneWidget extends StatelessWidget {
-  DoneWidget({Key? key, required this.name, required this.done})
+class DoneWidget extends StatefulWidget {
+  const DoneWidget(
+      {Key? key,
+      required this.name,
+      required this.done,
+      this.audio,
+      this.duration})
       : super(key: key);
   final String? name;
+  final String? audio;
+  final String? duration;
   final bool? done;
-  final CollectionsRepositories repositories = CollectionsRepositories();
 
+  @override
+  State<DoneWidget> createState() => _DoneWidgetState();
+}
+
+class _DoneWidgetState extends State<DoneWidget> {
+  final CollectionsRepositories repositories = CollectionsRepositories();
+  bool done = false;
   @override
   Widget build(BuildContext context) {
     final bool doneProvider = context.watch<ModelDone>().getDone;
@@ -22,26 +36,26 @@ class DoneWidget extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              repositories.doneAudioItem(name!, doneProvider);
+              repositories.doneAudioItem(widget.name!, doneProvider);
               context.read<ModelDone>().doneWidget();
-              // done = !done!;
-              // if (done) {
-              //   repositories.addAudioForCollection(
-              //     Provider.of<CollectionsEditModel>(context, listen: false)
-              //         .getTitle,
-              //     name,
-              //     audio,
-              //     duration,
-              //     done!,
-              //   );
-              // }
-              // if (!done!) {
-              //   repositories.deleteAudioForCollection(
-              //     Provider.of<CollectionsEditModel>(context, listen: false)
-              //         .getTitle,
-              //     name,
-              //   );
-              // }
+              done = !done!;
+              if (done) {
+                repositories.addAudioForCollection(
+                  Provider.of<CollectionsEditModel>(context, listen: false)
+                      .getTitle,
+                  widget.name!,
+                  widget.audio!,
+                  widget.duration!,
+                  done!,
+                );
+              }
+              if (!done!) {
+                repositories.deleteAudioForCollection(
+                  Provider.of<CollectionsEditModel>(context, listen: false)
+                      .getTitle,
+                  widget.name!,
+                );
+              }
             },
             child: Container(
               width: 35,
@@ -55,7 +69,7 @@ class DoneWidget extends StatelessWidget {
               child: Center(
                 child: Icon(
                   Icons.done,
-                  color: done ?? false ? AppColor.colorText : AppColor.white,
+                  color: done ? AppColor.colorText : AppColor.white,
                 ),
               ),
             ),

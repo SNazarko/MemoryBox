@@ -2,10 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:memory_box/models/audio_model.dart';
-import 'package:memory_box/pages/collections_pages/collection_edit/collections_edit_model.dart';
-import 'package:memory_box/pages/collections_pages/collections_add_audio/collections_add_audio.dart';
+import 'package:memory_box/pages/collections_pages/collections/collections.dart';
 import 'package:memory_box/pages/collections_pages/collections_item/collections_item_page_model.dart';
-import 'package:memory_box/pages/test.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
@@ -18,7 +16,6 @@ import 'package:memory_box/widgets/icon_camera.dart';
 import 'package:memory_box/widgets/image_pick.dart';
 import 'package:memory_box/widgets/player_mini.dart';
 import 'package:provider/provider.dart';
-
 import 'collection_item_edit_page_model.dart';
 
 class CollectionItemEditPage extends StatelessWidget {
@@ -36,9 +33,9 @@ class CollectionItemEditPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
-              children: [
+              children: const [
                 _AppbarHeaderProfileEdit(),
-                const _PhotoContainer(),
+                _PhotoContainer(),
               ],
             ),
             SizedBox(
@@ -116,7 +113,7 @@ class _PhotoContainerState extends State<_PhotoContainer> {
 }
 
 class _AppbarHeaderProfileEdit extends StatefulWidget {
-  _AppbarHeaderProfileEdit({Key? key}) : super(key: key);
+  const _AppbarHeaderProfileEdit({Key? key}) : super(key: key);
 
   @override
   State<_AppbarHeaderProfileEdit> createState() =>
@@ -143,18 +140,30 @@ class _AppbarHeaderProfileEditState extends State<_AppbarHeaderProfileEdit> {
   void editCollections(BuildContext context) {
     _repositories.addCollections(
       Provider.of<CollectionItemEditPageModel>(context, listen: false)
-          .getTitleCollectionsEdit,
+              .getTitleCollectionsEdit ??
+          Provider.of<CollectionsItemPageModel>(context, listen: false)
+              .getTitle,
       Provider.of<CollectionItemEditPageModel>(context, listen: false)
-          .getTitleCollectionsEdit,
+              .getTitleCollectionsEdit ??
+          Provider.of<CollectionsItemPageModel>(context, listen: false)
+              .getTitle,
       Provider.of<CollectionItemEditPageModel>(context, listen: false)
-          .getSubTitleCollectionsEdit,
+              .getSubTitleCollectionsEdit ??
+          Provider.of<CollectionsItemPageModel>(context, listen: false)
+              .getSubTitle,
       Provider.of<CollectionItemEditPageModel>(context, listen: false)
-          .getAvatarCollectionsEdit,
+              .getAvatarCollectionsEdit ??
+          Provider.of<CollectionsItemPageModel>(context, listen: false)
+              .getPhoto,
     );
-    // _repositories.deleteCollection(
-    //   Provider.of<CollectionsItemPageModel>(context, listen: false).getTitle,
-    // );
-    Navigator.pop(context);
+    _repositories.copyPastAudioCollections(
+        '${Provider.of<CollectionsItemPageModel>(context, listen: false).getTitle}',
+        '${Provider.of<CollectionItemEditPageModel>(context, listen: false).getTitleCollectionsEdit}');
+    _repositories.deleteCollection(
+      '${Provider.of<CollectionsItemPageModel>(context, listen: false).getTitle}',
+      'CollectionsTale',
+    );
+    Navigator.pushNamed(context, Collections.routeName);
   }
 
   @override

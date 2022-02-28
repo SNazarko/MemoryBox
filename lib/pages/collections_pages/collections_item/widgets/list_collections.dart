@@ -5,7 +5,6 @@ import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/widgets/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:provider/provider.dart';
-
 import '../collections_item_page_model.dart';
 
 class ListCollectionsAudio extends StatelessWidget {
@@ -22,7 +21,7 @@ class ListCollectionsAudio extends StatelessWidget {
       );
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: screenHeight * 0.5,
       child: StreamBuilder<List<AudioModel>>(
         stream: repositories.readAudioPodbirka(

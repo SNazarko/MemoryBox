@@ -12,6 +12,12 @@ class CollectionsRepositories {
           .map((doc) => CollectionsModel.fromJson(doc.data()))
           .toList());
 
+  // Stream<List<CollectionsModel>> deleteCollections() =>
+  //     FirebaseFirestore.instance.collection('DeleteCollections').snapshots().map(
+  //         (snapshot) => snapshot.docs
+  //             .map((doc) => CollectionsModel.fromJson(doc.data()))
+  //             .toList());
+
   Future<void> addCollections(
     String nameCollection,
     String titleCollections,
@@ -130,6 +136,27 @@ class CollectionsRepositories {
         FirebaseFirestore.instance
             .collection(inTheCollection)
             .doc(nameCollection)
+            .collection('Audio')
+            .doc()
+            .set(result.data());
+      });
+    });
+  }
+
+  Future<void> copyPastAudioCollections(
+    String fromTheCollection,
+    String inTheCollection,
+  ) async {
+    FirebaseFirestore.instance
+        .collection('CollectionsTale')
+        .doc(fromTheCollection)
+        .collection('Audio')
+        .get()
+        .then((querySnapshot) {
+      querySnapshot.docs.forEach((result) {
+        FirebaseFirestore.instance
+            .collection('CollectionsTale')
+            .doc(inTheCollection)
             .collection('Audio')
             .doc()
             .set(result.data());

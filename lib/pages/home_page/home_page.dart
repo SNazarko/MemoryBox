@@ -30,8 +30,8 @@ class HomePage extends StatelessWidget {
           height: screenHeight * 0.89,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Expanded(
+            children: const [
+              Expanded(
                 flex: 8,
                 child: AppbarHeaderHomePage(),
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/collection_item_edit_audio.dart';
 import 'package:memory_box/pages/delete_pages/delete_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
@@ -73,7 +74,8 @@ class _TitleAppbar extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, DeletePage.routeName);
+                  Navigator.pushNamed(
+                      context, CollectionItemEditAudio.routeName);
                 },
                 child: const Text(
                   'Открыть все',

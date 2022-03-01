@@ -33,7 +33,10 @@ class CollectionsEdit extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [SubTitleCollectionEdit(), ButtonAddAudio()],
+                  children: const [
+                    SubTitleCollectionEdit(),
+                    ButtonAddAudio(),
+                  ],
                 ),
               ),
             ],

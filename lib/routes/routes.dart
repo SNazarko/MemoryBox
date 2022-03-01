@@ -11,6 +11,7 @@ import 'package:memory_box/pages/collections_pages/collection_edit/collection_ed
 import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page.dart';
 import 'package:memory_box/pages/collections_pages/collection_item_edit/collection_item_edit_page.dart';
 import 'package:memory_box/pages/collections_pages/collection/collection.dart';
+import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/collection_item_edit_audio.dart';
 import 'package:memory_box/pages/delete_pages/delete_page.dart';
 import 'package:memory_box/pages/home_page/home_page.dart';
 import 'package:memory_box/pages/logo_page/logo_page.dart';
@@ -86,6 +87,9 @@ class AppRouter {
         break;
       case DeletePage.routeName:
         builder = (_) => const DeletePage();
+        break;
+      case CollectionItemEditAudio.routeName:
+        builder = (_) => const CollectionItemEditAudio();
         break;
       case Test.routeName:
         builder = (_) => const Test();

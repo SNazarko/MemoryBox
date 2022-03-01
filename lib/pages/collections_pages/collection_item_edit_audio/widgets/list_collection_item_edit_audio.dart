@@ -1,22 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
-import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/widgets/done_collection_item_edit_audio.dart';
+import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/widgets/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:provider/provider.dart';
-import '../collections_item_page_model.dart';
+import 'done_collection_item_edit_audio.dart';
 
-class ListCollectionsAudio extends StatelessWidget {
-  ListCollectionsAudio({Key? key}) : super(key: key);
+class ListCollectionItemEditAudio extends StatelessWidget {
+  ListCollectionItemEditAudio({Key? key}) : super(key: key);
   final AudioRepositories repositories = AudioRepositories();
 
   Widget buildAudio(AudioModel audio) => PlayerMini(
         duration: '${audio.duration}',
         url: '${audio.audioUrl}',
         name: '${audio.audioName}',
-        popupMenu: const PopupMenuPlayerMini(),
+        popupMenu:
+            // Text('1')
+
+            DoneCollectionItemEditAudio(
+          done: audio.done,
+          name: '${audio.audioName}',
+        ),
       );
   @override
   Widget build(BuildContext context) {

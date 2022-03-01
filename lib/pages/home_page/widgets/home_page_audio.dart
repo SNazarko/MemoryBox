@@ -6,7 +6,7 @@ import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 
-import '../../audio_recordings_page.dart';
+import '../../audio_recordings_page/audio_recordings_page.dart';
 
 class HomePageAudio extends StatelessWidget {
   const HomePageAudio({Key? key}) : super(key: key);
@@ -142,10 +142,22 @@ class PopupMenuHomePage extends StatelessWidget {
         ),
       ),
       itemBuilder: (context) => [
-        popupMenuItem('Переименовать', () {}, 0),
-        popupMenuItem('Добавить в подборку', () {}, 1),
-        popupMenuItem('Удалить ', () {}, 2),
-        popupMenuItem('Поделиться', () {}, 3),
+        popupMenuItem(
+          'Переименовать',
+          () {},
+        ),
+        popupMenuItem(
+          'Добавить в подборку',
+          () {},
+        ),
+        popupMenuItem(
+          'Удалить ',
+          () {},
+        ),
+        popupMenuItem(
+          'Поделиться',
+          () {},
+        ),
       ],
     );
   }

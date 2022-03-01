@@ -12,8 +12,8 @@ import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/icon_back.dart';
 import 'package:provider/provider.dart';
 
-class AppbarHeaderCollectionItem extends StatelessWidget {
-  AppbarHeaderCollectionItem({Key? key}) : super(key: key);
+class AppbarHeaderCollectionItemEditAudio extends StatelessWidget {
+  AppbarHeaderCollectionItemEditAudio({Key? key}) : super(key: key);
   final CollectionsRepositories repositories = CollectionsRepositories();
 
   void alertDone(BuildContext context) {

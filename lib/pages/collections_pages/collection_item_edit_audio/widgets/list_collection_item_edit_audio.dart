@@ -67,10 +67,22 @@ class PopupMenuPlayerMini extends StatelessWidget {
         ),
       ),
       itemBuilder: (context) => [
-        popupMenuItem('Переименовать', () {}, 0),
-        popupMenuItem('Добавить в подборку', () {}, 1),
-        popupMenuItem('Удалить ', () {}, 2),
-        popupMenuItem('Поделиться', () {}, 3),
+        popupMenuItem(
+          'Переименовать',
+          () {},
+        ),
+        popupMenuItem(
+          'Добавить в подборку',
+          () {},
+        ),
+        popupMenuItem(
+          'Удалить ',
+          () {},
+        ),
+        popupMenuItem(
+          'Поделиться',
+          () {},
+        ),
       ],
     );
   }

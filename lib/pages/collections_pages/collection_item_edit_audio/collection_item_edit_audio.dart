@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/collections_pages/collection_item/widgets/appbar_header_profile_edit.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/widgets/photo_container.dart';
+import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/widgets/appbar_header_collection_item_edit_audio.dart';
 import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/widgets/list_collection_item_edit_audio.dart';
 
 class CollectionItemEditAudio extends StatelessWidget {
@@ -28,7 +28,7 @@ class CollectionItemEditAudio extends StatelessWidget {
                   Expanded(
                     child: Stack(
                       children: [
-                        AppbarHeaderCollectionItem(),
+                        AppbarHeaderCollectionItemEditAudio(),
                         const PhotoContainer(),
                       ],
                     ),

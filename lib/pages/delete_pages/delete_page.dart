@@ -160,10 +160,22 @@ class PopupMenuAudioRecordingPage extends StatelessWidget {
         ),
       ),
       itemBuilder: (context) => [
-        popupMenuItem('Переименовать', () {}, 0),
-        popupMenuItem('Добавить в подборку', () {}, 1),
-        popupMenuItem('Удалить ', () {}, 2),
-        popupMenuItem('Поделиться', () {}, 3),
+        popupMenuItem(
+          'Переименовать',
+          () {},
+        ),
+        popupMenuItem(
+          'Добавить в подборку',
+          () {},
+        ),
+        popupMenuItem(
+          'Удалить ',
+          () {},
+        ),
+        popupMenuItem(
+          'Поделиться',
+          () {},
+        ),
       ],
     );
   }
@@ -186,9 +198,18 @@ class PopupMenuDeletePage extends StatelessWidget {
           ),
         ),
         itemBuilder: (context) => [
-              popupMenuItem('Выбрать несколько', () {}, 1),
-              popupMenuItem('Удалить все', () {}, 2),
-              popupMenuItem('Восстановить все', () {}, 3),
+              popupMenuItem(
+                'Выбрать несколько',
+                () {},
+              ),
+              popupMenuItem(
+                'Удалить все',
+                () {},
+              ),
+              popupMenuItem(
+                'Восстановить все',
+                () {},
+              ),
             ]);
   }
 }

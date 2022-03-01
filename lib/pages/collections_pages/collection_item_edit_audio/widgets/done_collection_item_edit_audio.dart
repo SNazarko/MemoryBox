@@ -23,25 +23,39 @@ class DoneCollectionItemEditAudio extends StatefulWidget {
 class _DoneCollectionItemEditAudioState
     extends State<DoneCollectionItemEditAudio> {
   // final CollectionsRepositories repositories = CollectionsRepositories();
+  bool done = true;
+
+  @override
+  void initState() {
+    setState(() {
+      done = widget.done!;
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     // final bool doneProvider = context.watch<ModelDone>().getDone;
     return Padding(
       padding: const EdgeInsets.all(12.0),
-      child: Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          border: Border.all(color: AppColor.colorText),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(25.0),
+      child: GestureDetector(
+        onTap: () {
+          done = !done;
+        },
+        child: Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColor.colorText),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(25.0),
+            ),
           ),
-        ),
-        child: Center(
-          child: Icon(
-            Icons.done,
-            color: widget.done! ? AppColor.colorText : AppColor.white,
+          child: Center(
+            child: Icon(
+              Icons.done,
+              color: done ? AppColor.colorText : AppColor.white,
+            ),
           ),
         ),
       ),

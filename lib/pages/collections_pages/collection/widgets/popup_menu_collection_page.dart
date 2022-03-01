@@ -26,18 +26,30 @@ class PopupMenuCollectionPage extends StatelessWidget {
         ),
         itemBuilder: state
             ? (context) => [
-                  popupMenuItem('Снять выделение', () {
-                    context.read<CollectionModel>().stateCollections();
-                  }, 1),
-                  popupMenuItem('Удалить подборку', () {
-                    const CollectionItem().alertDialog(context);
-                  }, 2),
-                  popupMenuItem('Поделиться', () {}, 3),
+                  popupMenuItem(
+                    'Снять выделение',
+                    () {
+                      context.read<CollectionModel>().stateCollections();
+                    },
+                  ),
+                  popupMenuItem(
+                    'Удалить подборку',
+                    () {
+                      const CollectionItem().alertDialog(context);
+                    },
+                  ),
+                  popupMenuItem(
+                    'Поделиться',
+                    () {},
+                  ),
                 ]
             : (context) => [
-                  popupMenuItem('Выбрать несколько', () {
-                    context.read<CollectionModel>().stateCollections();
-                  }, 1),
+                  popupMenuItem(
+                    'Выбрать несколько',
+                    () {
+                      context.read<CollectionModel>().stateCollections();
+                    },
+                  ),
                 ]);
   }
 }

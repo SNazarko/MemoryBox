@@ -1,17 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 
-class PopupMenuCollectionItemPage extends StatelessWidget {
-  const PopupMenuCollectionItemPage({Key? key}) : super(key: key);
+class PopupMenuAudioRecording extends StatelessWidget {
+  const PopupMenuAudioRecording({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
       icon: const Icon(
         Icons.more_horiz,
-        color: AppColor.white,
       ),
       iconSize: 40,
       shape: const RoundedRectangleBorder(
@@ -19,9 +17,9 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
           Radius.circular(15),
         ),
       ),
-      itemBuilder: (_) => [
+      itemBuilder: (context) => [
         popupMenuItem(
-          'Отменить выбор',
+          'Переименовать',
           () {},
         ),
         popupMenuItem(
@@ -29,15 +27,11 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
           () {},
         ),
         popupMenuItem(
+          'Удалить ',
+          () {},
+        ),
+        popupMenuItem(
           'Поделиться',
-          () {},
-        ),
-        popupMenuItem(
-          'Скачать все',
-          () {},
-        ),
-        popupMenuItem(
-          'Удалить все',
           () {},
         ),
       ],

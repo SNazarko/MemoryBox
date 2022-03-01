@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/collections_pages/collection_item_edit/collection_item_edit_page.dart';
+import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/collection_item_edit_audio.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 
@@ -25,18 +26,34 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
         ),
       ),
       itemBuilder: (_) => [
-        popupMenuItem('Редактировать', () {
-          Timer(const Duration(seconds: 1), () {
-            Navigator.pushNamed(context, CollectionItemEditPage.routeName);
-          });
-        }, 0),
-        popupMenuItem('Выбрать несколько', () {
-          Timer(const Duration(seconds: 1), () {
-            AppbarHeaderCollectionItem().alertDialog(context);
-          });
-        }, 1),
-        popupMenuItem('Удалить подборку', () {}, 2),
-        popupMenuItem('Поделиться', () {}, 3),
+        popupMenuItem(
+          'Редактировать',
+          () {
+            Timer(const Duration(seconds: 1), () {
+              Navigator.pushNamed(context, CollectionItemEditPage.routeName);
+            });
+          },
+        ),
+        popupMenuItem(
+          'Выбрать несколько',
+          () {
+            Timer(const Duration(seconds: 1), () {
+              Navigator.pushNamed(context, CollectionItemEditAudio.routeName);
+            });
+          },
+        ),
+        popupMenuItem(
+          'Удалить подборку',
+          () {
+            Timer(const Duration(seconds: 1), () {
+              AppbarHeaderCollectionItem().alertDialog(context);
+            });
+          },
+        ),
+        popupMenuItem(
+          'Поделиться',
+          () {},
+        ),
       ],
     );
   }

@@ -7,7 +7,7 @@ import 'package:memory_box/routes/routes.dart';
 import 'package:memory_box/widgets/bottom_nav_bar.dart';
 import 'package:memory_box/widgets/drawer_menu.dart';
 import 'package:provider/provider.dart';
-import 'audio_recordings_page.dart';
+import 'audio_recordings_page/audio_recordings_page.dart';
 import 'collections_pages/collection/collection.dart';
 import 'delete_pages/delete_page.dart';
 

@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/models/audio_model.dart';
-import 'package:memory_box/pages/audio_recordings_page.dart';
+import 'package:memory_box/pages/audio_recordings_page/audio_recordings_page.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';

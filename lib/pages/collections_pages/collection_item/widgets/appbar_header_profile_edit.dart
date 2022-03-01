@@ -13,8 +13,8 @@ import 'package:provider/provider.dart';
 
 import '../collections_item_page_model.dart';
 
-class AppbarHeaderProfileEdit extends StatelessWidget {
-  AppbarHeaderProfileEdit({Key? key}) : super(key: key);
+class AppbarHeaderCollectionItem extends StatelessWidget {
+  AppbarHeaderCollectionItem({Key? key}) : super(key: key);
   final CollectionsRepositories repositories = CollectionsRepositories();
 
   void alertDone(BuildContext context) {

@@ -32,7 +32,7 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
         }, 0),
         popupMenuItem('Выбрать несколько', () {
           Timer(const Duration(seconds: 1), () {
-            AppbarHeaderProfileEdit().alertDialog(context);
+            AppbarHeaderCollectionItem().alertDialog(context);
           });
         }, 1),
         popupMenuItem('Удалить подборку', () {}, 2),

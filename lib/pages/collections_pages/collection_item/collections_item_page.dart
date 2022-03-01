@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/widgets/appbar_header_profile_edit.dart';
-import 'package:memory_box/pages/collections_pages/collection_item/widgets/foto_container.dart';
+import 'package:memory_box/pages/collections_pages/collection_item/widgets/photo_container.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/widgets/list_collections.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/widgets/player_collections.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/widgets/sub_title.dart';
@@ -31,7 +31,7 @@ class CollectionsItemPage extends StatelessWidget {
                   Expanded(
                     child: Stack(
                       children: [
-                        AppbarHeaderProfileEdit(),
+                        AppbarHeaderCollectionItem(),
                         const PhotoContainer(),
                       ],
                     ),

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/collections_pages/collection_edit/collections_edit_model.dart';
+import 'package:memory_box/pages/collections_pages/collection_edit/collection_edit_model.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:provider/provider.dart';

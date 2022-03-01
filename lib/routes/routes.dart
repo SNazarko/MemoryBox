@@ -6,11 +6,11 @@ import 'package:memory_box/pages/authorization_page/first_page.dart';
 import 'package:memory_box/pages/authorization_page/initializer_widget.dart';
 import 'package:memory_box/pages/authorization_page/last_authorization_page.dart';
 import 'package:memory_box/pages/authorization_page/registration_page/registration_page.dart';
-import 'package:memory_box/pages/collections_pages/collection_edit/collections_edit.dart';
+import 'package:memory_box/pages/collections_pages/collection_add_audio/collections_add_audio.dart';
+import 'package:memory_box/pages/collections_pages/collection_edit/collection_edit.dart';
+import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page.dart';
 import 'package:memory_box/pages/collections_pages/collection_item_edit/collection_item_edit_page.dart';
-import 'package:memory_box/pages/collections_pages/collections/collections.dart';
-import 'package:memory_box/pages/collections_pages/collections_add_audio/collections_add_audio.dart';
-import 'package:memory_box/pages/collections_pages/collections_item/collections_item_page.dart';
+import 'package:memory_box/pages/collections_pages/collection/collection.dart';
 import 'package:memory_box/pages/delete_pages/delete_page.dart';
 import 'package:memory_box/pages/home_page/home_page.dart';
 import 'package:memory_box/pages/logo_page/logo_page.dart';
@@ -25,7 +25,7 @@ class AppRouter {
   const AppRouter._();
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    final Object? arguments = settings.arguments;
+    // final Object? arguments = settings.arguments;
 
     WidgetBuilder builder;
 

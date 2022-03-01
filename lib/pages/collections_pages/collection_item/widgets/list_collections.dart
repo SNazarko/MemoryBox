@@ -8,10 +8,8 @@ import 'package:provider/provider.dart';
 import '../collections_item_page_model.dart';
 
 class ListCollectionsAudio extends StatelessWidget {
-  ListCollectionsAudio({Key? key, required this.screenHeight})
-      : super(key: key);
+  ListCollectionsAudio({Key? key}) : super(key: key);
   final AudioRepositories repositories = AudioRepositories();
-  final double screenHeight;
 
   Widget buildAudio(AudioModel audio) => PlayerMini(
         duration: '${audio.duration}',
@@ -22,7 +20,6 @@ class ListCollectionsAudio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: screenHeight * 0.5,
       child: StreamBuilder<List<AudioModel>>(
         stream: repositories.readAudioPodbirka(
             '${context.watch<CollectionsItemPageModel>().getTitle}'),

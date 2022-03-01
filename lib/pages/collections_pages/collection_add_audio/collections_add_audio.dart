@@ -14,7 +14,7 @@ import 'done_widget/model_done.dart';
 
 class CollectionsAddAudio extends StatelessWidget {
   const CollectionsAddAudio({Key? key}) : super(key: key);
-  static const routeName = '/collections_add_audio';
+  static const routeName = '/collection_add_audio';
   static Widget create() {
     return ChangeNotifierProvider<ModelDone>(
       create: (BuildContext context) => ModelDone(),

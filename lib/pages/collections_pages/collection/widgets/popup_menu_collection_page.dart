@@ -1,14 +1,11 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:provider/provider.dart';
 
 import '../collection_model.dart';
-import 'collections_item.dart';
+import 'collection_item.dart';
 
 class PopupMenuCollectionPage extends StatelessWidget {
   const PopupMenuCollectionPage({Key? key}) : super(key: key);
@@ -33,7 +30,7 @@ class PopupMenuCollectionPage extends StatelessWidget {
                     context.read<CollectionModel>().stateCollections();
                   }, 1),
                   popupMenuItem('Удалить подборку', () {
-                    const CollectionsItem().alertDialog(context);
+                    const CollectionItem().alertDialog(context);
                   }, 2),
                   popupMenuItem('Поделиться', () {}, 3),
                 ]

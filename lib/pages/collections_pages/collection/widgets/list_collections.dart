@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/models/collections_model.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 
-import 'collections_item.dart';
+import 'collection_item.dart';
 
 class ListCollections extends StatelessWidget {
   ListCollections({Key? key}) : super(key: key);
   final CollectionsRepositories repositories = CollectionsRepositories();
 
-  Widget buildCollections(CollectionsModel collections) => CollectionsItem(
+  Widget buildCollections(CollectionsModel collections) => CollectionItem(
         image: '${collections.avatarCollections}',
         title: '${collections.titleCollections}',
         subTitle: '${collections.subTitleCollections}',

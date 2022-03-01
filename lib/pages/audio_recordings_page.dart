@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:memory_box/bloc_all/bloc_all_bloc.dart';
+import 'package:memory_box/bloc/bloc_all_bloc.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
@@ -111,7 +111,7 @@ class _AppbarHeader extends StatelessWidget {
                   ),
                 ],
               ),
-              _AppbarPlayer(),
+              const _AppbarPlayer(),
             ],
           ),
         )
@@ -149,7 +149,7 @@ class _AppbarPlayer extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Align(
                     alignment: Alignment.centerRight,
-                    child: Container(
+                    child: SizedBox(
                       width: 40.0,
                       height: 40.0,
                       child: Image.asset(
@@ -175,7 +175,7 @@ class _AppbarPlayer extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
+                  SizedBox(
                     width: 50.0,
                     height: 50.0,
                     child: Image.asset(

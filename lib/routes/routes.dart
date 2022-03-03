@@ -21,13 +21,12 @@ import 'package:memory_box/pages/profile_page/profile_page/profile.dart';
 import 'package:memory_box/pages/profile_page/profile_edit.dart';
 import 'package:memory_box/pages/recordings_page/record_page.dart';
 import 'package:memory_box/pages/save_page.dart';
-import 'package:memory_box/pages/test.dart';
 
 class AppRouter {
   const AppRouter._();
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    // final Object? arguments = settings.arguments;
+    final Object? arguments = settings.arguments;
 
     WidgetBuilder builder;
 
@@ -93,7 +92,12 @@ class AppRouter {
         builder = (_) => const CollectionItemEditAudio();
         break;
       case SavePage.routeName:
-        builder = (_) => SavePage();
+        final SavePage args = arguments as SavePage;
+        builder = (_) => SavePage(
+              duration: args.duration,
+              image: args.image,
+              url: args.url,
+            );
         break;
       default:
         throw Exception('Invalid route: ${settings.name}');

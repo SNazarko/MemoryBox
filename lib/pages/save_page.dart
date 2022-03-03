@@ -7,14 +7,36 @@ import 'package:memory_box/widgets/player_big.dart';
 import '../resources/constants.dart';
 
 class SavePage extends StatelessWidget {
-  SavePage({Key? key, this.image, this.url, this.duration}) : super(key: key);
+  const SavePage(
+      {Key? key,
+      required this.image,
+      required this.url,
+      required this.duration})
+      : super(key: key);
   static const routeName = '/save_page';
-  String? image = "";
-  String? url = '';
-  String? duration = '';
+  final String image;
+  final String url;
+  final String duration;
 
-  static Widget create() {
-    return SavePage();
+  Widget? photoCollections(double screenWidth, double screenHeight) {
+    if (image == null) {
+      Text('');
+    } else {
+      return Container(
+        width: screenWidth * 0.8,
+        height: screenHeight * 0.35,
+        decoration: const BoxDecoration(
+          color: Colors.red,
+          borderRadius: BorderRadius.all(
+            Radius.circular(20.0),
+          ),
+        ),
+        child: Image.asset(
+          image,
+          fit: BoxFit.fill,
+        ),
+      );
+    }
   }
 
   @override
@@ -80,7 +102,7 @@ class SavePage extends StatelessWidget {
                             ),
                           ),
                           child: Image.asset(
-                            image!,
+                            image,
                             fit: BoxFit.fill,
                           ),
                         ),

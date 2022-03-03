@@ -12,7 +12,10 @@ class ListPlayer extends StatelessWidget {
         duration: '${audio.duration}',
         url: '${audio.audioUrl}',
         name: '${audio.audioName}',
-        popupMenu: const PopupMenuAudioRecording(),
+        popupMenu: PopupMenuAudioRecording(
+          url: '${audio.audioUrl}',
+          duration: '${audio.duration}',
+        ),
       );
 
   @override

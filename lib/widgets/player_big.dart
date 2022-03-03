@@ -77,7 +77,7 @@ class _PlayerBigState extends State<PlayerBig> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _buildText(),
-                  const Text('00:00'),
+                  Text(widget.duration!),
                 ],
               ),
             ),

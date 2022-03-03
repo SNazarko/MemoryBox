@@ -6,7 +6,7 @@ import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
-import 'package:memory_box/widgets/player_mini.dart';
+import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 
 class DeletePage extends StatelessWidget {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/popup_menu_audio_recording.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
-import 'package:memory_box/widgets/player_mini.dart';
+import 'package:memory_box/widgets/player_mini/player_mini.dart';
 
 class ListPlayer extends StatelessWidget {
   ListPlayer({Key? key}) : super(key: key);

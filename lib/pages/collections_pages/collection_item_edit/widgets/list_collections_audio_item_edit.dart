@@ -4,7 +4,7 @@ import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/widgets/player_mini.dart';
+import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:provider/src/provider.dart';
 
 class ListCollectionsAudioItemEdit extends StatelessWidget {

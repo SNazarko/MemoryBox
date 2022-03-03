@@ -5,6 +5,8 @@ import 'package:memory_box/pages/delete_pages/delete_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 
+import '../../save_page.dart';
+
 class AppbarHeaderHomePage extends StatelessWidget {
   const AppbarHeaderHomePage({Key? key}) : super(key: key);
   final bool shouldPop = false;
@@ -74,8 +76,7 @@ class _TitleAppbar extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(
-                      context, CollectionItemEditAudio.routeName);
+                  Navigator.pushNamed(context, SavePage.routeName);
                 },
                 child: const Text(
                   'Открыть все',

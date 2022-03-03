@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:date_format/date_format.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:memory_box/models/audio_model.dart';
-import 'package:memory_box/models/collections_model.dart';
 import 'package:memory_box/models/user_model.dart';
 
 class AudioRepositories {
@@ -13,6 +13,7 @@ class AudioRepositories {
 
   Stream<List<AudioModel>> readAudio() => FirebaseFirestore.instance
       .collection('Collections')
+      .orderBy('dateTime')
       .snapshots()
       .map((snapshot) =>
           snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
@@ -22,6 +23,7 @@ class AudioRepositories {
       .collection('CollectionsTale')
       .doc(name)
       .collection('Audio')
+      .orderBy('dateTime')
       .snapshots()
       .map((snapshot) =>
           snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
@@ -30,16 +32,62 @@ class AudioRepositories {
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
         .ref('userAudio/${getAudioName(path)}');
     await ref.putFile(File(path));
+    final _todayDate = DateTime.now();
     final model = AudioModel(
       audioName: name,
-      audioUrl: '${await ref.getDownloadURL()}',
+      audioUrl: await ref.getDownloadURL(),
       duration: duration,
+      dateTime: formatDate(
+          _todayDate, [dd, '.', mm, '.', yy, HH, ':', nn, ':', ss, z]),
     );
     final json = model.toJson();
-    FirebaseFirestore.instance.collection('Collections').doc().set(json);
+    FirebaseFirestore.instance.collection('Collections').doc(name).set(json);
   }
 
   String getAudioName(String name) {
     return name.split('/').last;
+  }
+
+  Future<void> renameAudio(
+    String lastName,
+    String newNameAudio,
+    String newAudioUrl,
+    String duration,
+  ) async {
+    final model = AudioModel(
+      audioName: newNameAudio,
+      audioUrl: newAudioUrl,
+      duration: duration,
+    );
+    final json = model.toJson();
+    FirebaseFirestore.instance.collection('Collections').doc(lastName).delete();
+    FirebaseFirestore.instance
+        .collection('CollectionsTale')
+        .doc()
+        .collection('Audio')
+        .doc(lastName)
+        .delete();
+    FirebaseFirestore.instance
+        .collection('DeleteCollections')
+        .doc()
+        .collection('Audio')
+        .doc(lastName)
+        .delete();
+    FirebaseFirestore.instance
+        .collection('Collections')
+        .doc(newNameAudio)
+        .set(json);
+    FirebaseFirestore.instance
+        .collection('CollectionsTale')
+        .doc()
+        .collection('Audio')
+        .doc(newNameAudio)
+        .set(json);
+    FirebaseFirestore.instance
+        .collection('DeleteCollections')
+        .doc()
+        .collection('Audio')
+        .doc(newNameAudio)
+        .set(json);
   }
 }

@@ -20,6 +20,7 @@ import 'package:memory_box/pages/main_page.dart';
 import 'package:memory_box/pages/profile_page/profile_page/profile.dart';
 import 'package:memory_box/pages/profile_page/profile_edit.dart';
 import 'package:memory_box/pages/recordings_page/record_page.dart';
+import 'package:memory_box/pages/save_page.dart';
 import 'package:memory_box/pages/test.dart';
 
 class AppRouter {
@@ -91,8 +92,8 @@ class AppRouter {
       case CollectionItemEditAudio.routeName:
         builder = (_) => const CollectionItemEditAudio();
         break;
-      case Test.routeName:
-        builder = (_) => const Test();
+      case SavePage.routeName:
+        builder = (_) => SavePage();
         break;
       default:
         throw Exception('Invalid route: ${settings.name}');

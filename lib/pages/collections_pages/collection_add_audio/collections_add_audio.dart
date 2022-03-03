@@ -110,48 +110,46 @@ class SearchPanel extends StatelessWidget {
     final double screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(left: 20.0, top: 121.0, right: 12.0),
-      child: Expanded(
-        child: Container(
-          height: 60.0,
-          decoration: const BoxDecoration(
-            color: AppColor.white,
-            borderRadius: BorderRadius.all(Radius.circular(30.0)),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 29),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                    width: screenWidth * 0.65,
-                    child: TextField(
-                      onChanged: (_searchtxt) {
-                        context
-                            .read<CollectionsAddAudioModel>()
-                            .setSearchtxt(_searchtxt);
-                      },
-                      style: const TextStyle(
+      child: Container(
+        height: 60.0,
+        decoration: const BoxDecoration(
+          color: AppColor.white,
+          borderRadius: BorderRadius.all(Radius.circular(30.0)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 29),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                  width: screenWidth * 0.65,
+                  child: TextField(
+                    onChanged: (_searchtxt) {
+                      context
+                          .read<CollectionsAddAudioModel>()
+                          .setSearchtxt(_searchtxt);
+                    },
+                    style: const TextStyle(
+                      fontSize: 20.0,
+                      color: AppColor.colorText,
+                    ),
+                    decoration: const InputDecoration(
+                      hintText: 'Поиск',
+                      hintStyle: TextStyle(
                         fontSize: 20.0,
-                        color: AppColor.colorText,
+                        color: AppColor.colorText50,
                       ),
-                      decoration: const InputDecoration(
-                        hintText: 'Поиск',
-                        hintStyle: TextStyle(
-                          fontSize: 20.0,
-                          color: AppColor.colorText50,
-                        ),
-                        border: OutlineInputBorder(borderSide: BorderSide.none),
-                      ),
-                    )),
-                GestureDetector(
-                  onTap: () {},
-                  child: Image.asset(
-                    AppIcons.search,
-                    color: AppColor.colorText,
-                  ),
-                )
-              ],
-            ),
+                      border: OutlineInputBorder(borderSide: BorderSide.none),
+                    ),
+                  )),
+              GestureDetector(
+                onTap: () {},
+                child: Image.asset(
+                  AppIcons.search,
+                  color: AppColor.colorText,
+                ),
+              )
+            ],
           ),
         ),
       ),

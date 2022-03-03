@@ -1,19 +1,14 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/models/audio_model.dart';
-import 'package:memory_box/models/audio_model.dart';
+
 import 'package:memory_box/pages/audio_recordings_page/audio_recordings_page.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
-import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/appbar_menu.dart';
-import 'package:memory_box/widgets/bottom_nav_bar.dart';
-import 'package:memory_box/widgets/drawer_menu.dart';
 import 'package:just_audio/just_audio.dart' as ap;
 import 'package:memory_box/widgets/slider.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +20,8 @@ class RecordPage extends StatefulWidget {
   const RecordPage({Key? key}) : super(key: key);
   static const routeName = '/record_page';
   static Widget create() {
-    return const RecordPage();
+    return ChangeNotifierProvider<ModelRP>(
+        create: (BuildContext context) => ModelRP(), child: const RecordPage());
   }
 
   @override
@@ -46,57 +42,54 @@ class _RecordPageState extends State<RecordPage> {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    return ChangeNotifierProvider<ModelRP>(
-      create: (BuildContext context) => ModelRP(),
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-            icon: const Icon(Icons.menu),
-          ),
-          elevation: 0.0,
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+          icon: const Icon(Icons.menu),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Stack(
-                children: [
-                  const AppbarMenu(),
-                  Positioned(
-                      left: 5.0,
-                      top: 30.0,
-                      child: Container(
-                        height: 520.0,
-                        width: screenWidth * 0.97,
-                        decoration: kBorderContainer2,
-                        child: showPlayer
-                            ? Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 25),
-                                child: AudioPlayer(
-                                  source: audioSource!,
-                                  onDelete: () {
-                                    setState(() => showPlayer = false);
-                                  },
-                                ),
-                              )
-                            : AudioRecorder(
-                                onStop: (path) {
-                                  setState(() {
-                                    audioSource =
-                                        ap.AudioSource.uri(Uri.parse(path));
-                                    showPlayer = true;
-                                  });
+        elevation: 0.0,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Stack(
+              children: [
+                const AppbarMenu(),
+                Positioned(
+                    left: 5.0,
+                    top: 30.0,
+                    child: Container(
+                      height: 520.0,
+                      width: screenWidth * 0.97,
+                      decoration: kBorderContainer2,
+                      child: showPlayer
+                          ? Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 25),
+                              child: AudioPlayer(
+                                source: audioSource!,
+                                onDelete: () {
+                                  setState(() => showPlayer = false);
                                 },
                               ),
-                      ))
-                ],
-              ),
-            ],
-          ),
+                            )
+                          : AudioRecorder(
+                              onStop: (path) {
+                                setState(() {
+                                  audioSource =
+                                      ap.AudioSource.uri(Uri.parse(path));
+                                  showPlayer = true;
+                                });
+                              },
+                            ),
+                    ))
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -561,11 +554,6 @@ class _AudioPlayerState extends State<AudioPlayer> {
                   Provider.of<ModelRP>(context, listen: false).getData,
                   _saveRecord,
                   Provider.of<ModelRP>(context, listen: false).getDuration);
-
-              Navigator.pushNamed(
-                context,
-                AudioRecordingsPage.routeName,
-              );
             },
             child: const Text(
               'Сохранить',

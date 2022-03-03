@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/resources/constants.dart';
-import 'package:memory_box/widgets/player_mini.dart';
+import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 
 import '../../audio_recordings_page/audio_recordings_page.dart';

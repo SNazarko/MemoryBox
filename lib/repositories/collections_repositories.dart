@@ -7,6 +7,7 @@ class CollectionsRepositories {
   int documents = 0;
   Stream<List<CollectionsModel>> readCollections() => FirebaseFirestore.instance
       .collection('CollectionsTale')
+      .orderBy('data')
       .snapshots()
       .map((snapshot) => snapshot.docs
           .map((doc) => CollectionsModel.fromJson(doc.data()))
@@ -96,9 +97,13 @@ class CollectionsRepositories {
   ) async {
     FirebaseFirestore.instance
         .collection(collectionFirestore)
-        .doc(
-          nameCollection,
-        )
+        .doc(nameCollection)
+        .collection('Audio')
+        .doc()
+        .delete();
+    FirebaseFirestore.instance
+        .collection(collectionFirestore)
+        .doc(nameCollection)
         .delete();
   }
 

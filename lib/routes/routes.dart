@@ -97,6 +97,7 @@ class AppRouter {
               duration: args.duration,
               image: args.image,
               url: args.url,
+              name: args.name,
             );
         break;
       default:

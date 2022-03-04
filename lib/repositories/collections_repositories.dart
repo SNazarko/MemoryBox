@@ -169,12 +169,13 @@ class CollectionsRepositories {
     });
   }
 
-  Future<void> doneAudioItem(String nameCollection, bool done) async {
+  Future<void> doneAudioItem(
+      String nameCollection, String nameAudio, bool done) async {
     FirebaseFirestore.instance
         .collection('CollectionsTale')
         .doc(nameCollection)
         .collection('Audio')
-        .doc(nameCollection)
+        .doc(nameAudio)
         .update({'done': done});
   }
 }

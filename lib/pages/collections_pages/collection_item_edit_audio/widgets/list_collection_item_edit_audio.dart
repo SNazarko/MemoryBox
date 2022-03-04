@@ -16,10 +16,7 @@ class ListCollectionItemEditAudio extends StatelessWidget {
         duration: '${audio.duration}',
         url: '${audio.audioUrl}',
         name: '${audio.audioName}',
-        popupMenu:
-            // Text('1')
-
-            DoneCollectionItemEditAudio(
+        popupMenu: DoneCollectionItemEditAudio(
           done: audio.done,
           name: '${audio.audioName}',
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/player_big.dart';
@@ -7,33 +8,38 @@ import 'package:memory_box/widgets/player_big.dart';
 import '../resources/constants.dart';
 
 class SavePage extends StatelessWidget {
-  const SavePage(
-      {Key? key,
-      required this.image,
-      required this.url,
-      required this.duration})
-      : super(key: key);
+  SavePage({
+    Key? key,
+    required this.image,
+    required this.url,
+    required this.duration,
+    required this.name,
+  }) : super(key: key);
   static const routeName = '/save_page';
+  final AudioRepositories repositories = AudioRepositories();
+  final String name;
   final String image;
   final String url;
   final String duration;
+  String? newName;
 
   Widget? photoCollections(double screenWidth, double screenHeight) {
-    if (image == null) {
-      Text('');
-    } else {
-      return Container(
-        width: screenWidth * 0.8,
+    if (image == '') {
+      return SizedBox(
         height: screenHeight * 0.35,
-        decoration: const BoxDecoration(
-          color: Colors.red,
-          borderRadius: BorderRadius.all(
-            Radius.circular(20.0),
-          ),
+      );
+    } else {
+      return ClipRRect(
+        borderRadius: const BorderRadius.all(
+          Radius.circular(20.0),
         ),
-        child: Image.asset(
-          image,
-          fit: BoxFit.fill,
+        child: SizedBox(
+          width: screenWidth * 0.8,
+          height: screenHeight * 0.35,
+          child: Image.network(
+            image,
+            fit: BoxFit.fill,
+          ),
         ),
       );
     }
@@ -78,13 +84,22 @@ class SavePage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
                                   child: const Text(
                                     'Отменить',
                                     style: kTitle3TextStyle3,
                                   )),
                               TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    repositories.renameAudio(
+                                      name,
+                                      newName!,
+                                      url,
+                                      duration,
+                                    );
+                                  },
                                   child: const Text(
                                     'Готово',
                                     style: kTitle3TextStyle3,
@@ -92,20 +107,10 @@ class SavePage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Container(
-                          width: screenWidth * 0.8,
-                          height: screenHeight * 0.35,
-                          decoration: const BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20.0),
-                            ),
-                          ),
-                          child: Image.asset(
-                            image,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
+                        photoCollections(
+                          screenWidth,
+                          screenHeight,
+                        )!,
                         const SizedBox(
                           height: 30.0,
                         ),
@@ -113,8 +118,11 @@ class SavePage extends StatelessWidget {
                           height: 20.0,
                           width: 200.0,
                           child: TextField(
+                            maxLines: 1,
                             autofocus: true,
-                            onChanged: (value) {},
+                            onChanged: (value) {
+                              value = newName!;
+                            },
                             style: const TextStyle(
                               fontSize: 14.0,
                               color: AppColor.colorText,
@@ -123,7 +131,9 @@ class SavePage extends StatelessWidget {
                               border: InputBorder.none,
                               hintText: '          Название аудиозапи',
                               hintStyle: TextStyle(
-                                  fontSize: 14.0, color: AppColor.colorText),
+                                fontSize: 14.0,
+                                color: AppColor.colorText,
+                              ),
                             ),
                           ),
                         ),

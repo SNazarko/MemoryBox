@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
@@ -7,6 +9,7 @@ import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 
 import '../../audio_recordings_page/audio_recordings_page.dart';
+import '../../save_page.dart';
 
 class HomePageAudio extends StatelessWidget {
   const HomePageAudio({Key? key}) : super(key: key);
@@ -68,7 +71,12 @@ class _AudioList extends StatelessWidget {
         duration: '${audio.duration}',
         url: '${audio.audioUrl}',
         name: '${audio.audioName}',
-        popupMenu: const PopupMenuHomePage(),
+        popupMenu: PopupMenuHomePage(
+          url: '${audio.audioUrl}',
+          duration: '${audio.duration}',
+          name: '${audio.audioName}',
+          image: '',
+        ),
       );
 
   @override
@@ -127,7 +135,18 @@ class _TitleAudioList extends StatelessWidget {
 }
 
 class PopupMenuHomePage extends StatelessWidget {
-  const PopupMenuHomePage({Key? key}) : super(key: key);
+  PopupMenuHomePage({
+    Key? key,
+    required this.name,
+    required this.url,
+    required this.duration,
+    required this.image,
+  }) : super(key: key);
+  final AudioRepositories repositories = AudioRepositories();
+  final String name;
+  final String url;
+  final String duration;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +163,18 @@ class PopupMenuHomePage extends StatelessWidget {
       itemBuilder: (context) => [
         popupMenuItem(
           'Переименовать',
-          () {},
+          () {
+            Timer(const Duration(seconds: 1), () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return SavePage(
+                  image: image,
+                  url: url,
+                  duration: duration,
+                  name: name,
+                );
+              }));
+            });
+          },
         ),
         popupMenuItem(
           'Добавить в подборку',

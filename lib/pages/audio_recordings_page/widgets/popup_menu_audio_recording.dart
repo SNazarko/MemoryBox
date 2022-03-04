@@ -12,10 +12,12 @@ class PopupMenuAudioRecording extends StatelessWidget {
     this.image,
     required this.url,
     required this.duration,
+    required this.name,
   }) : super(key: key);
   final String? image;
   final String url;
   final String duration;
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,11 @@ class PopupMenuAudioRecording extends StatelessWidget {
             Timer(const Duration(seconds: 1), () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return SavePage(
-                    image: image ?? '', url: url, duration: duration);
+                  image: image ?? '',
+                  url: url,
+                  duration: duration,
+                  name: name,
+                );
               }));
             });
           },

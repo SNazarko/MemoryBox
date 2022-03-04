@@ -61,18 +61,21 @@ class AudioRepositories {
     );
     final json = model.toJson();
     FirebaseFirestore.instance.collection('Collections').doc(lastName).delete();
+
     FirebaseFirestore.instance
         .collection('CollectionsTale')
         .doc()
         .collection('Audio')
         .doc(lastName)
         .delete();
+
     FirebaseFirestore.instance
         .collection('DeleteCollections')
         .doc()
         .collection('Audio')
         .doc(lastName)
         .delete();
+
     FirebaseFirestore.instance
         .collection('Collections')
         .doc(newNameAudio)

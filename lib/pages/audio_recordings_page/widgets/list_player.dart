@@ -15,6 +15,7 @@ class ListPlayer extends StatelessWidget {
         popupMenu: PopupMenuAudioRecording(
           url: '${audio.audioUrl}',
           duration: '${audio.duration}',
+          name: '${audio.audioName}',
         ),
       );
 

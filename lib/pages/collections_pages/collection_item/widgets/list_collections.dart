@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
@@ -6,6 +8,7 @@ import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:provider/provider.dart';
+import '../../../save_page.dart';
 import '../collections_item_page_model.dart';
 
 class ListCollectionsAudio extends StatelessWidget {
@@ -16,7 +19,12 @@ class ListCollectionsAudio extends StatelessWidget {
         duration: '${audio.duration}',
         url: '${audio.audioUrl}',
         name: '${audio.audioName}',
-        popupMenu: const PopupMenuPlayerMini(),
+        popupMenu: _PopupMenuPlayerMini(
+          image: '',
+          duration: '${audio.duration}',
+          name: '${audio.audioName}',
+          url: '${audio.audioUrl}',
+        ),
       );
   @override
   Widget build(BuildContext context) {
@@ -45,8 +53,19 @@ class ListCollectionsAudio extends StatelessWidget {
   }
 }
 
-class PopupMenuPlayerMini extends StatelessWidget {
-  const PopupMenuPlayerMini({Key? key}) : super(key: key);
+class _PopupMenuPlayerMini extends StatelessWidget {
+  _PopupMenuPlayerMini({
+    Key? key,
+    required this.name,
+    required this.url,
+    required this.duration,
+    required this.image,
+  }) : super(key: key);
+  final AudioRepositories repositories = AudioRepositories();
+  final String name;
+  final String url;
+  final String duration;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +82,19 @@ class PopupMenuPlayerMini extends StatelessWidget {
       itemBuilder: (context) => [
         popupMenuItem(
           'Переименовать',
-          () {},
+          () {
+            Timer(const Duration(seconds: 1), () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return SavePage(
+                  image:
+                      '${Provider.of<CollectionsItemPageModel>(context, listen: false).getPhoto}',
+                  url: url,
+                  duration: duration,
+                  name: name,
+                );
+              }));
+            });
+          },
         ),
         popupMenuItem(
           'Добавить в подборку',

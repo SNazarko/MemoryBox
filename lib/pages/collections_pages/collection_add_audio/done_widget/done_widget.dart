@@ -36,7 +36,11 @@ class _DoneWidgetState extends State<DoneWidget> {
         children: [
           GestureDetector(
             onTap: () {
-              repositories.doneAudioItem(widget.name!, doneProvider);
+              repositories.doneAudioItem(
+                  Provider.of<CollectionsEditModel>(context, listen: false)
+                      .getTitle,
+                  widget.name!,
+                  doneProvider);
               context.read<ModelDone>().doneWidget();
               done = !done;
               if (done) {

@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
+import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
+import 'package:provider/src/provider.dart';
 
 class DoneCollectionItemEditAudio extends StatefulWidget {
   const DoneCollectionItemEditAudio(
@@ -22,7 +25,7 @@ class DoneCollectionItemEditAudio extends StatefulWidget {
 
 class _DoneCollectionItemEditAudioState
     extends State<DoneCollectionItemEditAudio> {
-  // final CollectionsRepositories repositories = CollectionsRepositories();
+  final CollectionsRepositories repositories = CollectionsRepositories();
   bool done = true;
 
   @override
@@ -40,7 +43,12 @@ class _DoneCollectionItemEditAudioState
       padding: const EdgeInsets.all(12.0),
       child: GestureDetector(
         onTap: () {
+          // setState(() {});
           done = !done;
+          repositories.doneAudioItem(
+              '${Provider.of<CollectionsItemPageModel>(context, listen: false).getTitle}',
+              widget.name!,
+              done);
         },
         child: Container(
           width: 40,

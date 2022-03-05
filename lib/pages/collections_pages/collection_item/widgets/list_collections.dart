@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
+import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/collection_item_edit_audio.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
+import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:provider/provider.dart';
@@ -61,6 +63,8 @@ class _PopupMenuPlayerMini extends StatelessWidget {
     required this.image,
   }) : super(key: key);
   final AudioRepositories repositories = AudioRepositories();
+  final CollectionsRepositories collectionsRepositories =
+      CollectionsRepositories();
   final String name;
   final String url;
   final String duration;
@@ -97,11 +101,24 @@ class _PopupMenuPlayerMini extends StatelessWidget {
         ),
         popupMenuItem(
           'Добавить в подборку',
-          () {},
+          () {
+            Timer(const Duration(seconds: 1), () {
+              Navigator.pushNamed(context, CollectionItemEditAudio.routeName);
+            });
+          },
         ),
         popupMenuItem(
           'Удалить ',
-          () {},
+          () {
+            Timer(const Duration(seconds: 1), () {
+              // Navigator.pushNamed(context, CollectionItemEditAudio.routeName);
+              collectionsRepositories.doneAudioItem(
+                  Provider.of<CollectionsItemPageModel>(context, listen: false)
+                      .getTitle,
+                  name,
+                  false);
+            });
+          },
         ),
         popupMenuItem(
           'Поделиться',

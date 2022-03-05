@@ -25,7 +25,7 @@ class ListCollectionItemEditAudio extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: StreamBuilder<List<AudioModel>>(
-        stream: repositories.readAudioPodbirka(
+        stream: repositories.readAudioCollectionEdit(
             '${context.watch<CollectionsItemPageModel>().getTitle}'),
         builder: (context, snapshot) {
           if (snapshot.hasError) {

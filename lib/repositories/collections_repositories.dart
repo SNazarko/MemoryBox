@@ -53,43 +53,46 @@ class CollectionsRepositories {
         .set(json);
   }
 
-  Future<void> addAudioForCollection(
-    String nameCollection,
-    String audioName,
-    String audioUrl,
-    String duration,
-    bool done,
-  ) async {
-    final model = AudioModel(
-      audioName: audioName,
-      audioUrl: audioUrl,
-      duration: duration,
-      done: done,
-    );
-    final json = model.toJson();
-    FirebaseFirestore.instance
-        .collection('CollectionsTale')
-        .doc(
-          nameCollection,
-        )
-        .collection('Audio')
-        .doc(audioName)
-        .set(json);
-  }
+  // Future<void> addAudioForCollection(
+  //   String nameCollection,
+  //   String audioName,
+  //   String audioUrl,
+  //   String duration,
+  //   bool done,
+  // ) async {
+  //   final _todayDate = DateTime.now();
+  //   final model = AudioModel(
+  //     audioName: audioName,
+  //     audioUrl: audioUrl,
+  //     duration: duration,
+  //     done: done,
+  //     dateTime: formatDate(
+  //         _todayDate, [dd, '.', mm, '.', yy, HH, ':', nn, ':', ss, z]),
+  //   );
+  //   final json = model.toJson();
+  //   FirebaseFirestore.instance
+  //       .collection('CollectionsTale')
+  //       .doc(
+  //         nameCollection,
+  //       )
+  //       .collection('Audio')
+  //       .doc(audioName)
+  //       .set(json);
+  // }
 
-  Future<void> deleteAudioForCollection(
-    String nameCollection,
-    String audioName,
-  ) async {
-    FirebaseFirestore.instance
-        .collection('CollectionsTale')
-        .doc(
-          nameCollection,
-        )
-        .collection('Audio')
-        .doc(audioName)
-        .delete();
-  }
+  // Future<void> deleteAudioForCollection(
+  //   String nameCollection,
+  //   String audioName,
+  // ) async {
+  //   FirebaseFirestore.instance
+  //       .collection('CollectionsTale')
+  //       .doc(
+  //         nameCollection,
+  //       )
+  //       .collection('Audio')
+  //       .doc(audioName)
+  //       .delete();
+  // }
 
   Future<void> deleteCollection(
     String nameCollection,
@@ -177,5 +180,24 @@ class CollectionsRepositories {
         .collection('Audio')
         .doc(nameAudio)
         .update({'done': done});
+  }
+
+  Future<void> addAudioCollections(
+    String nameNewCollection,
+  ) async {
+    FirebaseFirestore.instance
+        .collection('Collections')
+        .get()
+        .then((querySnapshot) {
+      for (var result in querySnapshot.docs) {
+        final audioName = result.data()['audioName'];
+        FirebaseFirestore.instance
+            .collection('CollectionsTale')
+            .doc(nameNewCollection)
+            .collection('Audio')
+            .doc(audioName)
+            .set(result.data());
+      }
+    });
   }
 }

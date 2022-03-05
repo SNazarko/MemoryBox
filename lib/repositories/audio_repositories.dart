@@ -23,10 +23,22 @@ class AudioRepositories {
       .collection('CollectionsTale')
       .doc(name)
       .collection('Audio')
-      .orderBy('dateTime')
+      .where('done', isEqualTo: true)
+      // .orderBy('dateTime')
       .snapshots()
       .map((snapshot) =>
           snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
+  Stream<List<AudioModel>> readAudioCollectionEdit(String name) =>
+      FirebaseFirestore.instance
+          .collection('CollectionsTale')
+          .doc(name)
+          .collection('Audio')
+          // .where('done', isEqualTo: true)
+          // .orderBy('dateTime')
+          .snapshots()
+          .map((snapshot) => snapshot.docs
+              .map((doc) => AudioModel.fromJson(doc.data()))
+              .toList());
 
   Future<void> uploadAudio(String path, String name, String duration) async {
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
@@ -39,6 +51,7 @@ class AudioRepositories {
       duration: duration,
       dateTime: formatDate(
           _todayDate, [dd, '.', mm, '.', yy, HH, ':', nn, ':', ss, z]),
+      done: false,
     );
     final json = model.toJson();
     FirebaseFirestore.instance.collection('Collections').doc(name).set(json);

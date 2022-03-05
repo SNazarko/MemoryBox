@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 
 import 'model_done.dart';
 
-class DoneWidget extends StatefulWidget {
-  const DoneWidget(
+class DoneWidget extends StatelessWidget {
+  DoneWidget(
       {Key? key,
       required this.name,
       required this.done,
@@ -19,14 +19,7 @@ class DoneWidget extends StatefulWidget {
   final String? audio;
   final String? duration;
   final bool? done;
-
-  @override
-  State<DoneWidget> createState() => _DoneWidgetState();
-}
-
-class _DoneWidgetState extends State<DoneWidget> {
   final CollectionsRepositories repositories = CollectionsRepositories();
-  bool done = false;
   @override
   Widget build(BuildContext context) {
     final bool doneProvider = context.watch<ModelDone>().getDone;
@@ -39,27 +32,27 @@ class _DoneWidgetState extends State<DoneWidget> {
               repositories.doneAudioItem(
                   Provider.of<CollectionsEditModel>(context, listen: false)
                       .getTitle,
-                  widget.name!,
+                  name!,
                   doneProvider);
               context.read<ModelDone>().doneWidget();
-              done = !done;
-              if (done) {
-                repositories.addAudioForCollection(
-                  Provider.of<CollectionsEditModel>(context, listen: false)
-                      .getTitle,
-                  widget.name!,
-                  widget.audio!,
-                  widget.duration!,
-                  done,
-                );
-              }
-              if (!done) {
-                repositories.deleteAudioForCollection(
-                  Provider.of<CollectionsEditModel>(context, listen: false)
-                      .getTitle,
-                  widget.name!,
-                );
-              }
+
+              // if (done) {
+              //   repositories.addAudioForCollection(
+              //     Provider.of<CollectionsEditModel>(context, listen: false)
+              //         .getTitle,
+              //     widget.name!,
+              //     widget.audio!,
+              //     widget.duration!,
+              //     done,
+              //   );
+              // }
+              // if (!done) {
+              //   repositories.deleteAudioForCollection(
+              //     Provider.of<CollectionsEditModel>(context, listen: false)
+              //         .getTitle,
+              //     widget.name!,
+              //   );
+              // }
             },
             child: Container(
               width: 35,
@@ -73,7 +66,7 @@ class _DoneWidgetState extends State<DoneWidget> {
               child: Center(
                 child: Icon(
                   Icons.done,
-                  color: done ? AppColor.colorText : AppColor.white,
+                  color: done! ? AppColor.colorText : AppColor.white,
                 ),
               ),
             ),

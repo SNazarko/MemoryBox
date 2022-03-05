@@ -28,6 +28,11 @@ class ButtonAddAudio extends StatelessWidget {
                     .getImage ??
                 '',
           );
+          CollectionsRepositories().addAudioCollections(
+            Provider.of<CollectionsEditModel>(context, listen: false)
+                    .getTitle ??
+                '',
+          );
 
           Navigator.pushNamed(context, CollectionsAddAudio.routeName);
         },

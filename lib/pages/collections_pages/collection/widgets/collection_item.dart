@@ -153,9 +153,10 @@ class CollectionItem extends StatelessWidget {
           CollectionsItemPage.routeName,
         );
       },
-      child: SizedBox(
+      child: Container(
         width: 185.0,
         height: 250.0,
+        color: Colors.grey,
         child: Stack(
           children: [
             image != ''
@@ -165,7 +166,11 @@ class CollectionItem extends StatelessWidget {
                     width: 185.0,
                     height: 250.0,
                   )
-                : const ColoredBox(color: Colors.cyan),
+                : Container(
+                    width: 185.0,
+                    height: 250.0,
+                    color: Colors.grey,
+                  ),
             Padding(
               padding: const EdgeInsets.only(left: 10, right: 5, bottom: 10),
               child: Row(
@@ -218,9 +223,10 @@ class CollectionItem extends StatelessWidget {
 
   getCollectionDone(BuildContext context) {
     final bool done = context.watch<CollectionModel>().getStateDone;
-    return SizedBox(
+    return Container(
       width: 185.0,
       height: 250.0,
+      color: Colors.grey,
       child: Stack(
         children: [
           image != ''
@@ -230,7 +236,11 @@ class CollectionItem extends StatelessWidget {
                   width: 185.0,
                   height: 250.0,
                 )
-              : const ColoredBox(color: Colors.cyan),
+              : Container(
+                  width: 185.0,
+                  height: 250.0,
+                  color: Colors.grey,
+                ),
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 5, bottom: 10),
             child: Row(

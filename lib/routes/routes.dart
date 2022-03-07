@@ -21,6 +21,7 @@ import 'package:memory_box/pages/profile_page/profile_page/profile.dart';
 import 'package:memory_box/pages/profile_page/profile_edit.dart';
 import 'package:memory_box/pages/recordings_page/record_page.dart';
 import 'package:memory_box/pages/save_page.dart';
+import 'package:memory_box/pages/search_page/search_page.dart';
 
 class AppRouter {
   const AppRouter._();
@@ -99,6 +100,9 @@ class AppRouter {
               url: args.url,
               name: args.name,
             );
+        break;
+      case SearchPage.routeName:
+        builder = (_) => const SearchPage();
         break;
       default:
         throw Exception('Invalid route: ${settings.name}');

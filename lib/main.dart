@@ -5,6 +5,7 @@ import 'package:memory_box/pages/collections_pages/collection_edit/collection_ed
 import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
 import 'package:memory_box/pages/collections_pages/collection_item_edit/collection_item_edit_page_model.dart';
 import 'package:memory_box/pages/logo_page/logo_page.dart';
+import 'package:memory_box/pages/search_page/search_page_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/routes/routes.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +25,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider<SearchPageModel>(
+            create: (BuildContext context) => SearchPageModel()),
         ChangeNotifierProvider<CollectionItemEditPageModel>(
             create: (BuildContext context) => CollectionItemEditPageModel()),
         ChangeNotifierProvider<CollectionsItemPageModel>(

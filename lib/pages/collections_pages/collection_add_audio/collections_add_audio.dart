@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
+import 'package:memory_box/pages/collections_pages/collection_edit/collection_edit_model.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
@@ -175,7 +176,8 @@ class _ListPlayers extends StatelessWidget {
         Container(
           height: screenHeight * 0.95,
           child: StreamBuilder<List<AudioModel>>(
-            stream: repositories.readAudio(),
+            stream: repositories.readAudioCollectionEdit(Provider.of<CollectionsEditModel>(context, listen: false)
+                .getTitle),
             builder: (
               context,
               snapshot,

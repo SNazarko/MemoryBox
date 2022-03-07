@@ -40,7 +40,12 @@ class AudioRepositories {
               .map((doc) => AudioModel.fromJson(doc.data()))
               .toList());
 
-  Future<void> uploadAudio(String path, String name, String duration) async {
+  Future<void> uploadAudio(
+    String path,
+    String name,
+    String duration,
+    Set searchName,
+  ) async {
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
         .ref('userAudio/${getAudioName(path)}');
     await ref.putFile(File(path));
@@ -52,6 +57,7 @@ class AudioRepositories {
       dateTime: formatDate(
           _todayDate, [dd, '.', mm, '.', yy, HH, ':', nn, ':', ss, z]),
       done: false,
+      searchName: searchName.toList(),
     );
     final json = model.toJson();
     FirebaseFirestore.instance.collection('Collections').doc(name).set(json);

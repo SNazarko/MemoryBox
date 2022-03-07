@@ -83,7 +83,7 @@ class DrawerMenu extends StatelessWidget {
                       ),
                       title: 'Все аудеофайлы'),
                   _DrawerItem(
-                      index: 4,
+                      index: 6,
                       icon: Image.asset(
                         AppIcons.drawer_search,
                         width: 24.0,

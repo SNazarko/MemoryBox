@@ -40,7 +40,7 @@ class DeletePage extends StatelessWidget {
           children: [
             Stack(
               children: [
-                _ListPlayers(),
+                ModelDelete(),
                 const _AppbarHeader(),
               ],
             ),
@@ -119,6 +119,17 @@ class _ListPlayers extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class ModelDelete extends StatelessWidget {
+  const ModelDelete({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [Text('дата'), _ListPlayers()],
     );
   }
 }

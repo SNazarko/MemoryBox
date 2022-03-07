@@ -408,8 +408,8 @@ class _AudioPlayerState extends State<AudioPlayer> {
   late StreamSubscription<ap.PlayerState> _playerStateChangedSubscription;
   late StreamSubscription<Duration?> _durationChangedSubscription;
   late StreamSubscription<Duration> _positionChangedSubscription;
-  final TextEditingController _controller =
-      TextEditingController(text: 'Аудиофайл');
+  // final TextEditingController _controller =
+  //     TextEditingController(text: 'Аудиофайл');
   String _saveRecord = 'Аудиофайл';
   bool _isPlay = false;
   bool _isPaused = false;
@@ -417,6 +417,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
   Timer? _ampTimer;
   Amplitude? _amplitude;
   int _recordDuration = 0;
+  final Set searchName = {};
 
   @override
   void initState() {
@@ -464,14 +465,22 @@ class _AudioPlayerState extends State<AudioPlayer> {
             SizedBox(
               width: 200.0,
               child: TextField(
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 24.0),
                 decoration: const InputDecoration(
                   border: InputBorder.none,
+                  hintText: 'Аудиофайл',
+                  hintStyle:
+                      TextStyle(fontSize: 24.0, color: AppColor.colorText),
                 ),
-                controller: _controller,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 24.0),
+                // controller: _controller,
                 onChanged: (value) {
                   _saveRecord = value;
+                  final data = value.toLowerCase();
+                  searchName.add(data);
+                  if (data != searchName.last) {
+                    searchName.remove(searchName.last);
+                  }
                 },
               ),
             ),
@@ -549,11 +558,13 @@ class _AudioPlayerState extends State<AudioPlayer> {
           padding: const EdgeInsets.only(left: 35.0),
           child: TextButton(
             onPressed: () {
-              // SaveAudio(_saveRecord).saveFile();
               AudioRepositories().uploadAudio(
-                  Provider.of<ModelRP>(context, listen: false).getData,
-                  _saveRecord,
-                  Provider.of<ModelRP>(context, listen: false).getDuration);
+                Provider.of<ModelRP>(context, listen: false).getData,
+                _saveRecord,
+                Provider.of<ModelRP>(context, listen: false).getDuration,
+                searchName,
+              );
+              print(searchName);
             },
             child: const Text(
               'Сохранить',

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class ModelDone extends ChangeNotifier {
-  bool _done = false;
+  bool _done = true;
 
   bool get getDone => _done;
 

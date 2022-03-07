@@ -4,6 +4,7 @@ class AudioModel {
   String? duration;
   bool? done;
   String? dateTime;
+  List? searchName;
 
   AudioModel({
     this.audioName,
@@ -11,6 +12,7 @@ class AudioModel {
     this.duration,
     this.done,
     this.dateTime,
+    this.searchName,
   });
 
   factory AudioModel.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class AudioModel {
       duration: json['duration'],
       done: json['done'],
       dateTime: json['dateTime'],
+      searchName: json['searchName'],
     );
   }
 
@@ -28,6 +31,7 @@ class AudioModel {
         'audioUrl': audioUrl,
         'duration': duration,
         'done': done,
-        'dateTime': dateTime
+        'dateTime': dateTime,
+        'searchName': searchName
       };
 }

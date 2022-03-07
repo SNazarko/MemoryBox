@@ -83,14 +83,14 @@ class _AppbarHeaderProfileEdit extends StatelessWidget {
             style: kTitle2TextStyle2,
           ),
         ),
-        SearchPanel(),
+        const SearchPanel(),
       ],
     );
   }
 }
 
 class SearchPanel extends StatelessWidget {
-  SearchPanel({
+  const SearchPanel({
     Key? key,
   }) : super(key: key);
 
@@ -174,36 +174,69 @@ class _ListPlayers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final data = context.watch<SearchPageModel>().getSearchData;
     final double screenHeight = MediaQuery.of(context).size.height;
-    return Column(
-      children: [
-        SizedBox(
-          height: screenHeight * 0.95,
-          child: StreamBuilder<List<AudioModel>>(
-            stream: audio(context),
-            builder: (
-              context,
-              snapshot,
-            ) {
-              if (snapshot.hasError) {
-                return const Text('Ошибка');
-              }
-              if (snapshot.hasData) {
-                final audio = snapshot.data!;
-                return ListView(
-                  padding: const EdgeInsets.only(top: 165, bottom: 110),
-                  children: audio.map(buildAudio).toList(),
-                );
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            },
+    if (data == '') {
+      return Column(
+        children: [
+          SizedBox(
+            height: screenHeight * 0.95,
+            child: StreamBuilder<List<AudioModel>>(
+              stream: repositories.readAudio(),
+              builder: (
+                context,
+                snapshot,
+              ) {
+                if (snapshot.hasError) {
+                  return const Text('Ошибка');
+                }
+                if (snapshot.hasData) {
+                  final audio = snapshot.data!;
+                  return ListView(
+                    padding: const EdgeInsets.only(top: 165, bottom: 110),
+                    children: audio.map(buildAudio).toList(),
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+    } else {
+      return Column(
+        children: [
+          SizedBox(
+            height: screenHeight * 0.95,
+            child: StreamBuilder<List<AudioModel>>(
+              stream: audio(context),
+              builder: (
+                context,
+                snapshot,
+              ) {
+                if (snapshot.hasError) {
+                  return const Text('Ошибка');
+                }
+                if (snapshot.hasData) {
+                  final audio = snapshot.data!;
+                  return ListView(
+                    padding: const EdgeInsets.only(top: 165, bottom: 110),
+                    children: audio.map(buildAudio).toList(),
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
+          ),
+        ],
+      );
+    }
   }
 }
 

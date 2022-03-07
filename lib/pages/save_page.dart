@@ -123,13 +123,14 @@ class SavePage extends StatelessWidget {
                             onChanged: (value) {
                               value = newName!;
                             },
+                            textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 14.0,
                               color: AppColor.colorText,
                             ),
                             decoration: const InputDecoration(
                               border: InputBorder.none,
-                              hintText: '          Название аудиозапи',
+                              hintText: '  Название аудиозапи',
                               hintStyle: TextStyle(
                                 fontSize: 14.0,
                                 color: AppColor.colorText,

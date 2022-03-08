@@ -71,29 +71,19 @@ class AudioRepositories {
     String lastName,
     String newNameAudio,
     String newAudioUrl,
-    String duration,
+    String newDuration,
+    String newDateTime,
+    List newSearchName,
+    bool newDone,
   ) async {
     final model = AudioModel(
-      audioName: newNameAudio,
-      audioUrl: newAudioUrl,
-      duration: duration,
-    );
+        audioName: newNameAudio,
+        audioUrl: newAudioUrl,
+        searchName: newSearchName,
+        duration: newDuration,
+        done: newDone,
+        dateTime: newDateTime);
     final json = model.toJson();
-    FirebaseFirestore.instance.collection('Collections').doc(lastName).delete();
-
-    FirebaseFirestore.instance
-        .collection('CollectionsTale')
-        .doc()
-        .collection('Audio')
-        .doc(lastName)
-        .delete();
-
-    FirebaseFirestore.instance
-        .collection('DeleteCollections')
-        .doc()
-        .collection('Audio')
-        .doc(lastName)
-        .delete();
 
     FirebaseFirestore.instance
         .collection('Collections')
@@ -111,5 +101,20 @@ class AudioRepositories {
         .collection('Audio')
         .doc(newNameAudio)
         .set(json);
+    FirebaseFirestore.instance.collection('Collections').doc(lastName).delete();
+
+    FirebaseFirestore.instance
+        .collection('CollectionsTale')
+        .doc()
+        .collection('Audio')
+        .doc(lastName)
+        .delete();
+
+    FirebaseFirestore.instance
+        .collection('DeleteCollections')
+        .doc()
+        .collection('Audio')
+        .doc(lastName)
+        .delete();
   }
 }

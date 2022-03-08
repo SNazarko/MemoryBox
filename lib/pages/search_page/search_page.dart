@@ -12,7 +12,7 @@ import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:provider/provider.dart';
 
-import '../save_page.dart';
+import '../save_page/save_page.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -83,14 +83,14 @@ class _AppbarHeaderProfileEdit extends StatelessWidget {
             style: kTitle2TextStyle2,
           ),
         ),
-        const SearchPanel(),
+        const _SearchPanel(),
       ],
     );
   }
 }
 
-class SearchPanel extends StatelessWidget {
-  const SearchPanel({
+class _SearchPanel extends StatelessWidget {
+  const _SearchPanel({
     Key? key,
   }) : super(key: key);
 

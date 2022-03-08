@@ -3,13 +3,15 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
+import 'package:memory_box/pages/save_page/save_page_model.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
+import 'package:provider/provider.dart';
 
 import '../../audio_recordings_page/audio_recordings_page.dart';
-import '../../save_page.dart';
+import '../../save_page/save_page.dart';
 
 class HomePageAudio extends StatelessWidget {
   const HomePageAudio({Key? key}) : super(key: key);
@@ -76,6 +78,9 @@ class _AudioList extends StatelessWidget {
           duration: '${audio.duration}',
           name: '${audio.audioName}',
           image: '',
+          done: audio.done!,
+          searchName: audio.searchName!,
+          dateTime: audio.dateTime!,
         ),
       );
 
@@ -141,12 +146,26 @@ class PopupMenuHomePage extends StatelessWidget {
     required this.url,
     required this.duration,
     required this.image,
+    required this.done,
+    required this.dateTime,
+    required this.searchName,
   }) : super(key: key);
   final AudioRepositories repositories = AudioRepositories();
   final String name;
   final String url;
   final String duration;
   final String image;
+  final bool done;
+  final String dateTime;
+  final List searchName;
+  void init(BuildContext context) {
+    context.read<SavePageModel>().setAudioName(name);
+    context.read<SavePageModel>().setAudioUrl(url);
+    context.read<SavePageModel>().setDuration(duration);
+    context.read<SavePageModel>().setDone(done);
+    context.read<SavePageModel>().setDateTime(dateTime);
+    context.read<SavePageModel>().setSearchName(searchName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -165,6 +184,7 @@ class PopupMenuHomePage extends StatelessWidget {
           'Переименовать',
           () {
             Timer(const Duration(seconds: 1), () {
+              init(context);
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return SavePage(
                   image: image,

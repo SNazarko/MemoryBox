@@ -9,7 +9,7 @@ import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:provider/provider.dart';
-import '../../../save_page.dart';
+import '../../../save_page/save_page.dart';
 import '../collections_item_page_model.dart';
 
 class ListCollectionsAudio extends StatelessWidget {

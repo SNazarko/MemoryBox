@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/collections_pages/collection_add_audio/done_widget/done_widget.dart';
+import 'package:memory_box/pages/collections_pages/collection_add_audio/widgets/done_widget/done_widget.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:just_audio/just_audio.dart' as ap;
 import 'package:memory_box/resources/app_icons.dart';
@@ -70,19 +70,15 @@ class _PlayerMiniPodborkiState extends State<PlayerMiniPodborki> {
     if (player.playerState.playing) {
       icon = Padding(
         padding: const EdgeInsets.all(5.0),
-        child: Container(
-          child: Image.asset(
-            AppIcons.stop_podborki,
-            fit: BoxFit.fill,
-          ),
+        child: Image.asset(
+          AppIcons.stop_podborki,
+          fit: BoxFit.fill,
         ),
       );
     } else {
-      icon = Container(
-        child: Image.asset(
-          AppIcons.play_podborki,
-          fit: BoxFit.fill,
-        ),
+      icon = Image.asset(
+        AppIcons.play_podborki,
+        fit: BoxFit.fill,
       );
     }
 

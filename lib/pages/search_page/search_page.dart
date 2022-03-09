@@ -11,7 +11,6 @@ import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:provider/provider.dart';
-
 import '../save_page/save_page.dart';
 
 class SearchPage extends StatelessWidget {
@@ -174,9 +173,9 @@ class _ListPlayers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final data = context.watch<SearchPageModel>().getSearchData;
+    final state = context.watch<SearchPageModel>().getSearchData;
     final double screenHeight = MediaQuery.of(context).size.height;
-    if (data == '') {
+    if (state == '') {
       return Column(
         children: [
           SizedBox(

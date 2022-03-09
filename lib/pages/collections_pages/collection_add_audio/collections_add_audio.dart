@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/pages/collections_pages/collection_edit/collection_edit_model.dart';
+import 'package:memory_box/pages/search_page/search_page_model.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
@@ -9,8 +11,6 @@ import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/icon_back.dart';
 import 'package:memory_box/widgets/player_mini_podborki.dart';
 import 'package:provider/provider.dart';
-
-import 'collections_add_audio_model.dart';
 import 'done_widget/model_done.dart';
 
 class CollectionsAddAudio extends StatelessWidget {
@@ -73,7 +73,7 @@ class _AppbarHeaderProfileEdit extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 20.0),
                 child: Text(
-                  'Вибрать',
+                  'Выбрать',
                   style: kTitleTextStyle2,
                 ),
               ),
@@ -95,7 +95,7 @@ class _AppbarHeaderProfileEdit extends StatelessWidget {
             ],
           ),
         ),
-        SearchPanel(),
+        const SearchPanel(),
       ],
     );
   }
@@ -125,10 +125,11 @@ class SearchPanel extends StatelessWidget {
               SizedBox(
                   width: screenWidth * 0.65,
                   child: TextField(
-                    onChanged: (_searchtxt) {
+                    onChanged: (searchTxt) {
+                      var text = searchTxt;
                       context
-                          .read<CollectionsAddAudioModel>()
-                          .setSearchtxt(_searchtxt);
+                          .read<SearchPageModel>()
+                          .setSearchAddAudio(text.toLowerCase());
                     },
                     style: const TextStyle(
                       fontSize: 20.0,
@@ -161,6 +162,20 @@ class SearchPanel extends StatelessWidget {
 class _ListPlayers extends StatelessWidget {
   _ListPlayers({Key? key}) : super(key: key);
   final AudioRepositories repositories = AudioRepositories();
+
+  Stream<List<AudioModel>> readAudioCollectionEdit(BuildContext context) =>
+      FirebaseFirestore.instance
+          .collection('CollectionsTale')
+          .doc(Provider.of<CollectionsEditModel>(context, listen: false)
+              .getTitle)
+          .collection('Audio')
+          .where('searchName',
+              arrayContains: context.watch<SearchPageModel>().getSearchAddAudio)
+          .snapshots()
+          .map((snapshot) => snapshot.docs
+              .map((doc) => AudioModel.fromJson(doc.data()))
+              .toList());
+
   Widget buildAudio(AudioModel audio) => PlayerMiniPodborki(
         duration: '${audio.duration}',
         url: '${audio.audioUrl}',
@@ -170,36 +185,70 @@ class _ListPlayers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<SearchPageModel>().getSearchAddAudio;
     final double screenHeight = MediaQuery.of(context).size.height;
-    return Column(
-      children: [
-        Container(
-          height: screenHeight * 0.95,
-          child: StreamBuilder<List<AudioModel>>(
-            stream: repositories.readAudioCollectionEdit(Provider.of<CollectionsEditModel>(context, listen: false)
-                .getTitle),
-            builder: (
-              context,
-              snapshot,
-            ) {
-              if (snapshot.hasError) {
-                return const Text('Ошибка');
-              }
-              if (snapshot.hasData) {
-                final audio = snapshot.data!;
-                return ListView(
-                  padding: const EdgeInsets.only(top: 230, bottom: 40),
-                  children: audio.map(buildAudio).toList(),
-                );
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            },
+    if (state == '') {
+      return Column(
+        children: [
+          SizedBox(
+            height: screenHeight * 0.95,
+            child: StreamBuilder<List<AudioModel>>(
+              stream: repositories.readAudioCollectionEdit(
+                  Provider.of<CollectionsEditModel>(context, listen: false)
+                      .getTitle),
+              builder: (
+                context,
+                snapshot,
+              ) {
+                if (snapshot.hasError) {
+                  return const Text('Ошибка');
+                }
+                if (snapshot.hasData) {
+                  final audio = snapshot.data!;
+                  return ListView(
+                    padding: const EdgeInsets.only(top: 230, bottom: 40),
+                    children: audio.map(buildAudio).toList(),
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+    } else {
+      return Column(
+        children: [
+          Container(
+            height: screenHeight * 0.95,
+            child: StreamBuilder<List<AudioModel>>(
+              stream: readAudioCollectionEdit(context),
+              builder: (
+                context,
+                snapshot,
+              ) {
+                if (snapshot.hasError) {
+                  return const Text('Ошибка');
+                }
+                if (snapshot.hasData) {
+                  final audio = snapshot.data!;
+                  return ListView(
+                    padding: const EdgeInsets.only(top: 230, bottom: 40),
+                    children: audio.map(buildAudio).toList(),
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
+          ),
+        ],
+      );
+    }
   }
 }

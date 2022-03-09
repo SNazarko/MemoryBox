@@ -23,8 +23,6 @@ class DoneWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool doneProvider = context.watch<ModelDone>().getDone;
-    print('firebase $done');
-    print('Provider $doneProvider');
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Stack(

@@ -8,11 +8,9 @@ class ModelDone extends ChangeNotifier {
   void doneWidget() {
     if (_done) {
       _done = false;
-      print('Model done false');
       notifyListeners();
     } else {
       _done = true;
-      print('Model done true');
       notifyListeners();
     }
   }

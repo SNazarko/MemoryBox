@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/pages/save_page/save_page_model.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
+import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
@@ -91,7 +92,20 @@ class _AudioList extends StatelessWidget {
         stream: repositories.readAudio(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return const Text('Ошибка');
+            return const Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 50.0,
+                horizontal: 40.0,
+              ),
+              child: Text(
+                'Как только ты запишешь аудио, она появится здесь.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: AppColor.colorText50,
+                ),
+              ),
+            );
           }
           if (snapshot.hasData) {
             final audio = snapshot.data!;

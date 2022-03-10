@@ -1,14 +1,29 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/home_page/widgets/appbar_header_home_page.dart';
 import 'package:memory_box/pages/home_page/widgets/home_page_audio.dart';
+import 'package:memory_box/pages/home_page/widgets/home_page_not_is_authorization.dart';
+
+class _HomePageArguments {
+  _HomePageArguments({this.auth, this.user}) {
+    init();
+  }
+  FirebaseAuth? auth;
+  User? user;
+
+  void init() {
+    auth = FirebaseAuth.instance;
+    user = auth!.currentUser;
+  }
+}
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
   static const routeName = '/home_page';
-
+  final _HomePageArguments arguments = _HomePageArguments();
   static Widget create() {
-    return const HomePage();
+    return HomePage();
   }
 
   @override
@@ -30,15 +45,16 @@ class HomePage extends StatelessWidget {
           height: screenHeight * 0.89,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Expanded(
+            children: [
+              const Expanded(
                 flex: 8,
                 child: AppbarHeaderHomePage(),
               ),
               Expanded(
-                flex: 11,
-                child: HomePageAudio(),
-              ),
+                  flex: 11,
+                  child: arguments.user == null
+                      ? const HomePageNotIsAuthorization()
+                      : const HomePageAudio()),
             ],
           ),
         ),

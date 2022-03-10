@@ -18,7 +18,7 @@ class PlayerCollections extends StatelessWidget {
       child: Align(
           alignment: Alignment.bottomCenter,
           child: Padding(
-              padding: EdgeInsets.only(bottom: 0.0),
+              padding: const EdgeInsets.only(bottom: 0.0),
               child: Visibility(
                 visible: true,
                 child: Container(

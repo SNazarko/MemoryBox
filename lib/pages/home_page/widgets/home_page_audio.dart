@@ -45,20 +45,6 @@ class HomePageAudio extends StatelessWidget {
               flex: 5,
               child: _AudioList(),
             )
-            // const Padding(
-            //   padding: EdgeInsets.symmetric(
-            //     vertical: 50.0,
-            //     horizontal: 40.0,
-            //   ),
-            //   child: Text(
-            //     'Как только ты запишешь аудио, она появится здесь.',
-            //     textAlign: TextAlign.center,
-            //     style: TextStyle(
-            //       fontSize: 20.0,
-            //       color: AppColor.colorText50,
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       ),

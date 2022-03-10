@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/popup_menu_audio_recording.dart';
+import 'package:memory_box/pages/authorization_page/registration_page/registration_page.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
+import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/player_mini/player_mini.dart';
 
 class ListPlayer extends StatelessWidget {
@@ -30,7 +33,47 @@ class ListPlayer extends StatelessWidget {
             stream: repositories.readAudio(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
-                return const Text('Ошибка');
+                return Column(
+                  children: [
+                    const SizedBox(
+                      height: 200.0,
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 50.0,
+                          horizontal: 40.0,
+                        ),
+                        child: Column(
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  text: '     Для открытия полного \n '
+                                      '            функционала \n '
+                                      '   приложения вам нужно \n '
+                                      ' зарегистрироваться',
+                                  style: const TextStyle(
+                                    fontSize: 20.0,
+                                    color: AppColor.colorText50,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          Navigator.pushNamed(context,
+                                              RegistrationPage.routeName);
+                                        },
+                                      text: ' здесь',
+                                      style: const TextStyle(
+                                        fontSize: 20.0,
+                                        color: AppColor.pink,
+                                      ),
+                                    )
+                                  ]),
+                            )
+                          ],
+                        )),
+                  ],
+                );
               }
               if (snapshot.hasData) {
                 final audio = snapshot.data!;

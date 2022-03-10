@@ -47,10 +47,10 @@ class HomePageNotIsAuthorization extends StatelessWidget {
                     children: [
                       RichText(
                         text: TextSpan(
-                            text: '      Для открытия полног \n '
-                                '             функционала \n '
-                                '  приложения вам  нужно \n '
-                                'зарегистрироваться',
+                            text: '     Для открытия полного \n '
+                                '            функционала \n '
+                                '   приложения вам нужно \n '
+                                ' зарегистрироваться',
                             style: const TextStyle(
                               fontSize: 20.0,
                               color: AppColor.colorText50,

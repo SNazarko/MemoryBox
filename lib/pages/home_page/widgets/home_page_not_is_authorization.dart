@@ -71,25 +71,7 @@ class HomePageNotIsAuthorization extends StatelessWidget {
                             ]),
                       )
                     ],
-                  )
-                  // Column(
-                  //   children: [
-                  //     Row(
-                  //       children: const [
-                  //         Text(
-                  //           'Для открытия полног \n функционала \n приложения вам  нужно \n зарегистрироваться}',
-                  //           textAlign: TextAlign.center,
-                  //           style: TextStyle(
-                  //             fontSize: 20.0,
-                  //             color: AppColor.colorText50,
-                  //           ),
-                  //         ),
-                  //         Text('data')
-                  //       ],
-                  //     ),
-                  //   ],
-                  // ),
-                  ),
+                  )),
             ),
           ],
         ),

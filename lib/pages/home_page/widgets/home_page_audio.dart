@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
+import 'package:memory_box/models/view_model.dart';
 import 'package:memory_box/pages/save_page/save_page_model.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
@@ -126,7 +127,9 @@ class _TitleAudioList extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, AudioRecordingsPage.routeName);
+              Provider.of<Navigation>(context, listen: false).setCurrentIndex =
+                  3;
+              Navigator.pop(context);
             },
             child: const Text(
               'Открыть все',

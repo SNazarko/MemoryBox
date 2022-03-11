@@ -1,15 +1,12 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:memory_box/models/collections_model.dart';
-import 'package:memory_box/pages/authorization_page/registration_page/registration_page.dart';
-import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/collection_item_edit_audio.dart';
-import 'package:memory_box/pages/delete_pages/delete_page.dart';
+import 'package:memory_box/models/view_model.dart';
+import 'package:memory_box/pages/collections_pages/collection/collection.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
+import 'package:provider/src/provider.dart';
 
 import '../../save_page/save_page.dart';
 
@@ -41,7 +38,7 @@ class AppbarHeaderHomePage extends StatelessWidget {
           _TitleAppbar(
             screenWidth: screenWidth,
           ),
-          _GreenContainer(
+          _GreenListCollections(
             screenWidth: screenWidth,
           ),
           _OrangeListCollections(
@@ -82,7 +79,9 @@ class _TitleAppbar extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, SavePage.routeName);
+                  Provider.of<Navigation>(context, listen: false)
+                      .setCurrentIndex = 1;
+                  Navigator.pop(context);
                 },
                 child: const Text(
                   'Открыть все',
@@ -94,62 +93,6 @@ class _TitleAppbar extends StatelessWidget {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class _GreenContainer extends StatelessWidget {
-  const _GreenContainer({Key? key, required this.screenWidth})
-      : super(key: key);
-  final double screenWidth;
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      top: 30.0,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(
-                  left: 10.0,
-                  right: 10.0,
-                  top: 25.0,
-                ),
-                child: Text(
-                  'Здесь будет твой набор сказок',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              const SizedBox(height: 40.0),
-              TextButton(
-                onPressed: () {},
-                child: const Text(
-                  'Добавить',
-                  style: TextStyle(
-                    decoration: TextDecoration.underline,
-                    fontSize: 14.0,
-                    color: Colors.white,
-                  ),
-                ),
-              )
-            ],
-          ),
-          width: screenWidth / 2.3,
-          height: 210.0,
-          decoration: const BoxDecoration(
-              color: AppColor.green100,
-              borderRadius: BorderRadius.all(
-                Radius.circular(15.0),
-              )),
         ),
       ),
     );
@@ -175,16 +118,16 @@ class _MaxContainerModel extends StatelessWidget {
     if (image != '') {
       return SizedBox(
         width: screenWidth / 2.3,
-        height: 95.0,
+        height: 210.0,
         child: Image.network(
           image,
-          fit: BoxFit.fitWidth,
+          fit: BoxFit.fitHeight,
         ),
       );
     } else {
       return Container(
         width: screenWidth / 2.3,
-        height: 95.0,
+        height: 210.0,
         color: AppColor.blue300,
       );
     }
@@ -207,7 +150,7 @@ class _MaxContainerModel extends StatelessWidget {
             ),
             child: SizedBox(
               width: screenWidth / 2.3,
-              height: 95.0,
+              height: 210.0,
               child: Padding(
                 padding: const EdgeInsets.only(left: 10, right: 5, bottom: 10),
                 child: Row(
@@ -216,7 +159,7 @@ class _MaxContainerModel extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        '$title!',
+                        title,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
                         style: const TextStyle(
@@ -257,7 +200,7 @@ class _MaxContainerModel extends StatelessWidget {
         ],
       ),
       width: screenWidth / 2.3,
-      height: 95.0,
+      height: 210.0,
       decoration: const BoxDecoration(
           color: AppColor.blue200,
           borderRadius: BorderRadius.all(
@@ -522,7 +465,7 @@ class _GreenListCollections extends StatelessWidget {
   final CollectionsRepositories repositories = CollectionsRepositories();
   final double screenWidth;
 
-  Widget buildCollections(CollectionsModel collections) => _MiniContainerModel(
+  Widget buildCollections(CollectionsModel collections) => _MaxContainerModel(
         image: '${collections.avatarCollections}',
         title: '${collections.titleCollections}',
         time: '${collections.data}',
@@ -534,7 +477,7 @@ class _GreenListCollections extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned(
       top: 30.0,
-      right: 0.0,
+      left: 16.0,
       child: Padding(
         padding: const EdgeInsets.only(
           top: 16.0,
@@ -545,20 +488,46 @@ class _GreenListCollections extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Container(
-                child: const Center(
-                  child: Text(
-                    'Tут',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.white,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(
+                        left: 10.0,
+                        right: 10.0,
+                        top: 25.0,
+                      ),
+                      child: Text(
+                        'Здесь будет твой набор сказок',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                    textAlign: TextAlign.center,
-                  ),
+                    const SizedBox(height: 40.0),
+                    TextButton(
+                      onPressed: () {
+                        Provider.of<Navigation>(context, listen: false)
+                            .setCurrentIndex = 1;
+                        Navigator.pop(context);
+                      },
+                      child: const Text(
+                        'Добавить',
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          fontSize: 14.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
                 width: screenWidth / 2.3,
-                height: 95.0,
+                height: 210.0,
                 decoration: const BoxDecoration(
-                    color: AppColor.yellow100,
+                    color: AppColor.green100,
                     borderRadius: BorderRadius.all(
                       Radius.circular(15.0),
                     )),
@@ -568,12 +537,12 @@ class _GreenListCollections extends StatelessWidget {
               final collections = snapshot.data!;
               return Container(
                 child: collections.map(buildCollections).toList()[
-                    collections.map(buildCollections).toList().length - 2],
+                    collections.map(buildCollections).toList().length - 3],
               );
             } else {
               return SizedBox(
                 width: screenWidth / 2.3,
-                height: 95.0,
+                height: 210.0,
                 child: const Center(
                   child: CircularProgressIndicator(),
                 ),

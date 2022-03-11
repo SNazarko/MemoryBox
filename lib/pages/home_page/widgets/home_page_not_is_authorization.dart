@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/audio_recordings_page/audio_recordings_page.dart';
-import 'package:memory_box/pages/authorization_page/first_authorization_page.dart';
-import 'package:memory_box/pages/authorization_page/first_page.dart';
+import 'package:memory_box/models/view_model.dart';
 import 'package:memory_box/pages/authorization_page/registration_page/registration_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/constants.dart';
-import 'package:memory_box/widgets/text_link.dart';
+import 'package:provider/provider.dart';
 
 class HomePageNotIsAuthorization extends StatelessWidget {
   const HomePageNotIsAuthorization({Key? key}) : super(key: key);
@@ -32,7 +30,7 @@ class HomePageNotIsAuthorization extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Expanded(
+            const Expanded(
               flex: 1,
               child: _TitleAudioList(),
             ),
@@ -97,7 +95,9 @@ class _TitleAudioList extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, AudioRecordingsPage.routeName);
+              Provider.of<Navigation>(context, listen: false).setCurrentIndex =
+                  3;
+              Navigator.pop(context);
             },
             child: const Text(
               'Открыть все',

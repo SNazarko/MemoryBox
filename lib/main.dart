@@ -43,17 +43,18 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
-          title: 'MemoryBox',
-          theme: ThemeData(
-              appBarTheme:
-                  const AppBarTheme(backgroundColor: AppColor.colorAppbar),
-              textTheme: const TextTheme(
-                  bodyText2: TextStyle(
-                      color: AppColor.colorText,
-                      fontFamily: 'TTNorm',
-                      fontWeight: FontWeight.normal))),
-          initialRoute: LogoPage.routeName,
-          onGenerateRoute: AppRouter.generateRoute),
+        title: 'MemoryBox',
+        theme: ThemeData(
+            appBarTheme:
+                const AppBarTheme(backgroundColor: AppColor.colorAppbar),
+            textTheme: const TextTheme(
+                bodyText2: TextStyle(
+                    color: AppColor.colorText,
+                    fontFamily: 'TTNorm',
+                    fontWeight: FontWeight.normal))),
+        initialRoute: LogoPage.routeName,
+        onGenerateRoute: AppRouter.generateRoute,
+      ),
     );
   }
 }

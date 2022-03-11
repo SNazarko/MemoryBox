@@ -129,7 +129,6 @@ class _TitleAudioList extends StatelessWidget {
             onTap: () {
               Provider.of<Navigation>(context, listen: false).setCurrentIndex =
                   3;
-              Navigator.pop(context);
             },
             child: const Text(
               'Открыть все',

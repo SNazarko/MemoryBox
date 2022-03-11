@@ -2,13 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/collections_model.dart';
 import 'package:memory_box/models/view_model.dart';
-import 'package:memory_box/pages/collections_pages/collection/collection.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:provider/src/provider.dart';
-
-import '../../save_page/save_page.dart';
 
 class AppbarHeaderHomePage extends StatelessWidget {
   const AppbarHeaderHomePage({Key? key}) : super(key: key);
@@ -81,7 +78,6 @@ class _TitleAppbar extends StatelessWidget {
                 onTap: () {
                   Provider.of<Navigation>(context, listen: false)
                       .setCurrentIndex = 1;
-                  Navigator.pop(context);
                 },
                 child: const Text(
                   'Открыть все',
@@ -511,7 +507,6 @@ class _GreenListCollections extends StatelessWidget {
                       onPressed: () {
                         Provider.of<Navigation>(context, listen: false)
                             .setCurrentIndex = 1;
-                        Navigator.pop(context);
                       },
                       child: const Text(
                         'Добавить',

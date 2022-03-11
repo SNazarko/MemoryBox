@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:memory_box/models/collections_model.dart';
 import 'package:memory_box/pages/authorization_page/registration_page/registration_page.dart';
 import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/collection_item_edit_audio.dart';
 import 'package:memory_box/pages/delete_pages/delete_page.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
+import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 
 import '../../save_page/save_page.dart';
@@ -42,15 +44,12 @@ class AppbarHeaderHomePage extends StatelessWidget {
           _GreenContainer(
             screenWidth: screenWidth,
           ),
-          _OrangeContainer(
+          _OrangeListCollections(
             screenWidth: screenWidth,
           ),
-          BlueListCollections(
+          _BlueListCollections(
             screenWidth: screenWidth,
           ),
-          // _BlueContainer(
-          //   screenWidth: screenWidth,
-          // )
         ],
       ),
     );
@@ -157,83 +156,8 @@ class _GreenContainer extends StatelessWidget {
   }
 }
 
-class _OrangeContainer extends StatelessWidget {
-  const _OrangeContainer({Key? key, required this.screenWidth})
-      : super(key: key);
-  final double screenWidth;
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      top: 30.0,
-      right: 0.0,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 16.0,
-          right: 16.0,
-        ),
-        child: Container(
-          child: const Center(
-            child: Text(
-              'Тут',
-              style: TextStyle(
-                fontSize: 20.0,
-                color: Colors.white,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          width: screenWidth / 2.3,
-          height: 95.0,
-          decoration: const BoxDecoration(
-              color: AppColor.yellow100,
-              borderRadius: BorderRadius.all(
-                Radius.circular(15.0),
-              )),
-        ),
-      ),
-    );
-  }
-}
-
-class _BlueContainer extends StatelessWidget {
-  const _BlueContainer({Key? key, required this.screenWidth}) : super(key: key);
-  final double screenWidth;
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      top: 135.0,
-      right: 0.0,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          right: 16.0,
-          top: 24.0,
-        ),
-        child: Container(
-          child: const Center(
-            child: Text(
-              'И тут',
-              style: TextStyle(
-                fontSize: 20.0,
-                color: Colors.white,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          width: screenWidth / 2.3,
-          height: 95.0,
-          decoration: const BoxDecoration(
-              color: AppColor.blue200,
-              borderRadius: BorderRadius.all(
-                Radius.circular(15.0),
-              )),
-        ),
-      ),
-    );
-  }
-}
-
-class _BlueContainerAdd extends StatelessWidget {
-  const _BlueContainerAdd(
+class _MaxContainerModel extends StatelessWidget {
+  const _MaxContainerModel(
       {Key? key,
       required this.screenWidth,
       required this.image,
@@ -246,6 +170,26 @@ class _BlueContainerAdd extends StatelessWidget {
   final String title;
   final String quality;
   final String time;
+
+  Widget imageInContainer(String image, double screenWidth) {
+    if (image != '') {
+      return SizedBox(
+        width: screenWidth / 2.3,
+        height: 95.0,
+        child: Image.network(
+          image,
+          fit: BoxFit.fitWidth,
+        ),
+      );
+    } else {
+      return Container(
+        width: screenWidth / 2.3,
+        height: 95.0,
+        color: AppColor.blue300,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -255,14 +199,7 @@ class _BlueContainerAdd extends StatelessWidget {
             borderRadius: const BorderRadius.all(
               Radius.circular(20.0),
             ),
-            child: SizedBox(
-              width: screenWidth / 2.3,
-              height: 95.0,
-              child: Image.network(
-                image,
-                fit: BoxFit.fitWidth,
-              ),
-            ),
+            child: imageInContainer(image, screenWidth),
           ),
           ClipRRect(
             borderRadius: const BorderRadius.all(
@@ -330,12 +267,123 @@ class _BlueContainerAdd extends StatelessWidget {
   }
 }
 
-class BlueListCollections extends StatelessWidget {
-  BlueListCollections({Key? key, required this.screenWidth}) : super(key: key);
+class _MiniContainerModel extends StatelessWidget {
+  const _MiniContainerModel(
+      {Key? key,
+      required this.screenWidth,
+      required this.image,
+      required this.title,
+      required this.quality,
+      required this.time})
+      : super(key: key);
+  final double screenWidth;
+  final String image;
+  final String title;
+  final String quality;
+  final String time;
+
+  Widget imageInContainer(String image, double screenWidth) {
+    if (image != '') {
+      return SizedBox(
+        width: screenWidth / 2.3,
+        height: 95.0,
+        child: Image.network(
+          image,
+          fit: BoxFit.fitWidth,
+        ),
+      );
+    } else {
+      return Container(
+        width: screenWidth / 2.3,
+        height: 95.0,
+        color: AppColor.blue300,
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Stack(
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(20.0),
+            ),
+            child: imageInContainer(image, screenWidth),
+          ),
+          ClipRRect(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(20.0),
+            ),
+            child: SizedBox(
+              width: screenWidth / 2.3,
+              height: 95.0,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10, right: 5, bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        '$title!',
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                        style: const TextStyle(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w700,
+                          color: AppColor.white100,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: const [
+                          Text(
+                            '7 аудио',
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.w400,
+                              color: AppColor.white100,
+                            ),
+                          ),
+                          Text(
+                            '3:33 часа',
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.w400,
+                              color: AppColor.white100,
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+      width: screenWidth / 2.3,
+      height: 95.0,
+      decoration: const BoxDecoration(
+          color: AppColor.blue200,
+          borderRadius: BorderRadius.all(
+            Radius.circular(15.0),
+          )),
+    );
+  }
+}
+
+class _BlueListCollections extends StatelessWidget {
+  _BlueListCollections({Key? key, required this.screenWidth}) : super(key: key);
   final CollectionsRepositories repositories = CollectionsRepositories();
   final double screenWidth;
 
-  Widget buildCollections(CollectionsModel collections) => _BlueContainerAdd(
+  Widget buildCollections(CollectionsModel collections) => _MiniContainerModel(
         image: '${collections.avatarCollections}',
         title: '${collections.titleCollections}',
         time: '${collections.data}',
@@ -381,6 +429,146 @@ class BlueListCollections extends StatelessWidget {
               final collections = snapshot.data!;
               return Container(
                 child: collections.map(buildCollections).toList().last,
+              );
+            } else {
+              return SizedBox(
+                width: screenWidth / 2.3,
+                height: 95.0,
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _OrangeListCollections extends StatelessWidget {
+  _OrangeListCollections({Key? key, required this.screenWidth})
+      : super(key: key);
+  final CollectionsRepositories repositories = CollectionsRepositories();
+  final double screenWidth;
+
+  Widget buildCollections(CollectionsModel collections) => _MiniContainerModel(
+        image: '${collections.avatarCollections}',
+        title: '${collections.titleCollections}',
+        time: '${collections.data}',
+        quality: '${collections.qualityCollections}',
+        screenWidth: screenWidth,
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: 30.0,
+      right: 0.0,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 16.0,
+          right: 16.0,
+        ),
+        child: StreamBuilder<List<CollectionsModel>>(
+          stream: repositories.readCollections(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Container(
+                child: const Center(
+                  child: Text(
+                    'Tут',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                width: screenWidth / 2.3,
+                height: 95.0,
+                decoration: const BoxDecoration(
+                    color: AppColor.yellow100,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15.0),
+                    )),
+              );
+            }
+            if (snapshot.hasData) {
+              final collections = snapshot.data!;
+              return Container(
+                child: collections.map(buildCollections).toList()[
+                    collections.map(buildCollections).toList().length - 2],
+              );
+            } else {
+              return SizedBox(
+                width: screenWidth / 2.3,
+                height: 95.0,
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _GreenListCollections extends StatelessWidget {
+  _GreenListCollections({Key? key, required this.screenWidth})
+      : super(key: key);
+  final CollectionsRepositories repositories = CollectionsRepositories();
+  final double screenWidth;
+
+  Widget buildCollections(CollectionsModel collections) => _MiniContainerModel(
+        image: '${collections.avatarCollections}',
+        title: '${collections.titleCollections}',
+        time: '${collections.data}',
+        quality: '${collections.qualityCollections}',
+        screenWidth: screenWidth,
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: 30.0,
+      right: 0.0,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 16.0,
+          right: 16.0,
+        ),
+        child: StreamBuilder<List<CollectionsModel>>(
+          stream: repositories.readCollections(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Container(
+                child: const Center(
+                  child: Text(
+                    'Tут',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                width: screenWidth / 2.3,
+                height: 95.0,
+                decoration: const BoxDecoration(
+                    color: AppColor.yellow100,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15.0),
+                    )),
+              );
+            }
+            if (snapshot.hasData) {
+              final collections = snapshot.data!;
+              return Container(
+                child: collections.map(buildCollections).toList()[
+                    collections.map(buildCollections).toList().length - 2],
               );
             } else {
               return SizedBox(

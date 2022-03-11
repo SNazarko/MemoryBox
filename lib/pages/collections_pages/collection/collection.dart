@@ -1,18 +1,33 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/collections_pages/collection/widgets/appbar_header_profile.dart';
+import 'package:memory_box/pages/collections_pages/collection/widgets/appbar_header_collection.dart';
+import 'package:memory_box/pages/collections_pages/collection/widgets/appbar_header_collection_not_authorizotion.dart';
 import 'package:memory_box/pages/collections_pages/collection/widgets/list_collections.dart';
 import 'package:provider/provider.dart';
-
 import 'collection_model.dart';
 
+class _CollectionsArguments {
+  _CollectionsArguments({this.auth, this.user}) {
+    init();
+  }
+  FirebaseAuth? auth;
+  User? user;
+
+  void init() {
+    auth = FirebaseAuth.instance;
+    user = auth!.currentUser;
+  }
+}
+
 class Collections extends StatelessWidget {
-  const Collections({Key? key}) : super(key: key);
+  Collections({Key? key}) : super(key: key);
+  final _CollectionsArguments arguments = _CollectionsArguments();
   static const routeName = '/collection';
   static Widget create() {
     return ChangeNotifierProvider<CollectionModel>(
         create: (BuildContext context) => CollectionModel(),
-        child: const Collections());
+        child: Collections());
   }
 
   @override
@@ -21,7 +36,9 @@ class Collections extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            const AppbarHeaderProfile(),
+            arguments.user == null
+                ? const AppbarHeaderCollectionNotAuthorization()
+                : const AppbarHeaderCollection(),
             ListCollections(),
           ],
         ),

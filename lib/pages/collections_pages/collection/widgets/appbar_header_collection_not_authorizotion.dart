@@ -6,8 +6,8 @@ import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 
-class AppbarHeaderProfile extends StatelessWidget {
-  const AppbarHeaderProfile({Key? key}) : super(key: key);
+class AppbarHeaderCollectionNotAuthorization extends StatelessWidget {
+  const AppbarHeaderCollectionNotAuthorization({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,22 +26,21 @@ class AppbarHeaderProfile extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, CollectionsEdit.routeName);
-                },
-                icon: const Icon(
-                  Icons.add,
-                  size: 35.0,
-                  color: Colors.white,
-                ),
+            children: const [
+              Icon(
+                Icons.add,
+                size: 35.0,
+                color: Colors.white,
               ),
-              const Text(
+              Text(
                 'Подборки',
                 style: kTitleTextStyle2,
               ),
-              const PopupMenuCollectionPage(),
+              Icon(
+                Icons.more_horiz,
+                color: AppColor.white,
+                size: 40.0,
+              ),
             ],
           ),
         ),

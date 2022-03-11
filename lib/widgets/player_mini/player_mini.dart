@@ -68,19 +68,15 @@ class _PlayerMiniState extends State<PlayerMini> {
     if (player.playerState.playing) {
       icon = Padding(
         padding: const EdgeInsets.all(5.0),
-        child: Container(
-          child: Image.asset(
-            AppIcons.stop,
-            fit: BoxFit.fill,
-          ),
+        child: Image.asset(
+          AppIcons.stop,
+          fit: BoxFit.fill,
         ),
       );
     } else {
-      icon = Container(
-        child: Image.asset(
-          'assets/images/4x/play_aud.png',
-          fit: BoxFit.fill,
-        ),
+      icon = Image.asset(
+        'assets/images/4x/play_aud.png',
+        fit: BoxFit.fill,
       );
     }
 

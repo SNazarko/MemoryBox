@@ -18,9 +18,12 @@ class SubTitleCollectionEdit extends StatelessWidget {
           padding: EdgeInsets.only(
             left: 28.0,
           ),
-          child: Text(
-            'Введите описание...',
-            style: kBodi2TextStyle,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Введите описание...',
+              style: kBodi2TextStyle,
+            ),
           ),
         ),
         Padding(

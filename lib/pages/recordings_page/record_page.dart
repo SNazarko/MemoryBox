@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/models/view_model.dart';
 
 import 'package:memory_box/pages/audio_recordings_page/audio_recordings_page.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
@@ -139,13 +140,18 @@ class _AudioRecorderState extends State<AudioRecorder> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.all(16.0),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
           child: Align(
             alignment: Alignment.bottomRight,
-            child: Text(
-              'Отмена',
-              style: kTitle3TextStyle3,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const Text(
+                'Отмена',
+                style: kTitle3TextStyle3,
+              ),
             ),
           ),
         ),
@@ -547,12 +553,11 @@ class _AudioPlayerState extends State<AudioPlayer> {
         ),
         IconButton(
             onPressed: () {
-              LocalSaveAudioFile().getDownloadPath(
+              LocalSaveAudioFile().saveAudioStorageDirectory(
                 Provider.of<ModelRP>(context, listen: false).getData,
                 _saveRecord,
               );
-              // LocalSaveAudioFile().saveAudio(
-              //     Provider.of<ModelRP>(context, listen: false).getData);
+              _audioPlayer.stop().then((value) => widget.onDelete());
             },
             icon: Image.asset(AppIcons.rec_paper_download),
             padding: const EdgeInsets.symmetric(horizontal: 15.0)),
@@ -572,6 +577,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
                 Provider.of<ModelRP>(context, listen: false).getDuration,
                 searchName,
               );
+              _audioPlayer.stop().then((value) => widget.onDelete());
             },
             child: const Text(
               'Сохранить',

@@ -25,21 +25,11 @@ class AppbarHeaderCollectionNotAuthorization extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: const [
-              Icon(
-                Icons.add,
-                size: 35.0,
-                color: Colors.white,
-              ),
               Text(
                 'Подборки',
                 style: kTitleTextStyle2,
-              ),
-              Icon(
-                Icons.more_horiz,
-                color: AppColor.white,
-                size: 40.0,
               ),
             ],
           ),

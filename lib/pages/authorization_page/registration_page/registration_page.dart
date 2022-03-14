@@ -86,7 +86,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               controller: phoneController,
             )),
         const SizedBox(
-          height: 50.0,
+          height: 30.0,
         ),
         ButtonContinue(onPressed: () async {
           setState(() {
@@ -141,7 +141,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           controller: otpController,
         ),
         const SizedBox(
-          height: 50.0,
+          height: 30.0,
         ),
         ButtonContinue(onPressed: () {
           PhoneAuthCredential phoneAuthCredential =
@@ -166,7 +166,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               subtitle: '',
             ),
             const SizedBox(
-              height: 20.0,
+              height: 15.0,
             ),
             showLoading
                 ? const CircularProgressIndicator()
@@ -188,7 +188,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   ),
                 )),
             const SizedBox(
-              height: 15.0,
+              height: 10.0,
             ),
             const ContainerShadow(
               image: Text(''),

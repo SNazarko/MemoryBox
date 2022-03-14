@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:memory_box/pages/audio_recordings_page/audio_recordings_page.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
+import 'package:memory_box/repositories/local_save_audiofile.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/resources/constants.dart';
@@ -545,7 +546,14 @@ class _AudioPlayerState extends State<AudioPlayer> {
           icon: Image.asset(AppIcons.rec_upload),
         ),
         IconButton(
-            onPressed: () {},
+            onPressed: () {
+              LocalSaveAudioFile().getDownloadPath(
+                Provider.of<ModelRP>(context, listen: false).getData,
+                _saveRecord,
+              );
+              // LocalSaveAudioFile().saveAudio(
+              //     Provider.of<ModelRP>(context, listen: false).getData);
+            },
             icon: Image.asset(AppIcons.rec_paper_download),
             padding: const EdgeInsets.symmetric(horizontal: 15.0)),
         IconButton(
@@ -564,7 +572,6 @@ class _AudioPlayerState extends State<AudioPlayer> {
                 Provider.of<ModelRP>(context, listen: false).getDuration,
                 searchName,
               );
-              print(searchName);
             },
             child: const Text(
               'Сохранить',

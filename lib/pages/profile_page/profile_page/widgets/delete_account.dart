@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:memory_box/models/preferences_data_model_user.dart';
+import 'package:memory_box/repositories/preferences_data_model_user.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 

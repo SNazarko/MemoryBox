@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:memory_box/pages/collections_pages/collection/widgets/appbar_header_collection.dart';
 import 'package:memory_box/pages/profile_page/data_model_user.dart';
-import 'package:memory_box/models/preferences_data_model_user.dart';
 import 'package:memory_box/pages/profile_page/profile_page/widgets/appbar_header_profile.dart';
 import 'package:memory_box/pages/profile_page/profile_page/widgets/delete_account.dart';
 import 'package:memory_box/pages/profile_page/profile_page/widgets/name_and_number.dart';

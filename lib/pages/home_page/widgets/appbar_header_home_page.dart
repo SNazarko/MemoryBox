@@ -7,6 +7,10 @@ import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:provider/src/provider.dart';
 
+import '../../../widgets/home_page_containers/blue_container.dart';
+import '../../../widgets/home_page_containers/green_container.dart';
+import '../../../widgets/home_page_containers/orange_container.dart';
+
 class AppbarHeaderHomePage extends StatelessWidget {
   const AppbarHeaderHomePage({Key? key}) : super(key: key);
   final bool shouldPop = false;
@@ -266,7 +270,7 @@ class _MiniContainerModel extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        '$title!',
+                        title,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
                         style: const TextStyle(
@@ -344,31 +348,21 @@ class _BlueListCollections extends StatelessWidget {
           stream: repositories.readCollections(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return Container(
-                child: const Center(
-                  child: Text(
-                    'И тут',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.white,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                width: screenWidth / 2.3,
-                height: 95.0,
-                decoration: const BoxDecoration(
-                    color: AppColor.blue200,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(15.0),
-                    )),
+              return BlueContainer(
+                screenWidth: screenWidth,
               );
             }
             if (snapshot.hasData) {
               final collections = snapshot.data!;
-              return Container(
-                child: collections.map(buildCollections).toList().last,
-              );
+              if (collections.map(buildCollections).toList().isNotEmpty) {
+                return Container(
+                  child: collections.map(buildCollections).toList().last,
+                );
+              } else {
+                return BlueContainer(
+                  screenWidth: screenWidth,
+                );
+              }
             } else {
               return SizedBox(
                 width: screenWidth / 2.3,
@@ -413,32 +407,22 @@ class _OrangeListCollections extends StatelessWidget {
           stream: repositories.readCollections(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return Container(
-                child: const Center(
-                  child: Text(
-                    'Tут',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.white,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                width: screenWidth / 2.3,
-                height: 95.0,
-                decoration: const BoxDecoration(
-                    color: AppColor.yellow100,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(15.0),
-                    )),
+              return OrangeContainer(
+                screenWidth: screenWidth,
               );
             }
             if (snapshot.hasData) {
               final collections = snapshot.data!;
-              return Container(
-                child: collections.map(buildCollections).toList()[
-                    collections.map(buildCollections).toList().length - 2],
-              );
+              if (collections.map(buildCollections).toList().length - 2 >= 0) {
+                return Container(
+                  child: collections.map(buildCollections).toList()[
+                      collections.map(buildCollections).toList().length - 2],
+                );
+              } else {
+                return OrangeContainer(
+                  screenWidth: screenWidth,
+                );
+              }
             } else {
               return SizedBox(
                 width: screenWidth / 2.3,
@@ -483,57 +467,22 @@ class _GreenListCollections extends StatelessWidget {
           stream: repositories.readCollections(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(
-                        left: 10.0,
-                        right: 10.0,
-                        top: 25.0,
-                      ),
-                      child: Text(
-                        'Здесь будет твой набор сказок',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    const SizedBox(height: 40.0),
-                    TextButton(
-                      onPressed: () {
-                        Provider.of<Navigation>(context, listen: false)
-                            .setCurrentIndex = 1;
-                      },
-                      child: const Text(
-                        'Добавить',
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          fontSize: 14.0,
-                          color: Colors.white,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                width: screenWidth / 2.3,
-                height: 210.0,
-                decoration: const BoxDecoration(
-                    color: AppColor.green100,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(15.0),
-                    )),
+              return GreenContainer(
+                screenWidth: screenWidth,
               );
             }
             if (snapshot.hasData) {
               final collections = snapshot.data!;
-              return Container(
-                child: collections.map(buildCollections).toList()[
-                    collections.map(buildCollections).toList().length - 3],
-              );
+              if (collections.map(buildCollections).toList().length - 3 >= 0) {
+                return Container(
+                  child: collections.map(buildCollections).toList()[
+                      collections.map(buildCollections).toList().length - 3],
+                );
+              } else {
+                return GreenContainer(
+                  screenWidth: screenWidth,
+                );
+              }
             } else {
               return SizedBox(
                 width: screenWidth / 2.3,

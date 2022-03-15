@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
@@ -11,8 +10,6 @@ import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:provider/provider.dart';
-
-import '../../audio_recordings_page/audio_recordings_page.dart';
 import '../../save_page/save_page.dart';
 
 class HomePageAudio extends StatelessWidget {

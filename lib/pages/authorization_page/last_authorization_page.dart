@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/models/view_model.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
-import 'package:provider/provider.dart';
 
 import '../../widgets/appbar_header_authorization.dart';
 import '../main_page.dart';

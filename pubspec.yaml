@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.14.0 <3.0.0"
+  sdk: ">=2.16.1 <3.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -45,14 +45,15 @@ dependencies:
   shared_preferences: ^2.0.11
   flutter_phoenix: "^1.0.0"
   firebase_core:
-  firebase_auth: ^3.3.5
-  cloud_firestore: ^3.1.6
-  firebase_storage: ^10.2.5
+  firebase_auth: ^3.3.10
+  cloud_firestore: ^3.1.10
+  firebase_storage: ^10.2.9
   image_picker: ^0.8.4+4
   just_audio: ^0.9.18
   record: ^3.0.2
   date_format: ^2.0.5
   external_path: ^1.0.1
+  uuid: 3.0.6
 
 
 

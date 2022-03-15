@@ -1,4 +1,5 @@
 class CollectionsModel {
+  String? id;
   String? titleCollections;
   String? subTitleCollections;
   String? avatarCollections;
@@ -7,6 +8,7 @@ class CollectionsModel {
   bool? doneCollection;
 
   CollectionsModel({
+    this.id,
     this.titleCollections,
     this.subTitleCollections,
     this.avatarCollections,
@@ -17,6 +19,7 @@ class CollectionsModel {
 
   factory CollectionsModel.fromJson(Map<String, dynamic> json) {
     return CollectionsModel(
+      id: json['id'],
       titleCollections: json['titleCollections'],
       subTitleCollections: json['subTitleCollections'],
       avatarCollections: json['avatarCollections'],
@@ -27,6 +30,7 @@ class CollectionsModel {
   }
 
   Map<String, dynamic> toJson() => {
+        'id': id,
         'titleCollections': titleCollections,
         'subTitleCollections': subTitleCollections,
         'avatarCollections': avatarCollections,

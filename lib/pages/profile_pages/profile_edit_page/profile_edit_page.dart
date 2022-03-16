@@ -105,14 +105,14 @@ class _SaveButton extends StatelessWidget {
 
   Future<void> saveUser(BuildContext context) async {
     Navigator.pop(context);
+    final String image =
+        Provider.of<DataModel>(context, listen: false).getUserImage!;
     final String name = Provider.of<DataModel>(context, listen: false).getName!;
     _preferencesDataUser.saveName(name);
     final String number =
         Provider.of<DataModel>(context, listen: false).getNumber!;
     _preferencesDataUser.saveNumber(number);
-    // _repositories.updateName(name);
-    // _repositories.updateNumber(number);
-    _repositories.updateNameNumber(name, number);
+    _repositories.updateNameNumber(name, number, image);
   }
 
   @override

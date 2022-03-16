@@ -3,7 +3,7 @@ import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
 import 'package:provider/src/provider.dart';
 
-import '../../data_model_user.dart';
+import '../../profile_model.dart';
 
 class NameAndNumber extends StatelessWidget {
   const NameAndNumber({Key? key, required this.screenWidth}) : super(key: key);

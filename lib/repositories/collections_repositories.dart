@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
-import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/models/collections_model.dart';
 
 class CollectionsRepositories {
-  int documents = 0;
   Stream<List<CollectionsModel>> readCollections() => FirebaseFirestore.instance
       .collection('CollectionsTale')
       .orderBy('data')

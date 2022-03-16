@@ -10,7 +10,7 @@ import 'package:memory_box/pages/search_page/search_page_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/routes/routes.dart';
 import 'package:provider/provider.dart';
-import 'pages/profile_page/data_model_user.dart';
+import 'pages/profile_pages/profile_model.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 void main() async {

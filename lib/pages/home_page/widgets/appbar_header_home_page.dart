@@ -97,15 +97,19 @@ class _TitleAppbar extends StatelessWidget {
   }
 }
 
-class _MaxContainerModel extends StatelessWidget {
-  const _MaxContainerModel(
-      {Key? key,
-      required this.screenWidth,
-      required this.image,
-      required this.title,
-      required this.quality,
-      required this.time})
-      : super(key: key);
+class _ContainerModel extends StatelessWidget {
+  const _ContainerModel({
+    Key? key,
+    required this.screenWidth,
+    required this.image,
+    required this.title,
+    required this.quality,
+    required this.time,
+    required this.height,
+    required this.boxFit,
+  }) : super(key: key);
+  final BoxFit boxFit;
+  final double height;
   final double screenWidth;
   final String image;
   final String title;
@@ -116,16 +120,16 @@ class _MaxContainerModel extends StatelessWidget {
     if (image != '') {
       return SizedBox(
         width: screenWidth / 2.3,
-        height: 210.0,
+        height: height,
         child: Image.network(
           image,
-          fit: BoxFit.fitHeight,
+          fit: boxFit,
         ),
       );
     } else {
       return Container(
         width: screenWidth / 2.3,
-        height: 210.0,
+        height: height,
         color: AppColor.blue300,
       );
     }
@@ -148,7 +152,7 @@ class _MaxContainerModel extends StatelessWidget {
             ),
             child: SizedBox(
               width: screenWidth / 2.3,
-              height: 210.0,
+              height: height,
               child: Padding(
                 padding: const EdgeInsets.only(left: 10, right: 5, bottom: 10),
                 child: Row(
@@ -198,118 +202,7 @@ class _MaxContainerModel extends StatelessWidget {
         ],
       ),
       width: screenWidth / 2.3,
-      height: 210.0,
-      decoration: const BoxDecoration(
-          color: AppColor.blue200,
-          borderRadius: BorderRadius.all(
-            Radius.circular(15.0),
-          )),
-    );
-  }
-}
-
-class _MiniContainerModel extends StatelessWidget {
-  const _MiniContainerModel(
-      {Key? key,
-      required this.screenWidth,
-      required this.image,
-      required this.title,
-      required this.quality,
-      required this.time})
-      : super(key: key);
-  final double screenWidth;
-  final String image;
-  final String title;
-  final String quality;
-  final String time;
-
-  Widget imageInContainer(String image, double screenWidth) {
-    if (image != '') {
-      return SizedBox(
-        width: screenWidth / 2.3,
-        height: 95.0,
-        child: Image.network(
-          image,
-          fit: BoxFit.fitWidth,
-        ),
-      );
-    } else {
-      return Container(
-        width: screenWidth / 2.3,
-        height: 95.0,
-        color: AppColor.blue300,
-      );
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Stack(
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(20.0),
-            ),
-            child: imageInContainer(image, screenWidth),
-          ),
-          ClipRRect(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(20.0),
-            ),
-            child: SizedBox(
-              width: screenWidth / 2.3,
-              height: 95.0,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10, right: 5, bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        title,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 3,
-                        style: const TextStyle(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w700,
-                          color: AppColor.white100,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: const [
-                          Text(
-                            '7 аудио',
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.white100,
-                            ),
-                          ),
-                          Text(
-                            '3:33 часа',
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.white100,
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
-      width: screenWidth / 2.3,
-      height: 95.0,
+      height: height,
       decoration: const BoxDecoration(
           color: AppColor.blue200,
           borderRadius: BorderRadius.all(
@@ -324,12 +217,14 @@ class _BlueListCollections extends StatelessWidget {
   final CollectionsRepositories repositories = CollectionsRepositories();
   final double screenWidth;
 
-  Widget buildCollections(CollectionsModel collections) => _MiniContainerModel(
+  Widget buildCollections(CollectionsModel collections) => _ContainerModel(
         image: '${collections.avatarCollections}',
         title: '${collections.titleCollections}',
         time: '${collections.data}',
         quality: '${collections.qualityCollections}',
         screenWidth: screenWidth,
+        height: 95.0,
+        boxFit: BoxFit.fitWidth,
       );
 
   @override
@@ -383,12 +278,14 @@ class _OrangeListCollections extends StatelessWidget {
   final CollectionsRepositories repositories = CollectionsRepositories();
   final double screenWidth;
 
-  Widget buildCollections(CollectionsModel collections) => _MiniContainerModel(
+  Widget buildCollections(CollectionsModel collections) => _ContainerModel(
         image: '${collections.avatarCollections}',
         title: '${collections.titleCollections}',
         time: '${collections.data}',
         quality: '${collections.qualityCollections}',
         screenWidth: screenWidth,
+        boxFit: BoxFit.fitWidth,
+        height: 95.0,
       );
 
   @override
@@ -443,12 +340,14 @@ class _GreenListCollections extends StatelessWidget {
   final CollectionsRepositories repositories = CollectionsRepositories();
   final double screenWidth;
 
-  Widget buildCollections(CollectionsModel collections) => _MaxContainerModel(
+  Widget buildCollections(CollectionsModel collections) => _ContainerModel(
         image: '${collections.avatarCollections}',
         title: '${collections.titleCollections}',
         time: '${collections.data}',
         quality: '${collections.qualityCollections}',
         screenWidth: screenWidth,
+        boxFit: BoxFit.fitHeight,
+        height: 210.0,
       );
 
   @override

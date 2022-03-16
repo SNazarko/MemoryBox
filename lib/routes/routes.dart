@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/audio_recordings_page/audio_recordings_page.dart';
 import 'package:memory_box/pages/authorization_page/first_authorization_page.dart';
@@ -17,11 +16,12 @@ import 'package:memory_box/pages/home_page/home_page.dart';
 import 'package:memory_box/pages/logo_page/logo_page.dart';
 import 'package:memory_box/pages/logo_page/screensaver_page.dart';
 import 'package:memory_box/pages/main_page.dart';
-import 'package:memory_box/pages/profile_page/profile_page/profile.dart';
-import 'package:memory_box/pages/profile_page/profile_edit.dart';
+import 'package:memory_box/pages/profile_pages/profile_page/profile.dart';
 import 'package:memory_box/pages/recordings_page/record_page.dart';
 import 'package:memory_box/pages/save_page/save_page.dart';
 import 'package:memory_box/pages/search_page/search_page.dart';
+
+import '../pages/profile_pages/profile_edit_page/profile_edit_page.dart';
 
 class AppRouter {
   const AppRouter._();

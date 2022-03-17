@@ -1,9 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:memory_box/models/collections_model.dart';
 
 class CollectionsRepositories {
+  CollectionsRepositories() {
+    init();
+  }
+  FirebaseAuth? auth;
+  User? user;
+
+  void init() {
+    auth = FirebaseAuth.instance;
+    user = auth!.currentUser;
+  }
+
   Stream<List<CollectionsModel>> readCollections() => FirebaseFirestore.instance
+      .collection(user!.phoneNumber!)
+      .doc('id')
       .collection('CollectionsTale')
       .orderBy('data')
       .snapshots()
@@ -24,6 +38,8 @@ class CollectionsRepositories {
     String avatarCollections,
   ) async {
     final QuerySnapshot qSnap = await FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('id')
         .collection('CollectionsTale')
         .doc(nameCollection)
         .collection('Audio')
@@ -46,6 +62,8 @@ class CollectionsRepositories {
     );
     final json = model.toJson();
     FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('id')
         .collection('CollectionsTale')
         .doc(nameCollection)
         .set(json);
@@ -97,12 +115,16 @@ class CollectionsRepositories {
     String collectionFirestore,
   ) async {
     FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('id')
         .collection(collectionFirestore)
         .doc(nameCollection)
         .collection('Audio')
         .doc()
         .delete();
     FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('id')
         .collection(collectionFirestore)
         .doc(nameCollection)
         .delete();
@@ -111,6 +133,8 @@ class CollectionsRepositories {
   Future<void> doneCollections(
       String nameCollection, bool doneCollection) async {
     FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('id')
         .collection('CollectionsTale')
         .doc(nameCollection)
         .update({'doneCollection': doneCollection});
@@ -122,17 +146,23 @@ class CollectionsRepositories {
     String inTheCollection,
   ) async {
     FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('id')
         .collection(fromTheCollection)
         .get()
         .then((querySnapshot) {
       querySnapshot.docs.forEach((result) {
         FirebaseFirestore.instance
+            .collection(user!.phoneNumber!)
+            .doc('id')
             .collection(inTheCollection)
             .doc(nameCollection)
             .set(result.data());
       });
     });
     FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('id')
         .collection(fromTheCollection)
         .doc(nameCollection)
         .collection('Audio')
@@ -140,6 +170,8 @@ class CollectionsRepositories {
         .then((querySnapshot) {
       querySnapshot.docs.forEach((result) {
         FirebaseFirestore.instance
+            .collection(user!.phoneNumber!)
+            .doc('id')
             .collection(inTheCollection)
             .doc(nameCollection)
             .collection('Audio')
@@ -154,6 +186,8 @@ class CollectionsRepositories {
     String inTheCollection,
   ) async {
     FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('id')
         .collection('CollectionsTale')
         .doc(fromTheCollection)
         .collection('Audio')
@@ -161,6 +195,8 @@ class CollectionsRepositories {
         .then((querySnapshot) {
       querySnapshot.docs.forEach((result) {
         FirebaseFirestore.instance
+            .collection(user!.phoneNumber!)
+            .doc('id')
             .collection('CollectionsTale')
             .doc(inTheCollection)
             .collection('Audio')
@@ -173,6 +209,8 @@ class CollectionsRepositories {
   Future<void> doneAudioItem(
       String nameCollection, String nameAudio, bool done) async {
     FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('id')
         .collection('CollectionsTale')
         .doc(nameCollection)
         .collection('Audio')
@@ -184,12 +222,16 @@ class CollectionsRepositories {
     String nameNewCollection,
   ) async {
     FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('id')
         .collection('Collections')
         .get()
         .then((querySnapshot) {
       for (var result in querySnapshot.docs) {
         final audioName = result.data()['audioName'];
         FirebaseFirestore.instance
+            .collection(user!.phoneNumber!)
+            .doc('id')
             .collection('CollectionsTale')
             .doc(nameNewCollection)
             .collection('Audio')

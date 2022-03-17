@@ -87,7 +87,7 @@ class AppRouter {
         builder = (_) => const CollectionItemEditPage();
         break;
       case DeletePage.routeName:
-        builder = (_) => const DeletePage();
+        builder = (_) => DeletePage();
         break;
       case CollectionItemEditAudio.routeName:
         builder = (_) => const CollectionItemEditAudio();
@@ -102,7 +102,7 @@ class AppRouter {
             );
         break;
       case SearchPage.routeName:
-        builder = (_) => const SearchPage();
+        builder = (_) => SearchPage();
         break;
       default:
         throw Exception('Invalid route: ${settings.name}');

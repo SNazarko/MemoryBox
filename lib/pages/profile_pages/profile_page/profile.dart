@@ -41,25 +41,19 @@ class Profile extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: SizedBox(
-          height: screenHeight * 0.85,
-          child: Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Stack(
-                  children: const [
-                    AppbarHeaderProfileProfile(),
-                    PhotoProfileProfile(),
-                  ],
-                ),
-                Expanded(
-                    child: _Links(
-                  screenWidth: screenWidth,
-                )),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Stack(
+              children: const [
+                AppbarHeaderProfileProfile(),
+                PhotoProfileProfile(),
               ],
             ),
-          ),
+            _Links(
+              screenWidth: screenWidth,
+            ),
+          ],
         ),
       ),
     );

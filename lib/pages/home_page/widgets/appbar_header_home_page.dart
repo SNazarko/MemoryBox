@@ -10,7 +10,7 @@ import '../../../widgets/home_page_containers/green_container.dart';
 import '../../../widgets/home_page_containers/orange_container.dart';
 
 class AppbarHeaderHomePage extends StatelessWidget {
-  const AppbarHeaderHomePage({Key? key}) : super(key: key);
+  AppbarHeaderHomePage({Key? key}) : super(key: key);
   final bool shouldPop = false;
 
   @override

@@ -6,7 +6,9 @@ import 'package:memory_box/bloc/bloc_all_bloc.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/appbar_header_audio_recordings.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/appbar_header_audio_recordings_not_authorization.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/list_player.dart';
+import 'package:memory_box/pages/audio_recordings_page/widgets/list_player_not_authorization.dart';
 import '../../resources/constants.dart';
+import '../collections_pages/collection/widgets/list_collections_not_authorizotion.dart';
 
 class _AudioRecordingsPageArguments {
   _AudioRecordingsPageArguments({this.auth, this.user}) {
@@ -63,7 +65,9 @@ class AudioRecordingsPage extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  ListPlayer(),
+                  arguments.user == null
+                      ? const ListPlayerNotAuthorization()
+                      : ListPlayer(),
                   arguments.user == null
                       ? const AppbarHeaderAudioRecordingsNotAuthorization()
                       : const AppbarHeaderAudioRecordings(),

@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
@@ -9,11 +11,27 @@ import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 
+import '../authorization_page/registration_page/registration_page.dart';
+
+class _DeletePageArguments {
+  _DeletePageArguments({this.auth, this.user}) {
+    init();
+  }
+  FirebaseAuth? auth;
+  User? user;
+
+  void init() {
+    auth = FirebaseAuth.instance;
+    user = auth!.currentUser;
+  }
+}
+
 class DeletePage extends StatelessWidget {
-  const DeletePage({Key? key}) : super(key: key);
+  DeletePage({Key? key}) : super(key: key);
   static const routeName = '/delete_page';
+  final _DeletePageArguments arguments = _DeletePageArguments();
   static Widget create() {
-    return const DeletePage();
+    return DeletePage();
   }
 
   @override
@@ -40,13 +58,64 @@ class DeletePage extends StatelessWidget {
           children: [
             Stack(
               children: [
-                ModelDelete(),
+                arguments.user == null
+                    ? const ModelDeleteNotIsAuthorization()
+                    : const ModelDelete(),
                 const _AppbarHeader(),
               ],
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class ModelDeleteNotIsAuthorization extends StatelessWidget {
+  const ModelDeleteNotIsAuthorization({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(
+          height: 200.0,
+        ),
+        Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 50.0,
+              horizontal: 40.0,
+            ),
+            child: Column(
+              children: [
+                RichText(
+                  text: TextSpan(
+                      text: '     Для открытия полного \n '
+                          '            функционала \n '
+                          '   приложения вам нужно \n '
+                          ' зарегистрироваться',
+                      style: const TextStyle(
+                        fontSize: 20.0,
+                        color: AppColor.colorText50,
+                      ),
+                      children: [
+                        TextSpan(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.pushNamed(
+                                  context, RegistrationPage.routeName);
+                            },
+                          text: ' здесь',
+                          style: const TextStyle(
+                            fontSize: 20.0,
+                            color: AppColor.pink,
+                          ),
+                        )
+                      ]),
+                )
+              ],
+            )),
+      ],
     );
   }
 }

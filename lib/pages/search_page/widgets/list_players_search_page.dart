@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/pages/save_page/save_page.dart';
@@ -13,9 +12,11 @@ import '../search_page_model.dart';
 
 class ListPlayersSearchPage extends StatelessWidget {
   ListPlayersSearchPage({Key? key}) : super(key: key);
-
+  final AudioRepositories repositories = AudioRepositories();
   Stream<List<AudioModel>> audio(BuildContext context) => FirebaseFirestore
       .instance
+      .collection(repositories.user!.phoneNumber!)
+      .doc('id')
       .collection('Collections')
       .where('searchName',
           arrayContains: context.watch<SearchPageModel>().getSearchData)
@@ -23,7 +24,6 @@ class ListPlayersSearchPage extends StatelessWidget {
       .map((snapshot) =>
           snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
 
-  final AudioRepositories repositories = AudioRepositories();
   Widget buildAudio(AudioModel audio) => PlayerMini(
         duration: '${audio.duration}',
         url: '${audio.audioUrl}',

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
@@ -14,6 +15,8 @@ class ListPlayersCollectionAddAudio extends StatelessWidget {
 
   Stream<List<AudioModel>> readAudioCollectionEdit(BuildContext context) =>
       FirebaseFirestore.instance
+          .collection(repositories.user!.phoneNumber!)
+          .doc('id')
           .collection('CollectionsTale')
           .doc(Provider.of<CollectionsEditModel>(context, listen: false)
               .getTitle)
@@ -71,7 +74,7 @@ class ListPlayersCollectionAddAudio extends StatelessWidget {
     } else {
       return Column(
         children: [
-          Container(
+          SizedBox(
             height: screenHeight * 0.95,
             child: StreamBuilder<List<AudioModel>>(
               stream: readAudioCollectionEdit(context),

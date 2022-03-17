@@ -2,16 +2,29 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/models/user_model.dart';
 
 class AudioRepositories {
+  AudioRepositories() {
+    init();
+  }
   UserModel userModel = UserModel();
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
+  FirebaseAuth? auth;
+  User? user;
+
+  void init() {
+    auth = FirebaseAuth.instance;
+    user = auth!.currentUser;
+  }
 
   Stream<List<AudioModel>> readAudio() => FirebaseFirestore.instance
+      .collection(user!.phoneNumber!)
+      .doc('id')
       .collection('Collections')
       .orderBy('dateTime')
       .snapshots()
@@ -20,6 +33,8 @@ class AudioRepositories {
 
   Stream<List<AudioModel>> readAudioPodbirka(String name) => FirebaseFirestore
       .instance
+      .collection(user!.phoneNumber!)
+      .doc('id')
       .collection('CollectionsTale')
       .doc(name)
       .collection('Audio')
@@ -30,6 +45,8 @@ class AudioRepositories {
           snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
   Stream<List<AudioModel>> readAudioCollectionEdit(String name) =>
       FirebaseFirestore.instance
+          .collection(user!.phoneNumber!)
+          .doc('id')
           .collection('CollectionsTale')
           .doc(name)
           .collection('Audio')
@@ -47,7 +64,7 @@ class AudioRepositories {
     Set searchName,
   ) async {
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
-        .ref('userAudio/${getAudioName(path)}');
+        .ref('${user!.phoneNumber!}/userAudio/${getAudioName(path)}');
     await ref.putFile(File(path));
     final _todayDate = DateTime.now();
     final model = AudioModel(
@@ -60,7 +77,12 @@ class AudioRepositories {
       searchName: searchName.toList(),
     );
     final json = model.toJson();
-    FirebaseFirestore.instance.collection('Collections').doc(name).set(json);
+    FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('id')
+        .collection('Collections')
+        .doc(name)
+        .set(json);
   }
 
   String getAudioName(String name) {

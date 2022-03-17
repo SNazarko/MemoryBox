@@ -1,14 +1,30 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/search_page/widgets/appbar_header_search_page.dart';
 import 'package:memory_box/pages/search_page/widgets/list_players_search_page.dart';
+import 'package:memory_box/pages/search_page/widgets/list_players_search_page_not_is_authorization.dart';
 import 'package:memory_box/pages/search_page/widgets/popup_menu_search_page.dart';
 import 'package:memory_box/resources/constants.dart';
 
+class _SearchPageArguments {
+  _SearchPageArguments({this.auth, this.user}) {
+    init();
+  }
+  FirebaseAuth? auth;
+  User? user;
+
+  void init() {
+    auth = FirebaseAuth.instance;
+    user = auth!.currentUser;
+  }
+}
+
 class SearchPage extends StatelessWidget {
-  const SearchPage({Key? key}) : super(key: key);
+  SearchPage({Key? key}) : super(key: key);
   static const routeName = '/search_page';
+  final _SearchPageArguments arguments = _SearchPageArguments();
   static Widget create() {
-    return const SearchPage();
+    return SearchPage();
   }
 
   @override
@@ -35,7 +51,9 @@ class SearchPage extends StatelessWidget {
           children: [
             Stack(
               children: [
-                ListPlayersSearchPage(),
+                arguments.user == null
+                    ? const ListPlayersSearchPageNotIsAuthorization()
+                    : ListPlayersSearchPage(),
                 const AppbarHeaderSearchPage(),
               ],
             ),

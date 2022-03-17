@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
-
 import '../../widgets/appbar_header_authorization.dart';
 import '../main_page.dart';
 
@@ -30,7 +30,8 @@ class _LastAuthorizationPageState extends State<LastAuthorizationPage> {
   @override
   void initState() {
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushNamed(context, Main.routeName);
+      // Navigator.pushNamed(context, Main.routeName);
+      Phoenix.rebirth(context);
     });
     super.initState();
   }

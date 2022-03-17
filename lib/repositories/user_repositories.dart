@@ -46,7 +46,7 @@ class UserRepositories {
 
   Future<String> uploadImage(XFile image) async {
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
-        .ref('userImage/${getImageName(image)}');
+        .ref('${user!.phoneNumber!}/userImage/${getImageName(image)}');
     await ref.putFile(File(image.path));
     UserModel(avatarUrl: '${ref.getDownloadURL()}');
     return ref.getDownloadURL();

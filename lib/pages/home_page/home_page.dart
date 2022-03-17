@@ -2,8 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/home_page/widgets/appbar_header_home_page.dart';
+import 'package:memory_box/pages/home_page/widgets/appbar_header_home_page_not_is_authorization.dart';
 import 'package:memory_box/pages/home_page/widgets/home_page_audio.dart';
 import 'package:memory_box/pages/home_page/widgets/home_page_not_is_authorization.dart';
+
+import '../../repositories/collections_repositories.dart';
 
 class _HomePageArguments {
   _HomePageArguments({this.auth, this.user}) {
@@ -21,6 +24,7 @@ class _HomePageArguments {
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
   static const routeName = '/home_page';
+  final CollectionsRepositories repositories = CollectionsRepositories();
   final _HomePageArguments arguments = _HomePageArguments();
   static Widget create() {
     return HomePage();
@@ -45,9 +49,11 @@ class HomePage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Expanded(
+              Expanded(
                 flex: 8,
-                child: AppbarHeaderHomePage(),
+                child: arguments.user == null
+                    ? const AppbarHeaderHomePageNotIsAuthorization()
+                    : AppbarHeaderHomePage(),
               ),
               Expanded(
                   flex: 11,

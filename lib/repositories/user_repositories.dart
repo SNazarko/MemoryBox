@@ -19,11 +19,17 @@ class UserRepositories {
     user = auth!.currentUser;
   }
 
+  Stream<List<UserModel>> readUser() => FirebaseFirestore.instance
+      .collection(user!.phoneNumber!)
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((doc) => UserModel.fromJson(doc.data())).toList());
+
   Future<XFile?> singleImagePick() async {
     return await ImagePicker().pickImage(
       source: ImageSource.gallery,
-      maxHeight: 200,
-      maxWidth: 200,
+      maxHeight: 800,
+      maxWidth: 800,
     );
   }
 

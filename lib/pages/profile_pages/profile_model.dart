@@ -1,8 +1,5 @@
-import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:memory_box/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:path_provider/path_provider.dart' as pathProvider;
 
 class DataModel with ChangeNotifier {
   String? _name;

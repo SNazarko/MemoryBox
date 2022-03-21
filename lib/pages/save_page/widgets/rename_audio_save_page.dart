@@ -25,7 +25,7 @@ class RenameAudioSavePage extends StatelessWidget {
               searchName.remove(searchName.last);
             }
             context.read<SavePageModel>().setNewAudioName(value);
-            context.read<SavePageModel>().setSearchName(searchName.toList());
+            context.read<SavePageModel>().setNewSearchName(searchName.toList());
           } else {
             context.read<SavePageModel>().setNewAudioName(
                 Provider.of<SavePageModel>(context, listen: false)

@@ -4,6 +4,14 @@ class CollectionsEditModel with ChangeNotifier {
   String? _title = 'Без названия';
   String? _subTitle = '...';
   String? _image = '';
+  String? _id;
+
+  void setId(String idCollection) {
+    _id = idCollection;
+    notifyListeners();
+  }
+
+  get getId => _id;
 
   void userTitle(String title) {
     _title = title;

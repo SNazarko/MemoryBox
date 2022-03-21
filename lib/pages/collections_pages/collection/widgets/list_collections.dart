@@ -13,6 +13,7 @@ class ListCollections extends StatelessWidget {
   final CollectionsRepositories repositories = CollectionsRepositories();
 
   Widget buildCollections(CollectionsModel collections) => CollectionItem(
+        id: '${collections.id}',
         image: '${collections.avatarCollections}',
         title: '${collections.titleCollections}',
         subTitle: '${collections.subTitleCollections}',

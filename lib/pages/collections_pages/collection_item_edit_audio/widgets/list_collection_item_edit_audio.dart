@@ -16,17 +16,21 @@ class ListCollectionItemEditAudio extends StatelessWidget {
         duration: '${audio.duration}',
         url: '${audio.audioUrl}',
         name: '${audio.audioName}',
+        done: audio.done!,
+        id: '${audio.id}',
+        collection: audio.collections!,
         popupMenu: DoneCollectionItemEditAudio(
           done: audio.done,
           name: '${audio.audioName}',
+          collection: audio.collections,
+          id: '${audio.id}',
         ),
       );
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       child: StreamBuilder<List<AudioModel>>(
-        stream: repositories.readAudioCollectionEdit(
-            '${context.watch<CollectionsItemPageModel>().getTitle}'),
+        stream: repositories.readAudioSort('all'),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Text('Ошибка');

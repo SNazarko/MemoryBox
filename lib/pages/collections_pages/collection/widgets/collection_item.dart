@@ -21,7 +21,9 @@ class CollectionItem extends StatelessWidget {
     this.subTitle,
     this.data,
     this.doneCollection,
+    this.id,
   }) : super(key: key);
+  final String? id;
   final String? title;
   final String? subTitle;
   final String? quality;
@@ -143,6 +145,7 @@ class CollectionItem extends StatelessWidget {
   getCollectionItem(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        context.read<CollectionsItemPageModel>().setIdCollection(id!);
         context.read<CollectionsItemPageModel>().setTitle(title!);
         context.read<CollectionsItemPageModel>().setSubTitle(subTitle!);
         context.read<CollectionsItemPageModel>().setPhoto(image!);

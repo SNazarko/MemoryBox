@@ -2,11 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:memory_box/models/collections_model.dart';
+import 'package:uuid/uuid.dart';
 
 class CollectionsRepositories {
   CollectionsRepositories() {
     init();
   }
+  var uuid = const Uuid();
   FirebaseAuth? auth;
   User? user;
 
@@ -25,18 +27,13 @@ class CollectionsRepositories {
           .map((doc) => CollectionsModel.fromJson(doc.data()))
           .toList());
 
-  // Stream<List<CollectionsModel>> deleteCollections() =>
-  //     FirebaseFirestore.instance.collection('DeleteCollections').snapshots().map(
-  //         (snapshot) => snapshot.docs
-  //             .map((doc) => CollectionsModel.fromJson(doc.data()))
-  //             .toList());
-
   Future<void> addCollections(
     String nameCollection,
     String titleCollections,
     String subTitleCollections,
     String avatarCollections,
   ) async {
+    var id = uuid.v1();
     final QuerySnapshot qSnap = await FirebaseFirestore.instance
         .collection(user!.phoneNumber!)
         .doc('id')
@@ -47,6 +44,7 @@ class CollectionsRepositories {
     final int documents = qSnap.docs.length;
     final _todayDate = DateTime.now();
     final model = CollectionsModel(
+      id: id,
       qualityCollections: documents,
       titleCollections: titleCollections,
       subTitleCollections: subTitleCollections,
@@ -65,50 +63,9 @@ class CollectionsRepositories {
         .collection(user!.phoneNumber!)
         .doc('id')
         .collection('CollectionsTale')
-        .doc(nameCollection)
+        .doc(id)
         .set(json);
   }
-
-  // Future<void> addAudioForCollection(
-  //   String nameCollection,
-  //   String audioName,
-  //   String audioUrl,
-  //   String duration,
-  //   bool done,
-  // ) async {
-  //   final _todayDate = DateTime.now();
-  //   final model = AudioModel(
-  //     audioName: audioName,
-  //     audioUrl: audioUrl,
-  //     duration: duration,
-  //     done: done,
-  //     dateTime: formatDate(
-  //         _todayDate, [dd, '.', mm, '.', yy, HH, ':', nn, ':', ss, z]),
-  //   );
-  //   final json = model.toJson();
-  //   FirebaseFirestore.instance
-  //       .collection('CollectionsTale')
-  //       .doc(
-  //         nameCollection,
-  //       )
-  //       .collection('Audio')
-  //       .doc(audioName)
-  //       .set(json);
-  // }
-
-  // Future<void> deleteAudioForCollection(
-  //   String nameCollection,
-  //   String audioName,
-  // ) async {
-  //   FirebaseFirestore.instance
-  //       .collection('CollectionsTale')
-  //       .doc(
-  //         nameCollection,
-  //       )
-  //       .collection('Audio')
-  //       .doc(audioName)
-  //       .delete();
-  // }
 
   Future<void> deleteCollection(
     String nameCollection,
@@ -206,38 +163,61 @@ class CollectionsRepositories {
     });
   }
 
-  Future<void> doneAudioItem(
-      String nameCollection, String nameAudio, bool done) async {
-    FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
-        .doc('id')
-        .collection('CollectionsTale')
-        .doc(nameCollection)
-        .collection('Audio')
-        .doc(nameAudio)
-        .update({'done': done});
-  }
-
-  Future<void> addAudioCollections(
-    String nameNewCollection,
-  ) async {
+  Future<void> doneAudioItem(String idAudio, bool done) async {
     FirebaseFirestore.instance
         .collection(user!.phoneNumber!)
         .doc('id')
         .collection('Collections')
-        .get()
-        .then((querySnapshot) {
-      for (var result in querySnapshot.docs) {
-        final audioName = result.data()['audioName'];
-        FirebaseFirestore.instance
-            .collection(user!.phoneNumber!)
-            .doc('id')
-            .collection('CollectionsTale')
-            .doc(nameNewCollection)
-            .collection('Audio')
-            .doc(audioName)
-            .set(result.data());
-      }
-    });
+        .doc(idAudio)
+        .update({'done': done});
+  }
+
+  Future<void> addAudioCollections(String nameCollection, String idAudio,
+      List collections, bool done) async {
+    if (done == true) {
+      collections.add(nameCollection);
+    }
+    if (done == false) {
+      collections.remove(nameCollection);
+    }
+
+    FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('id')
+        .collection('Collections')
+        .doc(idAudio)
+        .update({'collections': collections});
+  }
+
+  Future<void> updateCollection(
+    String idCollection,
+    String nameCollection,
+    String subTitleCollections,
+    String avatarCollections,
+    // int qualityCollections,
+  ) async {
+    final _todayDate = DateTime.now();
+    final model = CollectionsModel(
+      id: idCollection,
+      // qualityCollections: qualityCollections,
+      titleCollections: nameCollection,
+      subTitleCollections: subTitleCollections,
+      avatarCollections: avatarCollections,
+      data: formatDate(_todayDate, [
+        dd,
+        '.',
+        mm,
+        '.',
+        yy,
+      ]),
+      doneCollection: false,
+    );
+    final json = model.toJson();
+    FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('id')
+        .collection('CollectionsTale')
+        .doc(idCollection)
+        .update(json);
   }
 }

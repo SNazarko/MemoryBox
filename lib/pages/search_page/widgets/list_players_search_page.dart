@@ -7,7 +7,6 @@ import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:provider/src/provider.dart';
-
 import '../search_page_model.dart';
 
 class ListPlayersSearchPage extends StatelessWidget {
@@ -28,6 +27,9 @@ class ListPlayersSearchPage extends StatelessWidget {
         duration: '${audio.duration}',
         url: '${audio.audioUrl}',
         name: '${audio.audioName}',
+        done: audio.done!,
+        id: '${audio.id}',
+        collection: audio.collections ?? [],
         popupMenu: _PopupMenuAudioSearchPage(
           url: '${audio.audioUrl}',
           duration: '${audio.duration}',
@@ -46,7 +48,7 @@ class ListPlayersSearchPage extends StatelessWidget {
           SizedBox(
             height: screenHeight * 0.95,
             child: StreamBuilder<List<AudioModel>>(
-              stream: repositories.readAudio(),
+              stream: repositories.readAudioSort('all'),
               builder: (
                 context,
                 snapshot,

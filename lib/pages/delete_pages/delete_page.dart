@@ -157,6 +157,9 @@ class _ListPlayers extends StatelessWidget {
         duration: '${audio.duration}',
         url: '${audio.audioUrl}',
         name: '${audio.audioName}',
+        done: audio.done!,
+        id: '${audio.id}',
+        collection: audio.collections!,
         popupMenu: const DeleteAudio(),
       );
 
@@ -168,7 +171,7 @@ class _ListPlayers extends StatelessWidget {
         SizedBox(
           height: screenHeight * 0.95,
           child: StreamBuilder<List<AudioModel>>(
-            stream: repositories.readAudio(),
+            stream: repositories.readAudioSort('all'),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return const Text('Ошибка');

@@ -58,6 +58,9 @@ class _AudioList extends StatelessWidget {
         duration: '${audio.duration}',
         url: '${audio.audioUrl}',
         name: '${audio.audioName}',
+        done: audio.done!,
+        id: '${audio.id}',
+        collection: audio.collections!,
         popupMenu: PopupMenuHomePage(
           url: '${audio.audioUrl}',
           duration: '${audio.duration}',
@@ -66,6 +69,8 @@ class _AudioList extends StatelessWidget {
           done: audio.done!,
           searchName: audio.searchName!,
           dateTime: audio.dateTime!,
+          idAudio: '${audio.id}',
+          collection: audio.collections!,
         ),
       );
 
@@ -73,7 +78,7 @@ class _AudioList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: StreamBuilder<List<AudioModel>>(
-        stream: repositories.readAudio(),
+        stream: repositories.readAudioSort('all'),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Padding(
@@ -148,6 +153,8 @@ class PopupMenuHomePage extends StatelessWidget {
     required this.done,
     required this.dateTime,
     required this.searchName,
+    required this.idAudio,
+    required this.collection,
   }) : super(key: key);
   final AudioRepositories repositories = AudioRepositories();
   final String name;
@@ -157,7 +164,11 @@ class PopupMenuHomePage extends StatelessWidget {
   final bool done;
   final String dateTime;
   final List searchName;
+  final String idAudio;
+  final List collection;
   void init(BuildContext context) {
+    context.read<SavePageModel>().setCollection(collection);
+    context.read<SavePageModel>().setIdAudio(idAudio);
     context.read<SavePageModel>().setAudioName(name);
     context.read<SavePageModel>().setAudioUrl(url);
     context.read<SavePageModel>().setDuration(duration);

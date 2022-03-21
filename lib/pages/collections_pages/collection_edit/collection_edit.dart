@@ -24,17 +24,17 @@ class CollectionsEdit extends StatelessWidget {
             children: [
               Expanded(
                 child: Stack(
-                  children: const [
+                  children: [
                     AppbarHeaderEdit(),
-                    PhotoContainer(),
+                    const PhotoContainer(),
                   ],
                 ),
               ),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    SubTitleCollectionEdit(),
+                  children: [
+                    const SubTitleCollectionEdit(),
                     ButtonAddAudio(),
                   ],
                 ),

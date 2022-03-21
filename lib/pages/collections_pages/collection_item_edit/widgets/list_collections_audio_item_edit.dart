@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/player_mini/player_mini.dart';
-import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:provider/src/provider.dart';
 
 class ListCollectionsAudioItemEdit extends StatelessWidget {
@@ -16,6 +14,9 @@ class ListCollectionsAudioItemEdit extends StatelessWidget {
       duration: '${audio.duration}',
       url: '${audio.audioUrl}',
       name: '${audio.audioName}',
+      done: audio.done!,
+      id: '${audio.id}',
+      collection: audio.collections!,
       popupMenu: const Padding(
         padding: EdgeInsets.only(right: 16.0),
         child: Icon(
@@ -30,8 +31,8 @@ class ListCollectionsAudioItemEdit extends StatelessWidget {
       children: [
         SizedBox(
           child: StreamBuilder<List<AudioModel>>(
-            stream: repositories.readAudioPodbirka(
-                '${context.watch<CollectionsItemPageModel>().getTitle}'),
+            stream: repositories.readAudioSort(
+                context.watch<CollectionsItemPageModel>().getIdCollection),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return const Text('Ошибка');

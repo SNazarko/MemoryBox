@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/collections_pages/collection_add_audio/widgets/done_widget/done_widget.dart';
 import 'package:memory_box/resources/app_colors.dart';
@@ -14,11 +12,15 @@ class PlayerMiniPodborki extends StatefulWidget {
     required this.name,
     required this.duration,
     required this.done,
+    required this.id,
+    required this.collection,
   }) : super(key: key);
   final String url;
   final String name;
   final String duration;
   final bool done;
+  final String id;
+  final List collection;
 
   @override
   State<PlayerMiniPodborki> createState() => _PlayerMiniPodborkiState();
@@ -125,13 +127,6 @@ class _PlayerMiniPodborkiState extends State<PlayerMiniPodborki> {
         child: Row(
           children: [
             _buildControl(),
-            // Container(
-            //   width: 70.0,
-            //   height: 70.0,
-            //   child: Image.asset(
-            //     'assets/images/4x/play_aud.png',
-            //   ),
-            // ),
             Padding(
               padding: const EdgeInsets.only(left: 20.0),
               child: Column(
@@ -160,10 +155,9 @@ class _PlayerMiniPodborkiState extends State<PlayerMiniPodborki> {
               child: SizedBox(),
             ),
             DoneWidget(
-              name: widget.name,
+              id: widget.id,
               done: widget.done,
-              duration: widget.duration,
-              audio: widget.url,
+              collection: widget.collection,
             )
           ],
         ),

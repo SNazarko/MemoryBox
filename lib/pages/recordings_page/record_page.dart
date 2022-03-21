@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/view_model.dart';
@@ -17,6 +18,19 @@ import 'package:provider/provider.dart';
 import 'package:record/record.dart';
 
 import 'model_recordings_page.dart';
+
+class _RecordPageArguments {
+  _RecordPageArguments({this.auth, this.user}) {
+    init();
+  }
+  FirebaseAuth? auth;
+  User? user;
+
+  void init() {
+    auth = FirebaseAuth.instance;
+    user = auth!.currentUser;
+  }
+}
 
 class RecordPage extends StatefulWidget {
   const RecordPage({Key? key}) : super(key: key);
@@ -408,6 +422,7 @@ class AudioPlayer extends StatefulWidget {
 }
 
 class _AudioPlayerState extends State<AudioPlayer> {
+  final _RecordPageArguments _arguments = _RecordPageArguments();
   static const double _controlSize = 56;
   static const double _deleteBtnSize = 24;
 
@@ -553,11 +568,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
         ),
         IconButton(
             onPressed: () {
-              LocalSaveAudioFile().saveAudioStorageDirectory(
-                Provider.of<ModelRP>(context, listen: false).getData,
-                _saveRecord,
-              );
-              _audioPlayer.stop().then((value) => widget.onDelete());
+              saveRecordLocal();
             },
             icon: Image.asset(AppIcons.rec_paper_download),
             padding: const EdgeInsets.symmetric(horizontal: 15.0)),
@@ -571,13 +582,9 @@ class _AudioPlayerState extends State<AudioPlayer> {
           padding: const EdgeInsets.only(left: 35.0),
           child: TextButton(
             onPressed: () {
-              AudioRepositories().uploadAudio(
-                Provider.of<ModelRP>(context, listen: false).getData,
-                _saveRecord,
-                Provider.of<ModelRP>(context, listen: false).getDuration,
-                searchName,
-              );
-              _audioPlayer.stop().then((value) => widget.onDelete());
+              _arguments.user == null
+                  ? saveRecordLocal()
+                  : saveRecordsFirebase();
             },
             child: const Text(
               'Сохранить',
@@ -587,6 +594,24 @@ class _AudioPlayerState extends State<AudioPlayer> {
         ),
       ],
     );
+  }
+
+  void saveRecordLocal() {
+    LocalSaveAudioFile().saveAudioStorageDirectory(
+      Provider.of<ModelRP>(context, listen: false).getData,
+      _saveRecord,
+    );
+    _audioPlayer.stop().then((value) => widget.onDelete());
+  }
+
+  void saveRecordsFirebase() {
+    AudioRepositories().uploadAudio(
+      Provider.of<ModelRP>(context, listen: false).getData,
+      _saveRecord,
+      Provider.of<ModelRP>(context, listen: false).getDuration,
+      searchName,
+    );
+    _audioPlayer.stop().then((value) => widget.onDelete());
   }
 
   Widget _buildControl() {

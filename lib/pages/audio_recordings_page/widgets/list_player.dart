@@ -15,10 +15,18 @@ class ListPlayer extends StatelessWidget {
         duration: '${audio.duration}',
         url: '${audio.audioUrl}',
         name: '${audio.audioName}',
+        done: audio.done!,
+        id: '${audio.id}',
+        collection: audio.collections ?? [],
         popupMenu: PopupMenuAudioRecording(
           url: '${audio.audioUrl}',
           duration: '${audio.duration}',
           name: '${audio.audioName}',
+          dateTime: audio.dateTime!,
+          done: audio.done!,
+          searchName: audio.searchName!,
+          idAudio: '${audio.id}',
+          collection: audio.collections!,
         ),
       );
 
@@ -30,7 +38,7 @@ class ListPlayer extends StatelessWidget {
         SizedBox(
           height: screenHeight * 0.95,
           child: StreamBuilder<List<AudioModel>>(
-            stream: repositories.readAudio(),
+            stream: repositories.readAudioSort('all'),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return Column(

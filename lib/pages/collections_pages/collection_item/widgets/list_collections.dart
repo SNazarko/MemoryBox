@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/collection_item_edit_audio.dart';
@@ -10,6 +8,7 @@ import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:provider/provider.dart';
 import '../../../save_page/save_page.dart';
+import '../../../save_page/save_page_model.dart';
 import '../collections_item_page_model.dart';
 
 class ListCollectionsAudio extends StatelessWidget {
@@ -20,19 +19,27 @@ class ListCollectionsAudio extends StatelessWidget {
         duration: '${audio.duration}',
         url: '${audio.audioUrl}',
         name: '${audio.audioName}',
+        done: audio.done!,
+        id: '${audio.id}',
+        collection: audio.collections ?? [],
         popupMenu: _PopupMenuPlayerMini(
           image: '',
           duration: '${audio.duration}',
           name: '${audio.audioName}',
           url: '${audio.audioUrl}',
+          done: audio.done!,
+          searchName: audio.searchName!,
+          dateTime: audio.dateTime!,
+          collection: audio.collections!,
+          idAudio: '${audio.id}',
         ),
       );
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       child: StreamBuilder<List<AudioModel>>(
-        stream: repositories.readAudioPodbirka(
-            '${context.watch<CollectionsItemPageModel>().getTitle}'),
+        stream: repositories.readAudioSort(
+            context.watch<CollectionsItemPageModel>().getIdCollection),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Text('Ошибка');
@@ -61,6 +68,11 @@ class _PopupMenuPlayerMini extends StatelessWidget {
     required this.url,
     required this.duration,
     required this.image,
+    required this.dateTime,
+    required this.searchName,
+    required this.done,
+    required this.idAudio,
+    required this.collection,
   }) : super(key: key);
   final AudioRepositories repositories = AudioRepositories();
   final CollectionsRepositories collectionsRepositories =
@@ -69,6 +81,21 @@ class _PopupMenuPlayerMini extends StatelessWidget {
   final String url;
   final String duration;
   final String image;
+  final String dateTime;
+  final List searchName;
+  final bool done;
+  final String idAudio;
+  final List collection;
+  void init(BuildContext context) {
+    context.read<SavePageModel>().setCollection(collection);
+    context.read<SavePageModel>().setIdAudio(idAudio);
+    context.read<SavePageModel>().setAudioName(name);
+    context.read<SavePageModel>().setAudioUrl(url);
+    context.read<SavePageModel>().setDuration(duration);
+    context.read<SavePageModel>().setDone(done);
+    context.read<SavePageModel>().setDateTime(dateTime);
+    context.read<SavePageModel>().setSearchName(searchName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +114,7 @@ class _PopupMenuPlayerMini extends StatelessWidget {
           'Переименовать',
           () {
             Timer(const Duration(seconds: 1), () {
+              init(context);
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return SavePage(
                   image:
@@ -110,14 +138,14 @@ class _PopupMenuPlayerMini extends StatelessWidget {
         popupMenuItem(
           'Удалить ',
           () {
-            Timer(const Duration(seconds: 1), () {
-              // Navigator.pushNamed(context, CollectionItemEditAudio.routeName);
-              collectionsRepositories.doneAudioItem(
-                  Provider.of<CollectionsItemPageModel>(context, listen: false)
-                      .getTitle,
-                  name,
-                  false);
-            });
+            // Timer(const Duration(seconds: 1), () {
+            //   // Navigator.pushNamed(context, CollectionItemEditAudio.routeName);
+            //   collectionsRepositories.doneAudioItem(
+            //       Provider.of<CollectionsItemPageModel>(context, listen: false)
+            //           .getTitle,
+            //       name,
+            //       false);
+            // });
           },
         ),
         popupMenuItem(

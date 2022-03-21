@@ -6,17 +6,21 @@ import 'package:memory_box/resources/app_colors.dart';
 import 'package:provider/src/provider.dart';
 
 class DoneCollectionItemEditAudio extends StatefulWidget {
-  const DoneCollectionItemEditAudio(
-      {Key? key,
-      required this.name,
-      required this.done,
-      this.audio,
-      this.duration})
-      : super(key: key);
+  const DoneCollectionItemEditAudio({
+    Key? key,
+    required this.id,
+    required this.name,
+    required this.done,
+    this.audio,
+    this.duration,
+    this.collection,
+  }) : super(key: key);
+  final String? id;
   final String? name;
   final String? audio;
   final String? duration;
   final bool? done;
+  final List? collection;
 
   @override
   State<DoneCollectionItemEditAudio> createState() =>
@@ -26,15 +30,6 @@ class DoneCollectionItemEditAudio extends StatefulWidget {
 class _DoneCollectionItemEditAudioState
     extends State<DoneCollectionItemEditAudio> {
   final CollectionsRepositories repositories = CollectionsRepositories();
-  bool done = true;
-
-  @override
-  void initState() {
-    setState(() {
-      done = widget.done!;
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +38,15 @@ class _DoneCollectionItemEditAudioState
       padding: const EdgeInsets.all(12.0),
       child: GestureDetector(
         onTap: () {
-          // setState(() {});
-          done = !done;
-          repositories.doneAudioItem(
-              '${Provider.of<CollectionsItemPageModel>(context, listen: false).getTitle}',
-              widget.name!,
-              done);
+          repositories.addAudioCollections(
+              Provider.of<CollectionsItemPageModel>(context, listen: false)
+                  .getIdCollection,
+              widget.id!,
+              widget.collection!,
+              !widget.collection!.contains(
+                  Provider.of<CollectionsItemPageModel>(context, listen: false)
+                      .getIdCollection));
+          setState(() {});
         },
         child: Container(
           width: 40,
@@ -62,59 +60,16 @@ class _DoneCollectionItemEditAudioState
           child: Center(
             child: Icon(
               Icons.done,
-              color: done ? AppColor.colorText : AppColor.white,
+              color: widget.collection!.contains(
+                      Provider.of<CollectionsItemPageModel>(context,
+                              listen: false)
+                          .getIdCollection)
+                  ? AppColor.colorText
+                  : AppColor.white,
             ),
           ),
         ),
       ),
     );
-
-    //   Padding(
-    //   padding: const EdgeInsets.all(0.0),
-    //   child: Stack(
-    //     children: [
-    //       GestureDetector(
-    //         onTap: () {
-    //           repositories.doneAudioItem(widget.name!, doneProvider);
-    //           context.read<ModelDone>().doneWidget();
-    //           done = !done;
-    //           if (done) {
-    //             repositories.addAudioForCollection(
-    //               Provider.of<CollectionsEditModel>(context, listen: false)
-    //                   .getTitle,
-    //               widget.name!,
-    //               widget.audio!,
-    //               widget.duration!,
-    //               done,
-    //             );
-    //           }
-    //           if (!done) {
-    //             repositories.deleteAudioForCollection(
-    //               Provider.of<CollectionsEditModel>(context, listen: false)
-    //                   .getTitle,
-    //               widget.name!,
-    //             );
-    //           }
-    //         },
-    //         child: Container(
-    //           width: 30,
-    //           height: 30,
-    //           decoration: BoxDecoration(
-    //             border: Border.all(color: AppColor.colorText),
-    //             borderRadius: const BorderRadius.all(
-    //               Radius.circular(25.0),
-    //             ),
-    //           ),
-    //           child: Center(
-    //             child: Icon(
-    //               Icons.done,
-    //               color: done ? AppColor.colorText : AppColor.white,
-    //             ),
-    //           ),
-    //         ),
-    //       )
-    //     ],
-    //   ),
-    // );
   }
 }

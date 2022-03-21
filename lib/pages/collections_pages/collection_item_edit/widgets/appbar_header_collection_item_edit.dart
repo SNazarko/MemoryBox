@@ -38,11 +38,9 @@ class AppbarHeaderCollectionItemEditState
   }
 
   void editCollections(BuildContext context) {
-    _repositories.addCollections(
-      Provider.of<CollectionItemEditPageModel>(context, listen: false)
-              .getTitleCollectionsEdit ??
-          Provider.of<CollectionsItemPageModel>(context, listen: false)
-              .getTitle,
+    _repositories.updateCollection(
+      Provider.of<CollectionsItemPageModel>(context, listen: false)
+          .getIdCollection,
       Provider.of<CollectionItemEditPageModel>(context, listen: false)
               .getTitleCollectionsEdit ??
           Provider.of<CollectionsItemPageModel>(context, listen: false)
@@ -56,13 +54,32 @@ class AppbarHeaderCollectionItemEditState
           Provider.of<CollectionsItemPageModel>(context, listen: false)
               .getPhoto,
     );
-    _repositories.copyPastAudioCollections(
-        '${Provider.of<CollectionsItemPageModel>(context, listen: false).getTitle}',
-        '${Provider.of<CollectionItemEditPageModel>(context, listen: false).getTitleCollectionsEdit}');
-    _repositories.deleteCollection(
-      '${Provider.of<CollectionsItemPageModel>(context, listen: false).getTitle}',
-      'CollectionsTale',
-    );
+
+    // _repositories.addCollections(
+    //   Provider.of<CollectionItemEditPageModel>(context, listen: false)
+    //           .getTitleCollectionsEdit ??
+    //       Provider.of<CollectionsItemPageModel>(context, listen: false)
+    //           .getTitle,
+    //   Provider.of<CollectionItemEditPageModel>(context, listen: false)
+    //           .getTitleCollectionsEdit ??
+    //       Provider.of<CollectionsItemPageModel>(context, listen: false)
+    //           .getTitle,
+    //   Provider.of<CollectionItemEditPageModel>(context, listen: false)
+    //           .getSubTitleCollectionsEdit ??
+    //       Provider.of<CollectionsItemPageModel>(context, listen: false)
+    //           .getSubTitle,
+    //   Provider.of<CollectionItemEditPageModel>(context, listen: false)
+    //           .getAvatarCollectionsEdit ??
+    //       Provider.of<CollectionsItemPageModel>(context, listen: false)
+    //           .getPhoto,
+    // );
+    // _repositories.copyPastAudioCollections(
+    //     '${Provider.of<CollectionsItemPageModel>(context, listen: false).getTitle}',
+    //     '${Provider.of<CollectionItemEditPageModel>(context, listen: false).getTitleCollectionsEdit}');
+    // _repositories.deleteCollection(
+    //   '${Provider.of<CollectionsItemPageModel>(context, listen: false).getTitle}',
+    //   'CollectionsTale',
+    // );
     Navigator.pushNamed(context, Collections.routeName);
   }
 

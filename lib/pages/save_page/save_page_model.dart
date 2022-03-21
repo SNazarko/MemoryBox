@@ -1,13 +1,28 @@
 import 'package:flutter/cupertino.dart';
 
 class SavePageModel extends ChangeNotifier {
+  String? _idAudio;
   String? _audioName;
   String? _audioUrl;
   String? _duration;
   bool? _done;
   String? _dateTime;
+  List? _newSearchName;
   List? _searchName;
+  List? _collection;
   String? _newAudioName;
+
+  get getIdAudio => _idAudio;
+  void setIdAudio(String idAudio) {
+    _idAudio = idAudio;
+    notifyListeners();
+  }
+
+  get getCollection => _collection;
+  void setCollection(List collection) {
+    _collection = collection;
+    notifyListeners();
+  }
 
   get getNewAudioName => _newAudioName;
   void setNewAudioName(String newAudioName) {
@@ -48,6 +63,12 @@ class SavePageModel extends ChangeNotifier {
   get getSearchName => _searchName;
   void setSearchName(List searchName) {
     _searchName = searchName;
+    notifyListeners();
+  }
+
+  get getNewSearchName => _newSearchName;
+  void setNewSearchName(List newSearchName) {
+    _newSearchName = newSearchName;
     notifyListeners();
   }
 }

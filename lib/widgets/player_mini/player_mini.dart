@@ -7,17 +7,24 @@ import 'package:just_audio/just_audio.dart' as ap;
 import 'package:memory_box/resources/app_icons.dart';
 
 class PlayerMini extends StatefulWidget {
-  const PlayerMini(
-      {Key? key,
-      required this.url,
-      required this.name,
-      required this.duration,
-      required this.popupMenu})
-      : super(key: key);
+  const PlayerMini({
+    Key? key,
+    required this.url,
+    required this.name,
+    required this.duration,
+    required this.popupMenu,
+    required this.done,
+    required this.id,
+    required this.collection,
+  }) : super(key: key);
   final String url;
   final String name;
   final String duration;
   final Widget popupMenu;
+  final bool done;
+  final String id;
+  final List collection;
+
   @override
   State<PlayerMini> createState() => _PlayerMiniState();
 }

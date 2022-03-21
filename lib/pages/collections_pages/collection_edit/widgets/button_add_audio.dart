@@ -5,10 +5,11 @@ import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../repositories/audio_repositories.dart';
 import '../collection_edit_model.dart';
 
 class ButtonAddAudio extends StatelessWidget {
-  const ButtonAddAudio({Key? key}) : super(key: key);
+  ButtonAddAudio({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +29,12 @@ class ButtonAddAudio extends StatelessWidget {
                     .getImage ??
                 '',
           );
-          CollectionsRepositories().addAudioCollections(
-            Provider.of<CollectionsEditModel>(context, listen: false)
-                    .getTitle ??
-                '',
-          );
+
+          // CollectionsRepositories().addAudioCollections(
+          //   Provider.of<CollectionsEditModel>(context, listen: false)
+          //           .getTitle ??
+          //       '',
+          // );
 
           Navigator.pushNamed(context, CollectionsAddAudio.routeName);
         },

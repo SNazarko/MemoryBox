@@ -2,11 +2,18 @@ import 'package:flutter/cupertino.dart';
 
 class CollectionsItemPageModel extends ChangeNotifier {
   String? _title;
+  String? _idCollection;
   String? _subTitle;
   String? _photo;
   String? _data;
   String? _quality;
   double? _anim = 0.0;
+
+  get getIdCollection => _idCollection;
+  void setIdCollection(String idCollection) {
+    _idCollection = idCollection;
+    notifyListeners();
+  }
 
   get getData => _data;
   void setData(String data) {

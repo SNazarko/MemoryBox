@@ -28,10 +28,11 @@ class CancelDoneSavePage extends StatelessWidget {
           TextButton(
               onPressed: () {
                 repositories.renameAudio(
+                  Provider.of<SavePageModel>(context, listen: false).getIdAudio,
                   Provider.of<SavePageModel>(context, listen: false)
-                      .getAudioName,
-                  Provider.of<SavePageModel>(context, listen: false)
-                      .getNewAudioName,
+                          .getNewAudioName ??
+                      Provider.of<SavePageModel>(context, listen: false)
+                          .getAudioName,
                   Provider.of<SavePageModel>(context, listen: false)
                       .getAudioUrl,
                   Provider.of<SavePageModel>(context, listen: false)
@@ -39,9 +40,28 @@ class CancelDoneSavePage extends StatelessWidget {
                   Provider.of<SavePageModel>(context, listen: false)
                       .getDateTime,
                   Provider.of<SavePageModel>(context, listen: false)
-                      .getSearchName,
+                          .getNewSearchName ??
+                      Provider.of<SavePageModel>(context, listen: false)
+                          .getSearchName,
+                  Provider.of<SavePageModel>(context, listen: false)
+                      .getCollection,
                   Provider.of<SavePageModel>(context, listen: false).getDone,
                 );
+                // repositories.renameAudio(
+                //   Provider.of<SavePageModel>(context, listen: false)
+                //       .getAudioName,
+                //   Provider.of<SavePageModel>(context, listen: false)
+                //       .getNewAudioName,
+                //   Provider.of<SavePageModel>(context, listen: false)
+                //       .getAudioUrl,
+                //   Provider.of<SavePageModel>(context, listen: false)
+                //       .getDuration,
+                //   Provider.of<SavePageModel>(context, listen: false)
+                //       .getDateTime,
+                //   Provider.of<SavePageModel>(context, listen: false)
+                //       .getSearchName,
+                //   Provider.of<SavePageModel>(context, listen: false).getDone,
+                // );
                 Navigator.pop(context);
               },
               child: const Text(

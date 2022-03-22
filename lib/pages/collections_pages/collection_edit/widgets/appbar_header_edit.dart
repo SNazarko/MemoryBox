@@ -70,8 +70,30 @@ class _AppbarHeaderEditState extends State<AppbarHeaderEdit> {
   //   super.initState();
   // }
 
+  void updateCollection(BuildContext context) {
+    CollectionsRepositories().updateCollection(
+      Provider.of<CollectionsEditModel>(context, listen: false).getId,
+      Provider.of<CollectionsEditModel>(context, listen: false).getTitle,
+      Provider.of<CollectionsEditModel>(context, listen: false).getSubTitle,
+      Provider.of<CollectionsEditModel>(context, listen: false).getImage,
+      // quality.length
+    );
+  }
+
+  void addCollections(BuildContext context) {
+    CollectionsRepositories().addCollections(
+      Provider.of<CollectionsEditModel>(context, listen: false).getTitle ?? '',
+      Provider.of<CollectionsEditModel>(context, listen: false).getTitle ?? '',
+      Provider.of<CollectionsEditModel>(context, listen: false).getSubTitle ??
+          '',
+      Provider.of<CollectionsEditModel>(context, listen: false).getImage ?? '',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final state =
+        Provider.of<CollectionsEditModel>(context, listen: false).getId;
     return Stack(
       children: [
         Container(),
@@ -104,17 +126,10 @@ class _AppbarHeaderEditState extends State<AppbarHeaderEdit> {
               ),
               TextButton(
                   onPressed: () {
-                    CollectionsRepositories().updateCollection(
-                      Provider.of<CollectionsEditModel>(context, listen: false)
-                          .getId,
-                      Provider.of<CollectionsEditModel>(context, listen: false)
-                          .getTitle,
-                      Provider.of<CollectionsEditModel>(context, listen: false)
-                          .getSubTitle,
-                      Provider.of<CollectionsEditModel>(context, listen: false)
-                          .getImage,
-                      // quality.length
-                    );
+                    state == null
+                        ? addCollections(context)
+                        : updateCollection(context);
+
                     Navigator.pop(context);
                   },
                   child: const Text(

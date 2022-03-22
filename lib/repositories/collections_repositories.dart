@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 import 'package:memory_box/models/collections_model.dart';
 import 'package:uuid/uuid.dart';
 
@@ -34,18 +35,17 @@ class CollectionsRepositories {
     String avatarCollections,
   ) async {
     var id = uuid.v1();
-    final QuerySnapshot qSnap = await FirebaseFirestore.instance
+    FirebaseFirestore.instance
         .collection(user!.phoneNumber!)
         .doc('id')
         .collection('CollectionsTale')
         .doc(nameCollection)
         .collection('Audio')
         .get();
-    final int documents = qSnap.docs.length;
     final _todayDate = DateTime.now();
     final model = CollectionsModel(
       id: id,
-      qualityCollections: documents,
+      qualityCollections: 0,
       titleCollections: titleCollections,
       subTitleCollections: subTitleCollections,
       avatarCollections: avatarCollections,
@@ -56,6 +56,7 @@ class CollectionsRepositories {
         '.',
         yy,
       ]),
+      totalTime: '00:00',
       doneCollection: false,
     );
     final json = model.toJson();
@@ -194,12 +195,45 @@ class CollectionsRepositories {
     String nameCollection,
     String subTitleCollections,
     String avatarCollections,
-    // int qualityCollections,
   ) async {
+    final List quality = [];
+    final List<int> duration = <int>[];
+    var sum = 0;
+
+    await FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('id')
+        .collection('Collections')
+        .where('collections', arrayContainsAny: [idCollection])
+        .get()
+        .then((querySnapshot) {
+          for (var result in querySnapshot.docs) {
+            final String time = result.data()['duration'];
+            final collection = result.data();
+            quality.add(collection);
+            final timeTemp = time.replaceFirst(':', ',');
+            final String minutes = timeTemp.split(',').elementAt(0);
+            int minutesInt = int.tryParse(minutes) ?? 0;
+            duration.add(minutesInt);
+          }
+        });
+    for (int i = 0; i < duration.length; ++i) {
+      sum = sum + duration[i];
+    }
+    String formatNumber(int number) {
+      String numberStr = number.toString();
+      if (number < 10) {
+        numberStr = '0' + numberStr;
+      }
+      return numberStr;
+    }
+
+    final String hour = formatNumber(sum ~/ 60);
+    final String minutes = formatNumber(sum % 60);
     final _todayDate = DateTime.now();
     final model = CollectionsModel(
       id: idCollection,
-      // qualityCollections: qualityCollections,
+      qualityCollections: quality.length,
       titleCollections: nameCollection,
       subTitleCollections: subTitleCollections,
       avatarCollections: avatarCollections,
@@ -210,10 +244,11 @@ class CollectionsRepositories {
         '.',
         yy,
       ]),
+      totalTime: '$hour:$minutes',
       doneCollection: false,
     );
     final json = model.toJson();
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection(user!.phoneNumber!)
         .doc('id')
         .collection('CollectionsTale')

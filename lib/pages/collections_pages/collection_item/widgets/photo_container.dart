@@ -49,8 +49,8 @@ class PhotoContainer extends StatelessWidget {
                             '${context.watch<CollectionsItemPageModel>().getQuality} аудио',
                             style: kTitle2TextStyle,
                           ),
-                          const Text(
-                            '2:30 часа',
+                          Text(
+                            '${context.watch<CollectionsItemPageModel>().getTotalTime} часа',
                             style: kTitle2TextStyle,
                           ),
                         ],
@@ -97,8 +97,8 @@ class PhotoContainer extends StatelessWidget {
                             '${context.watch<CollectionsItemPageModel>().getQuality} аудио',
                             style: kTitle2TextStyle,
                           ),
-                          const Text(
-                            '2:30 часа',
+                          Text(
+                            '${context.watch<CollectionsItemPageModel>().getTotalTime} часа',
                             style: kTitle2TextStyle,
                           ),
                         ],

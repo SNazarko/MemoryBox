@@ -6,8 +6,15 @@ class CollectionsItemPageModel extends ChangeNotifier {
   String? _subTitle;
   String? _photo;
   String? _data;
+  String? _totalTime;
   String? _quality;
   double? _anim = 0.0;
+
+  get getTotalTime => _totalTime;
+  void setTotalTime(String totalTime) {
+    _totalTime = totalTime;
+    notifyListeners();
+  }
 
   get getIdCollection => _idCollection;
   void setIdCollection(String idCollection) {

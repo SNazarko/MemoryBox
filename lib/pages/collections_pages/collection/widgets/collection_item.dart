@@ -153,6 +153,7 @@ class CollectionItem extends StatelessWidget {
         context.read<CollectionsItemPageModel>().setPhoto(image!);
         context.read<CollectionsItemPageModel>().setData(data!);
         context.read<CollectionsItemPageModel>().setQuality(quality!);
+        context.read<CollectionsItemPageModel>().setTotalTime(totalTime!);
         Navigator.pushNamed(
           context,
           CollectionsItemPage.routeName,
@@ -177,12 +178,13 @@ class CollectionItem extends StatelessWidget {
                     color: Colors.grey,
                   ),
             Padding(
-              padding: const EdgeInsets.only(left: 10, right: 5, bottom: 10),
+              padding: const EdgeInsets.only(left: 10, right: 5, bottom: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Expanded(
+                  Flexible(
+                    flex: 10,
                     child: Text(
                       title!,
                       overflow: TextOverflow.ellipsis,
@@ -194,14 +196,19 @@ class CollectionItem extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Expanded(
+                  const SizedBox(
+                    width: 5.0,
+                  ),
+                  Flexible(
+                    flex: 10,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           '$quality аудио',
                           style: const TextStyle(
-                            fontSize: 14.0,
+                            fontSize: 12.0,
                             fontWeight: FontWeight.w400,
                             color: AppColor.white100,
                           ),
@@ -209,7 +216,7 @@ class CollectionItem extends StatelessWidget {
                         Text(
                           '$totalTime часа',
                           style: const TextStyle(
-                            fontSize: 14.0,
+                            fontSize: 12.0,
                             fontWeight: FontWeight.w400,
                             color: AppColor.white100,
                           ),

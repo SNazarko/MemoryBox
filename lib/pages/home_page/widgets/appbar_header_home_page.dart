@@ -10,7 +10,7 @@ import '../../../widgets/home_page_containers/green_container.dart';
 import '../../../widgets/home_page_containers/orange_container.dart';
 
 class AppbarHeaderHomePage extends StatelessWidget {
-  AppbarHeaderHomePage({Key? key}) : super(key: key);
+  const AppbarHeaderHomePage({Key? key}) : super(key: key);
   final bool shouldPop = false;
 
   @override
@@ -104,7 +104,7 @@ class _ContainerModel extends StatelessWidget {
     required this.image,
     required this.title,
     required this.quality,
-    required this.time,
+    required this.totalTime,
     required this.height,
     required this.boxFit,
   }) : super(key: key);
@@ -114,7 +114,7 @@ class _ContainerModel extends StatelessWidget {
   final String image;
   final String title;
   final String quality;
-  final String time;
+  final String totalTime;
 
   Widget imageInContainer(String image, double screenWidth) {
     if (image != '') {
@@ -159,7 +159,8 @@ class _ContainerModel extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Expanded(
+                    Flexible(
+                      flex: 10,
                       child: Text(
                         title,
                         overflow: TextOverflow.ellipsis,
@@ -171,21 +172,23 @@ class _ContainerModel extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Expanded(
+                    Flexible(
+                      flex: 8,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
-                        children: const [
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
                           Text(
-                            '7 аудио',
-                            style: TextStyle(
+                            '$quality аудио',
+                            style: const TextStyle(
                               fontSize: 12.0,
                               fontWeight: FontWeight.w400,
                               color: AppColor.white100,
                             ),
                           ),
                           Text(
-                            '3:33 часа',
-                            style: TextStyle(
+                            '$totalTime часа',
+                            style: const TextStyle(
                               fontSize: 12.0,
                               fontWeight: FontWeight.w400,
                               color: AppColor.white100,
@@ -220,7 +223,7 @@ class _BlueListCollections extends StatelessWidget {
   Widget buildCollections(CollectionsModel collections) => _ContainerModel(
         image: '${collections.avatarCollections}',
         title: '${collections.titleCollections}',
-        time: '${collections.data}',
+        totalTime: '${collections.totalTime}',
         quality: '${collections.qualityCollections}',
         screenWidth: screenWidth,
         height: 95.0,
@@ -281,7 +284,7 @@ class _OrangeListCollections extends StatelessWidget {
   Widget buildCollections(CollectionsModel collections) => _ContainerModel(
         image: '${collections.avatarCollections}',
         title: '${collections.titleCollections}',
-        time: '${collections.data}',
+        totalTime: '${collections.totalTime}',
         quality: '${collections.qualityCollections}',
         screenWidth: screenWidth,
         boxFit: BoxFit.fitWidth,
@@ -343,7 +346,7 @@ class _GreenListCollections extends StatelessWidget {
   Widget buildCollections(CollectionsModel collections) => _ContainerModel(
         image: '${collections.avatarCollections}',
         title: '${collections.titleCollections}',
-        time: '${collections.data}',
+        totalTime: '${collections.totalTime}',
         quality: '${collections.qualityCollections}',
         screenWidth: screenWidth,
         boxFit: BoxFit.fitHeight,

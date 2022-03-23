@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/collections_pages/collection/collection.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
@@ -54,32 +53,6 @@ class AppbarHeaderCollectionItemEditState
           Provider.of<CollectionsItemPageModel>(context, listen: false)
               .getPhoto,
     );
-
-    // _repositories.addCollections(
-    //   Provider.of<CollectionItemEditPageModel>(context, listen: false)
-    //           .getTitleCollectionsEdit ??
-    //       Provider.of<CollectionsItemPageModel>(context, listen: false)
-    //           .getTitle,
-    //   Provider.of<CollectionItemEditPageModel>(context, listen: false)
-    //           .getTitleCollectionsEdit ??
-    //       Provider.of<CollectionsItemPageModel>(context, listen: false)
-    //           .getTitle,
-    //   Provider.of<CollectionItemEditPageModel>(context, listen: false)
-    //           .getSubTitleCollectionsEdit ??
-    //       Provider.of<CollectionsItemPageModel>(context, listen: false)
-    //           .getSubTitle,
-    //   Provider.of<CollectionItemEditPageModel>(context, listen: false)
-    //           .getAvatarCollectionsEdit ??
-    //       Provider.of<CollectionsItemPageModel>(context, listen: false)
-    //           .getPhoto,
-    // );
-    // _repositories.copyPastAudioCollections(
-    //     '${Provider.of<CollectionsItemPageModel>(context, listen: false).getTitle}',
-    //     '${Provider.of<CollectionItemEditPageModel>(context, listen: false).getTitleCollectionsEdit}');
-    // _repositories.deleteCollection(
-    //   '${Provider.of<CollectionsItemPageModel>(context, listen: false).getTitle}',
-    //   'CollectionsTale',
-    // );
     Navigator.pushNamed(context, Collections.routeName);
   }
 

@@ -6,6 +6,7 @@ import 'package:memory_box/pages/audio_recordings_page/widgets/appbar_header_aud
 import 'package:memory_box/pages/audio_recordings_page/widgets/appbar_header_audio_recordings_not_authorization.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/list_player.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/list_player_not_authorization.dart';
+import '../../repositories/user_repositories.dart';
 import '../../resources/constants.dart';
 
 class _AudioRecordingsPageArguments {
@@ -50,10 +51,15 @@ class AudioRecordingsPage extends StatelessWidget {
           actions: [
             arguments.user == null
                 ? const SizedBox()
-                : const Icon(
-                    Icons.more_horiz,
-                    color: Colors.white,
-                    size: 40.0,
+                : GestureDetector(
+                    onTap: () {
+                      UserRepositories().updateTotalTimeQuality();
+                    },
+                    child: const Icon(
+                      Icons.more_horiz,
+                      color: Colors.white,
+                      size: 40.0,
+                    ),
                   ),
           ],
         ),
@@ -68,7 +74,7 @@ class AudioRecordingsPage extends StatelessWidget {
                       : ListPlayer(),
                   arguments.user == null
                       ? const AppbarHeaderAudioRecordingsNotAuthorization()
-                      : const AppbarHeaderAudioRecordings(),
+                      : AppbarHeaderAudioRecordings(),
                 ],
               ),
             ],

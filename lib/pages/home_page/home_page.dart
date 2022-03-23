@@ -53,7 +53,7 @@ class HomePage extends StatelessWidget {
                 flex: 8,
                 child: arguments.user == null
                     ? const AppbarHeaderHomePageNotIsAuthorization()
-                    : AppbarHeaderHomePage(),
+                    : const AppbarHeaderHomePage(),
               ),
               Expanded(
                   flex: 11,

@@ -33,10 +33,57 @@ class UserRepositories {
     );
   }
 
+  Future<void> updateTotalTimeQuality() async {
+    final List quality = [];
+    final List<int> duration = <int>[];
+    var sum = 0;
+
+    await FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('id')
+        .collection('Collections')
+        .where('collections', arrayContainsAny: ['all'])
+        .get()
+        .then((querySnapshot) {
+          for (var result in querySnapshot.docs) {
+            final String time = result.data()['duration'];
+            final collection = result.data();
+            quality.add(collection);
+            final timeTemp = time.replaceFirst(':', ',');
+            final String minutes = timeTemp.split(',').elementAt(0);
+            int minutesInt = int.tryParse(minutes) ?? 0;
+            duration.add(minutesInt);
+          }
+        });
+    for (int i = 0; i < duration.length; ++i) {
+      sum = sum + duration[i];
+    }
+    String formatNumber(int number) {
+      String numberStr = number.toString();
+      if (number < 10) {
+        numberStr = '0' + numberStr;
+      }
+      return numberStr;
+    }
+
+    final String hour = formatNumber(sum ~/ 60);
+    final String minutes = formatNumber(sum % 60);
+    await FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('user')
+        .update({
+      'totalQuality': duration.length,
+      'totalTime': '$hour:$minutes',
+    });
+  }
+
   Future<void> updateNameNumber(
       String name, String number, String image) async {
-    final model =
-        UserModel(displayName: name, phoneNumb: number, avatarUrl: image);
+    final model = UserModel(
+      displayName: name,
+      phoneNumb: number,
+      avatarUrl: image,
+    );
     final json = model.toJson();
     await FirebaseFirestore.instance
         .collection(user!.phoneNumber!)

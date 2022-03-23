@@ -17,6 +17,7 @@ import 'package:memory_box/widgets/slider.dart';
 import 'package:provider/provider.dart';
 import 'package:record/record.dart';
 
+import '../../repositories/user_repositories.dart';
 import 'model_recordings_page.dart';
 
 class _RecordPageArguments {
@@ -611,6 +612,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
       Provider.of<ModelRP>(context, listen: false).getDuration,
       searchName,
     );
+    UserRepositories().updateTotalTimeQuality();
     _audioPlayer.stop().then((value) => widget.onDelete());
   }
 

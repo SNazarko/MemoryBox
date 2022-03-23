@@ -12,14 +12,14 @@ class ListCollections extends StatelessWidget {
   final CollectionsRepositories repositories = CollectionsRepositories();
 
   Widget buildCollections(CollectionsModel collections) => CollectionItem(
-        id: '${collections.id}',
-        image: '${collections.avatarCollections}',
-        title: '${collections.titleCollections}',
-        subTitle: '${collections.subTitleCollections}',
-        data: '${collections.data}',
-        quality: '${collections.qualityCollections}',
-        doneCollection: collections.doneCollection,
-        totalTime: '${collections.totalTime}',
+        id: '${collections.id}' ?? '',
+        image: '${collections.avatarCollections}' ?? '',
+        title: '${collections.titleCollections}' ?? '',
+        subTitle: '${collections.subTitleCollections}' ?? '',
+        data: '${collections.data}' ?? '',
+        quality: '${collections.qualityCollections}' ?? '0',
+        doneCollection: collections.doneCollection ?? false,
+        totalTime: '${collections.totalTime}' ?? '00:00',
       );
 
   @override

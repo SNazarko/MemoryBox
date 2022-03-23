@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
-import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
-import 'package:provider/provider.dart';
 import 'done_collection_item_edit_audio.dart';
 
 class ListCollectionItemEditAudio extends StatelessWidget {

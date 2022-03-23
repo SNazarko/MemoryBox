@@ -46,6 +46,10 @@ class _DoneCollectionItemEditAudioState
               !widget.collection!.contains(
                   Provider.of<CollectionsItemPageModel>(context, listen: false)
                       .getIdCollection));
+          repositories.updateQualityAndTotalTime(
+            Provider.of<CollectionsItemPageModel>(context, listen: false)
+                .getIdCollection,
+          );
           setState(() {});
         },
         child: Container(

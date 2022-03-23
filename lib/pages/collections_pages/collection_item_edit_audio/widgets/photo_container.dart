@@ -1,14 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
 import 'package:provider/provider.dart';
+import '../../../../repositories/collections_repositories.dart';
 
-class PhotoContainer extends StatelessWidget {
-  const PhotoContainer({
+class PhotoContainerCollectionItemEditAudio extends StatelessWidget {
+  PhotoContainerCollectionItemEditAudio({
     Key? key,
   }) : super(key: key);
+  final CollectionsRepositories repositories = CollectionsRepositories();
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +51,8 @@ class PhotoContainer extends StatelessWidget {
                           '${context.watch<CollectionsItemPageModel>().getQuality} аудио',
                           style: kTitle2TextStyle,
                         ),
-                        const Text(
-                          '2:30 часа',
+                        Text(
+                          '${context.watch<CollectionsItemPageModel>().getTotalTime} часа',
                           style: kTitle2TextStyle,
                         ),
                       ],

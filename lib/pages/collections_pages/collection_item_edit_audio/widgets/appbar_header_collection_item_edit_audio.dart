@@ -144,7 +144,7 @@ class AppbarHeaderCollectionItemEditAudio extends StatelessWidget {
             children: [
               IconBack(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.pushNamed(context, Collections.routeName);
                 },
               ),
               const PopupMenuCollectionItemPage(),

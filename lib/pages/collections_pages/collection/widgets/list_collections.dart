@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/collections_model.dart';
@@ -20,6 +19,7 @@ class ListCollections extends StatelessWidget {
         data: '${collections.data}',
         quality: '${collections.qualityCollections}',
         doneCollection: collections.doneCollection,
+        totalTime: '${collections.totalTime}',
       );
 
   @override

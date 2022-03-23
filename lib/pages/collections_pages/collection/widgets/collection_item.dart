@@ -22,6 +22,7 @@ class CollectionItem extends StatelessWidget {
     this.data,
     this.doneCollection,
     this.id,
+    this.totalTime,
   }) : super(key: key);
   final String? id;
   final String? title;
@@ -29,6 +30,7 @@ class CollectionItem extends StatelessWidget {
   final String? quality;
   final String? image;
   final String? data;
+  final String? totalTime;
   final bool? doneCollection;
 
   void alertDone(BuildContext context) {
@@ -204,9 +206,9 @@ class CollectionItem extends StatelessWidget {
                             color: AppColor.white100,
                           ),
                         ),
-                        const Text(
-                          '3:33 часа',
-                          style: TextStyle(
+                        Text(
+                          '$totalTime часа',
+                          style: const TextStyle(
                             fontSize: 14.0,
                             fontWeight: FontWeight.w400,
                             color: AppColor.white100,

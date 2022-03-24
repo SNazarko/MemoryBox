@@ -173,7 +173,7 @@ class _ContainerModel extends StatelessWidget {
                       ),
                     ),
                     Flexible(
-                      flex: 8,
+                      flex: 9,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,

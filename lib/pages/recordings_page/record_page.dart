@@ -564,7 +564,9 @@ class _AudioPlayerState extends State<AudioPlayer> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            print(Provider.of<ModelRP>(context, listen: false).getData);
+          },
           icon: Image.asset(AppIcons.rec_upload),
         ),
         IconButton(

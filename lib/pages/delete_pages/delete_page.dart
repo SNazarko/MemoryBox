@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
@@ -11,6 +10,8 @@ import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 
+import '../../models/collections_model.dart';
+import '../../repositories/collections_repositories.dart';
 import '../authorization_page/registration_page/registration_page.dart';
 
 class _DeletePageArguments {
@@ -60,7 +61,7 @@ class DeletePage extends StatelessWidget {
               children: [
                 arguments.user == null
                     ? const ModelDeleteNotIsAuthorization()
-                    : const ModelDelete(),
+                    : ModelDelete(),
                 const _AppbarHeader(),
               ],
             ),
@@ -196,12 +197,52 @@ class _ListPlayers extends StatelessWidget {
 }
 
 class ModelDelete extends StatelessWidget {
-  const ModelDelete({Key? key}) : super(key: key);
+  ModelDelete({Key? key}) : super(key: key);
+  final CollectionsRepositories repositories = CollectionsRepositories();
+  Widget buildAudio(CollectionsModel model) => _DeleteCollections(
+        dataTime: model.data!,
+      );
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
     return Column(
-      children: [Text('дата'), _ListPlayers()],
+      children: [
+        SizedBox(
+          height: screenHeight * 0.95,
+          child: StreamBuilder<List<AudioModel>>(
+            // stream: repositories.readCollectionsDelete(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return const Text('Ошибка');
+              }
+              if (snapshot.hasData) {
+                final audio = snapshot.data!;
+                return ListView(
+                  padding: const EdgeInsets.only(top: 127, bottom: 110),
+                  // children: audio.map(buildAudio).toList(),
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _DeleteCollections extends StatelessWidget {
+  const _DeleteCollections({Key? key, required this.dataTime})
+      : super(key: key);
+  final String dataTime;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [Text(dataTime)],
     );
   }
 }

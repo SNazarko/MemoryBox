@@ -10,64 +10,26 @@ import 'package:provider/provider.dart';
 
 import '../collection_edit_model.dart';
 
-class AppbarHeaderEdit extends StatefulWidget {
+class AppbarHeaderEdit extends StatelessWidget {
   AppbarHeaderEdit({Key? key}) : super(key: key);
-
-  @override
-  State<AppbarHeaderEdit> createState() => _AppbarHeaderEditState();
-}
-
-class _AppbarHeaderEditState extends State<AppbarHeaderEdit> {
-  final CollectionsRepositories repositories = CollectionsRepositories();
-
-  final List quality = [];
-
-  // final List duration = [];
+  // final CollectionsRepositories repositories = CollectionsRepositories();
   //
-  // var sum = 0;
-
-  Future<void> getQualityAudio(BuildContext context) async {
-    FirebaseFirestore.instance
-        .collection(repositories.user!.phoneNumber!)
-        .doc('id')
-        .collection('Collections')
-        .where('collections', arrayContainsAny: [
-          Provider.of<CollectionsEditModel>(context, listen: false).getId
-        ])
-        .get()
-        .then((querySnapshot) {
-          for (var result in querySnapshot.docs) {
-            // final String time = result.data()['duration'];
-            final collection = result.data();
-            quality.add(collection);
-            // final timeTemp = time.replaceFirst(':', ',');
-            // final minutes = timeTemp.split(',').elementAt(0);
-            // final second = timeTemp.split(',').elementAt(1);
-            // duration.add(second);
-            // print(second);
-            // print(minutes);
-            print(collection);
-          }
-        });
-    // for (int i = 0; i < duration.length; i++) {
-    //   // sum = sum.toInt() + duration[i];
-    // }
-    print('З функції $quality');
-  }
-
-  // String _formatNumber(int number) {
-  //   String numberStr = number.toString();
-  //   if (number < 10) {
-  //     numberStr = '0' + numberStr;
-  //   }
-  //
-  //   return numberStr;
-  // }
-
-  // @override
-  // void initState() {
-  //   getQualityAudio(context);
-  //   super.initState();
+  // Future<String?> stateId(BuildContext context) async {
+  //   String? state;
+  //   await FirebaseFirestore.instance
+  //       .collection(repositories.user!.phoneNumber!)
+  //       .doc('id')
+  //       .collection('Collections')
+  //       .where('id',
+  //           isEqualTo:
+  //               Provider.of<CollectionsEditModel>(context, listen: false).getId)
+  //       .get()
+  //       .then((querySnapshot) {
+  //     for (var result in querySnapshot.docs) {
+  //       state = result.data()['id'];
+  //     }
+  //   });
+  //   return state;
   // }
 
   void updateCollection(BuildContext context) {
@@ -76,7 +38,6 @@ class _AppbarHeaderEditState extends State<AppbarHeaderEdit> {
       Provider.of<CollectionsEditModel>(context, listen: false).getTitle,
       Provider.of<CollectionsEditModel>(context, listen: false).getSubTitle,
       Provider.of<CollectionsEditModel>(context, listen: false).getImage,
-      // quality.length
     );
   }
 
@@ -126,6 +87,7 @@ class _AppbarHeaderEditState extends State<AppbarHeaderEdit> {
               ),
               TextButton(
                   onPressed: () {
+                    // print('$state до');
                     state == null
                         ? addCollections(context)
                         : updateCollection(context);

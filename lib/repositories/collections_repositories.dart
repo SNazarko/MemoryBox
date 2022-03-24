@@ -17,6 +17,17 @@ class CollectionsRepositories {
     user = auth!.currentUser;
   }
 
+  Stream<List<CollectionsModel>> readCollectionsDelete() =>
+      FirebaseFirestore.instance
+          .collection(user!.phoneNumber!)
+          .doc('id')
+          .collection('CollectionsDelete')
+          .orderBy('data')
+          .snapshots()
+          .map((snapshot) => snapshot.docs
+              .map((doc) => CollectionsModel.fromJson(doc.data()))
+              .toList());
+
   Stream<List<CollectionsModel>> readCollections() => FirebaseFirestore.instance
       .collection(user!.phoneNumber!)
       .doc('id')
@@ -87,13 +98,12 @@ class CollectionsRepositories {
         .delete();
   }
 
-  Future<void> doneCollections(
-      String nameCollection, bool doneCollection) async {
+  Future<void> doneCollections(String idCollection, bool doneCollection) async {
     FirebaseFirestore.instance
         .collection(user!.phoneNumber!)
         .doc('id')
         .collection('CollectionsTale')
-        .doc(nameCollection)
+        .doc(idCollection)
         .update({'doneCollection': doneCollection});
   }
 

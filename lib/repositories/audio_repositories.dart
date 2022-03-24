@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/models/user_model.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
 class AudioRepositories {
@@ -42,7 +43,8 @@ class AudioRepositories {
   ) async {
     var id = uuid.v1();
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
-        .ref('${user!.phoneNumber!}/userAudio/${getAudioName(path)}');
+        .ref('${user!.phoneNumber!}/userAudio/$id.m4a');
+    // .ref('${user!.phoneNumber!}/userAudio/${getAudioName(path)}');
     await ref.putFile(File(path));
     final _todayDate = DateTime.now();
     final model = AudioModel(
@@ -65,9 +67,23 @@ class AudioRepositories {
         .set(json);
   }
 
-  String getAudioName(String name) {
-    return name.split('/').last;
+  Future<File> downloadAudio(String idAudio) async {
+    Directory appDocDir = await getTemporaryDirectory();
+    File downloadToFile = File('${appDocDir.path}/$idAudio.m4a');
+
+    try {
+      await firebase_storage.FirebaseStorage.instance
+          .ref('${user!.phoneNumber!}/userAudio/$idAudio.m4a')
+          .writeToFile(downloadToFile);
+    } on FirebaseException catch (e) {
+      print(e);
+    }
+    return downloadToFile;
   }
+
+  // String getAudioName(String name) {
+  //   return name.split('/').last;
+  // }
 
   Future<void> renameAudio(
     String idAudio,

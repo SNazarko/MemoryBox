@@ -283,8 +283,8 @@ class CollectionItem extends StatelessWidget {
                           color: AppColor.white100,
                         ),
                       ),
-                      const Text(
-                        '3:33 часа',
+                      Text(
+                        '$totalTime часа',
                         style: TextStyle(
                           fontSize: 14.0,
                           fontWeight: FontWeight.w400,
@@ -327,19 +327,19 @@ class CollectionItem extends StatelessWidget {
                   onPressed: () {
                     context.read<CollectionModel>().stateDone();
                     CollectionsRepositories().doneCollections(
-                      title!,
+                      id!,
                       done,
                     );
                     if (!doneCollection!) {
                       CollectionsRepositories().copyPastCollections(
-                        title!,
+                        id!,
                         'CollectionsTale',
                         'DeleteCollections',
                       );
                     }
                     if (doneCollection!) {
                       CollectionsRepositories().deleteCollection(
-                        title!,
+                        id!,
                         'DeleteCollections',
                       );
                     }

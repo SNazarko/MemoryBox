@@ -45,7 +45,7 @@ class _PhotoContainerState extends State<PhotoContainer> {
             XFile? _image = await imagePick.singleImagePick();
             if (_image != null && _image.path.isNotEmpty) {
               singleImage = await UserRepositories().uploadImage(_image);
-              context.read<CollectionsEditModel>().image(singleImage!);
+              context.read<CollectionsEditModel>().image(singleImage ?? '');
               setState(() {});
             }
           },

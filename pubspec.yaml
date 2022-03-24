@@ -54,6 +54,8 @@ dependencies:
   date_format: ^2.0.5
   external_path: ^1.0.1
   uuid: 3.0.6
+  share_plus: ^4.0.2
+
 
 
 

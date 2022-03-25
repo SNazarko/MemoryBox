@@ -1,10 +1,9 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:memory_box/pages/audio_recordings_page/audio_recordings_page.dart';
+import 'package:memory_box/widgets/alert_dialog.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 import '../../../repositories/audio_repositories.dart';
 import '../../../repositories/collections_repositories.dart';
 import '../../save_page/save_page.dart';
@@ -83,13 +82,18 @@ class PopupMenuAudioRecording extends StatelessWidget {
         popupMenuItem(
           'Удалить ',
           () {
-            print(idAudio);
-            print(name);
-            repositoriesCollection.copyPastCollections(
-              idAudio,
-              'Collections',
-              'DeleteCollections',
-            );
+            const AlertDialogApp().alertDialog(context, () {
+              Navigator.pushNamed(context, AudioRecordingsPage.routeName);
+            },
+                Timer(const Duration(seconds: 1), () async {
+                  await repositoriesCollection.copyPastCollections(
+                    idAudio,
+                    'Collections',
+                    'DeleteCollections',
+                  );
+                  await repositoriesCollection.deleteCollection(
+                      idAudio, 'Collections');
+                }));
           },
         ),
         popupMenuItem(

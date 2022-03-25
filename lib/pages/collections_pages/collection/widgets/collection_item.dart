@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';

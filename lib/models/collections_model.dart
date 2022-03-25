@@ -3,7 +3,7 @@ class CollectionsModel {
   String? titleCollections;
   String? subTitleCollections;
   String? avatarCollections;
-  String? data;
+  String? dateTime;
   String? totalTime;
   int? qualityCollections;
   bool? doneCollection;
@@ -13,7 +13,7 @@ class CollectionsModel {
     this.titleCollections,
     this.subTitleCollections,
     this.avatarCollections,
-    this.data,
+    this.dateTime,
     this.totalTime,
     this.qualityCollections,
     this.doneCollection,
@@ -25,7 +25,7 @@ class CollectionsModel {
       titleCollections: json['titleCollections'],
       subTitleCollections: json['subTitleCollections'],
       avatarCollections: json['avatarCollections'],
-      data: json['data'],
+      dateTime: json['dateTime'],
       totalTime: json['totalTime'],
       qualityCollections: json['qualityCollections'],
       doneCollection: json['doneCollection'],
@@ -37,7 +37,7 @@ class CollectionsModel {
         'titleCollections': titleCollections,
         'subTitleCollections': subTitleCollections,
         'avatarCollections': avatarCollections,
-        'data': data,
+        'dateTime': dateTime,
         'totalTime': totalTime,
         'qualityCollections': qualityCollections,
         'doneCollection': doneCollection

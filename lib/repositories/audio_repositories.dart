@@ -7,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/models/user_model.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:uuid/uuid.dart';
 
 class AudioRepositories {
@@ -67,23 +68,30 @@ class AudioRepositories {
         .set(json);
   }
 
-  Future<File> downloadAudio(String idAudio) async {
-    Directory appDocDir = await getTemporaryDirectory();
-    File downloadToFile = File('${appDocDir.path}/$idAudio.m4a');
-
+  Future<void> downloadAudio(String idAudio, String name) async {
+    Directory directory = await getTemporaryDirectory();
+    final filePath = directory.path + '/$idAudio.mp3';
+    var file = File(filePath);
+    print('file$file');
+    var fileTemp = await File('${directory.path}/$idAudio');
+    print('fileTemp$fileTemp');
+    var isExist = await file.exists();
+    if (!isExist) {
+      await file.create();
+    }
+    var rat = await fileTemp.readAsBytes();
+    print('rat$rat');
+    await file.writeAsBytes(rat);
     try {
       await firebase_storage.FirebaseStorage.instance
           .ref('${user!.phoneNumber!}/userAudio/$idAudio.m4a')
-          .writeToFile(downloadToFile);
+          .writeToFile(fileTemp);
     } on FirebaseException catch (e) {
-      print(e);
+      print('Ошибка $e');
     }
-    return downloadToFile;
-  }
 
-  // String getAudioName(String name) {
-  //   return name.split('/').last;
-  // }
+    await Share.shareFiles([filePath], text: name);
+  }
 
   Future<void> renameAudio(
     String idAudio,

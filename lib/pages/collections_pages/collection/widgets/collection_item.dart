@@ -285,7 +285,7 @@ class CollectionItem extends StatelessWidget {
                       ),
                       Text(
                         '$totalTime часа',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14.0,
                           fontWeight: FontWeight.w400,
                           color: AppColor.white100,
@@ -334,13 +334,13 @@ class CollectionItem extends StatelessWidget {
                       CollectionsRepositories().copyPastCollections(
                         id!,
                         'CollectionsTale',
-                        'DeleteCollections',
+                        'DeleteCollectionsTale',
                       );
                     }
                     if (doneCollection!) {
                       CollectionsRepositories().deleteCollection(
                         id!,
-                        'DeleteCollections',
+                        'DeleteCollectionsTale',
                       );
                     }
                   },

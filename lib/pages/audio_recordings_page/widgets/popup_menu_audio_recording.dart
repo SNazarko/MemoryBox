@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../../repositories/audio_repositories.dart';
+import '../../../repositories/collections_repositories.dart';
 import '../../save_page/save_page.dart';
 import '../../save_page/save_page_model.dart';
 
@@ -29,7 +32,10 @@ class PopupMenuAudioRecording extends StatelessWidget {
   final List searchName;
   final String idAudio;
   final List collection;
-  final AudioRepositories repositories = AudioRepositories();
+  final AudioRepositories repositoriesAudio = AudioRepositories();
+  final CollectionsRepositories repositoriesCollection =
+      CollectionsRepositories();
+
   void init(BuildContext context) {
     context.read<SavePageModel>().setCollection(collection);
     context.read<SavePageModel>().setIdAudio(idAudio);
@@ -76,12 +82,30 @@ class PopupMenuAudioRecording extends StatelessWidget {
         ),
         popupMenuItem(
           'Удалить ',
-          () {},
+          () {
+            print(idAudio);
+            print(name);
+            repositoriesCollection.copyPastCollections(
+              idAudio,
+              'Collections',
+              'DeleteCollections',
+            );
+          },
         ),
         popupMenuItem(
           'Поделиться',
-          () async {
-            await Share.share('${repositories.downloadAudio(idAudio)}');
+          () {
+            // Set audiolist = {};
+            repositoriesAudio.downloadAudio(idAudio, name);
+            // Directory directory = await getTemporaryDirectory();
+            // await for (var entity in directory.list()) {
+            //   audiolist.add(entity.path);
+            //   audiolist.contains('$directory/$idAudio.m4a')
+            //       ? await Share.share(('$directory/$idAudio'))
+            //       : print('Нет аудио');
+            // // }
+            // // await Share.share('${repositoriesAudio.downloadAudio(idAudio)}');
+            // print(audiolist);
           },
         ),
       ],

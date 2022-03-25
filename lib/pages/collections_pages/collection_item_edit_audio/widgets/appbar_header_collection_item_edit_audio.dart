@@ -23,10 +23,10 @@ class AppbarHeaderCollectionItemEditAudio extends StatelessWidget {
           Timer(const Duration(seconds: 3), () {
             Navigator.pushNamed(context, Collections.routeName);
             repositories.deleteCollection(
-                '${Provider.of<CollectionsItemPageModel>(context, listen: false).getTitle}',
+                '${Provider.of<CollectionsItemPageModel>(context, listen: false).getIdCollection}',
                 'CollectionsTale');
             repositories.copyPastCollections(
-              '${Provider.of<CollectionsItemPageModel>(context, listen: false).getTitle}',
+              '${Provider.of<CollectionsItemPageModel>(context, listen: false).getIdCollection}',
               'CollectionsTale',
               'DeleteCollections',
             );

@@ -200,7 +200,7 @@ class ModelDelete extends StatelessWidget {
   ModelDelete({Key? key}) : super(key: key);
   final CollectionsRepositories repositories = CollectionsRepositories();
   Widget buildAudio(CollectionsModel model) => _DeleteCollections(
-        dataTime: model.data!,
+        dataTime: model.dateTime!,
       );
 
   @override

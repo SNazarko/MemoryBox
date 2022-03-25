@@ -16,7 +16,7 @@ class ListCollections extends StatelessWidget {
         image: '${collections.avatarCollections}',
         title: '${collections.titleCollections}',
         subTitle: '${collections.subTitleCollections}',
-        data: '${collections.data}',
+        data: '${collections.dateTime}',
         quality: '${collections.qualityCollections}',
         doneCollection: collections.doneCollection,
         totalTime: '${collections.totalTime}',

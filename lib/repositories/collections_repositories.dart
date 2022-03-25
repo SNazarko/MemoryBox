@@ -22,7 +22,6 @@ class CollectionsRepositories {
           .collection(user!.phoneNumber!)
           .doc('id')
           .collection('CollectionsDelete')
-          .orderBy('data')
           .snapshots()
           .map((snapshot) => snapshot.docs
               .map((doc) => CollectionsModel.fromJson(doc.data()))
@@ -32,7 +31,6 @@ class CollectionsRepositories {
       .collection(user!.phoneNumber!)
       .doc('id')
       .collection('CollectionsTale')
-      .orderBy('data')
       .snapshots()
       .map((snapshot) => snapshot.docs
           .map((doc) => CollectionsModel.fromJson(doc.data()))
@@ -59,7 +57,7 @@ class CollectionsRepositories {
       titleCollections: titleCollections,
       subTitleCollections: subTitleCollections,
       avatarCollections: avatarCollections,
-      data: formatDate(_todayDate, [
+      dateTime: formatDate(_todayDate, [
         dd,
         '.',
         mm,
@@ -79,22 +77,14 @@ class CollectionsRepositories {
   }
 
   Future<void> deleteCollection(
-    String nameCollection,
+    String idCollection,
     String collectionFirestore,
   ) async {
     FirebaseFirestore.instance
         .collection(user!.phoneNumber!)
         .doc('id')
         .collection(collectionFirestore)
-        .doc(nameCollection)
-        .collection('Audio')
-        .doc()
-        .delete();
-    FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
-        .doc('id')
-        .collection(collectionFirestore)
-        .doc(nameCollection)
+        .doc(idCollection)
         .delete();
   }
 
@@ -108,70 +98,61 @@ class CollectionsRepositories {
   }
 
   Future<void> copyPastCollections(
-    String nameCollection,
+    String idCollection,
     String fromTheCollection,
     String inTheCollection,
   ) async {
-    FirebaseFirestore.instance
+    final _todayDate = DateTime.now();
+    await FirebaseFirestore.instance
         .collection(user!.phoneNumber!)
         .doc('id')
         .collection(fromTheCollection)
+        .where('id', isEqualTo: idCollection)
         .get()
         .then((querySnapshot) {
-      querySnapshot.docs.forEach((result) {
+      for (var result in querySnapshot.docs) {
         FirebaseFirestore.instance
             .collection(user!.phoneNumber!)
             .doc('id')
             .collection(inTheCollection)
-            .doc(nameCollection)
+            .doc(idCollection)
             .set(result.data());
-      });
+      }
     });
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection(user!.phoneNumber!)
         .doc('id')
-        .collection(fromTheCollection)
-        .doc(nameCollection)
-        .collection('Audio')
-        .get()
-        .then((querySnapshot) {
-      querySnapshot.docs.forEach((result) {
-        FirebaseFirestore.instance
-            .collection(user!.phoneNumber!)
-            .doc('id')
-            .collection(inTheCollection)
-            .doc(nameCollection)
-            .collection('Audio')
-            .doc()
-            .set(result.data());
-      });
-    });
+        .collection(inTheCollection)
+        .doc(idCollection)
+        .update({'dateTime': _todayDate});
   }
 
-  Future<void> copyPastAudioCollections(
-    String fromTheCollection,
-    String inTheCollection,
-  ) async {
-    FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
-        .doc('id')
-        .collection('CollectionsTale')
-        .doc(fromTheCollection)
-        .collection('Audio')
-        .get()
-        .then((querySnapshot) {
-      querySnapshot.docs.forEach((result) {
-        FirebaseFirestore.instance
-            .collection(user!.phoneNumber!)
-            .doc('id')
-            .collection('CollectionsTale')
-            .doc(inTheCollection)
-            .collection('Audio')
-            .doc()
-            .set(result.data());
-      });
-    });
-  }
+  // Future<void> copyPastAudioCollections(
+  //   String fromTheCollection,
+  //   String inTheCollection,
+  // ) async {
+  //
+  //   FirebaseFirestore.instance
+  //       .collection(user!.phoneNumber!)
+  //       .doc('id')
+  //       .collection('CollectionsTale')
+  //       .doc(fromTheCollection)
+  //       .collection('Audio')
+  //       .get()
+  //       .then((querySnapshot) {
+  //     querySnapshot.docs.forEach((result) {
+  //       FirebaseFirestore.instance
+  //           .collection(user!.phoneNumber!)
+  //           .doc('id')
+  //           .collection('CollectionsTale')
+  //           .doc(inTheCollection)
+  //           .collection('Audio')
+  //           .doc()
+  //           .set(result.data());
+  //     });
+  //   });
+  //
+  // }
 
   Future<void> doneAudioItem(String idAudio, bool done) async {
     FirebaseFirestore.instance
@@ -292,7 +273,7 @@ class CollectionsRepositories {
       titleCollections: nameCollection,
       subTitleCollections: subTitleCollections,
       avatarCollections: avatarCollections,
-      data: formatDate(_todayDate, [
+      dateTime: formatDate(_todayDate, [
         dd,
         '.',
         mm,

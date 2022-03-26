@@ -12,41 +12,14 @@ import '../collection_edit_model.dart';
 
 class AppbarHeaderEdit extends StatelessWidget {
   AppbarHeaderEdit({Key? key}) : super(key: key);
-  // final CollectionsRepositories repositories = CollectionsRepositories();
-  //
-  // Future<String?> stateId(BuildContext context) async {
-  //   String? state;
-  //   await FirebaseFirestore.instance
-  //       .collection(repositories.user!.phoneNumber!)
-  //       .doc('id')
-  //       .collection('Collections')
-  //       .where('id',
-  //           isEqualTo:
-  //               Provider.of<CollectionsEditModel>(context, listen: false).getId)
-  //       .get()
-  //       .then((querySnapshot) {
-  //     for (var result in querySnapshot.docs) {
-  //       state = result.data()['id'];
-  //     }
-  //   });
-  //   return state;
-  // }
 
   void updateCollection(BuildContext context) {
     CollectionsRepositories().updateCollection(
       Provider.of<CollectionsEditModel>(context, listen: false).getId,
-      Provider.of<CollectionsEditModel>(context, listen: false).getTitle,
-      Provider.of<CollectionsEditModel>(context, listen: false).getSubTitle,
-      Provider.of<CollectionsEditModel>(context, listen: false).getImage,
-    );
-  }
-
-  void addCollections(BuildContext context) {
-    CollectionsRepositories().addCollections(
-      Provider.of<CollectionsEditModel>(context, listen: false).getTitle ?? '',
-      Provider.of<CollectionsEditModel>(context, listen: false).getTitle ?? '',
+      Provider.of<CollectionsEditModel>(context, listen: false).getTitle ??
+          'Без названия',
       Provider.of<CollectionsEditModel>(context, listen: false).getSubTitle ??
-          '',
+          '...',
       Provider.of<CollectionsEditModel>(context, listen: false).getImage ?? '',
     );
   }
@@ -75,7 +48,10 @@ class AppbarHeaderEdit extends StatelessWidget {
               IconBack(
                 onPressed: () {
                   Navigator.pop(context);
-                  // getQualityAudio(context);
+                  CollectionsRepositories().deleteCollection(
+                      Provider.of<CollectionsEditModel>(context, listen: false)
+                          .getId,
+                      'CollectionsTale');
                 },
               ),
               const Padding(
@@ -87,10 +63,7 @@ class AppbarHeaderEdit extends StatelessWidget {
               ),
               TextButton(
                   onPressed: () {
-                    // print('$state до');
-                    state == null
-                        ? addCollections(context)
-                        : updateCollection(context);
+                    updateCollection(context);
 
                     Navigator.pop(context);
                   },

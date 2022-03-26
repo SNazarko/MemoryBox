@@ -6,6 +6,8 @@ import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 
+import '../../../../repositories/collections_repositories.dart';
+
 class AppbarHeaderCollection extends StatelessWidget {
   const AppbarHeaderCollection({Key? key}) : super(key: key);
 
@@ -29,6 +31,8 @@ class AppbarHeaderCollection extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {
+                  CollectionsRepositories()
+                      .addCollections('Без названия', '...', '', context);
                   Navigator.pushNamed(context, CollectionsEdit.routeName);
                 },
                 icon: const Icon(

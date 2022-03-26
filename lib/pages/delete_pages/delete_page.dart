@@ -199,38 +199,34 @@ class _ListPlayers extends StatelessWidget {
 class ModelDelete extends StatelessWidget {
   ModelDelete({Key? key}) : super(key: key);
   final CollectionsRepositories repositories = CollectionsRepositories();
-  Widget buildAudio(CollectionsModel model) => _DeleteCollections(
-        dataTime: model.dateTime!,
+
+  Widget buildCollections(CollectionsModel collections) => _DeleteCollections(
+        dataTime: collections.titleCollections!,
       );
 
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height;
-    return Column(
-      children: [
-        SizedBox(
-          height: screenHeight * 0.95,
-          child: StreamBuilder<List<AudioModel>>(
-            // stream: repositories.readCollectionsDelete(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return const Text('Ошибка');
-              }
-              if (snapshot.hasData) {
-                final audio = snapshot.data!;
-                return ListView(
-                  padding: const EdgeInsets.only(top: 127, bottom: 110),
-                  // children: audio.map(buildAudio).toList(),
-                );
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            },
-          ),
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 90.0),
+      child: StreamBuilder<List<CollectionsModel>>(
+        stream: repositories.readCollectionsDelete(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Text('Ошыбка${snapshot.hasError}');
+          }
+          if (snapshot.hasData) {
+            final collections = snapshot.data!;
+            return ListView(
+              padding: const EdgeInsets.only(top: 127, bottom: 110),
+              children: collections.map(buildCollections).toList(),
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
     );
   }
 }
@@ -241,8 +237,17 @@ class _DeleteCollections extends StatelessWidget {
   final String dataTime;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [Text(dataTime)],
+    return Container(
+      color: Colors.grey,
+      child: Column(
+        children: [
+          Text(dataTime),
+          Container(
+            height: 100,
+            color: Colors.grey,
+          )
+        ],
+      ),
     );
   }
 }

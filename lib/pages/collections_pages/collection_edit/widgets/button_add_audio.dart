@@ -15,28 +15,30 @@ class ButtonAddAudio extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
         onPressed: () {
-          CollectionsRepositories().addCollections(
+          CollectionsRepositories().updateCollection(
+            Provider.of<CollectionsEditModel>(context, listen: false).getId,
             Provider.of<CollectionsEditModel>(context, listen: false)
                     .getTitle ??
-                '',
-            Provider.of<CollectionsEditModel>(context, listen: false)
-                    .getTitle ??
-                '',
+                'Без названия',
             Provider.of<CollectionsEditModel>(context, listen: false)
                     .getSubTitle ??
-                '',
+                '...',
             Provider.of<CollectionsEditModel>(context, listen: false)
                     .getImage ??
                 '',
           );
-
-          // CollectionsRepositories().addAudioCollections(
+          Navigator.pushNamed(context, CollectionsAddAudio.routeName);
+          // CollectionsRepositories().addCollections(
           //   Provider.of<CollectionsEditModel>(context, listen: false)
           //           .getTitle ??
           //       '',
+          //   Provider.of<CollectionsEditModel>(context, listen: false)
+          //           .getSubTitle ??
+          //       '',
+          //   Provider.of<CollectionsEditModel>(context, listen: false)
+          //           .getImage ??
+          //       '',
           // );
-
-          Navigator.pushNamed(context, CollectionsAddAudio.routeName);
         },
         child: const Center(
           child: Text(

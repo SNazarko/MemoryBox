@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:memory_box/models/collections_model.dart';
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
+import '../pages/collections_pages/collection_edit/collection_edit_model.dart';
 
 class CollectionsRepositories {
   CollectionsRepositories() {
@@ -21,7 +24,7 @@ class CollectionsRepositories {
       FirebaseFirestore.instance
           .collection(user!.phoneNumber!)
           .doc('id')
-          .collection('CollectionsDelete')
+          .collection('CollectionsTale')
           .snapshots()
           .map((snapshot) => snapshot.docs
               .map((doc) => CollectionsModel.fromJson(doc.data()))
@@ -37,19 +40,11 @@ class CollectionsRepositories {
           .toList());
 
   Future<void> addCollections(
-    String nameCollection,
-    String titleCollections,
-    String subTitleCollections,
-    String avatarCollections,
-  ) async {
+      String titleCollections,
+      String subTitleCollections,
+      String avatarCollections,
+      BuildContext context) async {
     var id = uuid.v1();
-    FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
-        .doc('id')
-        .collection('CollectionsTale')
-        .doc(nameCollection)
-        .collection('Audio')
-        .get();
     final _todayDate = DateTime.now();
     final model = CollectionsModel(
       id: id,
@@ -74,6 +69,12 @@ class CollectionsRepositories {
         .collection('CollectionsTale')
         .doc(id)
         .set(json);
+    Provider.of<CollectionsEditModel>(context, listen: false).setId(id);
+    Provider.of<CollectionsEditModel>(context, listen: false)
+        .userTitle('Без названия');
+    Provider.of<CollectionsEditModel>(context, listen: false)
+        .userSubTitle('...');
+    Provider.of<CollectionsEditModel>(context, listen: false).image('');
   }
 
   Future<void> deleteCollection(

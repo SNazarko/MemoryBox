@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class AudioModel {
   String? id;
   String? audioName;
@@ -5,6 +7,7 @@ class AudioModel {
   String? duration;
   bool? done;
   String? dateTime;
+  Timestamp? dateTimeDelete;
   List? searchName;
   List? collections;
 
@@ -15,6 +18,7 @@ class AudioModel {
     this.duration,
     this.done,
     this.dateTime,
+    this.dateTimeDelete,
     this.searchName,
     this.collections,
   });
@@ -27,6 +31,7 @@ class AudioModel {
       duration: json['duration'],
       done: json['done'],
       dateTime: json['dateTime'],
+      dateTimeDelete: json['dateTimeDelete'],
       searchName: json['searchName'],
       collections: json['collections'],
     );
@@ -39,6 +44,7 @@ class AudioModel {
         'duration': duration,
         'done': done,
         'dateTime': dateTime,
+        'dateTimeDelete': dateTimeDelete,
         'searchName': searchName,
         'collections': collections
       };

@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:memory_box/pages/logo_page/screensaver_page.dart';
 
+import '../../repositories/audio_repositories.dart';
+
 class LogoPage extends StatefulWidget {
   const LogoPage({Key? key}) : super(key: key);
   static const routeName = '/logo_page';
@@ -16,6 +18,7 @@ class LogoPage extends StatefulWidget {
 class _LogoPageState extends State<LogoPage> {
   @override
   void initState() {
+    AudioRepositories().finishDelete();
     Timer(const Duration(seconds: 1), () {
       Navigator.pushNamed(context, Screensaver.routeName);
     });

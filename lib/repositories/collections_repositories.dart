@@ -103,6 +103,7 @@ class CollectionsRepositories {
     String fromTheCollection,
     String inTheCollection,
   ) async {
+    final _todayDate2 = Timestamp.now();
     final _todayDate = DateTime.now();
     await FirebaseFirestore.instance
         .collection(user!.phoneNumber!)
@@ -125,7 +126,9 @@ class CollectionsRepositories {
         .doc('id')
         .collection(inTheCollection)
         .doc(idCollection)
-        .update({'dateTime': _todayDate});
+        .update({
+      'dateTimeDelete': _todayDate2,
+    });
   }
 
   // Future<void> copyPastAudioCollections(

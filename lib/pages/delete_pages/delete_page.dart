@@ -61,7 +61,7 @@ class DeletePage extends StatelessWidget {
               children: [
                 arguments.user == null
                     ? const ModelDeleteNotIsAuthorization()
-                    : ModelDelete(),
+                    : _ListPlayers(),
                 const _AppbarHeader(),
               ],
             ),
@@ -155,13 +155,14 @@ class _ListPlayers extends StatelessWidget {
   _ListPlayers({Key? key}) : super(key: key);
   final AudioRepositories repositories = AudioRepositories();
   Widget buildAudio(AudioModel audio) => PlayerMini(
-        duration: '${audio.duration}',
-        url: '${audio.audioUrl}',
-        name: '${audio.audioName}',
-        done: audio.done!,
-        id: '${audio.id}',
-        collection: audio.collections!,
-        popupMenu: const DeleteAudio(),
+      duration: '${audio.duration}',
+      url: '${audio.audioUrl}',
+      name: '${audio.audioName}',
+      done: audio.done!,
+      id: '${audio.id}',
+      collection: audio.collections!,
+      popupMenu: DoneDelete()
+      // DeleteAudio(idAudio: '${audio.id}',),
       );
 
   @override
@@ -172,7 +173,7 @@ class _ListPlayers extends StatelessWidget {
         SizedBox(
           height: screenHeight * 0.95,
           child: StreamBuilder<List<AudioModel>>(
-            stream: repositories.readAudioSort('all'),
+            stream: repositories.readAudioDelete('all'),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return const Text('Ошибка');
@@ -253,14 +254,17 @@ class _DeleteCollections extends StatelessWidget {
 }
 
 class DeleteAudio extends StatelessWidget {
-  const DeleteAudio({Key? key}) : super(key: key);
-
+  const DeleteAudio({Key? key, required this.idAudio}) : super(key: key);
+  final String idAudio;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            CollectionsRepositories()
+                .deleteCollection(idAudio, 'DeleteCollections');
+          },
           child: SizedBox(
             width: 25.0,
             height: 25.0,
@@ -340,6 +344,63 @@ class PopupMenuDeletePage extends StatelessWidget {
                 () {},
               ),
             ]);
+  }
+}
+
+class DoneDelete extends StatefulWidget {
+  const DoneDelete({
+    Key? key,
+    // required this.id,
+    // required this.done,
+    // required this.collection,
+  }) : super(key: key);
+  // final String? id;
+  // final List collection;
+  // final bool? done;
+
+  @override
+  State<DoneDelete> createState() => _DoneDeleteState();
+}
+
+class _DoneDeleteState extends State<DoneDelete> {
+  bool done = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Stack(
+        children: [
+          GestureDetector(
+            onTap: () async {
+              done = !done;
+              if (!done) {
+                setState(() {});
+              }
+              if (done) {
+                setState(() {});
+              }
+            },
+            child: Container(
+              width: 35,
+              height: 35,
+              decoration: BoxDecoration(
+                border: Border.all(color: AppColor.colorText),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(25.0),
+                ),
+              ),
+              child: Center(
+                child: Icon(
+                  Icons.done,
+                  color: done ? AppColor.colorText : AppColor.white,
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
 

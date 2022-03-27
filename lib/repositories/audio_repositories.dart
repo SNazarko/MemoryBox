@@ -4,11 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:intl/intl.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/models/user_model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:uuid/uuid.dart';
+
+import 'collections_repositories.dart';
 
 class AudioRepositories {
   AudioRepositories() {
@@ -25,6 +28,16 @@ class AudioRepositories {
     auth = FirebaseAuth.instance;
     user = auth!.currentUser;
   }
+
+  Stream<List<AudioModel>> readAudioDelete(String sort) => FirebaseFirestore
+      .instance
+      .collection(user!.phoneNumber!)
+      .doc('id')
+      .collection('DeleteCollections')
+      .where('collections', arrayContains: sort)
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
 
   Stream<List<AudioModel>> readAudioSort(String sort) => FirebaseFirestore
       .instance
@@ -48,6 +61,7 @@ class AudioRepositories {
     // .ref('${user!.phoneNumber!}/userAudio/${getAudioName(path)}');
     await ref.putFile(File(path));
     final _todayDate = DateTime.now();
+    final _todayDate2 = Timestamp.now();
     final model = AudioModel(
       collections: ['all'],
       id: id,
@@ -56,6 +70,7 @@ class AudioRepositories {
       duration: duration,
       dateTime: formatDate(
           _todayDate, [dd, '.', mm, '.', yy, HH, ':', nn, ':', ss, z]),
+      dateTimeDelete: _todayDate2,
       done: false,
       searchName: searchName.toList(),
     );
@@ -121,5 +136,27 @@ class AudioRepositories {
         .collection('Collections')
         .doc(idAudio)
         .update(json);
+  }
+
+  void finishDelete() async {
+    final now = DateTime.now();
+    final later = now.add(const Duration(days: 15));
+    String? idAudio;
+    Timestamp? dateTimeDelete;
+    await FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('id')
+        .collection('DeleteCollections')
+        .get()
+        .then((querySnapshot) {
+      for (var result in querySnapshot.docs) {
+        dateTimeDelete = result.data()['dateTimeDelete'];
+        idAudio = result.data()['id'];
+      }
+    });
+    final state = dateTimeDelete!.compareTo(Timestamp.fromDate(later));
+    if (state >= 0) {
+      CollectionsRepositories().deleteCollection(idAudio!, 'DeleteCollections');
+    }
   }
 }

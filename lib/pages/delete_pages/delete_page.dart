@@ -9,10 +9,12 @@ import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/collections_model.dart';
 import '../../repositories/collections_repositories.dart';
 import '../authorization_page/registration_page/registration_page.dart';
+import 'delete_page_model.dart';
 
 class _DeletePageArguments {
   _DeletePageArguments({this.auth, this.user}) {
@@ -27,32 +29,97 @@ class _DeletePageArguments {
   }
 }
 
+class _AppbarHeader extends StatelessWidget {
+  const _AppbarHeader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(),
+        ClipPath(
+          clipper: AppbarClipper(),
+          child: Container(
+            color: AppColor.colorAppbar,
+            width: double.infinity,
+            height: 200.0,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 25.0, left: 12.0, right: 5.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                icon: const Icon(
+                  Icons.menu,
+                  color: AppColor.white,
+                ),
+              ),
+              const Text(
+                'Недавно',
+                style: kTitleTextStyle2,
+              ),
+              _PopupMenuDeletePage()
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 70.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Text(
+                'удаленные',
+                style: kTitleTextStyle2,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class DeletePage extends StatelessWidget {
   DeletePage({Key? key}) : super(key: key);
   static const routeName = '/delete_page';
   final _DeletePageArguments arguments = _DeletePageArguments();
   static Widget create() {
-    return DeletePage();
+    return
+        // ChangeNotifierProvider<DeletePageModel>(
+        // create: (BuildContext context) => DeletePageModel(),
+        // child:
+        DeletePage();
+    // );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
-          icon: const Icon(Icons.menu),
-        ),
-        elevation: 0.0,
-        title: const Text(
-          'Недавно',
-          style: kTitleTextStyle2,
-        ),
-        actions: const [PopupMenuDeletePage()],
-      ),
+      // appBar: AppBar(
+      //   // centerTitle: true,
+      //   leading: Expanded(
+      //     child: IconButton(
+      //       onPressed: () {
+      //         Scaffold.of(context).openDrawer();
+      //       },
+      //       icon: const Icon(Icons.menu),
+      //     ),
+      //   ),
+      //   elevation: 0.0,
+      //
+      //   title: Expanded(
+      //     child: const Text(
+      //       'Недавно',
+      //       style: kTitleTextStyle2,
+      //     ),
+      //   ),
+      //   actions: const [Expanded(child: _PopupMenuDeletePage())],
+      // ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -121,52 +188,34 @@ class ModelDeleteNotIsAuthorization extends StatelessWidget {
   }
 }
 
-class _AppbarHeader extends StatelessWidget {
-  const _AppbarHeader({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(),
-        ClipPath(
-          clipper: AppbarClipper(),
-          child: Container(
-            color: AppColor.colorAppbar,
-            width: double.infinity,
-            height: 125.0,
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text(
-              'удаленные',
-              style: kTitleTextStyle2,
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
 class _ListPlayers extends StatelessWidget {
   _ListPlayers({Key? key}) : super(key: key);
   final AudioRepositories repositories = AudioRepositories();
-  Widget buildAudio(AudioModel audio) => PlayerMini(
+
+  Widget buildAudioDel(AudioModel audio) => PlayerMini(
+        duration: '${audio.duration}',
+        url: '${audio.audioUrl}',
+        name: '${audio.audioName}',
+        done: audio.done!,
+        id: '${audio.id}',
+        collection: audio.collections!,
+        popupMenu: DeleteAudio(
+          idAudio: '${audio.id}',
+        ),
+      );
+
+  Widget buildAudioDone(AudioModel audio) => PlayerMini(
       duration: '${audio.duration}',
       url: '${audio.audioUrl}',
       name: '${audio.audioName}',
       done: audio.done!,
       id: '${audio.id}',
       collection: audio.collections!,
-      popupMenu: DoneDelete()
-      // DeleteAudio(idAudio: '${audio.id}',),
-      );
+      popupMenu: DoneDelete());
 
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<DeletePageModel>().getItemDone;
     final double screenHeight = MediaQuery.of(context).size.height;
     return Column(
       children: [
@@ -181,9 +230,10 @@ class _ListPlayers extends StatelessWidget {
               if (snapshot.hasData) {
                 final audio = snapshot.data!;
                 return ListView(
-                  padding: const EdgeInsets.only(top: 127, bottom: 110),
-                  children: audio.map(buildAudio).toList(),
-                );
+                    padding: const EdgeInsets.only(top: 210, bottom: 110),
+                    children: state
+                        ? audio.map(buildAudioDone).toList()
+                        : audio.map(buildAudioDel).toList());
               } else {
                 return const Center(
                   child: CircularProgressIndicator(),
@@ -277,48 +327,12 @@ class DeleteAudio extends StatelessWidget {
   }
 }
 
-class PopupMenuAudioRecordingPage extends StatelessWidget {
-  const PopupMenuAudioRecordingPage({Key? key}) : super(key: key);
+class _PopupMenuDeletePage extends StatelessWidget {
+  const _PopupMenuDeletePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton(
-      icon: const Icon(
-        Icons.more_horiz,
-      ),
-      iconSize: 40,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(15),
-        ),
-      ),
-      itemBuilder: (context) => [
-        popupMenuItem(
-          'Переименовать',
-          () {},
-        ),
-        popupMenuItem(
-          'Добавить в подборку',
-          () {},
-        ),
-        popupMenuItem(
-          'Удалить ',
-          () {},
-        ),
-        popupMenuItem(
-          'Поделиться',
-          () {},
-        ),
-      ],
-    );
-  }
-}
-
-class PopupMenuDeletePage extends StatelessWidget {
-  const PopupMenuDeletePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+    final state = context.watch<DeletePageModel>().getItemDone;
     return PopupMenuButton(
         icon: const Icon(
           Icons.more_horiz,
@@ -330,20 +344,31 @@ class PopupMenuDeletePage extends StatelessWidget {
             Radius.circular(15),
           ),
         ),
-        itemBuilder: (context) => [
-              popupMenuItem(
-                'Выбрать несколько',
-                () {},
-              ),
-              popupMenuItem(
-                'Удалить все',
-                () {},
-              ),
-              popupMenuItem(
-                'Восстановить все',
-                () {},
-              ),
-            ]);
+        itemBuilder: state
+            ? (context) => [
+                  popupMenuItem(
+                    'Снять выделение',
+                    () {
+                      context.read<DeletePageModel>().stateCollections();
+                    },
+                  ),
+                  popupMenuItem(
+                    'Удалить',
+                    () {},
+                  ),
+                  popupMenuItem(
+                    'Восстановить',
+                    () {},
+                  ),
+                ]
+            : (context) => [
+                  popupMenuItem(
+                    'Выбрать несколько',
+                    () {
+                      context.read<DeletePageModel>().stateCollections();
+                    },
+                  ),
+                ]);
   }
 }
 

@@ -4,6 +4,7 @@ import 'package:memory_box/pages/collections_pages/collection_add_audio/collecti
 import 'package:memory_box/pages/collections_pages/collection_edit/collection_edit_model.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
 import 'package:memory_box/pages/collections_pages/collection_item_edit/collection_item_edit_page_model.dart';
+import 'package:memory_box/pages/delete_pages/delete_page_model.dart';
 import 'package:memory_box/pages/logo_page/logo_page.dart';
 import 'package:memory_box/pages/save_page/save_page_model.dart';
 import 'package:memory_box/pages/search_page/search_page_model.dart';
@@ -26,6 +27,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider<DeletePageModel>(
+          create: (BuildContext context) => DeletePageModel(),
+        ),
         ChangeNotifierProvider<SavePageModel>(
             create: (BuildContext context) => SavePageModel()),
         ChangeNotifierProvider<SearchPageModel>(

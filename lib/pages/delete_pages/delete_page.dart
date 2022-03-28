@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -211,7 +212,10 @@ class _ListPlayers extends StatelessWidget {
       done: audio.done!,
       id: '${audio.id}',
       collection: audio.collections!,
-      popupMenu: DoneDelete());
+      popupMenu: DoneDelete(
+        done: audio.done!,
+        id: '${audio.id}',
+      ));
 
   @override
   Widget build(BuildContext context) {
@@ -328,7 +332,39 @@ class DeleteAudio extends StatelessWidget {
 }
 
 class _PopupMenuDeletePage extends StatelessWidget {
-  const _PopupMenuDeletePage({Key? key}) : super(key: key);
+  _PopupMenuDeletePage({Key? key}) : super(key: key);
+  final CollectionsRepositories repositories = CollectionsRepositories();
+  List<String> idAudioList = [];
+  List<String> idAudioListAll = [];
+
+  Future<void> getIdCollection(BuildContext context) async {
+    await FirebaseFirestore.instance
+        .collection(repositories.user!.phoneNumber!)
+        .doc('id')
+        .collection('DeleteCollections')
+        .where('done', isEqualTo: true)
+        .get()
+        .then((querySnapshot) {
+      for (var result in querySnapshot.docs) {
+        final String idAudio = result.data()['id'];
+        idAudioList.add(idAudio);
+      }
+    });
+  }
+
+  Future<void> getIdCollectionAll(BuildContext context) async {
+    await FirebaseFirestore.instance
+        .collection(repositories.user!.phoneNumber!)
+        .doc('id')
+        .collection('DeleteCollections')
+        .get()
+        .then((querySnapshot) {
+      for (var result in querySnapshot.docs) {
+        final String idAudioAll = result.data()['id'];
+        idAudioListAll.add(idAudioAll);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -354,11 +390,28 @@ class _PopupMenuDeletePage extends StatelessWidget {
                   ),
                   popupMenuItem(
                     'Удалить',
-                    () {},
+                    () async {
+                      await getIdCollection(context);
+                      for (var item in idAudioList) {
+                        await repositories.deleteCollection(
+                            item, 'DeleteCollections');
+                      }
+                    },
                   ),
                   popupMenuItem(
                     'Восстановить',
-                    () {},
+                    () async {
+                      await getIdCollection(context);
+                      for (var item in idAudioList) {
+                        await repositories.copyPastCollections(
+                          item,
+                          'DeleteCollections',
+                          'Collections',
+                        );
+                        await repositories.deleteCollection(
+                            item, 'DeleteCollections');
+                      }
+                    },
                   ),
                 ]
             : (context) => [
@@ -368,6 +421,31 @@ class _PopupMenuDeletePage extends StatelessWidget {
                       context.read<DeletePageModel>().stateCollections();
                     },
                   ),
+                  popupMenuItem(
+                    'Удалить все',
+                    () async {
+                      await getIdCollection(context);
+                      for (var item in idAudioListAll) {
+                        await repositories.deleteCollection(
+                            item, 'DeleteCollections');
+                      }
+                    },
+                  ),
+                  popupMenuItem(
+                    'Восстановить все',
+                    () async {
+                      await getIdCollectionAll(context);
+                      for (var item in idAudioListAll) {
+                        await repositories.copyPastCollections(
+                          item,
+                          'DeleteCollections',
+                          'Collections',
+                        );
+                        await repositories.deleteCollection(
+                            item, 'DeleteCollections');
+                      }
+                    },
+                  ),
                 ]);
   }
 }
@@ -375,20 +453,36 @@ class _PopupMenuDeletePage extends StatelessWidget {
 class DoneDelete extends StatefulWidget {
   const DoneDelete({
     Key? key,
-    // required this.id,
-    // required this.done,
+    required this.id,
+    required this.done,
     // required this.collection,
   }) : super(key: key);
-  // final String? id;
+  final String? id;
   // final List collection;
-  // final bool? done;
+  final bool? done;
 
   @override
   State<DoneDelete> createState() => _DoneDeleteState();
 }
 
 class _DoneDeleteState extends State<DoneDelete> {
+  final CollectionsRepositories repositories = CollectionsRepositories();
   bool done = false;
+  String? idCollection;
+
+  Future<void> getIdCollection(BuildContext context) async {
+    await FirebaseFirestore.instance
+        .collection(repositories.user!.phoneNumber!)
+        .doc('id')
+        .collection('CollectionsTale')
+        .where('done', isEqualTo: true)
+        .get()
+        .then((querySnapshot) {
+      for (var result in querySnapshot.docs) {
+        idCollection = result.data()['id'];
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -399,10 +493,20 @@ class _DoneDeleteState extends State<DoneDelete> {
           GestureDetector(
             onTap: () async {
               done = !done;
-              if (!done) {
+              if (done) {
+                repositories.doneAudioItem(
+                  widget.id!,
+                  true,
+                  'DeleteCollections',
+                );
                 setState(() {});
               }
-              if (done) {
+              if (!done) {
+                repositories.doneAudioItem(
+                  widget.id!,
+                  false,
+                  'DeleteCollections',
+                );
                 setState(() {});
               }
             },
@@ -418,7 +522,7 @@ class _DoneDeleteState extends State<DoneDelete> {
               child: Center(
                 child: Icon(
                   Icons.done,
-                  color: done ? AppColor.colorText : AppColor.white,
+                  color: widget.done! ? AppColor.colorText : AppColor.white,
                 ),
               ),
             ),

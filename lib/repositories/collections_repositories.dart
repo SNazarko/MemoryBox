@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -121,13 +123,16 @@ class CollectionsRepositories {
             .set(result.data());
       }
     });
-    await FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
-        .doc('id')
-        .collection(inTheCollection)
-        .doc(idCollection)
-        .update({
-      'dateTimeDelete': _todayDate2,
+    Timer(const Duration(seconds: 5), () {
+      FirebaseFirestore.instance
+          .collection(user!.phoneNumber!)
+          .doc('id')
+          .collection(inTheCollection)
+          .doc(idCollection)
+          .update({
+        'dateTimeDelete': _todayDate2,
+        'done': false,
+      });
     });
   }
 
@@ -158,11 +163,12 @@ class CollectionsRepositories {
   //
   // }
 
-  Future<void> doneAudioItem(String idAudio, bool done) async {
+  Future<void> doneAudioItem(
+      String idAudio, bool done, String collectionFire) async {
     FirebaseFirestore.instance
         .collection(user!.phoneNumber!)
         .doc('id')
-        .collection('Collections')
+        .collection(collectionFire)
         .doc(idAudio)
         .update({'done': done});
   }

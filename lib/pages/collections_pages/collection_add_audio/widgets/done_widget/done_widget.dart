@@ -69,7 +69,7 @@ class _DoneWidgetState extends State<DoneWidget> {
                   false,
                 );
                 // context.read<ModelDone>().doneWidget();
-                repositories.doneAudioItem(widget.id!, false);
+                repositories.doneAudioItem(widget.id!, false, 'Collections');
                 setState(() {});
               }
               if (done) {
@@ -77,7 +77,7 @@ class _DoneWidgetState extends State<DoneWidget> {
                 await repositories.addAudioCollections(
                     idCollection!, widget.id!, widget.collection, true);
                 // context.read<ModelDone>().doneWidget();
-                repositories.doneAudioItem(widget.id!, true);
+                repositories.doneAudioItem(widget.id!, true, 'Collections');
                 setState(() {});
               }
             },

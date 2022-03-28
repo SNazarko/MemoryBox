@@ -233,11 +233,22 @@ class _ListPlayers extends StatelessWidget {
               }
               if (snapshot.hasData) {
                 final audio = snapshot.data!;
-                return ListView(
-                    padding: const EdgeInsets.only(top: 210, bottom: 110),
-                    children: state
-                        ? audio.map(buildAudioDone).toList()
-                        : audio.map(buildAudioDel).toList());
+                if (audio.isEmpty) {
+                  return const Center(
+                      child: Text(
+                    'Вы еще ничего \n     не удалили',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      color: AppColor.colorText50,
+                    ),
+                  ));
+                } else {
+                  return ListView(
+                      padding: const EdgeInsets.only(top: 210, bottom: 110),
+                      children: state
+                          ? audio.map(buildAudioDone).toList()
+                          : audio.map(buildAudioDel).toList());
+                }
               } else {
                 return const Center(
                   child: CircularProgressIndicator(),

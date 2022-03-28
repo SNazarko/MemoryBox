@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 
-class AlertDialogApp {
-  const AlertDialogApp({Key? key});
+import '../repositories/collections_repositories.dart';
 
+class AlertDialogApp {
+  AlertDialogApp({Key? key});
+  final CollectionsRepositories repositoriesCollection =
+      CollectionsRepositories();
   void alertDone(BuildContext context) {
     showDialog<String>(
         context: context,
@@ -32,7 +35,11 @@ class AlertDialogApp {
   }
 
   void alertDialog(
-          BuildContext context, Function endNavigator, Timer function) =>
+    BuildContext context,
+    String idAudio,
+    String inCollection,
+    String fromCollection,
+  ) =>
       showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
@@ -53,7 +60,14 @@ class AlertDialogApp {
               child: TextButton(
                 onPressed: () async {
                   Navigator.pop(context);
-                  () => function;
+                  await repositoriesCollection.copyPastCollections(
+                    idAudio,
+                    fromCollection,
+                    inCollection,
+                  );
+                  await repositoriesCollection.deleteCollection(
+                      idAudio, fromCollection);
+
                   alertDone(context);
                 },
                 child: const Padding(

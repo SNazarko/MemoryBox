@@ -82,18 +82,12 @@ class PopupMenuAudioRecording extends StatelessWidget {
         popupMenuItem(
           'Удалить ',
           () {
-            const AlertDialogApp().alertDialog(context, () {
-              Navigator.pushNamed(context, AudioRecordingsPage.routeName);
-            },
-                Timer(const Duration(seconds: 1), () async {
-                  await repositoriesCollection.copyPastCollections(
-                    idAudio,
-                    'Collections',
-                    'DeleteCollections',
-                  );
-                  await repositoriesCollection.deleteCollection(
-                      idAudio, 'Collections');
-                }));
+            AlertDialogApp().alertDialog(
+              context,
+              idAudio,
+              'DeleteCollections',
+              'Collections',
+            );
           },
         ),
         popupMenuItem(

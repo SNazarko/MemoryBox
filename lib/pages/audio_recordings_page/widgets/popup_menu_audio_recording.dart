@@ -93,17 +93,7 @@ class PopupMenuAudioRecording extends StatelessWidget {
         popupMenuItem(
           'Поделиться',
           () {
-            // Set audiolist = {};
             repositoriesAudio.downloadAudio(idAudio, name);
-            // Directory directory = await getTemporaryDirectory();
-            // await for (var entity in directory.list()) {
-            //   audiolist.add(entity.path);
-            //   audiolist.contains('$directory/$idAudio.m4a')
-            //       ? await Share.share(('$directory/$idAudio'))
-            //       : print('Нет аудио');
-            // // }
-            // // await Share.share('${repositoriesAudio.downloadAudio(idAudio)}');
-            // print(audiolist);
           },
         ),
       ],

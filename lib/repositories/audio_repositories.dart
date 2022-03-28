@@ -85,27 +85,17 @@ class AudioRepositories {
 
   Future<void> downloadAudio(String idAudio, String name) async {
     Directory directory = await getTemporaryDirectory();
-    final filePath = directory.path + '/$idAudio.mp3';
-    var file = File(filePath);
-    print('file$file');
-    var fileTemp = await File('${directory.path}/$idAudio');
-    print('fileTemp$fileTemp');
-    var isExist = await file.exists();
-    if (!isExist) {
-      await file.create();
-    }
-    var rat = await fileTemp.readAsBytes();
-    print('rat$rat');
-    await file.writeAsBytes(rat);
+    final filePath = directory.path + '/$name.mp3';
     try {
       await firebase_storage.FirebaseStorage.instance
           .ref('${user!.phoneNumber!}/userAudio/$idAudio.m4a')
-          .writeToFile(fileTemp);
+          .writeToFile(File(filePath));
     } on FirebaseException catch (e) {
       print('Ошибка $e');
     }
-
-    await Share.shareFiles([filePath], text: name);
+    await Share.shareFiles(
+      [filePath],
+    );
   }
 
   Future<void> renameAudio(

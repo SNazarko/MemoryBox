@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/models/view_model.dart';
@@ -224,7 +223,9 @@ class PopupMenuHomePage extends StatelessWidget {
         ),
         popupMenuItem(
           'Поделиться',
-          () {},
+          () {
+            repositories.downloadAudio(idAudio, name);
+          },
         ),
       ],
     );

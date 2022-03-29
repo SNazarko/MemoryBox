@@ -9,6 +9,9 @@ import 'package:memory_box/pages/profile_pages/profile_page/widgets/photo_profil
 import 'package:memory_box/pages/profile_pages/profile_page/widgets/progress_indicator.dart';
 import 'package:memory_box/pages/profile_pages/profile_edit_page/profile_edit_page.dart';
 import 'package:memory_box/widgets/text_link.dart';
+import '../../../models/user_model.dart';
+import '../../../repositories/user_repositories.dart';
+import '../../../resources/app_colors.dart';
 import '../../../resources/constants.dart';
 
 class Profile extends StatelessWidget {
@@ -62,8 +65,13 @@ class Profile extends StatelessWidget {
 
 class _Links extends StatelessWidget {
   _Links({Key? key, required this.screenWidth}) : super(key: key);
+  final UserRepositories repositoriesUser = UserRepositories();
   final _auth = FirebaseAuth.instance;
   final double screenWidth;
+  Widget buildAudio(UserModel model) => CustomProgressIndicator(
+        size: model.totalSize ?? 0,
+      );
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -87,7 +95,26 @@ class _Links extends StatelessWidget {
         const SizedBox(
           height: 15.0,
         ),
-        const CustomProgressIndicator(),
+        StreamBuilder<List<UserModel>>(
+          stream: repositoriesUser.readUser(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return CustomProgressIndicator(
+                size: 150,
+              );
+            }
+            if (snapshot.hasData) {
+              final audio = snapshot.data!;
+              return Container(
+                child: audio.map(buildAudio).toList().first,
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
         const SizedBox(
           height: 15.0,
         ),

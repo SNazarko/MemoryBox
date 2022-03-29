@@ -37,7 +37,7 @@ class UserRepositories {
     FirebaseFirestore.instance
         .collection(user!.phoneNumber!)
         .doc('user')
-        .update({'size': FieldValue.increment(size)});
+        .update({'totalSize': FieldValue.increment(size)});
   }
 
   Future<void> updateTotalTimeQuality() async {

@@ -10,18 +10,19 @@ class AudioModel {
   Timestamp? dateTimeDelete;
   List? searchName;
   List? collections;
+  int? size;
 
-  AudioModel({
-    this.id,
-    this.audioName,
-    this.audioUrl,
-    this.duration,
-    this.done,
-    this.dateTime,
-    this.dateTimeDelete,
-    this.searchName,
-    this.collections,
-  });
+  AudioModel(
+      {this.id,
+      this.audioName,
+      this.audioUrl,
+      this.duration,
+      this.done,
+      this.dateTime,
+      this.dateTimeDelete,
+      this.searchName,
+      this.collections,
+      this.size});
 
   factory AudioModel.fromJson(Map<String, dynamic> json) {
     return AudioModel(
@@ -34,6 +35,7 @@ class AudioModel {
       dateTimeDelete: json['dateTimeDelete'],
       searchName: json['searchName'],
       collections: json['collections'],
+      size: json['size'],
     );
   }
 
@@ -46,6 +48,7 @@ class AudioModel {
         'dateTime': dateTime,
         'dateTimeDelete': dateTimeDelete,
         'searchName': searchName,
-        'collections': collections
+        'collections': collections,
+        'size': size
       };
 }

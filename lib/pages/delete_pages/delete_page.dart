@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
+import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/resources/constants.dart';
@@ -16,6 +17,7 @@ import '../../models/collections_model.dart';
 import '../../repositories/collections_repositories.dart';
 import '../authorization_page/registration_page/registration_page.dart';
 import 'delete_page_model.dart';
+import 'package:collection/collection.dart';
 
 class _DeletePageArguments {
   _DeletePageArguments({this.auth, this.user}) {
@@ -202,6 +204,7 @@ class _ListPlayers extends StatelessWidget {
         collection: audio.collections!,
         popupMenu: DeleteAudio(
           idAudio: '${audio.id}',
+          size: audio.size!,
         ),
       );
 
@@ -319,15 +322,18 @@ class _DeleteCollections extends StatelessWidget {
 }
 
 class DeleteAudio extends StatelessWidget {
-  const DeleteAudio({Key? key, required this.idAudio}) : super(key: key);
+  const DeleteAudio({Key? key, required this.idAudio, required this.size})
+      : super(key: key);
   final String idAudio;
+  final int? size;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: GestureDetector(
-          onTap: () {
-            CollectionsRepositories()
+          onTap: () async {
+            await UserRepositories().updateSizeRepositories(-size!);
+            await CollectionsRepositories()
                 .deleteCollection(idAudio, 'DeleteCollections');
           },
           child: SizedBox(
@@ -344,13 +350,17 @@ class DeleteAudio extends StatelessWidget {
 
 class _PopupMenuDeletePage extends StatelessWidget {
   _PopupMenuDeletePage({Key? key}) : super(key: key);
-  final CollectionsRepositories repositories = CollectionsRepositories();
+  final CollectionsRepositories repositoriesCollections =
+      CollectionsRepositories();
+  final UserRepositories repositoriesUser = UserRepositories();
   List<String> idAudioList = [];
+  List<int> sizeList = [];
   List<String> idAudioListAll = [];
+  List<int> sizeListAll = [];
 
   Future<void> getIdCollection(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(repositories.user!.phoneNumber!)
+        .collection(repositoriesCollections.user!.phoneNumber!)
         .doc('id')
         .collection('DeleteCollections')
         .where('done', isEqualTo: true)
@@ -359,13 +369,15 @@ class _PopupMenuDeletePage extends StatelessWidget {
       for (var result in querySnapshot.docs) {
         final String idAudio = result.data()['id'];
         idAudioList.add(idAudio);
+        final int size = result.data()['size'];
+        sizeList.add(size);
       }
     });
   }
 
   Future<void> getIdCollectionAll(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(repositories.user!.phoneNumber!)
+        .collection(repositoriesCollections.user!.phoneNumber!)
         .doc('id')
         .collection('DeleteCollections')
         .get()
@@ -373,6 +385,8 @@ class _PopupMenuDeletePage extends StatelessWidget {
       for (var result in querySnapshot.docs) {
         final String idAudioAll = result.data()['id'];
         idAudioListAll.add(idAudioAll);
+        final int size = result.data()['size'];
+        sizeListAll.add(size);
       }
     });
   }
@@ -399,28 +413,31 @@ class _PopupMenuDeletePage extends StatelessWidget {
                       context.read<DeletePageModel>().stateCollections();
                     },
                   ),
-                  popupMenuItem(
-                    'Удалить',
-                    () async {
-                      await getIdCollection(context);
-                      for (var item in idAudioList) {
-                        await repositories.deleteCollection(
-                            item, 'DeleteCollections');
-                      }
-                    },
-                  ),
+                  popupMenuItem('Удалить', () async {
+                    await getIdCollection(context);
+                    for (var item in IterableZip([idAudioList, sizeList])) {
+                      final idAudio = item[0];
+                      final sizeTemp = item[1];
+                      final size = sizeTemp as int;
+                      await repositoriesCollections.deleteCollection(
+                          '$idAudio', 'DeleteCollections');
+                      await repositoriesUser.updateSizeRepositories(-size);
+                    }
+                    await UserRepositories().updateTotalTimeQuality();
+                  }),
                   popupMenuItem(
                     'Восстановить',
                     () async {
                       await getIdCollection(context);
                       for (var item in idAudioList) {
-                        await repositories.copyPastCollections(
+                        await repositoriesCollections.copyPastCollections(
                           item,
                           'DeleteCollections',
                           'Collections',
                         );
-                        await repositories.deleteCollection(
+                        await repositoriesCollections.deleteCollection(
                             item, 'DeleteCollections');
+                        await UserRepositories().updateTotalTimeQuality();
                       }
                     },
                   ),
@@ -436,10 +453,17 @@ class _PopupMenuDeletePage extends StatelessWidget {
                     'Удалить все',
                     () async {
                       await getIdCollection(context);
-                      for (var item in idAudioListAll) {
-                        await repositories.deleteCollection(
-                            item, 'DeleteCollections');
+                      for (var item
+                          in IterableZip([idAudioListAll, sizeListAll])) {
+                        final idAudio = item[0];
+                        final sizeTemp = item[1];
+                        final size = sizeTemp as int;
+                        await repositoriesCollections.deleteCollection(
+                            '$idAudio', 'DeleteCollections');
+                        await repositoriesUser.updateSizeRepositories(-size);
                       }
+
+                      await UserRepositories().updateTotalTimeQuality();
                     },
                   ),
                   popupMenuItem(
@@ -447,13 +471,14 @@ class _PopupMenuDeletePage extends StatelessWidget {
                     () async {
                       await getIdCollectionAll(context);
                       for (var item in idAudioListAll) {
-                        await repositories.copyPastCollections(
+                        await repositoriesCollections.copyPastCollections(
                           item,
                           'DeleteCollections',
                           'Collections',
                         );
-                        await repositories.deleteCollection(
+                        await repositoriesCollections.deleteCollection(
                             item, 'DeleteCollections');
+                        await UserRepositories().updateTotalTimeQuality();
                       }
                     },
                   ),

@@ -607,14 +607,14 @@ class _AudioPlayerState extends State<AudioPlayer> {
     _audioPlayer.stop().then((value) => widget.onDelete());
   }
 
-  void saveRecordsFirebase() {
-    AudioRepositories().uploadAudio(
+  void saveRecordsFirebase() async {
+    await AudioRepositories().uploadAudio(
       Provider.of<ModelRP>(context, listen: false).getData,
       _saveRecord,
       Provider.of<ModelRP>(context, listen: false).getDuration,
       searchName,
     );
-    UserRepositories().updateTotalTimeQuality();
+    await UserRepositories().updateTotalTimeQuality();
     _audioPlayer.stop().then((value) => widget.onDelete());
   }
 

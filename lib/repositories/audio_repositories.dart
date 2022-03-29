@@ -4,9 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:intl/intl.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/models/user_model.dart';
+import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:uuid/uuid.dart';
@@ -18,6 +18,7 @@ class AudioRepositories {
     init();
   }
   UserModel userModel = UserModel();
+  UserRepositories repositories = UserRepositories();
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
   FirebaseAuth? auth;
@@ -58,8 +59,10 @@ class AudioRepositories {
     var id = uuid.v1();
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
         .ref('${user!.phoneNumber!}/userAudio/$id.m4a');
-    // .ref('${user!.phoneNumber!}/userAudio/${getAudioName(path)}');
     await ref.putFile(File(path));
+    final file = File(path);
+    final statFile = await file.stat();
+    final size = statFile.size;
     final _todayDate = DateTime.now();
     final _todayDate2 = Timestamp.now();
     final model = AudioModel(
@@ -73,9 +76,11 @@ class AudioRepositories {
       dateTimeDelete: _todayDate2,
       done: false,
       searchName: searchName.toList(),
+      size: size,
     );
     final json = model.toJson();
-    FirebaseFirestore.instance
+    await repositories.updateSizeRepositories(size);
+    await FirebaseFirestore.instance
         .collection(user!.phoneNumber!)
         .doc('id')
         .collection('Collections')
@@ -132,6 +137,7 @@ class AudioRepositories {
     final now = DateTime.now();
     final later = now.add(const Duration(days: 15));
     String? idAudio;
+    int? size;
     Timestamp? dateTimeDelete;
     await FirebaseFirestore.instance
         .collection(user!.phoneNumber!)
@@ -142,11 +148,14 @@ class AudioRepositories {
       for (var result in querySnapshot.docs) {
         dateTimeDelete = result.data()['dateTimeDelete'];
         idAudio = result.data()['id'];
+        size = result.data()['size'];
       }
     });
     final state = dateTimeDelete!.compareTo(Timestamp.fromDate(later));
     if (state >= 0) {
-      CollectionsRepositories().deleteCollection(idAudio!, 'DeleteCollections');
+      await repositories.updateSizeRepositories(-size!);
+      await CollectionsRepositories()
+          .deleteCollection(idAudio!, 'DeleteCollections');
     }
   }
 }

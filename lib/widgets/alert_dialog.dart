@@ -4,6 +4,7 @@ import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 
 import '../repositories/collections_repositories.dart';
+import '../repositories/user_repositories.dart';
 
 class AlertDialogApp {
   AlertDialogApp({Key? key});
@@ -13,7 +14,8 @@ class AlertDialogApp {
     showDialog<String>(
         context: context,
         builder: (BuildContext context) {
-          Timer(const Duration(seconds: 3), () {
+          Timer(const Duration(seconds: 3), () async {
+            await UserRepositories().updateTotalTimeQuality();
             Navigator.pop(context);
           });
           return AlertDialog(

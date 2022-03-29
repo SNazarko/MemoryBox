@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,6 +13,8 @@ class CollectionsRepositories {
   CollectionsRepositories() {
     init();
   }
+  firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instance;
   var uuid = const Uuid();
   FirebaseAuth? auth;
   User? user;
@@ -89,6 +91,13 @@ class CollectionsRepositories {
         .collection(collectionFirestore)
         .doc(idCollection)
         .delete();
+    try {
+      firebase_storage.FirebaseStorage.instance
+          .ref('${user!.phoneNumber!}/userAudio/$idCollection.m4a')
+          .delete();
+    } on Exception catch (e) {
+      print(e);
+    }
   }
 
   Future<void> doneCollections(String idCollection, bool doneCollection) async {

@@ -33,6 +33,13 @@ class UserRepositories {
     );
   }
 
+  Future<void> updateSizeRepositories(int size) async {
+    FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('user')
+        .update({'size': FieldValue.increment(size)});
+  }
+
   Future<void> updateTotalTimeQuality() async {
     final List quality = [];
     final List<int> duration = <int>[];

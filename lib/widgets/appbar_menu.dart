@@ -10,20 +10,18 @@ class AppbarMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      child: Stack(children: [
-        Container(
-          height: screenHeight / 1.27,
+    return Stack(children: [
+      Container(
+        height: screenHeight / 1.27,
+      ),
+      ClipPath(
+        clipper: AppbarClipper(),
+        child: Container(
+          color: AppColor.colorAppbar,
+          width: double.infinity,
+          height: 280.0,
         ),
-        ClipPath(
-          clipper: AppbarClipper(),
-          child: Container(
-            color: AppColor.colorAppbar,
-            width: double.infinity,
-            height: 280.0,
-          ),
-        ),
-      ]),
-    );
+      ),
+    ]);
   }
 }

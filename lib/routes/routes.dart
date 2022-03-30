@@ -22,6 +22,7 @@ import 'package:memory_box/pages/save_page/save_page.dart';
 import 'package:memory_box/pages/search_page/search_page.dart';
 
 import '../pages/profile_pages/profile_edit_page/profile_edit_page.dart';
+import '../pages/subscription_page/subscription_page.dart';
 
 class AppRouter {
   const AppRouter._();
@@ -92,6 +93,10 @@ class AppRouter {
       case CollectionItemEditAudio.routeName:
         builder = (_) => const CollectionItemEditAudio();
         break;
+      case SubscriptionPage.routeName:
+        builder = (_) => const SubscriptionPage();
+        break;
+
       case SavePage.routeName:
         final SavePage args = arguments as SavePage;
         builder = (_) => SavePage(

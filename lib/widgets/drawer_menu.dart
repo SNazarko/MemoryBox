@@ -100,7 +100,7 @@ class DrawerMenu extends StatelessWidget {
                     height: 30,
                   ),
                   _DrawerItem(
-                      index: 6,
+                      index: 7,
                       icon: Image.asset(
                         AppIcons.drawer_wallet,
                         width: 24.0,

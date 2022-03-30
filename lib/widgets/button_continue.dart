@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
 
 class ButtonContinue extends StatelessWidget {
-  const ButtonContinue({Key? key, this.onPressed}) : super(key: key);
+  const ButtonContinue({Key? key, this.onPressed, required this.text})
+      : super(key: key);
+  final String text;
   final onPressed;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
-      child: const Text(
-        'Продолжить',
-        style: TextStyle(fontSize: 18.0),
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 18.0, color: AppColor.white100),
       ),
       style: ButtonStyle(
         minimumSize: MaterialStateProperty.all(

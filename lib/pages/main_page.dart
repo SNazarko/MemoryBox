@@ -4,6 +4,7 @@ import 'package:memory_box/pages/home_page/home_page.dart';
 import 'package:memory_box/pages/profile_pages/profile_page/profile.dart';
 import 'package:memory_box/pages/recordings_page/record_page.dart';
 import 'package:memory_box/pages/search_page/search_page.dart';
+import 'package:memory_box/pages/subscription_page/subscription_page.dart';
 import 'package:memory_box/routes/routes.dart';
 import 'package:memory_box/widgets/bottom_nav_bar.dart';
 import 'package:memory_box/widgets/drawer_menu.dart';
@@ -66,6 +67,11 @@ class Main extends StatelessWidget {
         break;
       case 6:
         globalKey(SearchPage.routeName);
+
+        break;
+
+      case 7:
+        globalKey(SubscriptionPage.routeName);
 
         break;
 

@@ -88,38 +88,41 @@ class _RegistrationPageState extends State<RegistrationPage> {
         const SizedBox(
           height: 30.0,
         ),
-        ButtonContinue(onPressed: () async {
-          setState(() {
-            showLoading = true;
-          });
-          await _auth.verifyPhoneNumber(
-            phoneNumber: phoneController.text,
-            verificationCompleted: (phoneAuthCredential) async {
-              setState(() {
-                showLoading = false;
-              });
-              // singInWithPhoneAuthCredential(phoneAuthCredential);
-            },
-            verificationFailed: (verificationFailed) async {
-              setState(() {
-                showLoading = false;
-              });
-              _scaffoldKey.currentState!.showSnackBar(
-                SnackBar(
-                  content: Text(verificationFailed.message!),
-                ),
-              );
-            },
-            codeSent: (verificationId, resendingToken) async {
-              setState(() {
-                showLoading = false;
-                currentState = MobileVerificationState.showOtpFormState;
-                this.verificationId = verificationId;
-              });
-            },
-            codeAutoRetrievalTimeout: (verificationId) async {},
-          );
-        }),
+        ButtonContinue(
+          onPressed: () async {
+            setState(() {
+              showLoading = true;
+            });
+            await _auth.verifyPhoneNumber(
+              phoneNumber: phoneController.text,
+              verificationCompleted: (phoneAuthCredential) async {
+                setState(() {
+                  showLoading = false;
+                });
+                // singInWithPhoneAuthCredential(phoneAuthCredential);
+              },
+              verificationFailed: (verificationFailed) async {
+                setState(() {
+                  showLoading = false;
+                });
+                _scaffoldKey.currentState!.showSnackBar(
+                  SnackBar(
+                    content: Text(verificationFailed.message!),
+                  ),
+                );
+              },
+              codeSent: (verificationId, resendingToken) async {
+                setState(() {
+                  showLoading = false;
+                  currentState = MobileVerificationState.showOtpFormState;
+                  this.verificationId = verificationId;
+                });
+              },
+              codeAutoRetrievalTimeout: (verificationId) async {},
+            );
+          },
+          text: 'Продолжыть',
+        ),
       ],
     );
   }
@@ -143,12 +146,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
         const SizedBox(
           height: 30.0,
         ),
-        ButtonContinue(onPressed: () {
-          PhoneAuthCredential phoneAuthCredential =
-              PhoneAuthProvider.credential(
-                  verificationId: verificationId!, smsCode: otpController.text);
-          singInWithPhoneAuthCredential(phoneAuthCredential);
-        }),
+        ButtonContinue(
+          onPressed: () {
+            PhoneAuthCredential phoneAuthCredential =
+                PhoneAuthProvider.credential(
+                    verificationId: verificationId!,
+                    smsCode: otpController.text);
+            singInWithPhoneAuthCredential(phoneAuthCredential);
+          },
+          text: 'Продолжыть',
+        ),
       ],
     );
   }

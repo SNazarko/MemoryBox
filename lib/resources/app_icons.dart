@@ -27,4 +27,7 @@ class AppIcons {
   static const String play_podborki = '$path/play_podborki.png';
   static const String stop_podborki = '$path/stop_podborki.png';
   static const String tick = '$path/tick.png';
+  static const String subscription_upload = '$path/subscription_upload.png';
+  static const String subscription_infinity = '$path/subscription_infinity.png';
+  static const String subscription_download = '$path/subscription_download.png';
 }

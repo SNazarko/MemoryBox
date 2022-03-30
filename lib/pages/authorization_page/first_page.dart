@@ -58,9 +58,12 @@ class FirstPage extends StatelessWidget {
             const SizedBox(
               height: 30.0,
             ),
-            ButtonContinue(onPressed: () {
-              Navigator.pushNamed(context, RegistrationPage.routeName);
-            })
+            ButtonContinue(
+              onPressed: () {
+                Navigator.pushNamed(context, RegistrationPage.routeName);
+              },
+              text: 'Продолжыть',
+            )
           ],
         ),
       ),

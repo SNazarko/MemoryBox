@@ -608,6 +608,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
   }
 
   void saveRecordsFirebase() async {
+    _audioPlayer.stop().then((value) => widget.onDelete());
     await AudioRepositories().uploadAudio(
       Provider.of<ModelRP>(context, listen: false).getData,
       _saveRecord,
@@ -615,7 +616,6 @@ class _AudioPlayerState extends State<AudioPlayer> {
       searchName,
     );
     await UserRepositories().updateTotalTimeQuality();
-    _audioPlayer.stop().then((value) => widget.onDelete());
   }
 
   Widget _buildControl() {

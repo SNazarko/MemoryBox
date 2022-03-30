@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,8 +6,12 @@ import 'package:memory_box/pages/home_page/widgets/appbar_header_home_page.dart'
 import 'package:memory_box/pages/home_page/widgets/appbar_header_home_page_not_is_authorization.dart';
 import 'package:memory_box/pages/home_page/widgets/home_page_audio.dart';
 import 'package:memory_box/pages/home_page/widgets/home_page_not_is_authorization.dart';
+import 'package:provider/provider.dart';
 
+import '../../models/view_model.dart';
+import '../../repositories/audio_repositories.dart';
 import '../../repositories/collections_repositories.dart';
+import '../../repositories/user_repositories.dart';
 
 class _HomePageArguments {
   _HomePageArguments({this.auth, this.user}) {
@@ -21,13 +26,41 @@ class _HomePageArguments {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
   static const routeName = '/home_page';
-  final CollectionsRepositories repositories = CollectionsRepositories();
-  final _HomePageArguments arguments = _HomePageArguments();
+
   static Widget create() {
     return HomePage();
+  }
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final CollectionsRepositories repositories = CollectionsRepositories();
+
+  final _HomePageArguments arguments = _HomePageArguments();
+  Future<void> add(BuildContext context) async {
+    await FirebaseFirestore.instance
+        .collection(repositories.user!.phoneNumber!)
+        .get()
+        .then((querySnapshot) {
+      for (var result in querySnapshot.docs) {
+        final int totalSize = result.data()['totalSize'];
+        if (totalSize >= 524288000) {
+          Provider.of<Navigation>(context, listen: false).setCurrentIndex = 7;
+        }
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    add(context);
+    AudioRepositories().finishDelete();
+    super.initState();
   }
 
   @override

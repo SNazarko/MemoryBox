@@ -18,7 +18,6 @@ class LogoPage extends StatefulWidget {
 class _LogoPageState extends State<LogoPage> {
   @override
   void initState() {
-    AudioRepositories().finishDelete();
     Timer(const Duration(seconds: 1), () {
       Navigator.pushNamed(context, Screensaver.routeName);
     });

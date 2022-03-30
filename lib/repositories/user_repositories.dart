@@ -86,16 +86,14 @@ class UserRepositories {
 
   Future<void> updateNameNumber(
       String name, String number, String image) async {
-    final model = UserModel(
-      displayName: name,
-      phoneNumb: number,
-      avatarUrl: image,
-    );
-    final json = model.toJson();
     await FirebaseFirestore.instance
         .collection(user!.phoneNumber!)
         .doc('user')
-        .set(json);
+        .update({
+      'displayName': name,
+      'phoneNumb': number,
+      'avatarUrl': image,
+    });
   }
 
   Future<String> uploadImage(XFile image) async {

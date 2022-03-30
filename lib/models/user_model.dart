@@ -5,6 +5,7 @@ class UserModel {
   String? totalTime;
   int? totalQuality;
   int? totalSize;
+  String? subscription;
 
   UserModel({
     this.displayName,
@@ -13,6 +14,7 @@ class UserModel {
     this.totalTime,
     this.totalQuality,
     this.totalSize,
+    this.subscription,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class UserModel {
       totalTime: json['totalTime'],
       totalQuality: json['totalQuality'],
       totalSize: json['totalSize'],
+      subscription: json['subscription'],
     );
   }
 
@@ -32,6 +35,7 @@ class UserModel {
         'avatarUrl': avatarUrl,
         'totalTime': totalTime,
         'totalQuality': totalQuality,
-        'totalSize': totalSize
+        'totalSize': totalSize,
+        'subscription': subscription
       };
 }

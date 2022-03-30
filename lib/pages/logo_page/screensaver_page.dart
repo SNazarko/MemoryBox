@@ -88,7 +88,7 @@ class _ScreensaverState extends State<Screensaver>
                     'MemoryBox',
                     style: TextStyle(
                         color: animationColor2.value,
-                        fontSize: controller.value * 45,
+                        fontSize: controller.value * 42,
                         fontWeight: FontWeight.w700),
                   ),
                 ),

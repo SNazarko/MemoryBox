@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/models/user_model.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import '../../resources/app_colors.dart';
 import '../../resources/constants.dart';
@@ -64,7 +65,7 @@ class SubscriptionPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               ContainerShadow(
-                                width: screenWidth * 0.4,
+                                width: screenWidth * 0.42,
                                 height: 175.0,
                                 radius: 20.0,
                                 widget: Column(
@@ -72,11 +73,21 @@ class SubscriptionPage extends StatelessWidget {
                                   children: const [
                                     Text(
                                       '300р',
-                                      style: kBodiTextStyle,
+                                      style: TextStyle(
+                                        fontFamily: 'TTNorm',
+                                        fontSize: 24.0,
+                                        fontWeight: FontWeight.w200,
+                                        color: AppColor.colorText,
+                                      ),
                                     ),
                                     Text(
                                       'в месяц',
-                                      style: kTitle3TextStyle3,
+                                      style: TextStyle(
+                                        fontFamily: 'TTNorm',
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w200,
+                                        color: AppColor.colorText,
+                                      ),
                                     ),
                                     DoneSubscriptionPage(),
                                   ],
@@ -84,7 +95,7 @@ class SubscriptionPage extends StatelessWidget {
                                 image: Text(''),
                               ),
                               ContainerShadow(
-                                width: screenWidth * 0.4,
+                                width: screenWidth * 0.42,
                                 height: 175.0,
                                 image: Text(''),
                                 radius: 20.0,
@@ -93,11 +104,21 @@ class SubscriptionPage extends StatelessWidget {
                                   children: const [
                                     Text(
                                       '1800р',
-                                      style: kBodiTextStyle,
+                                      style: TextStyle(
+                                        fontFamily: 'TTNorm',
+                                        fontSize: 24.0,
+                                        fontWeight: FontWeight.w200,
+                                        color: AppColor.colorText,
+                                      ),
                                     ),
                                     Text(
                                       'в год',
-                                      style: kTitle3TextStyle3,
+                                      style: TextStyle(
+                                        fontFamily: 'TTNorm',
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w200,
+                                        color: AppColor.colorText,
+                                      ),
                                     ),
                                     DoneSubscriptionPage()
                                   ],
@@ -107,9 +128,9 @@ class SubscriptionPage extends StatelessWidget {
                           ),
                           Padding(
                             padding:
-                                const EdgeInsets.only(top: 15.0, left: 30.0),
+                                const EdgeInsets.only(top: 20.0, left: 30.0),
                             child: SizedBox(
-                              height: 200.0,
+                              height: 120.0,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: const [
@@ -133,17 +154,21 @@ class SubscriptionPage extends StatelessWidget {
                                       image: AppIcons.subscription_download,
                                       text:
                                           'Возможность скачивать без ограничений'),
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.only(top: 25.0, left: 10.0),
-                                    child: ButtonContinue(
-                                      text: 'Подписаться на месяц',
-                                    ),
-                                  )
                                 ],
                               ),
                             ),
                           ),
+                          const SizedBox(
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 25.0, left: 10.0),
+                              child: ButtonContinue(
+                                // onPressed: (){
+                                //   print();
+                                // },
+                                text: 'Подписаться на месяц',
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ))
@@ -178,7 +203,12 @@ class _Link extends StatelessWidget {
           ),
           Text(
             text,
-            style: kBodi2TextStyle,
+            style: const TextStyle(
+              fontFamily: 'TTNorm',
+              fontSize: 14.0,
+              fontWeight: FontWeight.w200,
+              color: AppColor.colorText,
+            ),
           )
         ],
       ),

@@ -146,7 +146,7 @@ class AudioRepositories {
         .get()
         .then((querySnapshot) {
       for (var result in querySnapshot.docs) {
-        dateTimeDelete = result.data()['dateTimeDelete'];
+        dateTimeDelete = result.data()['dateTimeDelete'] ?? -1;
         idAudio = result.data()['id'];
         size = result.data()['size'];
       }

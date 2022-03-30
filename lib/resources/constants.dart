@@ -40,6 +40,7 @@ const kTitle3TextStyle3 = TextStyle(
   color: AppColor.colorText,
 );
 const kDraverTextStyle = TextStyle(
+  fontFamily: 'TTNorms',
   fontSize: 18.0,
   color: AppColor.colorText,
 );
@@ -68,6 +69,7 @@ const kBodiOverlineTextStyle = TextStyle(
 const kLinkColorText = TextStyle(
     fontSize: 16, fontWeight: FontWeight.w400, color: AppColor.colorTextLink);
 const kBottombarTextStyle = TextStyle(
+  fontFamily: 'TTNorms',
   fontSize: 10.0,
   color: AppColor.colorText,
 );

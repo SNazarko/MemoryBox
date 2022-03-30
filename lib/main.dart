@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:memory_box/pages/collections_pages/collection_add_audio/collections_add_audio_model.dart';
 import 'package:memory_box/pages/collections_pages/collection_edit/collection_edit_model.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
@@ -16,6 +17,10 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   await Firebase.initializeApp();
   runApp(Phoenix(child: const MyApp()));
 }
@@ -54,7 +59,7 @@ class MyApp extends StatelessWidget {
             textTheme: const TextTheme(
                 bodyText2: TextStyle(
                     color: AppColor.colorText,
-                    fontFamily: 'TTNorm',
+                    fontFamily: 'TTNorms',
                     fontWeight: FontWeight.normal))),
         initialRoute: LogoPage.routeName,
         onGenerateRoute: AppRouter.generateRoute,

@@ -101,10 +101,15 @@ flutter:
     - family: TTNorms
       fonts:
         - asset: assets/fonts/TTNorms-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/TTNorm-Medium.ttf
+          weight: 400
+        - asset: assets/fonts/TTNorms-LightItalic.ttf
+          weight: 200
     - family: TTNorm
       fonts:
-        - asset: assets/fonts/TTNorm-Medium.ttf
-
+        - asset: assets/fonts/TTNorms-Regular.ttf
+          weight: 200
 
   #   - family: Trajan Pro
   #     fonts:

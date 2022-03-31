@@ -94,7 +94,7 @@ class AppRouter {
         builder = (_) => const CollectionItemEditAudio();
         break;
       case SubscriptionPage.routeName:
-        builder = (_) => const SubscriptionPage();
+        builder = (_) => SubscriptionPage();
         break;
 
       case SavePage.routeName:

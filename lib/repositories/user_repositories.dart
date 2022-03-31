@@ -154,7 +154,6 @@ class UserRepositories {
         final int totalSize = result.data()['totalSize'] ?? 0;
         final int subscriptionLimit = result.data()['subscriptionLimit'] ?? 0;
         if (totalSize >= subscriptionLimit) {
-          print(totalSize >= subscriptionLimit);
           FirebaseFirestore.instance
               .collection(user!.phoneNumber!)
               .doc('user')
@@ -163,7 +162,6 @@ class UserRepositories {
           });
         }
         if (totalSize < subscriptionLimit) {
-          print(totalSize < subscriptionLimit);
           FirebaseFirestore.instance
               .collection(user!.phoneNumber!)
               .doc('user')
@@ -184,6 +182,15 @@ class UserRepositories {
         .doc('user')
         .update({
       'finishTimeSubscription': laterTimestamp,
+    });
+  }
+
+  Future<void> subscriptionDone(String name, bool done) async {
+    FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('user')
+        .update({
+      name: done,
     });
   }
 }

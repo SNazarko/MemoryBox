@@ -10,6 +10,9 @@ class UserModel {
   bool? subscription;
   Timestamp? finishTimeSubscription;
   int? subscriptionLimit;
+  bool? onceAMonth;
+  bool? onceAYear;
+  bool? onlyMonth;
 
   UserModel({
     this.displayName,
@@ -21,6 +24,9 @@ class UserModel {
     this.subscription,
     this.finishTimeSubscription,
     this.subscriptionLimit,
+    this.onceAMonth,
+    this.onceAYear,
+    this.onlyMonth,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -34,6 +40,9 @@ class UserModel {
       subscription: json['subscription'],
       finishTimeSubscription: json['finishTimeSubscription'],
       subscriptionLimit: json['subscriptionLimit'],
+      onceAMonth: json['onceAMonth'],
+      onceAYear: json['onceAYear'],
+      onlyMonth: json['onlyMonth'],
     );
   }
 
@@ -46,6 +55,9 @@ class UserModel {
         'totalSize': totalSize,
         'subscription': subscription,
         'finishTimeSubscription': finishTimeSubscription,
-        'subscriptionLimit': subscriptionLimit
+        'subscriptionLimit': subscriptionLimit,
+        'onceAMonth': onceAMonth,
+        'onceAYear': onceAYear,
+        'onlyMonth': onlyMonth
       };
 }

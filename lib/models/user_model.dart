@@ -9,6 +9,7 @@ class UserModel {
   int? totalSize;
   bool? subscription;
   Timestamp? finishTimeSubscription;
+  int? subscriptionLimit;
 
   UserModel({
     this.displayName,
@@ -19,6 +20,7 @@ class UserModel {
     this.totalSize,
     this.subscription,
     this.finishTimeSubscription,
+    this.subscriptionLimit,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -31,6 +33,7 @@ class UserModel {
       totalSize: json['totalSize'],
       subscription: json['subscription'],
       finishTimeSubscription: json['finishTimeSubscription'],
+      subscriptionLimit: json['subscriptionLimit'],
     );
   }
 
@@ -42,6 +45,7 @@ class UserModel {
         'totalQuality': totalQuality,
         'totalSize': totalSize,
         'subscription': subscription,
-        'finishTimeSubscription': finishTimeSubscription
+        'finishTimeSubscription': finishTimeSubscription,
+        'subscriptionLimit': subscriptionLimit
       };
 }

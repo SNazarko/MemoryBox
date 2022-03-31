@@ -120,13 +120,41 @@ class UserRepositories {
 
   // Subscription
   Future<void> limitNotSubscription() async {
+    final now = Timestamp.now();
+    await FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .get()
+        .then((querySnapshot) {
+      for (var result in querySnapshot.docs) {
+        final Timestamp finishTimeSubscription =
+            result.data()['finishTimeSubscription'] ?? -1;
+        final state = finishTimeSubscription.compareTo(now);
+        if (state >= 0) {
+          FirebaseFirestore.instance
+              .collection(user!.phoneNumber!)
+              .doc('user')
+              .update({
+            'subscriptionLimit': 524288000000000,
+          });
+        } else {
+          FirebaseFirestore.instance
+              .collection(user!.phoneNumber!)
+              .doc('user')
+              .update({
+            'subscriptionLimit': 524288000,
+          });
+        }
+      }
+    });
     await FirebaseFirestore.instance
         .collection(user!.phoneNumber!)
         .get()
         .then((querySnapshot) {
       for (var result in querySnapshot.docs) {
         final int totalSize = result.data()['totalSize'] ?? 0;
-        if (totalSize >= 524288000) {
+        final int subscriptionLimit = result.data()['subscriptionLimit'] ?? 0;
+        if (totalSize >= subscriptionLimit) {
+          print(totalSize >= subscriptionLimit);
           FirebaseFirestore.instance
               .collection(user!.phoneNumber!)
               .doc('user')
@@ -134,7 +162,28 @@ class UserRepositories {
             'subscription': false,
           });
         }
+        if (totalSize < subscriptionLimit) {
+          print(totalSize < subscriptionLimit);
+          FirebaseFirestore.instance
+              .collection(user!.phoneNumber!)
+              .doc('user')
+              .update({
+            'subscription': true,
+          });
+        }
       }
+    });
+  }
+
+  Future<void> subscription(int days) async {
+    final DateTime now = DateTime.now();
+    final DateTime later = now.add(Duration(days: days));
+    final Timestamp laterTimestamp = Timestamp.fromDate(later);
+    FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('user')
+        .update({
+      'finishTimeSubscription': laterTimestamp,
     });
   }
 }

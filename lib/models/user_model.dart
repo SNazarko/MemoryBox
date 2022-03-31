@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserModel {
   String? displayName;
   String? phoneNumb;
@@ -5,7 +7,8 @@ class UserModel {
   String? totalTime;
   int? totalQuality;
   int? totalSize;
-  String? subscription;
+  bool? subscription;
+  Timestamp? finishTimeSubscription;
 
   UserModel({
     this.displayName,
@@ -15,6 +18,7 @@ class UserModel {
     this.totalQuality,
     this.totalSize,
     this.subscription,
+    this.finishTimeSubscription,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -26,6 +30,7 @@ class UserModel {
       totalQuality: json['totalQuality'],
       totalSize: json['totalSize'],
       subscription: json['subscription'],
+      finishTimeSubscription: json['finishTimeSubscription'],
     );
   }
 
@@ -36,6 +41,7 @@ class UserModel {
         'totalTime': totalTime,
         'totalQuality': totalQuality,
         'totalSize': totalSize,
-        'subscription': subscription
+        'subscription': subscription,
+        'finishTimeSubscription': finishTimeSubscription
       };
 }

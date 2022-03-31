@@ -117,4 +117,24 @@ class UserRepositories {
         .doc('user')
         .set(json);
   }
+
+  // Subscription
+  Future<void> limitNotSubscription() async {
+    await FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .get()
+        .then((querySnapshot) {
+      for (var result in querySnapshot.docs) {
+        final int totalSize = result.data()['totalSize'] ?? 0;
+        if (totalSize >= 524288000) {
+          FirebaseFirestore.instance
+              .collection(user!.phoneNumber!)
+              .doc('user')
+              .update({
+            'subscription': false,
+          });
+        }
+      }
+    });
+  }
 }

@@ -39,17 +39,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final CollectionsRepositories repositories = CollectionsRepositories();
+  final CollectionsRepositories repCollections = CollectionsRepositories();
+  final UserRepositories repUser = UserRepositories();
 
   final _HomePageArguments arguments = _HomePageArguments();
-  Future<void> add(BuildContext context) async {
+  Future<void> subscriptionDone(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(repositories.user!.phoneNumber!)
+        .collection(repCollections.user!.phoneNumber!)
         .get()
         .then((querySnapshot) {
       for (var result in querySnapshot.docs) {
-        final int totalSize = result.data()['totalSize'];
-        if (totalSize >= 524288000) {
+        final bool subscription = result.data()['subscription'] ?? true;
+        if (subscription == false) {
           Provider.of<Navigation>(context, listen: false).setCurrentIndex = 7;
         }
       }
@@ -58,7 +59,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    add(context);
+    repUser.limitNotSubscription();
+    subscriptionDone(context);
     AudioRepositories().finishDelete();
     super.initState();
   }

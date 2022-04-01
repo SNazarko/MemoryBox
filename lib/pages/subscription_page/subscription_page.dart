@@ -1,19 +1,39 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/user_model.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import '../../resources/app_colors.dart';
 import '../../resources/constants.dart';
+import '../../widgets/appbar_clipper.dart';
 import '../../widgets/appbar_menu.dart';
 import '../../widgets/button_continue.dart';
 import '../../widgets/container_shadow.dart';
+import '../authorization_page/registration_page/registration_page.dart';
+
+class _SubscriptionPageArguments {
+  _SubscriptionPageArguments({this.auth, this.user}) {
+    init();
+  }
+  FirebaseAuth? auth;
+  User? user;
+
+  void init() {
+    auth = FirebaseAuth.instance;
+    user = auth!.currentUser;
+  }
+}
 
 class SubscriptionPage extends StatelessWidget {
   SubscriptionPage({Key? key}) : super(key: key);
   static const routeName = '/subscription_page';
-  final UserRepositories repositories = UserRepositories();
+  final UserRepositories repUser = UserRepositories();
+  final _SubscriptionPageArguments arguments = _SubscriptionPageArguments();
+
+  static Widget create() {
+    return SubscriptionPage();
+  }
 
   Widget buildUser(UserModel model) => Subscription(
         onceAMonth: model.onceAMonth,
@@ -43,7 +63,7 @@ class SubscriptionPage extends StatelessWidget {
           children: [
             Stack(
               children: [
-                const AppbarMenu(),
+                const AppbarMenuSubscription(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
@@ -53,29 +73,102 @@ class SubscriptionPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                StreamBuilder<List<UserModel>>(
-                  stream: repositories.readUser(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return const Text('Error');
-                    }
-                    if (snapshot.hasData) {
-                      final user = snapshot.data!;
-                      return Container(
-                        child: user.map(buildUser).toList().first,
-                      );
-                    } else {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  },
-                ),
+                arguments.user == null
+                    ? const SubscriptionNotAuthorisation()
+                    : StreamBuilder<List<UserModel>>(
+                        stream: repUser.readUser(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return const Text('Error');
+                          }
+                          if (snapshot.hasData) {
+                            final user = snapshot.data!;
+                            return Container(
+                              child: user.map(buildUser).toList().first,
+                            );
+                          } else {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        },
+                      )
               ],
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class AppbarMenuSubscription extends StatelessWidget {
+  const AppbarMenuSubscription({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    return Stack(children: [
+      Container(
+        height: screenHeight / 1.27,
+      ),
+      ClipPath(
+        clipper: AppbarClipper(),
+        child: Container(
+          color: AppColor.colorAppbar,
+          width: double.infinity,
+          height: 200.0,
+        ),
+      ),
+    ]);
+  }
+}
+
+class SubscriptionNotAuthorisation extends StatelessWidget {
+  const SubscriptionNotAuthorisation({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(
+          height: 200.0,
+        ),
+        Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 50.0,
+              horizontal: 40.0,
+            ),
+            child: Column(
+              children: [
+                RichText(
+                  text: TextSpan(
+                      text: '     Для открытия полного \n '
+                          '            функционала \n '
+                          '   приложения вам нужно \n '
+                          ' зарегистрироваться',
+                      style: const TextStyle(
+                        fontSize: 20.0,
+                        color: AppColor.colorText50,
+                      ),
+                      children: [
+                        TextSpan(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.pushNamed(
+                                  context, RegistrationPage.routeName);
+                            },
+                          text: ' здесь',
+                          style: const TextStyle(
+                            fontSize: 20.0,
+                            color: AppColor.pink,
+                          ),
+                        )
+                      ]),
+                )
+              ],
+            )),
+      ],
     );
   }
 }

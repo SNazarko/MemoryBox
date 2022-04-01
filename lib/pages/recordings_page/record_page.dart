@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -584,10 +585,21 @@ class _AudioPlayerState extends State<AudioPlayer> {
         Padding(
           padding: const EdgeInsets.only(left: 35.0),
           child: TextButton(
-            onPressed: () {
-              _arguments.user == null
-                  ? saveRecordLocal()
-                  : saveRecordsFirebase();
+            onPressed: () async {
+              await FirebaseFirestore.instance
+                  .collection(UserRepositories().user!.phoneNumber!)
+                  .get()
+                  .then((querySnapshot) {
+                for (var result in querySnapshot.docs) {
+                  final bool subscription =
+                      result.data()['subscription'] ?? true;
+                  _arguments.user == null
+                      ? saveRecordLocal()
+                      : subscription
+                          ? saveRecordsFirebase()
+                          : saveRecordLocal();
+                }
+              });
             },
             child: const Text(
               'Сохранить',

@@ -143,6 +143,13 @@ class UserRepositories {
               .update({
             'subscriptionLimit': 524288000,
           });
+          FirebaseFirestore.instance
+              .collection(user!.phoneNumber!)
+              .doc('user')
+              .update({
+            'onceAMonth': false,
+            'onceAYear': false,
+          });
         }
       }
     });

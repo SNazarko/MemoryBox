@@ -36,8 +36,8 @@ class _DoneCollectionItemEditAudioState
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: GestureDetector(
-        onTap: () {
-          repositories.addAudioCollections(
+        onTap: () async {
+          await repositories.addAudioCollections(
               Provider.of<CollectionsItemPageModel>(context, listen: false)
                   .getIdCollection,
               widget.id!,
@@ -45,7 +45,7 @@ class _DoneCollectionItemEditAudioState
               !widget.collection!.contains(
                   Provider.of<CollectionsItemPageModel>(context, listen: false)
                       .getIdCollection));
-          repositories.updateQualityAndTotalTime(
+          await repositories.updateQualityAndTotalTime(
             Provider.of<CollectionsItemPageModel>(context, listen: false)
                 .getIdCollection,
           );

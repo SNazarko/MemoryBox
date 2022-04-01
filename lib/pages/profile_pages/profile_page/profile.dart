@@ -9,7 +9,9 @@ import 'package:memory_box/pages/profile_pages/profile_page/widgets/photo_profil
 import 'package:memory_box/pages/profile_pages/profile_page/widgets/progress_indicator.dart';
 import 'package:memory_box/pages/profile_pages/profile_edit_page/profile_edit_page.dart';
 import 'package:memory_box/widgets/text_link.dart';
+import 'package:provider/provider.dart';
 import '../../../models/user_model.dart';
+import '../../../models/view_model.dart';
 import '../../../repositories/user_repositories.dart';
 import '../../../resources/app_colors.dart';
 import '../../../resources/constants.dart';
@@ -88,7 +90,9 @@ class _Links extends StatelessWidget {
           height: 40.0,
         ),
         TextLink(
-          onPressed: () {},
+          onPressed: () {
+            Provider.of<Navigation>(context, listen: false).setCurrentIndex = 7;
+          },
           underline: false,
           text: 'Подписка',
         ),

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
 class DeletePageModel extends ChangeNotifier {
-  bool _done = true;
   bool _itemDone = false;
 
   get getItemDone => _itemDone;
@@ -12,18 +11,6 @@ class DeletePageModel extends ChangeNotifier {
       notifyListeners();
     } else {
       _itemDone = true;
-      notifyListeners();
-    }
-  }
-
-  get getStateDone => _done;
-
-  void stateDone() {
-    if (_done) {
-      _done = false;
-      notifyListeners();
-    } else {
-      _done = true;
       notifyListeners();
     }
   }

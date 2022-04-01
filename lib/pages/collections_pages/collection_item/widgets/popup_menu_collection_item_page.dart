@@ -6,7 +6,11 @@ import 'package:memory_box/pages/collections_pages/collection_item_edit/collecti
 import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/collection_item_edit_audio.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../repositories/collections_repositories.dart';
+import '../../collection/collection.dart';
+import '../collections_item_page_model.dart';
 import 'appbar_header_profile_edit.dart';
 
 class PopupMenuCollectionItemPage extends StatelessWidget {
@@ -46,7 +50,12 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
           'Удалить подборку',
           () {
             Timer(const Duration(seconds: 1), () {
-              AppbarHeaderCollectionItem().alertDialog(context);
+              CollectionsRepositories().deleteCollection(
+                Provider.of<CollectionsItemPageModel>(context, listen: false)
+                    .getIdCollection,
+                'CollectionsTale',
+              );
+              Navigator.pushNamed(context, Collections.routeName);
             });
           },
         ),

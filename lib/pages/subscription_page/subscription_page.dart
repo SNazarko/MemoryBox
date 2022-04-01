@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/user_model.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_icons.dart';
+import 'package:provider/provider.dart';
+import '../../models/view_model.dart';
 import '../../resources/app_colors.dart';
 import '../../resources/constants.dart';
 import '../../widgets/appbar_clipper.dart';
@@ -39,6 +43,7 @@ class SubscriptionPage extends StatelessWidget {
         onceAMonth: model.onceAMonth,
         onceAYear: model.onceAYear,
         onlyMonth: model.onlyMonth,
+        finishTimeSubscription: model.finishTimeSubscription,
       );
   @override
   Widget build(BuildContext context) {
@@ -178,17 +183,27 @@ class Subscription extends StatelessWidget {
       {Key? key,
       required this.onceAMonth,
       required this.onceAYear,
-      required this.onlyMonth})
+      required this.onlyMonth,
+      required this.finishTimeSubscription})
       : super(key: key);
   final UserRepositories repositories = UserRepositories();
   final bool? onceAMonth;
   final bool? onceAYear;
   final bool? onlyMonth;
+  final Timestamp? finishTimeSubscription;
   bool? done = false;
+
+  bool? getState() {
+    final now = Timestamp.now();
+    final state = finishTimeSubscription!.compareTo(now);
+    if (state >= 0) return true;
+  }
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
+    final DateTime date = finishTimeSubscription!.toDate();
+
     return Positioned(
         left: 5.0,
         top: 60.0,
@@ -232,16 +247,19 @@ class Subscription extends StatelessWidget {
                         ),
                         DoneSubscriptionPage(
                           done: onceAMonth!,
-                          onTap: () {
+                          onTap: () async {
                             done = !done!;
                             if (done!) {
-                              repositories.subscriptionDone('onceAMonth', true);
-                              UserRepositories().subscription(31);
+                              await repositories.subscriptionDone(
+                                  'onceAMonth', true);
+                              await repositories.subscriptionDone(
+                                  'onceAYear', false);
+                              await UserRepositories().subscription(31);
                             }
                             if (!done!) {
-                              repositories.subscriptionDone(
+                              await repositories.subscriptionDone(
                                   'onceAMonth', false);
-                              UserRepositories().subscription(0);
+                              await UserRepositories().subscription(0);
                             }
                           },
                         ),
@@ -277,15 +295,19 @@ class Subscription extends StatelessWidget {
                         ),
                         DoneSubscriptionPage(
                           done: onceAYear!,
-                          onTap: () {
+                          onTap: () async {
                             done = !done!;
                             if (done!) {
-                              repositories.subscriptionDone('onceAYear', true);
-                              UserRepositories().subscription(365);
+                              await repositories.subscriptionDone(
+                                  'onceAYear', true);
+                              await repositories.subscriptionDone(
+                                  'onceAMonth', false);
+                              await UserRepositories().subscription(365);
                             }
                             if (!done!) {
-                              repositories.subscriptionDone('onceAYear', false);
-                              UserRepositories().subscription(0);
+                              await repositories.subscriptionDone(
+                                  'onceAYear', false);
+                              await UserRepositories().subscription(0);
                             }
                           },
                         ),
@@ -325,7 +347,40 @@ class Subscription extends StatelessWidget {
                 ),
               ),
               onlyMonth!
-                  ? const SizedBox()
+                  ? getState()!
+                      ? Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: SizedBox(
+                            child: Center(
+                                child: Text(
+                              'Подписка действует \n        '
+                              '   до ${formatDate(date, [
+                                    dd,
+                                    '.',
+                                    mm,
+                                    '.',
+                                    yy,
+                                  ])}',
+                              style: const TextStyle(
+                                fontSize: 20.0,
+                                color: AppColor.colorText50,
+                              ),
+                            )),
+                          ),
+                        )
+                      : const Padding(
+                          padding: EdgeInsets.only(top: 20.0),
+                          child: SizedBox(
+                            child: Center(
+                                child: Text(
+                              'Подпишитесь сейчас!',
+                              style: TextStyle(
+                                fontSize: 20.0,
+                                color: AppColor.colorText50,
+                              ),
+                            )),
+                          ),
+                        )
                   : SizedBox(
                       child: Padding(
                         padding: const EdgeInsets.only(top: 25.0, left: 10.0),
@@ -333,6 +388,8 @@ class Subscription extends StatelessWidget {
                           onPressed: () {
                             repositories.subscriptionDone('onlyMonth', true);
                             UserRepositories().subscription(31);
+                            // Provider.of<Navigation>(context, listen: false)
+                            //     .setCurrentIndex = 0;
                           },
                           text: 'Подписаться на месяц',
                         ),
@@ -394,10 +451,6 @@ class DoneSubscriptionPage extends StatelessWidget {
       padding: const EdgeInsets.all(12.0),
       child: GestureDetector(
         onTap: onTap,
-        //     () {
-        //   done = !done;
-        //   setState(() {});
-        // },
         child: Container(
           width: 40,
           height: 40,

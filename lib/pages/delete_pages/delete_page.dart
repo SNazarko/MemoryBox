@@ -33,7 +33,9 @@ class _DeletePageArguments {
 }
 
 class _AppbarHeader extends StatelessWidget {
-  const _AppbarHeader({Key? key}) : super(key: key);
+  const _AppbarHeader({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,42 +47,17 @@ class _AppbarHeader extends StatelessWidget {
           child: Container(
             color: AppColor.colorAppbar,
             width: double.infinity,
-            height: 200.0,
+            height: 125.0,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 25.0, left: 12.0, right: 5.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-                icon: const Icon(
-                  Icons.menu,
-                  color: AppColor.white,
-                ),
-              ),
-              const Text(
-                'Недавно',
-                style: kTitleTextStyle2,
-              ),
-              _PopupMenuDeletePage()
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 70.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text(
-                'удаленные',
-                style: kTitleTextStyle2,
-              ),
-            ],
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Text(
+              'удаленные',
+              style: kTitleTextStyle2,
+            ),
+          ],
         ),
       ],
     );
@@ -103,26 +80,23 @@ class DeletePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   // centerTitle: true,
-      //   leading: Expanded(
-      //     child: IconButton(
-      //       onPressed: () {
-      //         Scaffold.of(context).openDrawer();
-      //       },
-      //       icon: const Icon(Icons.menu),
-      //     ),
-      //   ),
-      //   elevation: 0.0,
-      //
-      //   title: Expanded(
-      //     child: const Text(
-      //       'Недавно',
-      //       style: kTitleTextStyle2,
-      //     ),
-      //   ),
-      //   actions: const [Expanded(child: _PopupMenuDeletePage())],
-      // ),
+      appBar: AppBar(
+        // centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+          icon: const Icon(Icons.menu),
+        ),
+        elevation: 0.0,
+        centerTitle: true,
+
+        title: const Text(
+          'Недавно',
+          style: kTitleTextStyle2,
+        ),
+        actions: [_PopupMenuDeletePage()],
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -247,7 +221,7 @@ class _ListPlayers extends StatelessWidget {
                   ));
                 } else {
                   return ListView(
-                      padding: const EdgeInsets.only(top: 210, bottom: 110),
+                      padding: const EdgeInsets.only(top: 130.0, bottom: 110.0),
                       children: state
                           ? audio.map(buildAudioDone).toList()
                           : audio.map(buildAudioDel).toList());
@@ -568,46 +542,3 @@ class _DoneDeleteState extends State<DoneDelete> {
     );
   }
 }
-
-//
-// class ListPlayers extends StatelessWidget {
-//   ListPlayers({Key? key}) : super(key: key);
-//   final AudioRepositories repositories = AudioRepositories();
-//   Widget buildAudio(AudioModel audio) => PlayerMini(
-//     duration: '${audio.duration}',
-//     url: '${audio.audioUrl}',
-//     name: '${audio.audioName}',
-//     popupMenu: const DeleteAudio(),
-//   );
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     final double screenHeight = MediaQuery.of(context).size.height;
-//     return Column(
-//       children: [
-//         SizedBox(
-//           height: screenHeight * 0.95,
-//           child: StreamBuilder<List<AudioModel>>(
-//             stream: repositories.readAudio(),
-//             builder: (context, snapshot) {
-//               if (snapshot.hasError) {
-//                 return const Text('Ошибка');
-//               }
-//               if (snapshot.hasData) {
-//                 final audio = snapshot.data!;
-//                 return ListView(
-//                   padding: const EdgeInsets.only(top: 127, bottom: 110),
-//                   children: audio.map(buildAudio).toList(),
-//                 );
-//               } else {
-//                 return const Center(
-//                   child: CircularProgressIndicator(),
-//                 );
-//               }
-//             },
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }

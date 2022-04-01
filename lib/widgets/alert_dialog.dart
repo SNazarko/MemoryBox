@@ -14,7 +14,7 @@ class AlertDialogApp {
     showDialog<String>(
         context: context,
         builder: (BuildContext context) {
-          Timer(const Duration(seconds: 3), () async {
+          Timer(const Duration(seconds: 1), () async {
             await UserRepositories().updateTotalTimeQuality();
             Navigator.pop(context);
           });
@@ -62,6 +62,7 @@ class AlertDialogApp {
               child: TextButton(
                 onPressed: () async {
                   Navigator.pop(context);
+                  alertDone(context);
                   await repositoriesCollection.copyPastCollections(
                     idAudio,
                     fromCollection,
@@ -69,8 +70,6 @@ class AlertDialogApp {
                   );
                   await repositoriesCollection.deleteCollection(
                       idAudio, fromCollection);
-
-                  alertDone(context);
                 },
                 child: const Padding(
                   padding:

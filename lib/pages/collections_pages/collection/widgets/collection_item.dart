@@ -11,7 +11,7 @@ import '../collection_model.dart';
 import '../collection.dart';
 
 class CollectionItem extends StatelessWidget {
-  const CollectionItem({
+  CollectionItem({
     Key? key,
     this.title,
     this.quality,
@@ -29,107 +29,108 @@ class CollectionItem extends StatelessWidget {
   final String? image;
   final String? data;
   final String? totalTime;
-  final bool? doneCollection;
+  bool? doneCollection = false;
+  bool done = true;
 
-  void alertDone(BuildContext context) {
-    showDialog<String>(
-        context: context,
-        builder: (BuildContext context) {
-          Timer(const Duration(seconds: 3), () {
-            Navigator.pushNamed(context, Collections.routeName);
-          });
-          return AlertDialog(
-            insetPadding: const EdgeInsets.all(75.0),
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(
-                  20.0,
-                ),
-              ),
-            ),
-            content: Image.asset(
-              AppIcons.tick,
-              width: 175.0,
-              height: 175.0,
-            ),
-          );
-        });
-  }
-
-  void alertDialog(BuildContext context) => showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          title: const Text(
-            'Подтверждаете удаление?',
-            style: TextStyle(color: AppColor.pink, fontSize: 18.0),
-          ),
-          content: const Text(
-            'Ваш файл перенесется в папку “Недавно удаленные”. Через 15 дней он исчезнет.',
-            textAlign: TextAlign.center,
-            style: TextStyle(color: AppColor.colorText70, fontSize: 14.0),
-          ),
-          actions: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: TextButton(
-                onPressed: () async {
-                  Navigator.pop(context);
-                  alertDone(context);
-                },
-                child: const Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
-                  child: Text(
-                    'Да',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(AppColor.colorAppbar),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0),
-                      side: const BorderSide(
-                        color: AppColor.colorAppbar,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 50.0),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-                  child: Text(
-                    'Нет',
-                    style: TextStyle(color: AppColor.colorText),
-                  ),
-                ),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(AppColor.white100),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0),
-                      side: const BorderSide(
-                        color: AppColor.blue300,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
+  // void alertDone(BuildContext context) {
+  //   showDialog<String>(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         Timer(const Duration(seconds: 3), () {
+  //           Navigator.pushNamed(context, Collections.routeName);
+  //         });
+  //         return AlertDialog(
+  //           insetPadding: const EdgeInsets.all(75.0),
+  //           shape: const RoundedRectangleBorder(
+  //             borderRadius: BorderRadius.all(
+  //               Radius.circular(
+  //                 20.0,
+  //               ),
+  //             ),
+  //           ),
+  //           content: Image.asset(
+  //             AppIcons.tick,
+  //             width: 175.0,
+  //             height: 175.0,
+  //           ),
+  //         );
+  //       });
+  // }
+  //
+  // void alertDialog(BuildContext context) => showDialog<String>(
+  //       context: context,
+  //       builder: (BuildContext context) => AlertDialog(
+  //         shape: const RoundedRectangleBorder(
+  //             borderRadius: BorderRadius.all(Radius.circular(20.0))),
+  //         title: const Text(
+  //           'Подтверждаете удаление?',
+  //           style: TextStyle(color: AppColor.pink, fontSize: 18.0),
+  //         ),
+  //         content: const Text(
+  //           'Ваш файл перенесется в папку “Недавно удаленные”. Через 15 дней он исчезнет.',
+  //           textAlign: TextAlign.center,
+  //           style: TextStyle(color: AppColor.colorText70, fontSize: 14.0),
+  //         ),
+  //         actions: <Widget>[
+  //           Padding(
+  //             padding: const EdgeInsets.symmetric(horizontal: 20.0),
+  //             child: TextButton(
+  //               onPressed: () async {
+  //                 Navigator.pop(context);
+  //                 alertDone(context);
+  //               },
+  //               child: const Padding(
+  //                 padding:
+  //                     EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
+  //                 child: Text(
+  //                   'Да',
+  //                   style: TextStyle(color: Colors.white),
+  //                 ),
+  //               ),
+  //               style: ButtonStyle(
+  //                 backgroundColor:
+  //                     MaterialStateProperty.all(AppColor.colorAppbar),
+  //                 shape: MaterialStateProperty.all(
+  //                   RoundedRectangleBorder(
+  //                     borderRadius: BorderRadius.circular(50.0),
+  //                     side: const BorderSide(
+  //                       color: AppColor.colorAppbar,
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //           Padding(
+  //             padding: const EdgeInsets.only(right: 50.0),
+  //             child: TextButton(
+  //               onPressed: () {
+  //                 Navigator.pop(context);
+  //               },
+  //               child: const Padding(
+  //                 padding:
+  //                     EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+  //                 child: Text(
+  //                   'Нет',
+  //                   style: TextStyle(color: AppColor.colorText),
+  //                 ),
+  //               ),
+  //               style: ButtonStyle(
+  //                 backgroundColor: MaterialStateProperty.all(AppColor.white100),
+  //                 shape: MaterialStateProperty.all(
+  //                   RoundedRectangleBorder(
+  //                     borderRadius: BorderRadius.circular(50.0),
+  //                     side: const BorderSide(
+  //                       color: AppColor.blue300,
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     );
 
   @override
   Widget build(BuildContext context) {
@@ -232,7 +233,6 @@ class CollectionItem extends StatelessWidget {
   }
 
   getCollectionDone(BuildContext context) {
-    final bool done = context.watch<CollectionModel>().getStateDone;
     return Container(
       width: 185.0,
       height: 250.0,
@@ -257,7 +257,8 @@ class CollectionItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Expanded(
+                Flexible(
+                  flex: 10,
                   child: Text(
                     title!,
                     overflow: TextOverflow.ellipsis,
@@ -269,14 +270,16 @@ class CollectionItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                Expanded(
+                Flexible(
+                  flex: 10,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
                         '$quality аудио',
                         style: const TextStyle(
-                          fontSize: 14.0,
+                          fontSize: 12.0,
                           fontWeight: FontWeight.w400,
                           color: AppColor.white100,
                         ),
@@ -284,7 +287,7 @@ class CollectionItem extends StatelessWidget {
                       Text(
                         '$totalTime часа',
                         style: const TextStyle(
-                          fontSize: 14.0,
+                          fontSize: 12.0,
                           fontWeight: FontWeight.w400,
                           color: AppColor.white100,
                         ),
@@ -301,7 +304,7 @@ class CollectionItem extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.black.withOpacity(0.4),
               gradient: LinearGradient(
-                  colors: doneCollection ?? false
+                  colors: doneCollection!
                       // done
                       ? [const Color(0xFF000000), const Color(0xFF000000)]
                       : [const Color(0xFF000000), const Color(0xFF454545)],
@@ -323,28 +326,39 @@ class CollectionItem extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                    context.read<CollectionModel>().stateDone();
-                    CollectionsRepositories().doneCollections(
-                      id!,
-                      done,
-                    );
+                    doneCollection = !doneCollection!;
                     if (!doneCollection!) {
-                      CollectionsRepositories().copyPastCollections(
+                      CollectionsRepositories().doneCollections(
                         id!,
-                        'CollectionsTale',
-                        'DeleteCollectionsTale',
+                        false,
                       );
                     }
                     if (doneCollection!) {
-                      CollectionsRepositories().deleteCollection(
+                      CollectionsRepositories().doneCollections(
                         id!,
-                        'DeleteCollectionsTale',
+                        true,
                       );
                     }
+
+                    // context.read<CollectionModel>().stateDone();
+
+                    // if (!doneCollection!) {
+                    //   CollectionsRepositories().copyPastCollections(
+                    //     id!,
+                    //     'CollectionsTale',
+                    //     'DeleteCollectionsTale',
+                    //   );
+                    // }
+                    // if (doneCollection!) {
+                    //   CollectionsRepositories().deleteCollection(
+                    //     id!,
+                    //     'DeleteCollectionsTale',
+                    //   );
+                    // }
                   },
                   icon: Icon(
                     Icons.done,
-                    color: doneCollection ?? false
+                    color: doneCollection!
                         // done
                         // context.watch<ModelPlayerMiniPodborki>().done
                         ? AppColor.white

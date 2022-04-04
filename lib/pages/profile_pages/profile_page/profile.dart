@@ -20,6 +20,7 @@ class Profile extends StatelessWidget {
   Profile({Key? key}) : super(key: key);
   static const routeName = '/profile';
   final DataModel model = DataModel();
+  final UserRepositories rep = UserRepositories();
 
   static Widget create() {
     return Profile();
@@ -55,9 +56,13 @@ class Profile extends StatelessWidget {
                 PhotoProfileProfile(),
               ],
             ),
-            _Links(
-              screenWidth: screenWidth,
-            ),
+            rep.user == null
+                ? _LinksNotAuthorization(
+                    screenWidth: screenWidth,
+                  )
+                : _Links(
+                    screenWidth: screenWidth,
+                  ),
           ],
         ),
       ),
@@ -118,6 +123,64 @@ class _Links extends StatelessWidget {
               );
             }
           },
+        ),
+        const SizedBox(
+          height: 15.0,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextLink(
+                text: 'Вийти из приложения',
+                onPressed: () async {
+                  await _auth.signOut();
+                  exit(0);
+                },
+              ),
+              DeleteAccount(),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class _LinksNotAuthorization extends StatelessWidget {
+  _LinksNotAuthorization({Key? key, required this.screenWidth})
+      : super(key: key);
+  final _auth = FirebaseAuth.instance;
+  final double screenWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        NameAndNumber(screenWidth: screenWidth * 0.75),
+        TextLink(
+          onPressed: () {
+            Navigator.pushNamed(context, ProfileEdit.routeName);
+          },
+          text: 'Редактировать',
+        ),
+        const SizedBox(
+          height: 40.0,
+        ),
+        TextLink(
+          onPressed: () {
+            Provider.of<Navigation>(context, listen: false).setCurrentIndex = 7;
+          },
+          underline: false,
+          text: 'Подписка',
+        ),
+        const SizedBox(
+          height: 15.0,
+        ),
+        CustomProgressIndicator(
+          size: 150,
         ),
         const SizedBox(
           height: 15.0,

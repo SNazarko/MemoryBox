@@ -115,7 +115,6 @@ class CollectionsRepositories {
     String inTheCollection,
   ) async {
     final _todayDate2 = Timestamp.now();
-    final _todayDate = DateTime.now();
     await FirebaseFirestore.instance
         .collection(user!.phoneNumber!)
         .doc('id')

@@ -3,8 +3,9 @@ import 'package:memory_box/resources/app_colors.dart';
 
 class RoundedAmebaThumbShape extends SliderComponentShape {
   final double radius;
+  final Color color;
 
-  const RoundedAmebaThumbShape({required this.radius});
+  const RoundedAmebaThumbShape({required this.radius, required this.color});
 
   @override
   Size getPreferredSize(bool isEnabled, bool isDiscrete) {
@@ -25,7 +26,7 @@ class RoundedAmebaThumbShape extends SliderComponentShape {
       required Size sizeWithOverflow}) {
     final Canvas canvas = context.canvas;
 
-    final paint = Paint()..color = AppColor.colorText;
+    final paint = Paint()..color = color;
 
     final rect = RRect.fromRectAndRadius(
       Rect.fromPoints(

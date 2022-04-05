@@ -689,7 +689,8 @@ class _AudioPlayerState extends State<AudioPlayer> {
       width: width * 2,
       child: SliderTheme(
         data: SliderTheme.of(context).copyWith(
-            thumbShape: RoundedAmebaThumbShape(radius: 8),
+            thumbShape: const RoundedAmebaThumbShape(
+                radius: 8, color: AppColor.colorText),
             thumbColor: AppColor.colorText,
             inactiveTrackColor: AppColor.colorText,
             activeTrackColor: AppColor.colorText),

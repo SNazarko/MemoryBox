@@ -224,13 +224,14 @@ class UserRepositories {
   }
 
   Future<void> supportQuestions(String questions) async {
-    final DateTime now = DateTime.now();
+    final Timestamp now = Timestamp.now();
     FirebaseFirestore.instance
         .collection('SupportQuestions')
         .doc(uuid.v1())
         .set({
       'phoneNumber': user!.phoneNumber!,
       'message': questions,
+      'dateTime': now,
     });
   }
 }

@@ -49,6 +49,7 @@ class SupportMessagePage extends StatelessWidget {
                         StreamBuilder<QuerySnapshot>(
                             stream: FirebaseFirestore.instance
                                 .collection('SupportQuestions')
+                                .orderBy('dateTime', descending: true)
                                 .snapshots(),
                             builder: (context, snapshot) {
                               if (snapshot.hasError) {
@@ -66,7 +67,7 @@ class SupportMessagePage extends StatelessWidget {
                                   child: ListView(
                                     padding: const EdgeInsets.all(15.0),
                                     reverse: true,
-                                    children: message.docs.reversed
+                                    children: message.docs
                                         .map((DocumentSnapshot document) {
                                       Map<String, dynamic> data = document
                                           .data() as Map<String, dynamic>;
@@ -82,9 +83,9 @@ class SupportMessagePage extends StatelessWidget {
                                         isMe = false;
                                       }
                                       return ModelMessage(
-                                        message: message,
-                                        phoneNumber: phoneNumber,
-                                      );
+                                          message: message,
+                                          phoneNumber: phoneNumber,
+                                          isMe: isMe ?? false);
                                     }).toList(),
                                   ),
                                 );
@@ -112,73 +113,52 @@ class ModelMessage extends StatelessWidget {
     Key? key,
     required this.message,
     required this.phoneNumber,
+    required this.isMe,
   }) : super(key: key);
   final UserRepositories rep = UserRepositories();
   final String? message;
   final String? phoneNumber;
+  final bool? isMe;
 
   @override
   Widget build(BuildContext context) {
-    if (phoneNumber == rep.user!.phoneNumber) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Text(
-            phoneNumber!,
+    return Column(
+      crossAxisAlignment:
+          isMe! ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: Text(
+            isMe! ? 'Поддержка' : phoneNumber!,
             style: const TextStyle(fontSize: 12.0),
           ),
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Material(
-              elevation: 5.0,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(50.0),
-                bottomLeft: Radius.circular(50.0),
-                bottomRight: Radius.circular(50.0),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  message!,
-                  style: const TextStyle(fontSize: 16.0),
-                ),
-              ),
-            ),
-          ),
-        ],
-      );
-    }
-    if (phoneNumber == '+380001112233') {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Поддержка',
-            style: TextStyle(fontSize: 12.0),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Material(
-              color: Colors.blueGrey.shade200,
-              elevation: 5.0,
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(50.0),
-                bottomLeft: Radius.circular(50.0),
-                bottomRight: Radius.circular(50.0),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  message!,
-                  style: const TextStyle(fontSize: 16.0),
-                ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Material(
+            elevation: 5.0,
+            borderRadius: isMe!
+                ? const BorderRadius.only(
+                    topLeft: Radius.circular(50.0),
+                    bottomLeft: Radius.circular(50.0),
+                    bottomRight: Radius.circular(50.0),
+                  )
+                : const BorderRadius.only(
+                    topRight: Radius.circular(50.0),
+                    bottomLeft: Radius.circular(50.0),
+                    bottomRight: Radius.circular(50.0),
+                  ),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                message!,
+                style: const TextStyle(fontSize: 16.0),
               ),
             ),
           ),
-        ],
-      );
-    }
-    return const Text('Error');
+        ),
+      ],
+    );
   }
 }
 

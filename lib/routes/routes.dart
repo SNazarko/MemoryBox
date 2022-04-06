@@ -23,6 +23,7 @@ import 'package:memory_box/pages/search_page/search_page.dart';
 
 import '../pages/profile_pages/profile_edit_page/profile_edit_page.dart';
 import '../pages/subscription_page/subscription_page.dart';
+import '../pages/support_messag_page/support_message_page.dart';
 
 class AppRouter {
   const AppRouter._();
@@ -95,6 +96,9 @@ class AppRouter {
         break;
       case SubscriptionPage.routeName:
         builder = (_) => SubscriptionPage();
+        break;
+      case SupportMessagePage.routeName:
+        builder = (_) => SupportMessagePage();
         break;
 
       case SavePage.routeName:

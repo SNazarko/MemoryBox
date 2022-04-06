@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/models/collections_model.dart';
 import 'package:memory_box/models/view_model.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
+import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:provider/src/provider.dart';

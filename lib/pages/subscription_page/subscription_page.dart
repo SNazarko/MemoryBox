@@ -43,7 +43,7 @@ class SubscriptionPage extends StatelessWidget {
         onceAMonth: model.onceAMonth,
         onceAYear: model.onceAYear,
         onlyMonth: model.onlyMonth,
-        finishTimeSubscription: model.finishTimeSubscription,
+        finishTimeSubscription: model.dateTimeDelete,
       );
   @override
   Widget build(BuildContext context) {
@@ -89,7 +89,7 @@ class SubscriptionPage extends StatelessWidget {
                           if (snapshot.hasData) {
                             final user = snapshot.data!;
                             return Container(
-                              child: user.map(buildUser).toList().first,
+                              child: user.map(buildUser).toList().single,
                             );
                           } else {
                             return const Center(

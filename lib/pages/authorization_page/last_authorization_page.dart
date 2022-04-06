@@ -6,6 +6,7 @@ import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
 import '../../repositories/audio_repositories.dart';
+import '../../repositories/user_repositories.dart';
 import '../../widgets/appbar_header_authorization.dart';
 import '../main_page.dart';
 
@@ -28,6 +29,7 @@ class LastAuthorizationPage extends StatefulWidget {
 class _LastAuthorizationPageState extends State<LastAuthorizationPage> {
   final _LastAuthorizationPageArguments _arguments =
       _LastAuthorizationPageArguments();
+  final UserRepositories repositories = UserRepositories();
   @override
   void initState() {
     Timer(const Duration(seconds: 3), () {

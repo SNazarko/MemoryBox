@@ -111,7 +111,7 @@ class DrawerMenu extends StatelessWidget {
                     height: 5.0,
                   ),
                   _DrawerItem(
-                      index: 7,
+                      index: 8,
                       icon: Image.asset(
                         AppIcons.drawer_edit,
                         width: 24.0,

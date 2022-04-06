@@ -612,6 +612,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
   }
 
   void saveRecordLocal() {
+    print('saveRecordLocal');
     LocalSaveAudioFile().saveAudioStorageDirectory(
       Provider.of<ModelRP>(context, listen: false).getData,
       _saveRecord,
@@ -620,6 +621,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
   }
 
   void saveRecordsFirebase() async {
+    print('saveRecordsFirebase');
     _audioPlayer.stop().then((value) => widget.onDelete());
     await AudioRepositories().uploadAudio(
       Provider.of<ModelRP>(context, listen: false).getData,

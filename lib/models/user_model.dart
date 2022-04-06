@@ -8,7 +8,7 @@ class UserModel {
   int? totalQuality;
   int? totalSize;
   bool? subscription;
-  Timestamp? finishTimeSubscription;
+  Timestamp? dateTimeDelete;
   int? subscriptionLimit;
   bool? onceAMonth;
   bool? onceAYear;
@@ -22,7 +22,7 @@ class UserModel {
     this.totalQuality,
     this.totalSize,
     this.subscription,
-    this.finishTimeSubscription,
+    this.dateTimeDelete,
     this.subscriptionLimit,
     this.onceAMonth,
     this.onceAYear,
@@ -38,7 +38,7 @@ class UserModel {
       totalQuality: json['totalQuality'],
       totalSize: json['totalSize'],
       subscription: json['subscription'],
-      finishTimeSubscription: json['finishTimeSubscription'],
+      dateTimeDelete: json['dateTimeDelete'],
       subscriptionLimit: json['subscriptionLimit'],
       onceAMonth: json['onceAMonth'],
       onceAYear: json['onceAYear'],
@@ -54,7 +54,7 @@ class UserModel {
         'totalQuality': totalQuality,
         'totalSize': totalSize,
         'subscription': subscription,
-        'finishTimeSubscription': finishTimeSubscription,
+        'dateTimeDelete': dateTimeDelete,
         'subscriptionLimit': subscriptionLimit,
         'onceAMonth': onceAMonth,
         'onceAYear': onceAYear,

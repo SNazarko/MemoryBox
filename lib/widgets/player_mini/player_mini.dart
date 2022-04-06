@@ -64,6 +64,10 @@ class _PlayerMiniState extends State<PlayerMini> {
     return player.pause();
   }
 
+  Future<void> nextN() {
+    return player.seekToNext();
+  }
+
   Future<void> stop() async {
     await player.stop();
     return player.seek(const Duration(milliseconds: 0));
@@ -154,8 +158,14 @@ class _PlayerMiniState extends State<PlayerMini> {
                 ],
               ),
             ),
-            const Expanded(
-              child: SizedBox(),
+            Expanded(
+              child: SizedBox(
+                child: IconButton(
+                    onPressed: () {
+                      nextN();
+                    },
+                    icon: Icon(Icons.abc)),
+              ),
             ),
             widget.popupMenu
           ],

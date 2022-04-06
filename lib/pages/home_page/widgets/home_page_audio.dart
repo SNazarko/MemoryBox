@@ -4,12 +4,12 @@ import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/models/view_model.dart';
 import 'package:memory_box/pages/save_page/save_page_model.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
+import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:provider/provider.dart';
-import '../../../repositories/user_repositories.dart';
 import '../../../widgets/alert_dialog.dart';
 import '../../save_page/save_page.dart';
 
@@ -99,6 +99,24 @@ class _AudioList extends StatelessWidget {
           }
           if (snapshot.hasData) {
             final audio = snapshot.data!;
+            if (audio.map(buildAudio).toList().isEmpty) {
+              UserRepositories().firstAuthorization();
+              return const Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: 50.0,
+                  horizontal: 40.0,
+                ),
+                child: Text(
+                  'Как только ты запишешь аудио, она появится здесь.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: AppColor.colorText50,
+                  ),
+                ),
+              );
+            }
+
             return ListView(
               children: audio.map(buildAudio).toList(),
             );

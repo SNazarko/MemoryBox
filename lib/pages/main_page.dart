@@ -5,6 +5,7 @@ import 'package:memory_box/pages/profile_pages/profile_page/profile.dart';
 import 'package:memory_box/pages/recordings_page/record_page.dart';
 import 'package:memory_box/pages/search_page/search_page.dart';
 import 'package:memory_box/pages/subscription_page/subscription_page.dart';
+import 'package:memory_box/pages/support_messag_page/support_message_page.dart';
 import 'package:memory_box/routes/routes.dart';
 import 'package:memory_box/widgets/bottom_nav_bar.dart';
 import 'package:memory_box/widgets/drawer_menu.dart';
@@ -72,6 +73,10 @@ class Main extends StatelessWidget {
 
       case 7:
         globalKey(SubscriptionPage.routeName);
+
+        break;
+      case 8:
+        globalKey(SupportMessagePage.routeName);
 
         break;
 

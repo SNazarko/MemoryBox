@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:image_picker/image_picker.dart';
 import 'package:memory_box/models/user_model.dart';
+import 'package:uuid/uuid.dart';
 
 class UserRepositories {
   UserRepositories() {
@@ -13,6 +14,7 @@ class UserRepositories {
       firebase_storage.FirebaseStorage.instance;
   FirebaseAuth? auth;
   User? user;
+  var uuid = const Uuid();
 
   void init() {
     auth = FirebaseAuth.instance;
@@ -31,6 +33,26 @@ class UserRepositories {
       maxHeight: 800,
       maxWidth: 800,
     );
+  }
+
+  Future<void> firstAuthorization() async {
+    final DateTime now = DateTime.now();
+    final DateTime later = now.add(const Duration(days: 30));
+    final Timestamp laterTimestamp = Timestamp.fromDate(later);
+    await FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('user')
+        .set({
+      'onceAMonth': false,
+      'onceAYear': false,
+      'onlyMonth': false,
+      'dateTimeDelete': laterTimestamp,
+      'subscription': true,
+      'subscriptionLimit': 524288000,
+      'totalQuality': 0,
+      'totalSize': 0,
+      'totalTime': '00:00',
+    });
   }
 
   Future<void> updateSizeRepositories(int size) async {
@@ -89,7 +111,7 @@ class UserRepositories {
     await FirebaseFirestore.instance
         .collection(user!.phoneNumber!)
         .doc('user')
-        .update({
+        .set({
       'displayName': name,
       'phoneNumb': number,
       'avatarUrl': image,
@@ -127,7 +149,7 @@ class UserRepositories {
         .then((querySnapshot) {
       for (var result in querySnapshot.docs) {
         final Timestamp finishTimeSubscription =
-            result.data()['finishTimeSubscription'] ?? -1;
+            result.data()['finishTimeSubscription'] ?? now;
         final state = finishTimeSubscription.compareTo(now);
         if (state >= 0) {
           FirebaseFirestore.instance
@@ -198,6 +220,17 @@ class UserRepositories {
         .doc('user')
         .update({
       name: done,
+    });
+  }
+
+  Future<void> supportQuestions(String questions) async {
+    final DateTime now = DateTime.now();
+    FirebaseFirestore.instance
+        .collection('SupportQuestions')
+        .doc(uuid.v1())
+        .set({
+      'phoneNumber': user!.phoneNumber!,
+      'message': questions,
     });
   }
 }

@@ -75,7 +75,7 @@ class _Links extends StatelessWidget {
   final UserRepositories repositoriesUser = UserRepositories();
   final _auth = FirebaseAuth.instance;
   final double screenWidth;
-  Widget buildAudio(UserModel model) => CustomProgressIndicator(
+  Widget buildUser(UserModel model) => CustomProgressIndicator(
         size: model.totalSize ?? 0,
       );
 
@@ -113,10 +113,16 @@ class _Links extends StatelessWidget {
               );
             }
             if (snapshot.hasData) {
-              final audio = snapshot.data!;
-              return Container(
-                child: audio.map(buildAudio).toList().first,
-              );
+              final user = snapshot.data!;
+              if (user.map(buildUser).toList().isNotEmpty) {
+                return Container(
+                  child: user.map(buildUser).toList().single,
+                );
+              } else {
+                return CustomProgressIndicator(
+                  size: 150,
+                );
+              }
             } else {
               return const Center(
                 child: CircularProgressIndicator(),

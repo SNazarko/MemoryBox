@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:just_audio/just_audio.dart' as ap;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:record/record.dart';
+import '../../../../repositories/collections_repositories.dart';
 import '../../../../resources/app_colors.dart';
 import '../../../../widgets/slider.dart';
 import '../collections_item_page_model.dart';
@@ -30,10 +33,8 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
   bool _isPlay = false;
   bool _isPaused = false;
   Timer? _timer;
-  Timer? _ampTimer;
-  Amplitude? _amplitude;
   int _recordDuration = 0;
-  late final String url;
+  List<String> audioNameList = [];
 
   @override
   void initState() {
@@ -48,6 +49,7 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
         _audioPlayer.positionStream.listen((position) => setState(() {}));
     _durationChangedSubscription =
         _audioPlayer.durationStream.listen((duration) => setState(() {}));
+    loop();
     _init();
 
     super.initState();
@@ -55,7 +57,7 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
 
   Future<void> _init() async {
     bool _isPlay = false;
-    await _audioPlayer.setUrl(url);
+    // await _audioPlayer.setUrl(url);
   }
 
   @override
@@ -120,7 +122,6 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
       canSetValue = position.inMilliseconds > 0;
       canSetValue &= position.inMilliseconds < duration.inMilliseconds;
     }
-
     return SizedBox(
       child: SliderTheme(
         data: SliderTheme.of(context).copyWith(
@@ -144,11 +145,34 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
     );
   }
 
-  // Future<void> loop() {
-  //   setState(() => _isPlay = true);
-  //   _startTimer();
-  //   return _audioPlayer.;
-  // }
+  Future<void> loop() async {
+    CollectionsRepositories rep = CollectionsRepositories();
+    List<AudioSource> audioUrlList = [];
+
+    await FirebaseFirestore.instance
+        .collection(rep.user!.phoneNumber!)
+        .doc('id')
+        .collection('Collections')
+        .get()
+        .then((querySnapshot) {
+      for (var result in querySnapshot.docs) {
+        final String audioUrl = result.data()['audioUrl'];
+        final String audioName = result.data()['audioName'];
+        audioUrlList.add(AudioSource.uri(Uri.parse(audioUrl)));
+        audioNameList.add(audioName);
+      }
+    });
+
+    await _audioPlayer.setAudioSource(
+      ConcatenatingAudioSource(
+        useLazyPreparation: true, // default
+        shuffleOrder: DefaultShuffleOrder(), // default
+        children: audioUrlList,
+      ),
+      initialIndex: 0, // default
+      initialPosition: Duration.zero, // default
+    );
+  }
 
   Future<void> play() {
     setState(() => _isPlay = true);
@@ -182,14 +206,35 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
       return _buildTimer();
     }
 
-    return Text('00:00');
+    return Text(
+      '00:00',
+      style: TextStyle(
+          fontFamily: 'TTNorms',
+          fontSize: context.watch<CollectionsItemPageModel>().getAnim * 10.0,
+          color: Colors.white,
+          fontWeight: FontWeight.w400),
+    );
   }
 
   Widget _buildTimer() {
+    final durationAudioPlayer = _audioPlayer.duration;
+    final durationMilliseconds = durationAudioPlayer?.inMilliseconds ?? 0;
+    final durationDouble = durationMilliseconds / 1000;
+    final duration = durationDouble.toInt();
+    if (_recordDuration >= duration) {
+      print(_recordDuration);
+      print(duration);
+      _recordDuration = 0;
+    }
     final String minutes = _formatNumber(_recordDuration ~/ 60);
     final String seconds = _formatNumber(_recordDuration % 60);
     return Text(
       '$minutes : $seconds',
+      style: TextStyle(
+          fontFamily: 'TTNorms',
+          fontSize: context.watch<CollectionsItemPageModel>().getAnim * 10.0,
+          color: Colors.white,
+          fontWeight: FontWeight.w400),
     );
   }
 
@@ -200,6 +245,23 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
     }
 
     return numberStr;
+  }
+
+  Widget _duration() {
+    final durationAudioPlayer = _audioPlayer.duration;
+    final durationMilliseconds = durationAudioPlayer?.inMilliseconds ?? 0;
+    final durationDouble = durationMilliseconds / 1000;
+    final duration = durationDouble.toInt();
+    final String minutes = _formatNumber(duration ~/ 60);
+    final String seconds = _formatNumber(duration % 60);
+    return Text(
+      '$minutes : $seconds',
+      style: TextStyle(
+          fontFamily: 'TTNorms',
+          fontSize: context.watch<CollectionsItemPageModel>().getAnim * 10.0,
+          color: Colors.white,
+          fontWeight: FontWeight.w400),
+    );
   }
 
   @override
@@ -250,7 +312,7 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 15.0),
                                     child: Text(
-                                      'Малышь Кокки 1',
+                                      audioNameList[_audioPlayer.currentIndex!],
                                       style: TextStyle(
                                           fontFamily: 'TTNorms',
                                           fontSize: context
@@ -271,32 +333,7 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          '00:00',
-                                          style: TextStyle(
-                                              fontFamily: 'TTNorms',
-                                              fontSize: context
-                                                      .watch<
-                                                          CollectionsItemPageModel>()
-                                                      .getAnim *
-                                                  10.0,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                        Text(
-                                          '00:00',
-                                          style: TextStyle(
-                                              fontFamily: 'TTNorms',
-                                              fontSize: context
-                                                      .watch<
-                                                          CollectionsItemPageModel>()
-                                                      .getAnim *
-                                                  10.0,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                      ],
+                                      children: [_buildText(), _duration()],
                                     ),
                                   ),
                                 )

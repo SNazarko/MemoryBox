@@ -57,18 +57,21 @@ class SupportMessagePageList extends StatelessWidget {
 }
 
 class _ModelMessage extends StatelessWidget {
-  const _ModelMessage({
+  _ModelMessage({
     Key? key,
     required this.message,
     required this.phoneNumber,
     required this.isMe,
   }) : super(key: key);
   final String? message;
-  final String? phoneNumber;
+  String? phoneNumber;
   final bool? isMe;
 
   @override
   Widget build(BuildContext context) {
+    if (phoneNumber == '+380001112233') {
+      phoneNumber = 'Поддержка';
+    }
     return Column(
       crossAxisAlignment:
           isMe! ? CrossAxisAlignment.end : CrossAxisAlignment.start,
@@ -76,14 +79,15 @@ class _ModelMessage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Text(
-            isMe! ? 'Поддержка' : phoneNumber!,
+            phoneNumber!,
             style: const TextStyle(fontSize: 12.0),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(5.0),
           child: Material(
-            elevation: 5.0,
+            color: isMe! ? Colors.blue.shade100 : Colors.grey.shade200,
+            elevation: 3.0,
             borderRadius: isMe!
                 ? const BorderRadius.only(
                     topLeft: Radius.circular(50.0),

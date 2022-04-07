@@ -7,6 +7,12 @@ class TextFieldSupportMessagePage extends StatelessWidget {
   TextFieldSupportMessagePage({Key? key}) : super(key: key);
   final messageTextController = TextEditingController();
   final UserRepositories repositories = UserRepositories();
+
+  void _onSubmitted(String message) {
+    repositories.supportQuestions(message);
+    messageTextController.clear();
+  }
+
   String? message;
   @override
   Widget build(BuildContext context) {
@@ -16,10 +22,7 @@ class TextFieldSupportMessagePage extends StatelessWidget {
           flex: 6,
           child: TextField(
             controller: messageTextController,
-            onTap: () {
-              repositories.supportQuestions(message!);
-              messageTextController.clear();
-            },
+            onSubmitted: _onSubmitted,
             onChanged: (newMessage) {
               var messageTrim = newMessage.trim();
               message = messageTrim;
@@ -36,10 +39,7 @@ class TextFieldSupportMessagePage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 3.0),
             child: GestureDetector(
-              onTap: () {
-                repositories.supportQuestions(message!);
-                messageTextController.clear();
-              },
+              onTap: () => _onSubmitted(message!),
               child: Container(
                 height: 60.0,
                 width: 55.0,

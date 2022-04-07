@@ -46,7 +46,7 @@ class UserRepositories {
       'onceAMonth': false,
       'onceAYear': false,
       'onlyMonth': false,
-      'dateTimeDelete': laterTimestamp,
+      'finishTimeSubscription': laterTimestamp,
       'subscription': true,
       'subscriptionLimit': 524288000,
       'totalQuality': 0,

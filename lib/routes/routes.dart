@@ -23,7 +23,7 @@ import 'package:memory_box/pages/search_page/search_page.dart';
 
 import '../pages/profile_pages/profile_edit_page/profile_edit_page.dart';
 import '../pages/subscription_page/subscription_page.dart';
-import '../pages/support_messag_page/support_message_page.dart';
+import '../pages/support_message_page/support_message_page.dart';
 
 class AppRouter {
   const AppRouter._();

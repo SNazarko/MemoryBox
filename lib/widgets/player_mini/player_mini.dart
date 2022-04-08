@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:just_audio/just_audio.dart' as ap;
 import 'package:memory_box/resources/app_icons.dart';
@@ -72,6 +73,7 @@ class _PlayerMiniState extends State<PlayerMini> {
   void _init() async {
     bool _isPlay = false;
     await player.setUrl(widget.url);
+    await player.setLoopMode(LoopMode.one);
   }
 
   Future<void> play() {
@@ -84,6 +86,7 @@ class _PlayerMiniState extends State<PlayerMini> {
   Future<void> pause() {
     setState(() => _isPaused = true);
     _timer?.cancel();
+    setState(() => _isReverse = false);
     return player.pause();
   }
 
@@ -91,7 +94,6 @@ class _PlayerMiniState extends State<PlayerMini> {
     await player.stop();
     _timer?.cancel();
     setState(() => _recordDuration = 0);
-    setState(() => _isReverse = false);
     return player.seek(const Duration(milliseconds: 0));
   }
 

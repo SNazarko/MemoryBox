@@ -6,6 +6,8 @@ import 'package:memory_box/resources/app_colors.dart';
 import 'package:just_audio/just_audio.dart' as ap;
 import 'package:memory_box/resources/app_icons.dart';
 
+import '../slider.dart';
+
 class PlayerMini extends StatefulWidget {
   const PlayerMini({
     Key? key,
@@ -32,6 +34,14 @@ class PlayerMini extends StatefulWidget {
 class _PlayerMiniState extends State<PlayerMini> {
   late StreamSubscription<ap.PlayerState> _playerStateChangedSubscription;
   final player = ap.AudioPlayer();
+  late StreamSubscription<Duration?> _durationChangedSubscription;
+  late StreamSubscription<Duration> _positionChangedSubscription;
+  bool _isPlay = false;
+  bool _isPaused = false;
+  bool _isReverse = false;
+  Timer? _timer;
+  int _recordDuration = 0;
+
   @override
   void initState() {
     _playerStateChangedSubscription =
@@ -41,36 +51,117 @@ class _PlayerMiniState extends State<PlayerMini> {
       }
       setState(() {});
     });
+    _positionChangedSubscription =
+        player.positionStream.listen((position) => setState(() {}));
+    _durationChangedSubscription =
+        player.durationStream.listen((duration) => setState(() {}));
     _init();
     super.initState();
   }
 
   @override
   void dispose() {
+    _timer?.cancel();
     _playerStateChangedSubscription.cancel();
+    _positionChangedSubscription.cancel();
+    _durationChangedSubscription.cancel();
     player.dispose();
     super.dispose();
   }
 
   void _init() async {
+    bool _isPlay = false;
     await player.setUrl(widget.url);
   }
 
   Future<void> play() {
+    setState(() => _isPlay = true);
+    setState(() => _isReverse = true);
+    _startTimer();
     return player.play();
   }
 
   Future<void> pause() {
+    setState(() => _isPaused = true);
+    _timer?.cancel();
     return player.pause();
-  }
-
-  Future<void> nextN() {
-    return player.seekToNext();
   }
 
   Future<void> stop() async {
     await player.stop();
+    _timer?.cancel();
+    setState(() => _recordDuration = 0);
+    setState(() => _isReverse = false);
     return player.seek(const Duration(milliseconds: 0));
+  }
+
+  void _startTimer() {
+    _timer?.cancel();
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
+      setState(() => _recordDuration++);
+    });
+  }
+
+  Widget _buildText() {
+    if (_isPlay || _isPaused) {
+      return _buildTimer();
+    }
+
+    return const Text(
+      '00:00',
+      style: TextStyle(
+          fontFamily: 'TTNorms',
+          fontSize: 10.0,
+          color: AppColor.colorText80,
+          fontWeight: FontWeight.w400),
+    );
+  }
+
+  Widget _buildTimer() {
+    final durationAudioPlayer = player.duration;
+    final durationMilliseconds = durationAudioPlayer?.inMilliseconds ?? 0;
+    final durationDouble = durationMilliseconds / 1000;
+    final duration = durationDouble.toInt();
+    if (_recordDuration >= duration) {
+      _recordDuration = 0;
+    }
+    final String minutes = _formatNumber(_recordDuration ~/ 60);
+    final String seconds = _formatNumber(_recordDuration % 60);
+    return Text(
+      '$minutes : $seconds',
+      style: const TextStyle(
+          fontFamily: 'TTNorms',
+          fontSize: 10.0,
+          color: AppColor.colorText80,
+          fontWeight: FontWeight.w400),
+    );
+  }
+
+  String _formatNumber(int number) {
+    String numberStr = number.toString();
+    if (number < 10) {
+      numberStr = '0' + numberStr;
+    }
+
+    return numberStr;
+  }
+
+  Widget _duration() {
+    final durationAudioPlayer = player.duration;
+    final durationMilliseconds = durationAudioPlayer?.inMilliseconds ?? 0;
+    final durationDouble = durationMilliseconds / 1000;
+    final duration = durationDouble.toInt();
+    final String minutes = _formatNumber(duration ~/ 60);
+    final String seconds = _formatNumber(duration % 60);
+    return Text(
+      '$minutes : $seconds',
+      style: const TextStyle(
+          fontFamily: 'TTNorms',
+          fontSize: 10.0,
+          color: AppColor.colorText80,
+          fontWeight: FontWeight.w400),
+    );
   }
 
   Widget _buildControl() {
@@ -112,6 +203,37 @@ class _PlayerMiniState extends State<PlayerMini> {
     );
   }
 
+  Widget _buildSlider() {
+    final position = player.position;
+    final duration = player.duration;
+    bool canSetValue = false;
+    if (duration != null) {
+      canSetValue = position.inMilliseconds > 0;
+      canSetValue &= position.inMilliseconds < duration.inMilliseconds;
+    }
+    return SizedBox(
+      child: SliderTheme(
+        data: SliderTheme.of(context).copyWith(
+            thumbShape: const RoundedAmebaThumbShape(
+                radius: 8, color: AppColor.colorText),
+            thumbColor: AppColor.colorText,
+            inactiveTrackColor: AppColor.colorText,
+            activeTrackColor: AppColor.colorText),
+        child: Slider(
+          onChanged: (v) {
+            if (duration != null) {
+              final position = v * duration.inMilliseconds;
+              player.seek(Duration(milliseconds: position.round()));
+            }
+          },
+          value: canSetValue && duration != null
+              ? position.inMilliseconds / duration.inMilliseconds
+              : 0.0,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -133,44 +255,139 @@ class _PlayerMiniState extends State<PlayerMini> {
         width: double.infinity,
         child: Row(
           children: [
-            _buildControl(),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.name,
-                    maxLines: 1,
-                    overflow: TextOverflow.fade,
-                    softWrap: true,
-                    style: const TextStyle(
-                      fontSize: 14.0,
-                    ),
-                  ),
-                  Text(
-                    '${widget.duration} минут',
-                    style: const TextStyle(
-                      color: AppColor.colorText50,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
+            Flexible(
+              flex: 3,
               child: SizedBox(
-                child: IconButton(
-                    onPressed: () {
-                      nextN();
-                    },
-                    icon: Icon(Icons.abc)),
+                child: _buildControl(),
               ),
             ),
-            widget.popupMenu
+            Flexible(
+              flex: 10,
+              child: _isReverse
+                  ? SizedBox(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 15.0),
+                                child: Text(
+                                  widget.name,
+                                  style: const TextStyle(
+                                      fontFamily: 'TTNorms',
+                                      fontSize: 14.0,
+                                      color: AppColor.colorText,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                            ),
+                            Expanded(child: _buildSlider()),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 15.0, right: 20.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [_buildText(), _duration()],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  : SizedBox(
+                      child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                widget.name,
+                                maxLines: 1,
+                                style: const TextStyle(
+                                    fontFamily: 'TTNorms',
+                                    fontSize: 14.0,
+                                    color: AppColor.colorText,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              Text(
+                                '${widget.duration} минут',
+                                style: const TextStyle(
+                                    fontFamily: 'TTNorms',
+                                    fontSize: 14.0,
+                                    color: AppColor.colorText80,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(child: const SizedBox())
+                      ],
+                    )),
+            ),
+            Flexible(
+              flex: 3,
+              child: widget.popupMenu,
+            )
           ],
         ),
       ),
     );
   }
 }
+//Row(
+//           children: [
+//             _buildControl(),
+//             Padding(
+//               padding: const EdgeInsets.only(left: 20.0),
+//               child: Column(
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Text(
+//                     widget.name,
+//                     maxLines: 1,
+//                     overflow: TextOverflow.fade,
+//                     softWrap: true,
+//                     style: const TextStyle(
+//                       fontSize: 14.0,
+//                     ),
+//                   ),
+//                   SizedBox(
+//                     child: Column(
+//                       children: [
+//                         _buildSlider(),
+//                         Padding(
+//                           padding:
+//                               const EdgeInsets.only(left: 15.0, right: 20.0),
+//                           child: Row(
+//                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                             children: [_buildText(), _duration()],
+//                           ),
+//                         )
+//                       ],
+//                     ),
+//                   )
+//                   // Text(
+//                   //   '${widget.duration} минут',
+//                   //   style: const TextStyle(
+//                   //     color: AppColor.colorText50,
+//                   //   ),
+//                   // ),
+//                 ],
+//               ),
+//             ),
+//             Expanded(
+//               child: SizedBox(),
+//             ),
+//             widget.popupMenu
+//           ],
+//         ),

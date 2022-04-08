@@ -6,20 +6,23 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:record/record.dart';
 import '../../../../repositories/collections_repositories.dart';
 import '../../../../resources/app_colors.dart';
+import '../../../../widgets/player_mini/player_mini.dart';
 import '../../../../widgets/slider.dart';
 import '../collections_item_page_model.dart';
+import 'list_collections.dart';
 
 class PlayerCollections extends StatefulWidget {
   const PlayerCollections({
     Key? key,
     required this.screenHeight,
     required this.screenWight,
+    required this.idCollection,
   }) : super(key: key);
   final double screenHeight;
   final double screenWight;
+  final String idCollection;
 
   @override
   State<PlayerCollections> createState() => _PlayerCollectionsState();
@@ -49,7 +52,7 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
         _audioPlayer.positionStream.listen((position) => setState(() {}));
     _durationChangedSubscription =
         _audioPlayer.durationStream.listen((duration) => setState(() {}));
-    loop();
+    player();
     _init();
 
     super.initState();
@@ -57,7 +60,6 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
 
   Future<void> _init() async {
     bool _isPlay = false;
-    // await _audioPlayer.setUrl(url);
   }
 
   @override
@@ -145,7 +147,7 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
     );
   }
 
-  Future<void> loop() async {
+  Future<void> player() async {
     CollectionsRepositories rep = CollectionsRepositories();
     List<AudioSource> audioUrlList = [];
 
@@ -153,6 +155,7 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
         .collection(rep.user!.phoneNumber!)
         .doc('id')
         .collection('Collections')
+        .where('collections', arrayContains: widget.idCollection)
         .get()
         .then((querySnapshot) {
       for (var result in querySnapshot.docs) {
@@ -172,6 +175,12 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
       initialIndex: 0, // default
       initialPosition: Duration.zero, // default
     );
+  }
+
+  Future<void> seekToNext() {
+    setState(() => _isPlay = true);
+    _startTimer();
+    return _audioPlayer.seekToNext();
   }
 
   Future<void> play() {
@@ -222,8 +231,6 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
     final durationDouble = durationMilliseconds / 1000;
     final duration = durationDouble.toInt();
     if (_recordDuration >= duration) {
-      print(_recordDuration);
-      print(duration);
       _recordDuration = 0;
     }
     final String minutes = _formatNumber(_recordDuration ~/ 60);
@@ -346,7 +353,9 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
                       child: Padding(
                         padding: const EdgeInsets.only(right: 30.0),
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            seekToNext();
+                          },
                           child: Image.asset(
                             AppIcons.next,
                             width: context
@@ -362,100 +371,7 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
                       ),
                     ),
                   ],
-                )
-                // child: Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     Padding(
-                //       padding: const EdgeInsets.all(12.0),
-                //       child: SizedBox(
-                //         width: context.watch<CollectionsItemPageModel>().getAnim *
-                //             50.0,
-                //         height:
-                //             context.watch<CollectionsItemPageModel>().getAnim *
-                //                 50.0,
-                //         child: _buildControl(),
-                //       ),
-                //     ),
-                //     Column(
-                //       mainAxisAlignment: MainAxisAlignment.center,
-                //       crossAxisAlignment: CrossAxisAlignment.start,
-                //       children: [
-                //         Text(
-                //           'Малышь Кокки 1',
-                //           style: TextStyle(
-                //               fontFamily: 'TTNorms',
-                //               fontSize: context
-                //                       .watch<CollectionsItemPageModel>()
-                //                       .getAnim *
-                //                   14.0,
-                //               color: Colors.white,
-                //               fontWeight: FontWeight.w400),
-                //         ),
-                //         _buildSlider(widget.screenWight),
-                //         // Text(
-                //         //   '----------------------------------',
-                //         //   style: TextStyle(
-                //         //       fontFamily: 'TTNorms',
-                //         //       fontSize: context
-                //         //               .watch<CollectionsItemPageModel>()
-                //         //               .getAnim *
-                //         //           14.0,
-                //         //       color: Colors.white,
-                //         //       fontWeight: FontWeight.w400),
-                //         // ),
-                //         // Row(
-                //         //   children: [
-                //         //     Text(
-                //         //       '00:00',
-                //         //       style: TextStyle(
-                //         //           fontFamily: 'TTNorms',
-                //         //           fontSize: context
-                //         //                   .watch<CollectionsItemPageModel>()
-                //         //                   .getAnim *
-                //         //               10.0,
-                //         //           color: Colors.white,
-                //         //           fontWeight: FontWeight.w400),
-                //         //     ),
-                //         //     SizedBox(
-                //         //       width: context
-                //         //               .watch<CollectionsItemPageModel>()
-                //         //               .getAnim *
-                //         //           140.0,
-                //         //     ),
-                //         //     Text(
-                //         //       '00:00',
-                //         //       style: TextStyle(
-                //         //           fontFamily: 'TTNorms',
-                //         //           fontSize: context
-                //         //                   .watch<CollectionsItemPageModel>()
-                //         //                   .getAnim *
-                //         //               10.0,
-                //         //           color: Colors.white,
-                //         //           fontWeight: FontWeight.w400),
-                //         //     ),
-                //         //   ],
-                //         // ),
-                //       ],
-                //     ),
-                //     Padding(
-                //       padding: const EdgeInsets.only(right: 30.0),
-                //       child: GestureDetector(
-                //         onTap: () {},
-                //         child: Image.asset(
-                //           AppIcons.next,
-                //           width:
-                //               context.watch<CollectionsItemPageModel>().getAnim *
-                //                   24.0,
-                //           height:
-                //               context.watch<CollectionsItemPageModel>().getAnim *
-                //                   24.0,
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                ),
+                )),
           ),
         ),
       ),

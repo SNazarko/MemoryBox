@@ -4,6 +4,9 @@ import 'package:memory_box/pages/collections_pages/collection_item/widgets/photo
 import 'package:memory_box/pages/collections_pages/collection_item/widgets/list_collections.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/widgets/player_collections.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/widgets/sub_title.dart';
+import 'package:provider/provider.dart';
+
+import 'collections_item_page_model.dart';
 
 class CollectionsItemPage extends StatelessWidget {
   const CollectionsItemPage({
@@ -52,6 +55,9 @@ class CollectionsItemPage extends StatelessWidget {
               PlayerCollections(
                 screenWight: screenWight,
                 screenHeight: screenHeight,
+                idCollection: Provider.of<CollectionsItemPageModel>(context,
+                        listen: false)
+                    .getIdCollection,
               )
             ],
           ),

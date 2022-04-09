@@ -4,7 +4,7 @@ import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
 import 'package:provider/provider.dart';
 import '../collections_item_page_model.dart';
-import 'buttom_play_pause.dart';
+import '../../../../animation/collection_item_page_player/buttom_play_pause.dart';
 
 class PhotoContainer extends StatelessWidget {
   const PhotoContainer({

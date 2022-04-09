@@ -1,18 +1,10 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/widgets/appbar_header_authorization.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
-
-import '../../repositories/audio_repositories.dart';
 import '../main_page.dart';
-
-class _FirstAuthorizationPageArguments {
-  _FirstAuthorizationPageArguments({this.shouldPop});
-  bool? shouldPop = false;
-}
 
 class FirstAuthorizationPage extends StatefulWidget {
   const FirstAuthorizationPage({Key? key}) : super(key: key);
@@ -27,8 +19,7 @@ class FirstAuthorizationPage extends StatefulWidget {
 }
 
 class _FirstAuthorizationPageState extends State<FirstAuthorizationPage> {
-  _FirstAuthorizationPageArguments arguments =
-      _FirstAuthorizationPageArguments();
+  final bool shouldPop = false;
 
   @override
   void initState() {
@@ -42,7 +33,7 @@ class _FirstAuthorizationPageState extends State<FirstAuthorizationPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return arguments.shouldPop!;
+        return shouldPop;
       },
       child: Scaffold(
         body: Column(

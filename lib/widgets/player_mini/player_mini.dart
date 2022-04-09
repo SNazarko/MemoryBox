@@ -355,7 +355,7 @@ class _PlayerMiniState extends State<PlayerMini> {
 //                 crossAxisAlignment: CrossAxisAlignment.start,
 //                 children: [
 //                   Text(
-//                     widget.name,
+//                     widgets.name,
 //                     maxLines: 1,
 //                     overflow: TextOverflow.fade,
 //                     softWrap: true,
@@ -379,7 +379,7 @@ class _PlayerMiniState extends State<PlayerMini> {
 //                     ),
 //                   )
 //                   // Text(
-//                   //   '${widget.duration} минут',
+//                   //   '${widgets.duration} минут',
 //                   //   style: const TextStyle(
 //                   //     color: AppColor.colorText50,
 //                   //   ),
@@ -390,6 +390,6 @@ class _PlayerMiniState extends State<PlayerMini> {
 //             Expanded(
 //               child: SizedBox(),
 //             ),
-//             widget.popupMenu
+//             widgets.popupMenu
 //           ],
 //         ),

@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/home_page/widgets/appbar_header_home_page.dart';
 import 'package:memory_box/pages/home_page/widgets/appbar_header_home_page_not_is_authorization.dart';
@@ -13,25 +11,12 @@ import '../../repositories/audio_repositories.dart';
 import '../../repositories/collections_repositories.dart';
 import '../../repositories/user_repositories.dart';
 
-class _HomePageArguments {
-  _HomePageArguments({this.auth, this.user}) {
-    init();
-  }
-  FirebaseAuth? auth;
-  User? user;
-
-  void init() {
-    auth = FirebaseAuth.instance;
-    user = auth!.currentUser;
-  }
-}
-
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
   static const routeName = '/home_page';
 
   static Widget create() {
-    return HomePage();
+    return const HomePage();
   }
 
   @override
@@ -41,8 +26,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final CollectionsRepositories repCollections = CollectionsRepositories();
   final UserRepositories repUser = UserRepositories();
-
-  final _HomePageArguments arguments = _HomePageArguments();
   Future<void> subscriptionDone(BuildContext context) async {
     await FirebaseFirestore.instance
         .collection(repCollections.user!.phoneNumber!)
@@ -86,13 +69,13 @@ class _HomePageState extends State<HomePage> {
             children: [
               Expanded(
                 flex: 8,
-                child: arguments.user == null
+                child: repUser.user == null
                     ? const AppbarHeaderHomePageNotIsAuthorization()
                     : const AppbarHeaderHomePage(),
               ),
               Expanded(
                   flex: 11,
-                  child: arguments.user == null
+                  child: repUser.user == null
                       ? const HomePageNotIsAuthorization()
                       : const HomePageAudio()),
             ],

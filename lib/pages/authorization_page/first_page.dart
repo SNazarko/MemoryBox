@@ -1,28 +1,22 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/authorization_page/registration_page/registration_page.dart';
 import 'package:memory_box/widgets/button_continue.dart';
 import '../../widgets/appbar_header_authorization.dart';
 
-class _FirstPageArguments {
-  _FirstPageArguments({this.shouldPop});
-  bool? shouldPop = false;
-}
-
 class FirstPage extends StatelessWidget {
-  FirstPage({Key? key}) : super(key: key);
+  const FirstPage({Key? key}) : super(key: key);
+  final bool shouldPop = false;
   static const routeName = '/';
-  final _FirstPageArguments _arguments = _FirstPageArguments();
 
   static Widget create() {
-    return FirstPage();
+    return const FirstPage();
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return _arguments.shouldPop!;
+        return shouldPop;
       },
       child: Scaffold(
         body: Column(

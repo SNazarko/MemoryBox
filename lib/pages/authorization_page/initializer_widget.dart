@@ -1,41 +1,26 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/authorization_page/first_authorization_page.dart';
 import 'package:memory_box/pages/authorization_page/first_page.dart';
-
-class _InitializerWidgetArguments {
-  _InitializerWidgetArguments({this.auth, this.user, this.isLoading}) {
-    init();
-  }
-  FirebaseAuth? auth;
-  User? user;
-  bool? isLoading = true;
-
-  void init() {
-    auth = FirebaseAuth.instance;
-    user = auth!.currentUser;
-    isLoading = false;
-  }
-}
+import 'package:memory_box/repositories/user_repositories.dart';
 
 class InitializerWidget extends StatelessWidget {
   InitializerWidget({Key? key}) : super(key: key);
   static const routeName = 'initializer_widget';
-  final _InitializerWidgetArguments arguments = _InitializerWidgetArguments();
+  final UserRepositories rep = UserRepositories();
+  final isLoading = false;
   static Widget create() {
     return InitializerWidget();
   }
 
   @override
   Widget build(BuildContext context) {
-    return arguments.isLoading!
+    return isLoading
         ? const Scaffold(
             body: Center(
               child: CircularProgressIndicator(),
             ),
           )
-        : arguments.user == null
+        : rep.user == null
             ? FirstPage.create()
             : FirstAuthorizationPage.create();
   }

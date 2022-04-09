@@ -27,8 +27,7 @@ class LastAuthorizationPage extends StatefulWidget {
 }
 
 class _LastAuthorizationPageState extends State<LastAuthorizationPage> {
-  final _LastAuthorizationPageArguments _arguments =
-      _LastAuthorizationPageArguments();
+  final bool shouldPop = false;
   final UserRepositories repositories = UserRepositories();
   @override
   void initState() {
@@ -43,7 +42,7 @@ class _LastAuthorizationPageState extends State<LastAuthorizationPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return _arguments.shouldPop!;
+        return shouldPop;
       },
       child: Scaffold(
         body: Column(

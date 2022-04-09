@@ -5,13 +5,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:memory_box/resources/app_icons.dart';
+import 'package:memory_box/widgets/player_collections/player_collection_model.dart';
 import 'package:provider/provider.dart';
-import '../../../../repositories/collections_repositories.dart';
-import '../../../../resources/app_colors.dart';
-import '../../../../widgets/player_mini/player_mini.dart';
-import '../../../../widgets/slider.dart';
-import '../collections_item_page_model.dart';
-import 'list_collections.dart';
+import '../../repositories/collections_repositories.dart';
+import '../../resources/app_colors.dart';
+import '../player_mini/player_mini.dart';
+import '../slider.dart';
+import '../../pages/collections_pages/collection_item/collections_item_page_model.dart';
+import '../../pages/collections_pages/collection_item/widgets/list_collections.dart';
 
 class PlayerCollections extends StatefulWidget {
   const PlayerCollections({
@@ -27,10 +28,11 @@ class PlayerCollections extends StatefulWidget {
   final double animation;
 
   @override
-  State<PlayerCollections> createState() => _PlayerCollectionsState();
+  State<PlayerCollections> createState() => PlayerCollectionsState();
 }
 
-class _PlayerCollectionsState extends State<PlayerCollections> {
+class PlayerCollectionsState extends State<PlayerCollections> {
+  PlayerCollectionModel playerCollectionModel = PlayerCollectionModel();
   final _audioPlayer = ap.AudioPlayer();
   late StreamSubscription<ap.PlayerState> _playerStateChangedSubscription;
   late StreamSubscription<Duration?> _durationChangedSubscription;
@@ -181,13 +183,13 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
 
   Future<void> seekToNext() {
     setState(() => _isPlay = true);
-    _startTimer();
+    startTimer();
     return _audioPlayer.seekToNext();
   }
 
   Future<void> play() {
     setState(() => _isPlay = true);
-    _startTimer();
+    startTimer();
     return _audioPlayer.play();
   }
 
@@ -204,7 +206,7 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
     return _audioPlayer.seek(const Duration(milliseconds: 0));
   }
 
-  void _startTimer() {
+  void startTimer() {
     _timer?.cancel();
 
     _timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
@@ -275,6 +277,8 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
 
   @override
   Widget build(BuildContext context) {
+    // final _isPlay = context.watch<PlayerCollectionModel>().getIsPlay;
+    // final _isPaused = context.watch<PlayerCollectionModel>().getIsPaused;
     return SizedBox(
       height: widget.screenHeight * 0.9,
       width: widget.screenWight,
@@ -318,7 +322,12 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 15.0),
                                     child: Text(
-                                      audioNameList[_audioPlayer.currentIndex!],
+                                      audioNameList[_audioPlayer.currentIndex ??
+                                                  0]
+                                              .isEmpty
+                                          ? ''
+                                          : audioNameList[
+                                              _audioPlayer.currentIndex ?? 0],
                                       style: TextStyle(
                                           fontFamily: 'TTNorms',
                                           fontSize: widget.animation * 14.0,

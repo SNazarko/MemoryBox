@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/appbar_header_audio_recordings.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/appbar_header_audio_recordings_not_authorization.dart';
@@ -8,25 +7,11 @@ import 'package:provider/provider.dart';
 import '../../animation/audio_recordings_page_player/audio_recordings_page_player_model.dart';
 import '../../repositories/user_repositories.dart';
 import '../../resources/constants.dart';
-import '../collections_pages/collection_item/widgets/player_collections.dart';
-
-class _AudioRecordingsPageArguments {
-  _AudioRecordingsPageArguments({this.auth, this.user}) {
-    init();
-  }
-  FirebaseAuth? auth;
-  User? user;
-
-  void init() {
-    auth = FirebaseAuth.instance;
-    user = auth!.currentUser;
-  }
-}
+import '../../widgets/player_collections/player_collections.dart';
 
 class AudioRecordingsPage extends StatelessWidget {
   AudioRecordingsPage({Key? key}) : super(key: key);
-  final _AudioRecordingsPageArguments arguments =
-      _AudioRecordingsPageArguments();
+  final UserRepositories rep = UserRepositories();
   static const routeName = '/audio_recordings_page';
   static Widget create() {
     return ChangeNotifierProvider<AudioRecordingsPagePlayerModel>(
@@ -53,7 +38,7 @@ class AudioRecordingsPage extends StatelessWidget {
           style: kTitleTextStyle2,
         ),
         actions: [
-          arguments.user == null
+          rep.user == null
               ? const SizedBox()
               : GestureDetector(
                   onTap: () {
@@ -67,42 +52,37 @@ class AudioRecordingsPage extends StatelessWidget {
                 ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: screenHeight,
-          child: Stack(
+      body: Stack(
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Stack(
                 children: [
-                  Stack(
-                    children: [
-                      arguments.user == null
-                          ? const ListPlayerNotAuthorization()
-                          : ListPlayer(),
-                      arguments.user == null
-                          ? const AppbarHeaderAudioRecordingsNotAuthorization()
-                          : AppbarHeaderAudioRecordings(),
-                    ],
-                  ),
+                  rep.user == null
+                      ? const ListPlayerNotAuthorization()
+                      : ListPlayer(),
+                  rep.user == null
+                      ? const AppbarHeaderAudioRecordingsNotAuthorization()
+                      : AppbarHeaderAudioRecordings(),
                 ],
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 155.0),
-                  child: PlayerCollections(
-                    screenWight: screenWight,
-                    screenHeight: screenHeight,
-                    idCollection: 'all',
-                    animation:
-                        context.watch<AudioRecordingsPagePlayerModel>().getAnim,
-                  ),
-                ),
-              )
             ],
           ),
-        ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 70.0),
+              child: PlayerCollections(
+                screenWight: screenWight,
+                screenHeight: screenHeight,
+                idCollection: 'all',
+                animation:
+                    context.watch<AudioRecordingsPagePlayerModel>().getAnim,
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

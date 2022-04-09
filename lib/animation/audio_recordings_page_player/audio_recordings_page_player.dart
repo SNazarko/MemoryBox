@@ -56,7 +56,6 @@ class _AudioRecordingsPagePlayerState extends State<AudioRecordingsPagePlayer>
         if (!playPause) {
           animPlus();
         }
-        print(playPause);
         if (playPause) {
           animMinus();
         }
@@ -66,7 +65,6 @@ class _AudioRecordingsPagePlayerState extends State<AudioRecordingsPagePlayer>
           context
               .read<AudioRecordingsPagePlayerModel>()
               .setAnim(animation.value);
-          print(animation.value);
         });
         setState(() {});
       },
@@ -76,8 +74,10 @@ class _AudioRecordingsPagePlayerState extends State<AudioRecordingsPagePlayer>
             height: 46.0,
             width: 200.0,
             decoration: BoxDecoration(
-                color: playPause ? Color(0x50F6F6F6) : Color(0x20F6F6F6),
-                borderRadius: BorderRadius.all(
+                color: playPause
+                    ? const Color(0x50F6F6F6)
+                    : const Color(0x20F6F6F6),
+                borderRadius: const BorderRadius.all(
                   Radius.circular(50.0),
                 )),
             child: Padding(

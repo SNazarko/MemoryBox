@@ -36,7 +36,7 @@ class ListPlayer extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: screenHeight * 0.95,
+          height: screenHeight * 0.88,
           child: StreamBuilder<List<AudioModel>>(
             stream: repositories.readAudioSort('all'),
             builder: (context, snapshot) {

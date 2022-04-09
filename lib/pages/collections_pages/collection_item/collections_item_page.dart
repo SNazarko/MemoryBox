@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/widgets/appbar_header_profile_edit.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/widgets/photo_container.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/widgets/list_collections.dart';
-import 'package:memory_box/pages/collections_pages/collection_item/widgets/player_collections.dart';
+import 'package:memory_box/widgets/player_collections/player_collections.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/widgets/sub_title.dart';
 import 'package:provider/provider.dart';
 

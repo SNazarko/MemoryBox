@@ -5,7 +5,7 @@ import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:provider/provider.dart';
 
-import '../collections_item_page_model.dart';
+import '../../pages/collections_pages/collection_item/collections_item_page_model.dart';
 
 class ButtonPlayPause extends StatefulWidget {
   const ButtonPlayPause({

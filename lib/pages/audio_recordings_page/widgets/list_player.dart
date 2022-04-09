@@ -86,7 +86,7 @@ class ListPlayer extends StatelessWidget {
               if (snapshot.hasData) {
                 final audio = snapshot.data!;
                 return ListView(
-                  padding: const EdgeInsets.only(top: 127, bottom: 110),
+                  padding: const EdgeInsets.only(top: 127, bottom: 190),
                   children: audio.map(buildAudio).toList(),
                 );
               } else {

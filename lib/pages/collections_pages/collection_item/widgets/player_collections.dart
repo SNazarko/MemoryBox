@@ -19,10 +19,12 @@ class PlayerCollections extends StatefulWidget {
     required this.screenHeight,
     required this.screenWight,
     required this.idCollection,
+    required this.animation,
   }) : super(key: key);
   final double screenHeight;
   final double screenWight;
   final String idCollection;
+  final double animation;
 
   @override
   State<PlayerCollections> createState() => _PlayerCollectionsState();
@@ -96,8 +98,8 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
         child: Material(
           child: InkWell(
             child: Container(
-              width: context.watch<CollectionsItemPageModel>().getAnim * 55.0,
-              height: context.watch<CollectionsItemPageModel>().getAnim * 55.0,
+              width: widget.animation * 55.0,
+              height: widget.animation * 55.0,
               child: icon,
               color: const Color(0xFF8C84E2),
             ),
@@ -219,7 +221,7 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
       '00:00',
       style: TextStyle(
           fontFamily: 'TTNorms',
-          fontSize: context.watch<CollectionsItemPageModel>().getAnim * 10.0,
+          fontSize: widget.animation * 10.0,
           color: Colors.white,
           fontWeight: FontWeight.w400),
     );
@@ -239,7 +241,7 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
       '$minutes : $seconds',
       style: TextStyle(
           fontFamily: 'TTNorms',
-          fontSize: context.watch<CollectionsItemPageModel>().getAnim * 10.0,
+          fontSize: widget.animation * 10.0,
           color: Colors.white,
           fontWeight: FontWeight.w400),
     );
@@ -265,7 +267,7 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
       '$minutes : $seconds',
       style: TextStyle(
           fontFamily: 'TTNorms',
-          fontSize: context.watch<CollectionsItemPageModel>().getAnim * 10.0,
+          fontSize: widget.animation * 10.0,
           color: Colors.white,
           fontWeight: FontWeight.w400),
     );
@@ -284,15 +286,12 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
             visible: true,
             child: Container(
                 width: double.infinity,
-                height:
-                    context.watch<CollectionsItemPageModel>().getAnim * 75.0,
+                height: widget.animation * 75.0,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      const Color(0xFF8C84E2).withOpacity(
-                          context.watch<CollectionsItemPageModel>().getAnim),
-                      const Color(0xFF6C689F).withOpacity(
-                          context.watch<CollectionsItemPageModel>().getAnim),
+                      const Color(0xFF8C84E2).withOpacity(widget.animation),
+                      const Color(0xFF6C689F).withOpacity(widget.animation),
                     ],
                   ),
                   borderRadius: const BorderRadius.all(
@@ -322,11 +321,7 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
                                       audioNameList[_audioPlayer.currentIndex!],
                                       style: TextStyle(
                                           fontFamily: 'TTNorms',
-                                          fontSize: context
-                                                  .watch<
-                                                      CollectionsItemPageModel>()
-                                                  .getAnim *
-                                              14.0,
+                                          fontSize: widget.animation * 14.0,
                                           color: Colors.white,
                                           fontWeight: FontWeight.w400),
                                     ),
@@ -358,14 +353,8 @@ class _PlayerCollectionsState extends State<PlayerCollections> {
                           },
                           child: Image.asset(
                             AppIcons.next,
-                            width: context
-                                    .watch<CollectionsItemPageModel>()
-                                    .getAnim *
-                                24.0,
-                            height: context
-                                    .watch<CollectionsItemPageModel>()
-                                    .getAnim *
-                                24.0,
+                            width: widget.animation * 24.0,
+                            height: widget.animation * 24.0,
                           ),
                         ),
                       ),

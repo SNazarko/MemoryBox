@@ -58,6 +58,7 @@ class CollectionsItemPage extends StatelessWidget {
                 idCollection: Provider.of<CollectionsItemPageModel>(context,
                         listen: false)
                     .getIdCollection,
+                animation: context.watch<CollectionsItemPageModel>().getAnim,
               )
             ],
           ),

@@ -3,6 +3,7 @@ import 'package:memory_box/models/user_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
+import '../../../animation/audio_recordings_page_player/audio_recordings_page_player.dart';
 import '../../../repositories/user_repositories.dart';
 import 'appbar_player.dart';
 
@@ -68,7 +69,8 @@ class AppbarHeaderAudioRecordings extends StatelessWidget {
                   }
                 },
               ),
-              const AppbarPlayer(),
+              AudioRecordingsPagePlayer(),
+              // const AppbarPlayer(),
             ],
           ),
         )

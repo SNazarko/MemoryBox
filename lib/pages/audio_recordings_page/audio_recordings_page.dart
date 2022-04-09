@@ -1,13 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:memory_box/bloc/bloc_all_bloc.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/appbar_header_audio_recordings.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/appbar_header_audio_recordings_not_authorization.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/list_player.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/list_player_not_authorization.dart';
+import 'package:provider/provider.dart';
+import '../../animation/audio_recordings_page_player/audio_recordings_page_player_model.dart';
 import '../../repositories/user_repositories.dart';
 import '../../resources/constants.dart';
+import '../collections_pages/collection_item/widgets/player_collections.dart';
 
 class _AudioRecordingsPageArguments {
   _AudioRecordingsPageArguments({this.auth, this.user}) {
@@ -28,55 +29,77 @@ class AudioRecordingsPage extends StatelessWidget {
       _AudioRecordingsPageArguments();
   static const routeName = '/audio_recordings_page';
   static Widget create() {
-    return AudioRecordingsPage();
+    return ChangeNotifierProvider<AudioRecordingsPagePlayerModel>(
+      create: (BuildContext context) => AudioRecordingsPagePlayerModel(),
+      child: AudioRecordingsPage(),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => PlayAllRepeatBloc(),
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-            icon: const Icon(Icons.menu),
-          ),
-          elevation: 0.0,
-          title: const Text(
-            'Аудиозаписи',
-            style: kTitleTextStyle2,
-          ),
-          actions: [
-            arguments.user == null
-                ? const SizedBox()
-                : GestureDetector(
-                    onTap: () {
-                      UserRepositories().updateTotalTimeQuality();
-                    },
-                    child: const Icon(
-                      Icons.more_horiz,
-                      color: Colors.white,
-                      size: 40.0,
-                    ),
-                  ),
-          ],
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWight = MediaQuery.of(context).size.width;
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+          icon: const Icon(Icons.menu),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        elevation: 0.0,
+        title: const Text(
+          'Аудиозаписи',
+          style: kTitleTextStyle2,
+        ),
+        actions: [
+          arguments.user == null
+              ? const SizedBox()
+              : GestureDetector(
+                  onTap: () {
+                    UserRepositories().updateTotalTimeQuality();
+                  },
+                  child: const Icon(
+                    Icons.more_horiz,
+                    color: Colors.white,
+                    size: 40.0,
+                  ),
+                ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: screenHeight,
+          child: Stack(
             children: [
-              Stack(
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  arguments.user == null
-                      ? const ListPlayerNotAuthorization()
-                      : ListPlayer(),
-                  arguments.user == null
-                      ? const AppbarHeaderAudioRecordingsNotAuthorization()
-                      : AppbarHeaderAudioRecordings(),
+                  Stack(
+                    children: [
+                      arguments.user == null
+                          ? const ListPlayerNotAuthorization()
+                          : ListPlayer(),
+                      arguments.user == null
+                          ? const AppbarHeaderAudioRecordingsNotAuthorization()
+                          : AppbarHeaderAudioRecordings(),
+                    ],
+                  ),
                 ],
               ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 155.0),
+                  child: PlayerCollections(
+                    screenWight: screenWight,
+                    screenHeight: screenHeight,
+                    idCollection: 'all',
+                    animation:
+                        context.watch<AudioRecordingsPagePlayerModel>().getAnim,
+                  ),
+                ),
+              )
             ],
           ),
         ),

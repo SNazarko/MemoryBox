@@ -6,6 +6,7 @@ class AudioModel {
   String? audioUrl;
   String? duration;
   bool? done;
+  bool? playPause;
   String? dateTime;
   Timestamp? dateTimeDelete;
   List? searchName;
@@ -18,6 +19,7 @@ class AudioModel {
       this.audioUrl,
       this.duration,
       this.done,
+      this.playPause,
       this.dateTime,
       this.dateTimeDelete,
       this.searchName,
@@ -31,6 +33,7 @@ class AudioModel {
       audioUrl: json['audioUrl'],
       duration: json['duration'],
       done: json['done'],
+      playPause: json['playPause'],
       dateTime: json['dateTime'],
       dateTimeDelete: json['dateTimeDelete'],
       searchName: json['searchName'],
@@ -45,6 +48,7 @@ class AudioModel {
         'audioUrl': audioUrl,
         'duration': duration,
         'done': done,
+        'playPause': playPause,
         'dateTime': dateTime,
         'dateTimeDelete': dateTimeDelete,
         'searchName': searchName,

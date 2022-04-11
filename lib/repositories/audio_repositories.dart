@@ -75,6 +75,7 @@ class AudioRepositories {
           _todayDate, [dd, '.', mm, '.', yy, HH, ':', nn, ':', ss, z]),
       dateTimeDelete: _todayDate2,
       done: false,
+      playPause: false,
       searchName: searchName.toList(),
       size: size,
     );
@@ -146,7 +147,7 @@ class AudioRepositories {
         .get()
         .then((querySnapshot) {
       for (var result in querySnapshot.docs) {
-        dateTimeDelete = result.data()['dateTimeDelete'] ?? -1;
+        dateTimeDelete = result.data()['dateTimeDelete'];
         idAudio = result.data()['id'];
         size = result.data()['size'];
       }
@@ -157,5 +158,14 @@ class AudioRepositories {
       await CollectionsRepositories()
           .deleteCollection(idAudio!, 'DeleteCollections');
     }
+  }
+
+  Future<void> playPause(String idAudio, bool donePlay) async {
+    FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('id')
+        .collection('Collections')
+        .doc(idAudio)
+        .update({'playPause': donePlay});
   }
 }

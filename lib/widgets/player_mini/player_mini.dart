@@ -6,7 +6,9 @@ import 'package:just_audio/just_audio.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:just_audio/just_audio.dart' as ap;
 import 'package:memory_box/resources/app_icons.dart';
+import 'package:memory_box/widgets/player_collections/player_collections.dart';
 
+import '../../repositories/audio_repositories.dart';
 import '../slider.dart';
 
 class PlayerMini extends StatefulWidget {
@@ -19,20 +21,22 @@ class PlayerMini extends StatefulWidget {
     required this.done,
     required this.id,
     required this.collection,
+    this.playPause,
   }) : super(key: key);
   final String url;
   final String name;
   final String duration;
   final Widget popupMenu;
   final bool done;
+  final bool? playPause;
   final String id;
   final List collection;
 
   @override
-  State<PlayerMini> createState() => _PlayerMiniState();
+  State<PlayerMini> createState() => PlayerMiniState();
 }
 
-class _PlayerMiniState extends State<PlayerMini> {
+class PlayerMiniState extends State<PlayerMini> {
   late StreamSubscription<ap.PlayerState> _playerStateChangedSubscription;
   final player = ap.AudioPlayer();
   late StreamSubscription<Duration?> _durationChangedSubscription;
@@ -80,6 +84,7 @@ class _PlayerMiniState extends State<PlayerMini> {
     setState(() => _isPlay = true);
     setState(() => _isReverse = true);
     _startTimer();
+
     return player.play();
   }
 
@@ -169,7 +174,7 @@ class _PlayerMiniState extends State<PlayerMini> {
   Widget _buildControl() {
     Widget icon;
 
-    if (player.playerState.playing) {
+    if (player.playerState.playing || widget.playPause == true) {
       icon = Padding(
         padding: const EdgeInsets.all(5.0),
         child: Image.asset(
@@ -192,9 +197,17 @@ class _PlayerMiniState extends State<PlayerMini> {
             child: SizedBox(width: 55, height: 55, child: icon),
             onTap: () {
               if (player.playerState.playing) {
+                // AudioRepositories().playPause(
+                //   widget.id,
+                //   false,
+                // );
                 pause();
                 setState(() {});
               } else {
+                // AudioRepositories().playPause(
+                //   widget.id,
+                //   true,
+                // );
                 setState(() {});
                 play();
               }

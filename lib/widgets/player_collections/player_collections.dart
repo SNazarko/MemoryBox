@@ -7,6 +7,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/widgets/player_collections/player_collection_model.dart';
 import 'package:provider/provider.dart';
+import '../../repositories/audio_repositories.dart';
 import '../../repositories/collections_repositories.dart';
 import '../../resources/app_colors.dart';
 import '../player_mini/player_mini.dart';
@@ -42,6 +43,7 @@ class PlayerCollectionsState extends State<PlayerCollections> {
   Timer? _timer;
   int _recordDuration = 0;
   List<String> audioNameList = [];
+  List<String> audioIdList = [];
 
   @override
   void initState() {
@@ -128,6 +130,25 @@ class PlayerCollectionsState extends State<PlayerCollections> {
       canSetValue = position.inMilliseconds > 0;
       canSetValue &= position.inMilliseconds < duration.inMilliseconds;
     }
+    // bool stateValue = false;
+    // if (position.inMilliseconds > 1) {
+    //   stateValue = true;
+    // }
+    // if (stateValue == true) {
+    //   print(stateValue);
+    //
+    //   AudioRepositories().playPause(
+    //     audioIdList[_audioPlayer.currentIndex ?? 0],
+    //     true,
+    //   );
+    // }
+    // if (position.inMilliseconds == duration?.inMilliseconds) {
+    //   print('end');
+    //   AudioRepositories().playPause(
+    //     audioIdList[_audioPlayer.currentIndex ?? 0],
+    //     false,
+    //   );
+    // }
     return SizedBox(
       child: SliderTheme(
         data: SliderTheme.of(context).copyWith(
@@ -165,8 +186,10 @@ class PlayerCollectionsState extends State<PlayerCollections> {
       for (var result in querySnapshot.docs) {
         final String audioUrl = result.data()['audioUrl'];
         final String audioName = result.data()['audioName'];
+        final String audioId = result.data()['id'];
         audioUrlList.add(AudioSource.uri(Uri.parse(audioUrl)));
         audioNameList.add(audioName);
+        audioIdList.add(audioId);
       }
     });
 
@@ -190,6 +213,12 @@ class PlayerCollectionsState extends State<PlayerCollections> {
   Future<void> play() {
     setState(() => _isPlay = true);
     startTimer();
+
+    // AudioRepositories().playPause(
+    //   audioIdList[_audioPlayer.currentIndex ?? 0],
+    //   true,
+    // );
+
     return _audioPlayer.play();
   }
 
@@ -230,13 +259,43 @@ class PlayerCollectionsState extends State<PlayerCollections> {
   }
 
   Widget _buildTimer() {
+    final index = _audioPlayer.currentIndex;
     final durationAudioPlayer = _audioPlayer.duration;
     final durationMilliseconds = durationAudioPlayer?.inMilliseconds ?? 0;
     final durationDouble = durationMilliseconds / 1000;
     final duration = durationDouble.toInt();
-    if (_recordDuration >= duration) {
+    if (_recordDuration == 1) {}
+    if (_recordDuration == duration) {
+      // print(audioIdList[_audioPlayer.currentIndex ?? 0]);
+      // print(_recordDuration);
+      // print(duration);
+      // AudioRepositories().playPause(
+      //   audioIdList[index ?? 0],
+      //   false,
+      // );
+      //
+      // AudioRepositories().playPause(
+      //   audioIdList[index ?? 0],
+      //   true,
+      // );
+      // AudioRepositories().playPause(
+      //   audioIdList[index ?? 0 - 1],
+      //   false,
+      // );
       _recordDuration = 0;
     }
+
+    // if (index!.isEven) {
+    //   AudioRepositories().playPause(
+    //     audioIdList[index ?? 0],
+    //     true,
+    //   );
+    //   AudioRepositories().playPause(
+    //     audioIdList[index ?? 0 - 1],
+    //     false,
+    //   );
+    // }
+
     final String minutes = _formatNumber(_recordDuration ~/ 60);
     final String seconds = _formatNumber(_recordDuration % 60);
     return Text(
@@ -277,8 +336,6 @@ class PlayerCollectionsState extends State<PlayerCollections> {
 
   @override
   Widget build(BuildContext context) {
-    // final _isPlay = context.watch<PlayerCollectionModel>().getIsPlay;
-    // final _isPaused = context.watch<PlayerCollectionModel>().getIsPaused;
     return SizedBox(
       height: widget.screenHeight * 0.9,
       width: widget.screenWight,
@@ -322,12 +379,7 @@ class PlayerCollectionsState extends State<PlayerCollections> {
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 15.0),
                                     child: Text(
-                                      audioNameList[_audioPlayer.currentIndex ??
-                                                  0]
-                                              .isEmpty
-                                          ? ''
-                                          : audioNameList[
-                                              _audioPlayer.currentIndex ?? 0],
+                                      title(),
                                       style: TextStyle(
                                           fontFamily: 'TTNorms',
                                           fontSize: widget.animation * 14.0,
@@ -374,5 +426,28 @@ class PlayerCollectionsState extends State<PlayerCollections> {
         ),
       ),
     );
+  }
+
+  String title() {
+    final index = _audioPlayer.currentIndex;
+
+    final String title = audioNameList.isNotEmpty ? audioNameList[index!] : '';
+    // if (index != null) {
+    //   AudioRepositories().playPause(
+    //     audioIdList[index ?? 0],
+    //     true,
+    //   );
+    // }
+    // if (index!.isEven) {
+    //   AudioRepositories().playPause(
+    //     audioIdList[index ?? 0],
+    //     true,
+    //   );
+    //   AudioRepositories().playPause(
+    //     audioIdList[index ?? 0 - 1],
+    //     false,
+    //   );
+    // }
+    return title;
   }
 }

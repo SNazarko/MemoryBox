@@ -12,6 +12,7 @@ class ListPlayer extends StatelessWidget {
   ListPlayer({Key? key}) : super(key: key);
   final AudioRepositories repositories = AudioRepositories();
   Widget buildAudio(AudioModel audio) => PlayerMini(
+        playPause: audio.playPause,
         duration: '${audio.duration}',
         url: '${audio.audioUrl}',
         name: '${audio.audioName}',

@@ -6,6 +6,8 @@ import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:provider/provider.dart';
 import '../../../repositories/audio_repositories.dart';
 import '../../../repositories/collections_repositories.dart';
+import '../../collections_pages/collection_add_audio_in_collection/collection_add_audio_in_collection.dart';
+import '../../collections_pages/collection_add_audio_in_collection/collection_add_audio_in_collection_model.dart';
 import '../../save_page/save_page.dart';
 import '../../save_page/save_page_model.dart';
 
@@ -77,7 +79,19 @@ class PopupMenuAudioRecording extends StatelessWidget {
         ),
         popupMenuItem(
           'Добавить в подборку',
-          () {},
+          () {
+            Timer(const Duration(seconds: 1), () {
+              context
+                  .read<CollectionAddAudioInCollectionModel>()
+                  .setCollectionAudio(collection);
+              context
+                  .read<CollectionAddAudioInCollectionModel>()
+                  .setIdAudio(idAudio);
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const CollectionAddAudioInCollection();
+              }));
+            });
+          },
         ),
         popupMenuItem(
           'Удалить ',

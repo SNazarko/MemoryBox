@@ -144,33 +144,6 @@ class CollectionsRepositories {
     });
   }
 
-  // Future<void> copyPastAudioCollections(
-  //   String fromTheCollection,
-  //   String inTheCollection,
-  // ) async {
-  //
-  //   FirebaseFirestore.instance
-  //       .collection(user!.phoneNumber!)
-  //       .doc('id')
-  //       .collection('CollectionsTale')
-  //       .doc(fromTheCollection)
-  //       .collection('Audio')
-  //       .get()
-  //       .then((querySnapshot) {
-  //     querySnapshot.docs.forEach((result) {
-  //       FirebaseFirestore.instance
-  //           .collection(user!.phoneNumber!)
-  //           .doc('id')
-  //           .collection('CollectionsTale')
-  //           .doc(inTheCollection)
-  //           .collection('Audio')
-  //           .doc()
-  //           .set(result.data());
-  //     });
-  //   });
-  //
-  // }
-
   Future<void> doneAudioItem(
       String idAudio, bool done, String collectionFire) async {
     FirebaseFirestore.instance

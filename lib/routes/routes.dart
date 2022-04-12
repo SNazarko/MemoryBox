@@ -21,6 +21,7 @@ import 'package:memory_box/pages/recordings_page/record_page.dart';
 import 'package:memory_box/pages/save_page/save_page.dart';
 import 'package:memory_box/pages/search_page/search_page.dart';
 
+import '../pages/collections_pages/collection_add_audio_in_collection/collection_add_audio_in_collection.dart';
 import '../pages/profile_pages/profile_edit_page/profile_edit_page.dart';
 import '../pages/subscription_page/subscription_page.dart';
 import '../pages/support_message_page/support_message_page.dart';
@@ -99,6 +100,9 @@ class AppRouter {
         break;
       case SupportMessagePage.routeName:
         builder = (_) => SupportMessagePage();
+        break;
+      case CollectionAddAudioInCollection.routeName:
+        builder = (_) => const CollectionAddAudioInCollection();
         break;
 
       case SavePage.routeName:

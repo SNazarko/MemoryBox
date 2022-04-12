@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/models/view_model.dart';
+import 'package:memory_box/pages/home_page/widgets/popup_menu_home_page.dart';
 import 'package:memory_box/pages/save_page/save_page_model.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
@@ -158,95 +159,6 @@ class _TitleAudioList extends StatelessWidget {
           )
         ],
       ),
-    );
-  }
-}
-
-class PopupMenuHomePage extends StatelessWidget {
-  PopupMenuHomePage({
-    Key? key,
-    required this.name,
-    required this.url,
-    required this.duration,
-    required this.image,
-    required this.done,
-    required this.dateTime,
-    required this.searchName,
-    required this.idAudio,
-    required this.collection,
-  }) : super(key: key);
-  final AudioRepositories repositories = AudioRepositories();
-  final String name;
-  final String url;
-  final String duration;
-  final String image;
-  final bool done;
-  final String dateTime;
-  final List searchName;
-  final String idAudio;
-  final List collection;
-  void init(BuildContext context) {
-    context.read<SavePageModel>().setCollection(collection);
-    context.read<SavePageModel>().setIdAudio(idAudio);
-    context.read<SavePageModel>().setAudioName(name);
-    context.read<SavePageModel>().setAudioUrl(url);
-    context.read<SavePageModel>().setDuration(duration);
-    context.read<SavePageModel>().setDone(done);
-    context.read<SavePageModel>().setDateTime(dateTime);
-    context.read<SavePageModel>().setSearchName(searchName);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton(
-      icon: const Icon(
-        Icons.more_horiz,
-      ),
-      iconSize: 40,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(15),
-        ),
-      ),
-      itemBuilder: (context) => [
-        popupMenuItem(
-          'Переименовать',
-          () {
-            Timer(const Duration(seconds: 1), () {
-              init(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return SavePage(
-                  image: image,
-                  url: url,
-                  duration: duration,
-                  name: name,
-                );
-              }));
-            });
-          },
-        ),
-        popupMenuItem(
-          'Добавить в подборку',
-          () {},
-        ),
-        popupMenuItem(
-          'Удалить ',
-          () {
-            AlertDialogApp().alertDialog(
-              context,
-              idAudio,
-              'DeleteCollections',
-              'Collections',
-            );
-          },
-        ),
-        popupMenuItem(
-          'Поделиться',
-          () {
-            repositories.downloadAudio(idAudio, name);
-          },
-        ),
-      ],
     );
   }
 }

@@ -17,6 +17,7 @@ import '../widgets/player_collections/player_collection_model.dart';
 import 'audio_recordings_page/audio_recordings_page.dart';
 import 'collections_pages/collection/collection.dart';
 import 'collections_pages/collection_add_audio/collections_add_audio_model.dart';
+import 'collections_pages/collection_add_audio_in_collection/collection_add_audio_in_collection_model.dart';
 import 'collections_pages/collection_edit/collection_edit_model.dart';
 import 'collections_pages/collection_item/collections_item_page_model.dart';
 import 'collections_pages/collection_item_edit/collection_item_edit_page_model.dart';
@@ -56,6 +57,10 @@ class Main extends StatelessWidget {
         ),
         ChangeNotifierProvider<PlayerCollectionModel>(
           create: (_) => PlayerCollectionModel(),
+        ),
+        ChangeNotifierProvider<CollectionAddAudioInCollectionModel>(
+          create: (BuildContext context) =>
+              CollectionAddAudioInCollectionModel(),
         ),
       ],
       child: const Main(),

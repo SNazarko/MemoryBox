@@ -26,12 +26,6 @@ class _DoneWidgetState extends State<DoneWidget> {
   final CollectionsRepositories repositories = CollectionsRepositories();
   String? idCollection;
 
-  // @override
-  // void initState() {
-  //   getIdCollection(context);
-  //   super.initState();
-  // }
-
   Future<void> getIdCollection(BuildContext context) async {
     await FirebaseFirestore.instance
         .collection(repositories.user!.phoneNumber!)

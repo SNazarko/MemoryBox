@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
@@ -10,8 +9,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:collection/collection.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
+import 'package:share_plus/share_plus.dart';
 import '../../../../repositories/collections_repositories.dart';
-import '../../../../repositories/local_save_audiofile.dart';
 import '../../collection_item/collections_item_page_model.dart';
 
 class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
@@ -77,7 +76,34 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
         ),
         popupMenuItem(
           'Поделиться',
-          () {},
+          () async {
+            await getIdAudio(context);
+            List<String> listFilePath = [];
+            for (var item in IterableZip([idAudioList, nameList])) {
+              final idAudio = item[0];
+              final name = item[1];
+              Directory directory = await getTemporaryDirectory();
+              final filePath = directory.path + '/$name.mp3';
+              listFilePath.add(filePath);
+              try {
+                await FirebaseStorage.instance
+                    .ref(
+                        '${repositoriesCollections.user!.phoneNumber!}/userAudio/$idAudio.m4a')
+                    .writeToFile(File(filePath));
+              } on FirebaseException catch (e) {
+                print('Ошибка $e');
+              }
+            }
+            await Share.shareFiles(
+              listFilePath,
+              text:
+                  Provider.of<CollectionsItemPageModel>(context, listen: false)
+                      .getTitle,
+              subject:
+                  Provider.of<CollectionsItemPageModel>(context, listen: false)
+                      .getSubTitle,
+            );
+          },
         ),
         popupMenuItem(
           'Скачать все',

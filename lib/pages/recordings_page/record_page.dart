@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,8 +16,10 @@ import 'package:memory_box/resources/constants.dart';
 import 'package:memory_box/widgets/appbar_menu.dart';
 import 'package:just_audio/just_audio.dart' as ap;
 import 'package:memory_box/widgets/slider.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:record/record.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../repositories/user_repositories.dart';
 import 'model_recordings_page.dart';
@@ -565,8 +568,21 @@ class _AudioPlayerState extends State<AudioPlayer> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         IconButton(
-          onPressed: () {
-            print(Provider.of<ModelRP>(context, listen: false).getData);
+          onPressed: () async {
+            Directory directory = await getTemporaryDirectory();
+            final filePath = directory.path + '/$_saveRecord.mp3';
+            var file = File(filePath);
+            var fileTemp =
+                File(Provider.of<ModelRP>(context, listen: false).getData);
+            var isExist = await file.exists();
+            if (!isExist) {
+              await file.create();
+            }
+            var rat = await fileTemp.readAsBytes();
+            await file.writeAsBytes(rat);
+            await Share.shareFiles(
+              [filePath],
+            );
           },
           icon: Image.asset(AppIcons.rec_upload),
         ),

@@ -40,7 +40,7 @@ class AppbarHeaderCollectionItem extends StatelessWidget {
                   Navigator.pop(context);
                 },
               ),
-              const PopupMenuCollectionItemPage(),
+              PopupMenuCollectionItemPage(),
             ],
           ),
         ),

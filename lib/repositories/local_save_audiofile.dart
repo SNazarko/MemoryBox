@@ -1,9 +1,13 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:permission_handler/permission_handler.dart';
 
+import '../resources/app_colors.dart';
+
 class LocalSaveAudioFile {
-  Future<void> saveAudioStorageDirectory(String newPath, String name) async {
+  Future<void> saveAudioStorageDirectory(
+      BuildContext context, String newPath, String name) async {
     Directory? directory;
     var status = await Permission.storage.status;
     if (!status.isGranted) {
@@ -30,5 +34,12 @@ class LocalSaveAudioFile {
     }
     var rat = await fileTemp.readAsBytes();
     await file.writeAsBytes(rat);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(
+        '$name.mp3',
+        style: const TextStyle(color: AppColor.colorText),
+      ),
+      backgroundColor: Colors.white,
+    ));
   }
 }

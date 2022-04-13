@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:collection/collection.dart';
-
+import 'package:path_provider/path_provider.dart' as pathProvider;
 import '../../../../repositories/collections_repositories.dart';
 import '../../../../repositories/local_save_audiofile.dart';
 import '../../collection_item/collections_item_page_model.dart';
@@ -81,23 +82,48 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
         popupMenuItem(
           'Скачать все',
           () async {
-            // await getIdAudio(context);
-            // for (var item in IterableZip([idAudioList, nameList])) {
-            //   final idAudio = item[0];
-            //   final name = item[1];
-            //   Directory directory = await getTemporaryDirectory();
-            //   final filePath = directory.path + '/$name.mp3';
-            //   await LocalSaveAudioFile()
-            //       .saveAudioStorageDirectory(filePath, name);
-            //   try {
-            //     await FirebaseStorage.instance
-            //         .ref(
-            //             '${repositoriesCollections.user!.phoneNumber!}/userAudio/$idAudio.m4a')
-            //         .writeToFile(File(filePath));
-            //   } on FirebaseException catch (e) {
-            //     print('Ошибка $e');
-            //   }
-            // }
+            await getIdAudio(context);
+            for (var item in IterableZip([idAudioList, nameList])) {
+              final idAudio = item[0];
+              final name = item[1];
+
+              Directory? directory;
+              var status = await Permission.storage.status;
+              if (!status.isGranted) {
+                await Permission.storage.request();
+              }
+              try {
+                if (Platform.isIOS) {
+                  directory =
+                      await pathProvider.getApplicationDocumentsDirectory();
+                } else {
+                  directory = Directory('/storage/emulated/0/Download');
+                  if (!await directory.exists()) {
+                    directory =
+                        await pathProvider.getExternalStorageDirectory();
+                  }
+                }
+              } catch (err, stack) {
+                print("Cannot get download folder path");
+              }
+              final filePath = directory!.path + '/$name.mp3';
+
+              try {
+                await FirebaseStorage.instance
+                    .ref(
+                        '${repositoriesCollections.user!.phoneNumber!}/userAudio/$idAudio.m4a')
+                    .writeToFile(File(filePath));
+              } on FirebaseException catch (e) {
+                print('Ошибка $e');
+              }
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  '$name.mp3',
+                  style: const TextStyle(color: AppColor.colorText),
+                ),
+                backgroundColor: Colors.white,
+              ));
+            }
           },
         ),
         popupMenuItem(

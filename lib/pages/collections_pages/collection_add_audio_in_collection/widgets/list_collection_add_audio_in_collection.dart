@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../models/collections_model.dart';
 import '../../../../repositories/collections_repositories.dart';
 import '../../../../resources/app_colors.dart';
-import '../../../authorization_page/registration_page/registration_page.dart';
+import '../../../authorization_pages/registration_page/registration_page.dart';
 import 'model_audio_collection_add_audio_in_collection.dart';
 
 class ListCollectionAddAudioInCollection extends StatelessWidget {

@@ -2,18 +2,18 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:memory_box/animation/screensaver_page/screensaver_page.dart';
 
-class LogoPage extends StatefulWidget {
-  const LogoPage({Key? key}) : super(key: key);
+class FirstWightPage extends StatefulWidget {
+  const FirstWightPage({Key? key}) : super(key: key);
   static const routeName = '/logo_page';
   static Widget create() {
-    return const LogoPage();
+    return const FirstWightPage();
   }
 
   @override
-  _LogoPageState createState() => _LogoPageState();
+  _FirstWightPageState createState() => _FirstWightPageState();
 }
 
-class _LogoPageState extends State<LogoPage> {
+class _FirstWightPageState extends State<FirstWightPage> {
   @override
   void initState() {
     Timer(const Duration(seconds: 1), () {

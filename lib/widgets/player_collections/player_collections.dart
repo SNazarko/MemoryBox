@@ -130,25 +130,6 @@ class PlayerCollectionsState extends State<PlayerCollections> {
       canSetValue = position.inMilliseconds > 0;
       canSetValue &= position.inMilliseconds < duration.inMilliseconds;
     }
-    // bool stateValue = false;
-    // if (position.inMilliseconds > 1) {
-    //   stateValue = true;
-    // }
-    // if (stateValue == true) {
-    //   print(stateValue);
-    //
-    //   AudioRepositories().playPause(
-    //     audioIdList[_audioPlayer.currentIndex ?? 0],
-    //     true,
-    //   );
-    // }
-    // if (position.inMilliseconds == duration?.inMilliseconds) {
-    //   print('end');
-    //   AudioRepositories().playPause(
-    //     audioIdList[_audioPlayer.currentIndex ?? 0],
-    //     false,
-    //   );
-    // }
     return SizedBox(
       child: SliderTheme(
         data: SliderTheme.of(context).copyWith(
@@ -213,12 +194,6 @@ class PlayerCollectionsState extends State<PlayerCollections> {
   Future<void> play() {
     setState(() => _isPlay = true);
     startTimer();
-
-    // AudioRepositories().playPause(
-    //   audioIdList[_audioPlayer.currentIndex ?? 0],
-    //   true,
-    // );
-
     return _audioPlayer.play();
   }
 
@@ -264,37 +239,38 @@ class PlayerCollectionsState extends State<PlayerCollections> {
     final durationMilliseconds = durationAudioPlayer?.inMilliseconds ?? 0;
     final durationDouble = durationMilliseconds / 1000;
     final duration = durationDouble.toInt();
-    if (_recordDuration == 1) {}
     if (_recordDuration == duration) {
-      // print(audioIdList[_audioPlayer.currentIndex ?? 0]);
-      // print(_recordDuration);
-      // print(duration);
-      // AudioRepositories().playPause(
-      //   audioIdList[index ?? 0],
-      //   false,
-      // );
-      //
-      // AudioRepositories().playPause(
-      //   audioIdList[index ?? 0],
-      //   true,
-      // );
-      // AudioRepositories().playPause(
-      //   audioIdList[index ?? 0 - 1],
-      //   false,
-      // );
       _recordDuration = 0;
     }
 
-    // if (index!.isEven) {
-    //   AudioRepositories().playPause(
-    //     audioIdList[index ?? 0],
-    //     true,
-    //   );
-    //   AudioRepositories().playPause(
-    //     audioIdList[index ?? 0 - 1],
-    //     false,
-    //   );
-    // }
+    if (index!.isEven == true) {
+      if (index.toInt() >= 1) {
+        AudioRepositories().playPause(
+          audioIdList[index.toInt() - 1],
+          false,
+        );
+      }
+      AudioRepositories().playPause(
+        audioIdList[index.toInt()],
+        true,
+      );
+    }
+    if (index.isEven == false) {
+      AudioRepositories().playPause(
+        audioIdList[index.toInt()],
+        true,
+      );
+      AudioRepositories().playPause(
+        audioIdList[index.toInt() - 1],
+        false,
+      );
+    }
+    if (_audioPlayer.playing == false) {
+      AudioRepositories().playPause(
+        audioIdList[index.toInt()],
+        false,
+      );
+    }
 
     final String minutes = _formatNumber(_recordDuration ~/ 60);
     final String seconds = _formatNumber(_recordDuration % 60);
@@ -430,24 +406,7 @@ class PlayerCollectionsState extends State<PlayerCollections> {
 
   String title() {
     final index = _audioPlayer.currentIndex;
-
     final String title = audioNameList.isNotEmpty ? audioNameList[index!] : '';
-    // if (index != null) {
-    //   AudioRepositories().playPause(
-    //     audioIdList[index ?? 0],
-    //     true,
-    //   );
-    // }
-    // if (index!.isEven) {
-    //   AudioRepositories().playPause(
-    //     audioIdList[index ?? 0],
-    //     true,
-    //   );
-    //   AudioRepositories().playPause(
-    //     audioIdList[index ?? 0 - 1],
-    //     false,
-    //   );
-    // }
     return title;
   }
 }

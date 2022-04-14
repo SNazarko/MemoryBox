@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/collections_model.dart';
-import 'package:memory_box/pages/authorization_page/registration_page/registration_page.dart';
+import 'package:memory_box/pages/authorization_pages/registration_page/registration_page.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 

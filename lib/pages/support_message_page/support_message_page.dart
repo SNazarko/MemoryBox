@@ -14,6 +14,7 @@ class SupportMessagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -39,7 +40,7 @@ class SupportMessagePage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Container(
-                    height: 550.0,
+                    height: screenHeight - 160.0,
                     width: screenWidth * 0.975,
                     decoration: kBorderContainer2,
                     child: rep.user == null

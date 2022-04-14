@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import '../../../resources/app_colors.dart';
-import '../../authorization_page/registration_page/registration_page.dart';
+import '../../authorization_pages/registration_page/registration_page.dart';
 
 class ModelDeleteNotIsAuthorization extends StatelessWidget {
   const ModelDeleteNotIsAuthorization({Key? key}) : super(key: key);

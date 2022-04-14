@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/authorization_page/registration_page/registration_page.dart';
+import 'package:memory_box/pages/authorization_pages/registration_page/registration_page.dart';
 import 'package:memory_box/widgets/button_continue.dart';
 import '../../widgets/appbar_header_authorization.dart';
 

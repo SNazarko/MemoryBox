@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:memory_box/pages/authorization_page/first_wight_page.dart';
+import 'package:memory_box/pages/authorization_pages/first_wight_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/routes/routes.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
                   color: AppColor.colorText,
                   fontFamily: 'TTNorms',
                   fontWeight: FontWeight.normal))),
-      initialRoute: LogoPage.routeName,
+      initialRoute: FirstWightPage.routeName,
       onGenerateRoute: AppRouter.generateRoute,
     );
   }

@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/authorization_page/last_authorization_page.dart';
-import 'package:memory_box/pages/authorization_page/registration_page/widget/text_field_captcha.dart';
+import 'package:memory_box/pages/authorization_pages/last_authorization_page.dart';
+import 'package:memory_box/pages/authorization_pages/registration_page/widget/text_field_captcha.dart';
 import 'package:memory_box/pages/main_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/button_continue.dart';

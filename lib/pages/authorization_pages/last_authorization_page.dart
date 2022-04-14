@@ -10,11 +10,6 @@ import '../../repositories/user_repositories.dart';
 import '../../widgets/appbar_header_authorization.dart';
 import '../main_page.dart';
 
-class _LastAuthorizationPageArguments {
-  _LastAuthorizationPageArguments({this.shouldPop});
-  bool? shouldPop = false;
-}
-
 class LastAuthorizationPage extends StatefulWidget {
   const LastAuthorizationPage({Key? key}) : super(key: key);
   static const routeName = '/last_authorization_page';

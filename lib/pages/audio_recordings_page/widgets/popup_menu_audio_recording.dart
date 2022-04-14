@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/audio_recordings_page/audio_recordings_page.dart';
 import 'package:memory_box/widgets/alert_dialog.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:provider/provider.dart';
@@ -48,6 +47,32 @@ class PopupMenuAudioRecording extends StatelessWidget {
     context.read<SavePageModel>().setSearchName(searchName);
   }
 
+  void rename(BuildContext context) {
+    Timer(const Duration(seconds: 1), () {
+      init(context);
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return SavePage(
+          image: image ?? '',
+          url: url,
+          duration: duration,
+          name: name,
+        );
+      }));
+    });
+  }
+
+  void addInCollection(BuildContext context) {
+    Timer(const Duration(seconds: 1), () {
+      context
+          .read<CollectionAddAudioInCollectionModel>()
+          .setCollectionAudio(collection);
+      context.read<CollectionAddAudioInCollectionModel>().setIdAudio(idAudio);
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return const CollectionAddAudioInCollection();
+      }));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
@@ -61,54 +86,23 @@ class PopupMenuAudioRecording extends StatelessWidget {
         ),
       ),
       itemBuilder: (context) => [
-        popupMenuItem(
-          'Переименовать',
-          () {
-            Timer(const Duration(seconds: 1), () {
-              init(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return SavePage(
-                  image: image ?? '',
-                  url: url,
-                  duration: duration,
-                  name: name,
-                );
-              }));
-            });
-          },
-        ),
+        popupMenuItem('Переименовать', () => rename(context)),
         popupMenuItem(
           'Добавить в подборку',
-          () {
-            Timer(const Duration(seconds: 1), () {
-              context
-                  .read<CollectionAddAudioInCollectionModel>()
-                  .setCollectionAudio(collection);
-              context
-                  .read<CollectionAddAudioInCollectionModel>()
-                  .setIdAudio(idAudio);
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const CollectionAddAudioInCollection();
-              }));
-            });
-          },
+          () => addInCollection(context),
         ),
         popupMenuItem(
           'Удалить ',
-          () {
-            AlertDialogApp().alertDialog(
-              context,
-              idAudio,
-              'DeleteCollections',
-              'Collections',
-            );
-          },
+          () => AlertDialogApp().alertDialog(
+            context,
+            idAudio,
+            'DeleteCollections',
+            'Collections',
+          ),
         ),
         popupMenuItem(
           'Поделиться',
-          () {
-            repositoriesAudio.downloadAudio(idAudio, name);
-          },
+          () => repositoriesAudio.downloadAudio(idAudio, name),
         ),
       ],
     );

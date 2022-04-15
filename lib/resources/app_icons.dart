@@ -5,7 +5,7 @@ class AppIcons {
   static const String drawer_edit = '$path/drawer_edit.png';
   static const String drawer_search = '$path/drawer_search.png';
   static const String drawer_wallet = '$path/drawer_wallet.png';
-  static const String play = '$path/play.png';
+  static const String play = '$path/playR.png';
   static const String next = '$path/next.png';
   static const String play_white = '$path/play_white.png';
   static const String pause_white = '$path/pause_white.png';

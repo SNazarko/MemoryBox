@@ -99,6 +99,21 @@ class _PopupMenuPlayerMini extends StatelessWidget {
     context.read<SavePageModel>().setSearchName(searchName);
   }
 
+  void rename(BuildContext context) {
+    Timer(const Duration(seconds: 1), () {
+      init(context);
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return SavePage(
+          image:
+              '${Provider.of<CollectionsItemPageModel>(context, listen: false).getPhoto}',
+          url: url,
+          duration: duration,
+          name: name,
+        );
+      }));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
@@ -114,45 +129,26 @@ class _PopupMenuPlayerMini extends StatelessWidget {
       itemBuilder: (context) => [
         popupMenuItem(
           'Переименовать',
-          () {
-            Timer(const Duration(seconds: 1), () {
-              init(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return SavePage(
-                  image:
-                      '${Provider.of<CollectionsItemPageModel>(context, listen: false).getPhoto}',
-                  url: url,
-                  duration: duration,
-                  name: name,
-                );
-              }));
-            });
-          },
+          () => rename(context),
         ),
         popupMenuItem(
           'Добавить в подборку',
-          () {
-            Timer(const Duration(seconds: 1), () {
-              Navigator.pushNamed(context, CollectionItemEditAudio.routeName);
-            });
-          },
+          () => Timer(const Duration(seconds: 1), () {
+            Navigator.pushNamed(context, CollectionItemEditAudio.routeName);
+          }),
         ),
         popupMenuItem(
           'Удалить ',
-          () {
-            AlertDialogApp().alertDialog(
-              context,
-              idAudio,
-              'DeleteCollections',
-              'Collections',
-            );
-          },
+          () => AlertDialogApp().alertDialog(
+            context,
+            idAudio,
+            'DeleteCollections',
+            'Collections',
+          ),
         ),
         popupMenuItem(
           'Поделиться',
-          () {
-            AudioRepositories().downloadAudio(idAudio, name);
-          },
+          () => AudioRepositories().downloadAudio(idAudio, name),
         ),
       ],
     );

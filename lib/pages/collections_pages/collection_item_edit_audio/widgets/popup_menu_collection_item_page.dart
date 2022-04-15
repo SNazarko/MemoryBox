@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
@@ -43,6 +44,112 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
     });
   }
 
+  Future<void> deselect(BuildContext context) async {
+    await getIdAudio(context);
+    for (var item in IterableZip([idAudioList, collectionsList])) {
+      final idAudio = item[0];
+      final collectionsTemp = item[1];
+      final collections = collectionsTemp as List;
+      await repositoriesCollections.addAudioCollections(
+          Provider.of<CollectionsItemPageModel>(context, listen: false)
+              .getIdCollection,
+          '$idAudio',
+          collections,
+          true);
+    }
+  }
+
+  Future<void> share(BuildContext context) async {
+    await getIdAudio(context);
+    List<String> listFilePath = [];
+    for (var item in IterableZip([idAudioList, nameList])) {
+      final idAudio = item[0];
+      final name = item[1];
+      Directory directory = await getTemporaryDirectory();
+      final filePath = directory.path + '/$name.mp3';
+      listFilePath.add(filePath);
+      try {
+        await FirebaseStorage.instance
+            .ref(
+                '${repositoriesCollections.user!.phoneNumber!}/userAudio/$idAudio.m4a')
+            .writeToFile(File(filePath));
+      } on FirebaseException catch (e) {
+        if (kDebugMode) {
+          print('Ошибка $e');
+        }
+      }
+    }
+    await Share.shareFiles(
+      listFilePath,
+      text: Provider.of<CollectionsItemPageModel>(context, listen: false)
+          .getTitle,
+      subject: Provider.of<CollectionsItemPageModel>(context, listen: false)
+          .getSubTitle,
+    );
+  }
+
+  Future<void> downloadAll(BuildContext context) async {
+    await getIdAudio(context);
+    for (var item in IterableZip([idAudioList, nameList])) {
+      final idAudio = item[0];
+      final name = item[1];
+
+      Directory? directory;
+      var status = await Permission.storage.status;
+      if (!status.isGranted) {
+        await Permission.storage.request();
+      }
+      try {
+        if (Platform.isIOS) {
+          directory = await pathProvider.getApplicationDocumentsDirectory();
+        } else {
+          directory = Directory('/storage/emulated/0/Download');
+          if (!await directory.exists()) {
+            directory = await pathProvider.getExternalStorageDirectory();
+          }
+        }
+      } catch (err) {
+        if (kDebugMode) {
+          print("Cannot get download folder path");
+        }
+      }
+      final filePath = directory!.path + '/$name.mp3';
+
+      try {
+        await FirebaseStorage.instance
+            .ref(
+                '${repositoriesCollections.user!.phoneNumber!}/userAudio/$idAudio.m4a')
+            .writeToFile(File(filePath));
+      } on FirebaseException catch (e) {
+        if (kDebugMode) {
+          print('Ошибка $e');
+        }
+      }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+          '$name.mp3',
+          style: const TextStyle(color: AppColor.colorText),
+        ),
+        backgroundColor: Colors.white,
+      ));
+    }
+  }
+
+  Future<void> deleteAll(BuildContext context) async {
+    await getIdAudio(context);
+    for (var item in IterableZip([idAudioList, collectionsList])) {
+      final idAudio = item[0];
+      final collectionsTemp = item[1];
+      final collections = collectionsTemp as List;
+      await repositoriesCollections.addAudioCollections(
+          Provider.of<CollectionsItemPageModel>(context, listen: false)
+              .getIdCollection,
+          '$idAudio',
+          collections,
+          false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
@@ -59,115 +166,19 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
       itemBuilder: (_) => [
         popupMenuItem(
           'Отменить выбор',
-          () async {
-            await getIdAudio(context);
-            for (var item in IterableZip([idAudioList, collectionsList])) {
-              final idAudio = item[0];
-              final collectionsTemp = item[1];
-              final collections = collectionsTemp as List;
-              await repositoriesCollections.addAudioCollections(
-                  Provider.of<CollectionsItemPageModel>(context, listen: false)
-                      .getIdCollection,
-                  '$idAudio',
-                  collections,
-                  true);
-            }
-          },
+          () => deselect(context),
         ),
         popupMenuItem(
           'Поделиться',
-          () async {
-            await getIdAudio(context);
-            List<String> listFilePath = [];
-            for (var item in IterableZip([idAudioList, nameList])) {
-              final idAudio = item[0];
-              final name = item[1];
-              Directory directory = await getTemporaryDirectory();
-              final filePath = directory.path + '/$name.mp3';
-              listFilePath.add(filePath);
-              try {
-                await FirebaseStorage.instance
-                    .ref(
-                        '${repositoriesCollections.user!.phoneNumber!}/userAudio/$idAudio.m4a')
-                    .writeToFile(File(filePath));
-              } on FirebaseException catch (e) {
-                print('Ошибка $e');
-              }
-            }
-            await Share.shareFiles(
-              listFilePath,
-              text:
-                  Provider.of<CollectionsItemPageModel>(context, listen: false)
-                      .getTitle,
-              subject:
-                  Provider.of<CollectionsItemPageModel>(context, listen: false)
-                      .getSubTitle,
-            );
-          },
+          () => share(context),
         ),
         popupMenuItem(
           'Скачать все',
-          () async {
-            await getIdAudio(context);
-            for (var item in IterableZip([idAudioList, nameList])) {
-              final idAudio = item[0];
-              final name = item[1];
-
-              Directory? directory;
-              var status = await Permission.storage.status;
-              if (!status.isGranted) {
-                await Permission.storage.request();
-              }
-              try {
-                if (Platform.isIOS) {
-                  directory =
-                      await pathProvider.getApplicationDocumentsDirectory();
-                } else {
-                  directory = Directory('/storage/emulated/0/Download');
-                  if (!await directory.exists()) {
-                    directory =
-                        await pathProvider.getExternalStorageDirectory();
-                  }
-                }
-              } catch (err, stack) {
-                print("Cannot get download folder path");
-              }
-              final filePath = directory!.path + '/$name.mp3';
-
-              try {
-                await FirebaseStorage.instance
-                    .ref(
-                        '${repositoriesCollections.user!.phoneNumber!}/userAudio/$idAudio.m4a')
-                    .writeToFile(File(filePath));
-              } on FirebaseException catch (e) {
-                print('Ошибка $e');
-              }
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(
-                  '$name.mp3',
-                  style: const TextStyle(color: AppColor.colorText),
-                ),
-                backgroundColor: Colors.white,
-              ));
-            }
-          },
+          () => downloadAll(context),
         ),
         popupMenuItem(
           'Удалить все',
-          () async {
-            await getIdAudio(context);
-            for (var item in IterableZip([idAudioList, collectionsList])) {
-              final idAudio = item[0];
-              final collectionsTemp = item[1];
-              final collections = collectionsTemp as List;
-              await repositoriesCollections.addAudioCollections(
-                  Provider.of<CollectionsItemPageModel>(context, listen: false)
-                      .getIdCollection,
-                  '$idAudio',
-                  collections,
-                  false);
-            }
-          },
+          () => deleteAll(context),
         ),
       ],
     );

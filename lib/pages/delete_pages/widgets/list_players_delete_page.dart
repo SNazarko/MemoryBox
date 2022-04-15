@@ -5,7 +5,6 @@ import '../../../models/audio_model.dart';
 import '../../../repositories/audio_repositories.dart';
 import '../../../resources/app_colors.dart';
 import '../../../widgets/player_mini/player_mini.dart';
-import '../delete_page.dart';
 import '../delete_page_model.dart';
 import 'icon_delene_audio.dart';
 import 'icon_done_delete.dart';

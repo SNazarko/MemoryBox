@@ -44,6 +44,30 @@ class _DoneWidgetState extends State<DoneWidget> {
         .setId(idCollection!);
   }
 
+  Future<void> onTapDone(BuildContext context) async {
+    done = !done;
+    if (!done) {
+      await getIdCollection(context);
+      await repositories.addAudioCollections(
+        idCollection!,
+        widget.id!,
+        widget.collection,
+        false,
+      );
+      // context.read<ModelDone>().doneWidget();
+      repositories.doneAudioItem(widget.id!, false, 'Collections');
+      setState(() {});
+    }
+    if (done) {
+      await getIdCollection(context);
+      await repositories.addAudioCollections(
+          idCollection!, widget.id!, widget.collection, true);
+      // context.read<ModelDone>().doneWidget();
+      repositories.doneAudioItem(widget.id!, true, 'Collections');
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // final bool doneProvider = context.watch<ModelDone>().getDone;
@@ -52,29 +76,7 @@ class _DoneWidgetState extends State<DoneWidget> {
       child: Stack(
         children: [
           GestureDetector(
-            onTap: () async {
-              done = !done;
-              if (!done) {
-                await getIdCollection(context);
-                await repositories.addAudioCollections(
-                  idCollection!,
-                  widget.id!,
-                  widget.collection,
-                  false,
-                );
-                // context.read<ModelDone>().doneWidget();
-                repositories.doneAudioItem(widget.id!, false, 'Collections');
-                setState(() {});
-              }
-              if (done) {
-                await getIdCollection(context);
-                await repositories.addAudioCollections(
-                    idCollection!, widget.id!, widget.collection, true);
-                // context.read<ModelDone>().doneWidget();
-                repositories.doneAudioItem(widget.id!, true, 'Collections');
-                setState(() {});
-              }
-            },
+            onTap: () => onTapDone(context),
             child: Container(
               width: 35,
               height: 35,

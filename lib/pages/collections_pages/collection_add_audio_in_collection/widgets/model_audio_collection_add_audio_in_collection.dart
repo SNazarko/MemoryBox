@@ -52,6 +52,41 @@ class _ModelAudioCollectionAddAudioInCollectionState
     super.initState();
   }
 
+  Future<void> onPressedDone(BuildContext context) async {
+    widget.doneCollection = !widget.doneCollection!;
+    if (!widget.doneCollection!) {
+      rep.doneCollections(
+        widget.id!,
+        false,
+      );
+      rep.addAudioCollections(
+        widget.id!,
+        Provider.of<CollectionAddAudioInCollectionModel>(context, listen: false)
+            .getIdAudio,
+        Provider.of<CollectionAddAudioInCollectionModel>(context, listen: false)
+            .getCollectionAudio,
+        false,
+      );
+    }
+    if (widget.doneCollection!) {
+      rep.doneCollections(
+        widget.id!,
+        true,
+      );
+      rep.addAudioCollections(
+        widget.id!,
+        Provider.of<CollectionAddAudioInCollectionModel>(context, listen: false)
+            .getIdAudio,
+        Provider.of<CollectionAddAudioInCollectionModel>(context, listen: false)
+            .getCollectionAudio,
+        true,
+      );
+    }
+    rep.updateQualityAndTotalTime(
+      widget.id!,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -130,8 +165,6 @@ class _ModelAudioCollectionAddAudioInCollectionState
                 color: Colors.black.withOpacity(0.4),
                 gradient: LinearGradient(
                     colors: widget.doneCollection!
-
-                        // done
                         ? [const Color(0xFF000000), const Color(0xFF000000)]
                         : [const Color(0xFF000000), const Color(0xFF454545)],
                     begin: Alignment.bottomRight),
@@ -151,48 +184,7 @@ class _ModelAudioCollectionAddAudioInCollectionState
                     ),
                   ),
                   IconButton(
-                    onPressed: () {
-                      widget.doneCollection = !widget.doneCollection!;
-                      if (!widget.doneCollection!) {
-                        rep.doneCollections(
-                          widget.id!,
-                          false,
-                        );
-                        rep.addAudioCollections(
-                          widget.id!,
-                          Provider.of<CollectionAddAudioInCollectionModel>(
-                                  context,
-                                  listen: false)
-                              .getIdAudio,
-                          Provider.of<CollectionAddAudioInCollectionModel>(
-                                  context,
-                                  listen: false)
-                              .getCollectionAudio,
-                          false,
-                        );
-                      }
-                      if (widget.doneCollection!) {
-                        rep.doneCollections(
-                          widget.id!,
-                          true,
-                        );
-                        rep.addAudioCollections(
-                          widget.id!,
-                          Provider.of<CollectionAddAudioInCollectionModel>(
-                                  context,
-                                  listen: false)
-                              .getIdAudio,
-                          Provider.of<CollectionAddAudioInCollectionModel>(
-                                  context,
-                                  listen: false)
-                              .getCollectionAudio,
-                          true,
-                        );
-                      }
-                      rep.updateQualityAndTotalTime(
-                        widget.id!,
-                      );
-                    },
+                    onPressed: () => onPressedDone(context),
                     icon: Icon(
                       Icons.done,
                       color: widget.doneCollection!

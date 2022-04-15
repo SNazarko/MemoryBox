@@ -23,9 +23,9 @@ class CollectionsEdit extends StatelessWidget {
             children: [
               Expanded(
                 child: Stack(
-                  children: [
+                  children: const [
                     AppbarHeaderEdit(),
-                    const PhotoContainer(),
+                    PhotoContainer(),
                   ],
                 ),
               ),

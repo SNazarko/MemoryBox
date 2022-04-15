@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
@@ -20,6 +19,15 @@ class PhotoContainer extends StatefulWidget {
 class _PhotoContainerState extends State<PhotoContainer> {
   ImagePick imagePick = ImagePick();
   String? singleImage;
+
+  Future<void> imagePickPhoto(BuildContext context) async {
+    XFile? _image = await imagePick.singleImagePick();
+    if (_image != null && _image.path.isNotEmpty) {
+      singleImage = await UserRepositories().uploadImage(_image);
+      context.read<CollectionsEditModel>().image(singleImage ?? '');
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,14 +49,7 @@ class _PhotoContainerState extends State<PhotoContainer> {
         height: 200.0,
         widget: IconCamera(
           color: AppColor.glass,
-          onTap: () async {
-            XFile? _image = await imagePick.singleImagePick();
-            if (_image != null && _image.path.isNotEmpty) {
-              singleImage = await UserRepositories().uploadImage(_image);
-              context.read<CollectionsEditModel>().image(singleImage ?? '');
-              setState(() {});
-            }
-          },
+          onTap: () => imagePickPhoto(context),
           colorBorder: AppColor.colorText80,
           position: 0.0,
         ),

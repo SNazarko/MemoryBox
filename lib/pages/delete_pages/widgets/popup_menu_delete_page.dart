@@ -51,6 +51,59 @@ class PopupMenuDeletePage extends StatelessWidget {
     });
   }
 
+  Future<void> delete(BuildContext context) async {
+    await getIdCollection(context);
+    for (var item in IterableZip([idAudioList, sizeList])) {
+      final idAudio = item[0];
+      final sizeTemp = item[1];
+      final size = sizeTemp as int;
+      await repositoriesCollections.deleteCollection(
+          '$idAudio', 'DeleteCollections');
+      await repositoriesUser.updateSizeRepositories(-size);
+    }
+    await UserRepositories().updateTotalTimeQuality();
+  }
+
+  Future<void> reestablish(BuildContext context) async {
+    await getIdCollection(context);
+    for (var item in idAudioList) {
+      await repositoriesCollections.copyPastCollections(
+        item,
+        'DeleteCollections',
+        'Collections',
+      );
+      await repositoriesCollections.deleteCollection(item, 'DeleteCollections');
+      await UserRepositories().updateTotalTimeQuality();
+    }
+  }
+
+  Future<void> deleteAll(BuildContext context) async {
+    await getIdCollection(context);
+    for (var item in IterableZip([idAudioListAll, sizeListAll])) {
+      final idAudio = item[0];
+      final sizeTemp = item[1];
+      final size = sizeTemp as int;
+      await repositoriesCollections.deleteCollection(
+          '$idAudio', 'DeleteCollections');
+      await repositoriesUser.updateSizeRepositories(-size);
+    }
+
+    await UserRepositories().updateTotalTimeQuality();
+  }
+
+  Future<void> reestablishAll(BuildContext context) async {
+    await getIdCollectionAll(context);
+    for (var item in idAudioListAll) {
+      await repositoriesCollections.copyPastCollections(
+        item,
+        'DeleteCollections',
+        'Collections',
+      );
+      await repositoriesCollections.deleteCollection(item, 'DeleteCollections');
+      await UserRepositories().updateTotalTimeQuality();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = context.watch<DeletePageModel>().getItemDone;
@@ -69,78 +122,29 @@ class PopupMenuDeletePage extends StatelessWidget {
             ? (context) => [
                   popupMenuItem(
                     'Снять выделение',
-                    () {
-                      context.read<DeletePageModel>().stateCollections();
-                    },
+                    () => context.read<DeletePageModel>().stateCollections(),
                   ),
-                  popupMenuItem('Удалить', () async {
-                    await getIdCollection(context);
-                    for (var item in IterableZip([idAudioList, sizeList])) {
-                      final idAudio = item[0];
-                      final sizeTemp = item[1];
-                      final size = sizeTemp as int;
-                      await repositoriesCollections.deleteCollection(
-                          '$idAudio', 'DeleteCollections');
-                      await repositoriesUser.updateSizeRepositories(-size);
-                    }
-                    await UserRepositories().updateTotalTimeQuality();
-                  }),
+                  popupMenuItem(
+                    'Удалить',
+                    () => delete(context),
+                  ),
                   popupMenuItem(
                     'Восстановить',
-                    () async {
-                      await getIdCollection(context);
-                      for (var item in idAudioList) {
-                        await repositoriesCollections.copyPastCollections(
-                          item,
-                          'DeleteCollections',
-                          'Collections',
-                        );
-                        await repositoriesCollections.deleteCollection(
-                            item, 'DeleteCollections');
-                        await UserRepositories().updateTotalTimeQuality();
-                      }
-                    },
+                    () => reestablish(context),
                   ),
                 ]
             : (context) => [
                   popupMenuItem(
                     'Выбрать несколько',
-                    () {
-                      context.read<DeletePageModel>().stateCollections();
-                    },
+                    () => context.read<DeletePageModel>().stateCollections(),
                   ),
                   popupMenuItem(
                     'Удалить все',
-                    () async {
-                      await getIdCollection(context);
-                      for (var item
-                          in IterableZip([idAudioListAll, sizeListAll])) {
-                        final idAudio = item[0];
-                        final sizeTemp = item[1];
-                        final size = sizeTemp as int;
-                        await repositoriesCollections.deleteCollection(
-                            '$idAudio', 'DeleteCollections');
-                        await repositoriesUser.updateSizeRepositories(-size);
-                      }
-
-                      await UserRepositories().updateTotalTimeQuality();
-                    },
+                    () => deleteAll(context),
                   ),
                   popupMenuItem(
                     'Восстановить все',
-                    () async {
-                      await getIdCollectionAll(context);
-                      for (var item in idAudioListAll) {
-                        await repositoriesCollections.copyPastCollections(
-                          item,
-                          'DeleteCollections',
-                          'Collections',
-                        );
-                        await repositoriesCollections.deleteCollection(
-                            item, 'DeleteCollections');
-                        await UserRepositories().updateTotalTimeQuality();
-                      }
-                    },
+                    () => reestablishAll(context),
                   ),
                 ]);
   }

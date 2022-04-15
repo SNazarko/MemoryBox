@@ -236,30 +236,10 @@ class CollectionItem extends StatelessWidget {
                         true,
                       );
                     }
-
-                    // context.read<CollectionModel>().stateDone();
-
-                    // if (!doneCollection!) {
-                    //   CollectionsRepositories().copyPastCollections(
-                    //     id!,
-                    //     'CollectionsTale',
-                    //     'DeleteCollectionsTale',
-                    //   );
-                    // }
-                    // if (doneCollection!) {
-                    //   CollectionsRepositories().deleteCollection(
-                    //     id!,
-                    //     'DeleteCollectionsTale',
-                    //   );
-                    // }
                   },
                   icon: Icon(
                     Icons.done,
-                    color: doneCollection!
-                        // done
-                        // context.watch<ModelPlayerMiniPodborki>().done
-                        ? AppColor.white
-                        : AppColor.glass,
+                    color: doneCollection! ? AppColor.white : AppColor.glass,
                   ),
                 ),
               ],

@@ -38,6 +38,26 @@ class _IconDoneDeleteState extends State<IconDoneDelete> {
     });
   }
 
+  Future<void> onTapDone() async {
+    done = !done;
+    if (done) {
+      repositories.doneAudioItem(
+        widget.id!,
+        true,
+        'DeleteCollections',
+      );
+      setState(() {});
+    }
+    if (!done) {
+      repositories.doneAudioItem(
+        widget.id!,
+        false,
+        'DeleteCollections',
+      );
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -45,25 +65,7 @@ class _IconDoneDeleteState extends State<IconDoneDelete> {
       child: Stack(
         children: [
           GestureDetector(
-            onTap: () async {
-              done = !done;
-              if (done) {
-                repositories.doneAudioItem(
-                  widget.id!,
-                  true,
-                  'DeleteCollections',
-                );
-                setState(() {});
-              }
-              if (!done) {
-                repositories.doneAudioItem(
-                  widget.id!,
-                  false,
-                  'DeleteCollections',
-                );
-                setState(() {});
-              }
-            },
+            onTap: () => onTapDone(),
             child: Container(
               width: 35,
               height: 35,

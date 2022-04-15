@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/widgets/player_mini/player_mini.dart';
-import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'done_collection_item_edit_audio.dart';
 
 class ListCollectionItemEditAudio extends StatelessWidget {
@@ -45,43 +44,6 @@ class ListCollectionItemEditAudio extends StatelessWidget {
           }
         },
       ),
-    );
-  }
-}
-
-class PopupMenuPlayerMini extends StatelessWidget {
-  const PopupMenuPlayerMini({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton(
-      icon: const Icon(
-        Icons.more_horiz,
-      ),
-      iconSize: 40,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(15),
-        ),
-      ),
-      itemBuilder: (context) => [
-        popupMenuItem(
-          'Переименовать',
-          () {},
-        ),
-        popupMenuItem(
-          'Добавить в подборку',
-          () {},
-        ),
-        popupMenuItem(
-          'Удалить ',
-          () {},
-        ),
-        popupMenuItem(
-          'Поделиться',
-          () {},
-        ),
-      ],
     );
   }
 }

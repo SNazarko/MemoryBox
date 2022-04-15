@@ -28,7 +28,7 @@ class CollectionItemEditAudio extends StatelessWidget {
                     child: Stack(
                       children: [
                         AppbarHeaderCollectionItemEditAudio(),
-                        PhotoContainerCollectionItemEditAudio(),
+                        const PhotoContainerCollectionItemEditAudio(),
                       ],
                     ),
                   ),

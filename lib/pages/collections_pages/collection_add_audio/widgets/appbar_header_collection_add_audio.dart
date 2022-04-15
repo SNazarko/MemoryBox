@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/search_page/search_page_model.dart';
 import 'package:memory_box/resources/app_colors.dart';

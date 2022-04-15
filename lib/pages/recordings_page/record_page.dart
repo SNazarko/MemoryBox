@@ -63,6 +63,7 @@ class _RecordPageState extends State<RecordPage> {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -84,7 +85,7 @@ class _RecordPageState extends State<RecordPage> {
                     left: 5.0,
                     top: 30.0,
                     child: Container(
-                      height: 520.0,
+                      height: screenHeight - 180.0,
                       width: screenWidth * 0.97,
                       decoration: kBorderContainer2,
                       child: showPlayer
@@ -158,7 +159,13 @@ class _AudioRecorderState extends State<AudioRecorder> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        SizedBox(
+          child: Column(
+            children: [],
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Align(
@@ -181,33 +188,42 @@ class _AudioRecorderState extends State<AudioRecorder> {
           'Запись',
           style: kBodiTextStyle,
         ),
-        const SizedBox(
-          height: 120,
-        ),
-        _amplitudRecords(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 10.0,
-              height: 10.0,
-              decoration: const BoxDecoration(
-                color: AppColor.pink,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20.0),
-                ),
+        SizedBox(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 120,
               ),
-            ),
-            const SizedBox(
-              width: 5,
-            ),
-            _buildText(),
-          ],
+              _amplitudRecords(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 10.0,
+                    height: 10.0,
+                    decoration: const BoxDecoration(
+                      color: AppColor.pink,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20.0),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  _buildText(),
+                ],
+              ),
+              const SizedBox(
+                height: 40.0,
+              ),
+              _buildRecordStopControl(),
+              const SizedBox(
+                height: 20.0,
+              ),
+            ],
+          ),
         ),
-        const SizedBox(
-          height: 40,
-        ),
-        _buildRecordStopControl(),
       ],
     );
   }
@@ -484,6 +500,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _icon(),
             const SizedBox(
@@ -557,6 +574,9 @@ class _AudioPlayerState extends State<AudioPlayer> {
                 ),
               ],
             ),
+            const SizedBox(
+              height: 20.0,
+            ),
           ],
         );
       },
@@ -565,39 +585,45 @@ class _AudioPlayerState extends State<AudioPlayer> {
 
   Widget _icon() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        IconButton(
-          onPressed: () async {
-            Directory directory = await getTemporaryDirectory();
-            final filePath = directory.path + '/$_saveRecord.mp3';
-            var file = File(filePath);
-            var fileTemp =
-                File(Provider.of<ModelRP>(context, listen: false).getData);
-            var isExist = await file.exists();
-            if (!isExist) {
-              await file.create();
-            }
-            var rat = await fileTemp.readAsBytes();
-            await file.writeAsBytes(rat);
-            await Share.shareFiles(
-              [filePath],
-            );
-          },
-          icon: Image.asset(AppIcons.rec_upload),
+        SizedBox(
+          child: Row(
+            children: [
+              IconButton(
+                onPressed: () async {
+                  Directory directory = await getTemporaryDirectory();
+                  final filePath = directory.path + '/$_saveRecord.mp3';
+                  var file = File(filePath);
+                  var fileTemp = File(
+                      Provider.of<ModelRP>(context, listen: false).getData);
+                  var isExist = await file.exists();
+                  if (!isExist) {
+                    await file.create();
+                  }
+                  var rat = await fileTemp.readAsBytes();
+                  await file.writeAsBytes(rat);
+                  await Share.shareFiles(
+                    [filePath],
+                  );
+                },
+                icon: Image.asset(AppIcons.rec_upload),
+              ),
+              IconButton(
+                  onPressed: () {
+                    saveRecordLocal();
+                  },
+                  icon: Image.asset(AppIcons.rec_paper_download),
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0)),
+              IconButton(
+                  onPressed: () {
+                    _audioPlayer.stop().then((value) => widget.onDelete());
+                  },
+                  icon: Image.asset(AppIcons.rec_delete),
+                  padding: const EdgeInsets.symmetric(horizontal: 15)),
+            ],
+          ),
         ),
-        IconButton(
-            onPressed: () {
-              saveRecordLocal();
-            },
-            icon: Image.asset(AppIcons.rec_paper_download),
-            padding: const EdgeInsets.symmetric(horizontal: 15.0)),
-        IconButton(
-            onPressed: () {
-              _audioPlayer.stop().then((value) => widget.onDelete());
-            },
-            icon: Image.asset(AppIcons.rec_delete),
-            padding: const EdgeInsets.symmetric(horizontal: 15)),
         Padding(
           padding: const EdgeInsets.only(left: 35.0),
           child: TextButton(
@@ -653,40 +679,39 @@ class _AudioPlayerState extends State<AudioPlayer> {
     Widget icon;
 
     if (_audioPlayer.playerState.playing) {
-      icon = Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
+      icon = Image.asset(
+        AppIcons.stop,
+        fit: BoxFit.fill,
+      );
+    } else {
+      icon = Container(
+        color: Colors.transparent,
+        child: Expanded(
           child: Image.asset(
-            AppIcons.stop,
+            'assets/images/playR.png',
             fit: BoxFit.fill,
           ),
         ),
       );
-    } else {
-      icon = Container(
-        child: Image.asset(
-          AppIcons.play,
-          fit: BoxFit.fill,
-        ),
-      );
     }
 
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: ClipOval(
-        child: Material(
-          child: InkWell(
-            child: SizedBox(width: 97, height: 97, child: icon),
-            onTap: () {
-              if (_audioPlayer.playerState.playing) {
-                pause();
-                setState(() {});
-              } else {
-                setState(() {});
-                play();
-              }
-            },
+    return ClipOval(
+      child: Material(
+        child: InkWell(
+          child: SizedBox(
+            width: 80,
+            height: 80,
+            child: icon,
           ),
+          onTap: () {
+            if (_audioPlayer.playerState.playing) {
+              pause();
+              setState(() {});
+            } else {
+              setState(() {});
+              play();
+            }
+          },
         ),
       ),
     );

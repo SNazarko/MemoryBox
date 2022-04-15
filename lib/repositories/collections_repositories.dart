@@ -158,9 +158,11 @@ class CollectionsRepositories {
       List collections, bool done) async {
     if (done == true) {
       collections.add(nameCollection);
+      print('1111111');
     }
     if (done == false) {
       collections.remove(nameCollection);
+      print('22222222');
     }
 
     FirebaseFirestore.instance

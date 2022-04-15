@@ -30,27 +30,28 @@ class _DoneCollectionItemEditAudioState
     extends State<DoneCollectionItemEditAudio> {
   final CollectionsRepositories repositories = CollectionsRepositories();
 
+  Future<void> onTapDone() async {
+    await repositories.addAudioCollections(
+        Provider.of<CollectionsItemPageModel>(context, listen: false)
+            .getIdCollection,
+        widget.id!,
+        widget.collection!,
+        !widget.collection!.contains(
+            Provider.of<CollectionsItemPageModel>(context, listen: false)
+                .getIdCollection));
+    await repositories.updateQualityAndTotalTime(
+      Provider.of<CollectionsItemPageModel>(context, listen: false)
+          .getIdCollection,
+    );
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    // final bool doneProvider = context.watch<ModelDone>().getDone;
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: GestureDetector(
-        onTap: () async {
-          await repositories.addAudioCollections(
-              Provider.of<CollectionsItemPageModel>(context, listen: false)
-                  .getIdCollection,
-              widget.id!,
-              widget.collection!,
-              !widget.collection!.contains(
-                  Provider.of<CollectionsItemPageModel>(context, listen: false)
-                      .getIdCollection));
-          await repositories.updateQualityAndTotalTime(
-            Provider.of<CollectionsItemPageModel>(context, listen: false)
-                .getIdCollection,
-          );
-          setState(() {});
-        },
+        onTap: () => onTapDone(),
         child: Container(
           width: 40,
           height: 40,

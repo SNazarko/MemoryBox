@@ -12,7 +12,7 @@ class AppbarMenu extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
     return Stack(children: [
       Container(
-        height: screenHeight / 1.27,
+        height: screenHeight - 150.0,
       ),
       ClipPath(
         clipper: AppbarClipper(),

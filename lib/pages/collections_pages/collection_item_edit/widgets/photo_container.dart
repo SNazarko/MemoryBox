@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
@@ -21,6 +20,17 @@ class PhotoContainer extends StatefulWidget {
 class PhotoContainerState extends State<PhotoContainer> {
   ImagePick imagePick = ImagePick();
   String? singleImage;
+
+  Future<void> imagePickPhoto(BuildContext context) async {
+    XFile? _image = await imagePick.singleImagePick();
+    if (_image != null && _image.path.isNotEmpty) {
+      singleImage = await UserRepositories().uploadImage(_image);
+      context
+          .read<CollectionItemEditPageModel>()
+          .setAvatarCollectionsEdit(singleImage!);
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,16 +57,7 @@ class PhotoContainerState extends State<PhotoContainer> {
           height: 200.0,
           widget: IconCamera(
             color: AppColor.glass,
-            onTap: () async {
-              XFile? _image = await imagePick.singleImagePick();
-              if (_image != null && _image.path.isNotEmpty) {
-                singleImage = await UserRepositories().uploadImage(_image);
-                context
-                    .read<CollectionItemEditPageModel>()
-                    .setAvatarCollectionsEdit(singleImage!);
-                setState(() {});
-              }
-            },
+            onTap: () => imagePickPhoto(context),
             colorBorder: AppColor.colorText80,
             position: 0.0,
           ),

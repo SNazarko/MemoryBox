@@ -43,6 +43,9 @@ class UserRepositories {
         .collection(user!.phoneNumber!)
         .doc('user')
         .set({
+      'displayName': 'Имя',
+      'phoneNumb': '+00(000)0000000',
+      'avatarUrl': '',
       'onceAMonth': false,
       'onceAYear': false,
       'onlyMonth': false,
@@ -111,7 +114,7 @@ class UserRepositories {
     await FirebaseFirestore.instance
         .collection(user!.phoneNumber!)
         .doc('user')
-        .set({
+        .update({
       'displayName': name,
       'phoneNumb': number,
       'avatarUrl': image,

@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
@@ -11,7 +9,7 @@ import 'package:provider/provider.dart';
 import '../collection_edit_model.dart';
 
 class AppbarHeaderEdit extends StatelessWidget {
-  AppbarHeaderEdit({Key? key}) : super(key: key);
+  const AppbarHeaderEdit({Key? key}) : super(key: key);
 
   void updateCollection(BuildContext context) {
     CollectionsRepositories().updateCollection(
@@ -26,8 +24,6 @@ class AppbarHeaderEdit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state =
-        Provider.of<CollectionsEditModel>(context, listen: false).getId;
     return Stack(
       children: [
         Container(),

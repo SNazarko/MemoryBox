@@ -11,35 +11,22 @@ import '../collection_edit_model.dart';
 class ButtonAddAudio extends StatelessWidget {
   ButtonAddAudio({Key? key}) : super(key: key);
 
+  void addAudioInCollection(BuildContext context) {
+    CollectionsRepositories().updateCollection(
+      Provider.of<CollectionsEditModel>(context, listen: false).getId,
+      Provider.of<CollectionsEditModel>(context, listen: false).getTitle ??
+          'Без названия',
+      Provider.of<CollectionsEditModel>(context, listen: false).getSubTitle ??
+          '...',
+      Provider.of<CollectionsEditModel>(context, listen: false).getImage ?? '',
+    );
+    Navigator.pushNamed(context, CollectionsAddAudio.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextButton(
-        onPressed: () {
-          CollectionsRepositories().updateCollection(
-            Provider.of<CollectionsEditModel>(context, listen: false).getId,
-            Provider.of<CollectionsEditModel>(context, listen: false)
-                    .getTitle ??
-                'Без названия',
-            Provider.of<CollectionsEditModel>(context, listen: false)
-                    .getSubTitle ??
-                '...',
-            Provider.of<CollectionsEditModel>(context, listen: false)
-                    .getImage ??
-                '',
-          );
-          Navigator.pushNamed(context, CollectionsAddAudio.routeName);
-          // CollectionsRepositories().addCollections(
-          //   Provider.of<CollectionsEditModel>(context, listen: false)
-          //           .getTitle ??
-          //       '',
-          //   Provider.of<CollectionsEditModel>(context, listen: false)
-          //           .getSubTitle ??
-          //       '',
-          //   Provider.of<CollectionsEditModel>(context, listen: false)
-          //           .getImage ??
-          //       '',
-          // );
-        },
+        onPressed: () => addAudioInCollection(context),
         child: const Center(
           child: Text(
             'Добавить аудиофайл',

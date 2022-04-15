@@ -45,6 +45,32 @@ class PopupMenuHomePage extends StatelessWidget {
     context.read<SavePageModel>().setSearchName(searchName);
   }
 
+  void rename(BuildContext context) {
+    Timer(const Duration(seconds: 1), () {
+      init(context);
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return SavePage(
+          image: image,
+          url: url,
+          duration: duration,
+          name: name,
+        );
+      }));
+    });
+  }
+
+  void addInCollections(BuildContext context) {
+    Timer(const Duration(seconds: 1), () {
+      context
+          .read<CollectionAddAudioInCollectionModel>()
+          .setCollectionAudio(collection);
+      context.read<CollectionAddAudioInCollectionModel>().setIdAudio(idAudio);
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return const CollectionAddAudioInCollection();
+      }));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
@@ -60,53 +86,23 @@ class PopupMenuHomePage extends StatelessWidget {
       itemBuilder: (context) => [
         popupMenuItem(
           'Переименовать',
-          () {
-            Timer(const Duration(seconds: 1), () {
-              init(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return SavePage(
-                  image: image,
-                  url: url,
-                  duration: duration,
-                  name: name,
-                );
-              }));
-            });
-          },
+          () => rename(context),
         ),
         popupMenuItem(
           'Добавить в подборку',
-          () {
-            Timer(const Duration(seconds: 1), () {
-              context
-                  .read<CollectionAddAudioInCollectionModel>()
-                  .setCollectionAudio(collection);
-              context
-                  .read<CollectionAddAudioInCollectionModel>()
-                  .setIdAudio(idAudio);
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const CollectionAddAudioInCollection();
-              }));
-            });
-          },
+          () => addInCollections(context),
         ),
         popupMenuItem(
           'Удалить ',
-          () {
-            AlertDialogApp().alertDialog(
-              context,
-              idAudio,
-              'DeleteCollections',
-              'Collections',
-            );
-          },
+          () => AlertDialogApp().alertDialog(
+            context,
+            idAudio,
+            'DeleteCollections',
+            'Collections',
+          ),
         ),
         popupMenuItem(
-          'Поделиться',
-          () {
-            repositories.downloadAudio(idAudio, name);
-          },
-        ),
+            'Поделиться', () => repositories.downloadAudio(idAudio, name)),
       ],
     );
   }

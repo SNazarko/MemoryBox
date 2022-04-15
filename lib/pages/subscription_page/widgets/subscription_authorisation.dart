@@ -65,12 +65,13 @@ class _Subscription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
 
     return Positioned(
         left: 5.0,
-        top: 60.0,
+        top: 50.0,
         child: Container(
-          height: 550.0,
+          height: screenHeight - 150.0,
           width: screenWidth * 0.975,
           decoration: kBorderContainer2,
           child: Column(
@@ -286,7 +287,7 @@ class _WhatDoesASubscriptionGive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20.0, left: 30.0),
+      padding: const EdgeInsets.only(top: 20.0, left: 30.0, bottom: 10.0),
       child: SizedBox(
         height: 120.0,
         child: Column(

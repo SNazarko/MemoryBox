@@ -44,6 +44,7 @@ class PlayerCollectionsState extends State<PlayerCollections> {
   int _recordDuration = 0;
   List<String> audioNameList = [];
   List<String> audioIdList = [];
+  int initialIndex = 0;
 
   @override
   void initState() {
@@ -180,14 +181,15 @@ class PlayerCollectionsState extends State<PlayerCollections> {
         shuffleOrder: DefaultShuffleOrder(), // default
         children: audioUrlList,
       ),
-      initialIndex: 0, // default
+      initialIndex: initialIndex, // default
       initialPosition: Duration.zero, // default
     );
   }
 
   Future<void> seekToNext() {
-    setState(() => _isPlay = true);
-    startTimer();
+    // setState(() => _isPlay = true);
+    // startTimer();
+    // _audioPlayer.seekToNext().
     return _audioPlayer.seekToNext();
   }
 
@@ -312,6 +314,12 @@ class PlayerCollectionsState extends State<PlayerCollections> {
 
   @override
   Widget build(BuildContext context) {
+    final double openClose = widget.animation;
+    if (openClose == 1) {
+      // player();
+      print(openClose);
+    }
+
     return SizedBox(
       height: widget.screenHeight * 0.9,
       width: widget.screenWight,
@@ -386,7 +394,15 @@ class PlayerCollectionsState extends State<PlayerCollections> {
                         padding: const EdgeInsets.only(right: 30.0),
                         child: GestureDetector(
                           onTap: () {
-                            seekToNext();
+                            if (_audioPlayer.nextIndex != null) {
+                              seekToNext();
+                            } else {
+                              AudioRepositories().playPause(
+                                audioIdList[_audioPlayer.currentIndex!.toInt()],
+                                false,
+                              );
+                              player();
+                            }
                           },
                           child: Image.asset(
                             AppIcons.next,

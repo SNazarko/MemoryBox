@@ -37,11 +37,6 @@ class AudioRecordingsPage extends StatelessWidget {
           'Аудиозаписи',
           style: kTitleTextStyle2,
         ),
-        // actions: [
-        //   rep.user == null
-        //       ? const SizedBox()
-        //       : const SizedBox()
-        // ],
       ),
       body: Stack(
         children: [

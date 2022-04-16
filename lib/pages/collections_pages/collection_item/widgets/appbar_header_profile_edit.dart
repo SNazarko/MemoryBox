@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/widgets/popup_menu_collection_item_page.dart';
-import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/icon_back.dart';
@@ -10,8 +9,7 @@ import 'package:provider/provider.dart';
 import '../collections_item_page_model.dart';
 
 class AppbarHeaderCollectionItem extends StatelessWidget {
-  AppbarHeaderCollectionItem({Key? key}) : super(key: key);
-  final CollectionsRepositories repositories = CollectionsRepositories();
+  const AppbarHeaderCollectionItem({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

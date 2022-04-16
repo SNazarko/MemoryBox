@@ -8,7 +8,7 @@ import 'package:provider/src/provider.dart';
 
 class ListCollectionsAudioItemEdit extends StatelessWidget {
   ListCollectionsAudioItemEdit({Key? key}) : super(key: key);
-  final AudioRepositories repositories = AudioRepositories();
+  final AudioRepositories _rep = AudioRepositories();
 
   Widget buildAudio(AudioModel audio) => PlayerMini(
       duration: '${audio.duration}',
@@ -31,7 +31,7 @@ class ListCollectionsAudioItemEdit extends StatelessWidget {
       children: [
         SizedBox(
           child: StreamBuilder<List<AudioModel>>(
-            stream: repositories.readAudioSort(
+            stream: _rep.readAudioSort(
                 context.watch<CollectionsItemPageModel>().getIdCollection),
             builder: (context, snapshot) {
               if (snapshot.hasError) {

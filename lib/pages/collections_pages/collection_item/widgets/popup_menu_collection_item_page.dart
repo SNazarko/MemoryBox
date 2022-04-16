@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/collections_pages/collection_item_edit/collection_item_edit_page.dart';
 import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/collection_item_edit_audio.dart';
@@ -20,14 +20,13 @@ import 'package:collection/collection.dart';
 
 class PopupMenuCollectionItemPage extends StatelessWidget {
   PopupMenuCollectionItemPage({Key? key}) : super(key: key);
-  final CollectionsRepositories repositoriesCollections =
-      CollectionsRepositories();
+  final CollectionsRepositories _rep = CollectionsRepositories();
   List<String> idAudioList = [];
   List<String> nameList = [];
 
-  Future<void> getIdAudio(BuildContext context) async {
+  Future<void> _getIdAudio(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(repositoriesCollections.user!.phoneNumber!)
+        .collection(_rep.user!.phoneNumber!)
         .doc('id')
         .collection('Collections')
         .where('collections',
@@ -91,7 +90,7 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
         popupMenuItem(
           'Поделиться',
           () async {
-            await getIdAudio(context);
+            await _getIdAudio(context);
             List<String> listFilePath = [];
             for (var item in IterableZip([idAudioList, nameList])) {
               final idAudio = item[0];
@@ -101,11 +100,12 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
               listFilePath.add(filePath);
               try {
                 await FirebaseStorage.instance
-                    .ref(
-                        '${repositoriesCollections.user!.phoneNumber!}/userAudio/$idAudio.m4a')
+                    .ref('${_rep.user!.phoneNumber!}/userAudio/$idAudio.m4a')
                     .writeToFile(File(filePath));
               } on FirebaseException catch (e) {
-                print('Ошибка $e');
+                if (kDebugMode) {
+                  print('Ошибка $e');
+                }
               }
             }
             await Share.shareFiles(

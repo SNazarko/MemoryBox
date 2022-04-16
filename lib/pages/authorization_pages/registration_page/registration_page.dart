@@ -42,7 +42,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   bool showLoading = false;
 
-  void singInWithPhoneAuthCredential(
+  void _singInWithPhoneAuthCredential(
       PhoneAuthCredential phoneAuthCredential) async {
     setState(() {
       showLoading = true;
@@ -68,7 +68,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     }
   }
 
-  getMobileFormWidget(context) {
+  _getMobileFormWidget(context) {
     return Column(
       children: [
         const Text(
@@ -127,7 +127,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
-  getOtpFormWidget(context) {
+  _getOtpFormWidget(context) {
     return Column(
       children: [
         const Text(
@@ -152,7 +152,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 PhoneAuthProvider.credential(
                     verificationId: verificationId!,
                     smsCode: otpController.text);
-            singInWithPhoneAuthCredential(phoneAuthCredential);
+            _singInWithPhoneAuthCredential(phoneAuthCredential);
           },
           text: 'Продолжыть',
         ),
@@ -178,8 +178,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
             showLoading
                 ? const CircularProgressIndicator()
                 : currentState == MobileVerificationState.showMobileFormState
-                    ? getMobileFormWidget(context)
-                    : getOtpFormWidget(context),
+                    ? _getMobileFormWidget(context)
+                    : _getOtpFormWidget(context),
             const SizedBox(
               height: 15.0,
             ),

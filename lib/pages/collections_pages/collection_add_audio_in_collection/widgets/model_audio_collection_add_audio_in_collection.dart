@@ -33,7 +33,7 @@ class ModelAudioCollectionAddAudioInCollection extends StatefulWidget {
 
 class _ModelAudioCollectionAddAudioInCollectionState
     extends State<ModelAudioCollectionAddAudioInCollection> {
-  final CollectionsRepositories rep = CollectionsRepositories();
+  final CollectionsRepositories _rep = CollectionsRepositories();
   final bool done = true;
   @override
   void initState() {
@@ -41,25 +41,25 @@ class _ModelAudioCollectionAddAudioInCollectionState
         Provider.of<CollectionAddAudioInCollectionModel>(context, listen: false)
             .getCollectionAudio;
     collectionAudio.contains(widget.id)
-        ? rep.doneCollections(
+        ? _rep.doneCollections(
             widget.id!,
             true,
           )
-        : rep.doneCollections(
+        : _rep.doneCollections(
             widget.id!,
             false,
           );
     super.initState();
   }
 
-  Future<void> onPressedDone(BuildContext context) async {
+  Future<void> _onPressedDone(BuildContext context) async {
     widget.doneCollection = !widget.doneCollection!;
     if (!widget.doneCollection!) {
-      rep.doneCollections(
+      _rep.doneCollections(
         widget.id!,
         false,
       );
-      rep.addAudioCollections(
+      _rep.addAudioCollections(
         widget.id!,
         Provider.of<CollectionAddAudioInCollectionModel>(context, listen: false)
             .getIdAudio,
@@ -69,11 +69,11 @@ class _ModelAudioCollectionAddAudioInCollectionState
       );
     }
     if (widget.doneCollection!) {
-      rep.doneCollections(
+      _rep.doneCollections(
         widget.id!,
         true,
       );
-      rep.addAudioCollections(
+      _rep.addAudioCollections(
         widget.id!,
         Provider.of<CollectionAddAudioInCollectionModel>(context, listen: false)
             .getIdAudio,
@@ -82,7 +82,7 @@ class _ModelAudioCollectionAddAudioInCollectionState
         true,
       );
     }
-    rep.updateQualityAndTotalTime(
+    _rep.updateQualityAndTotalTime(
       widget.id!,
     );
   }
@@ -184,7 +184,7 @@ class _ModelAudioCollectionAddAudioInCollectionState
                     ),
                   ),
                   IconButton(
-                    onPressed: () => onPressedDone(context),
+                    onPressed: () => _onPressedDone(context),
                     icon: Icon(
                       Icons.done,
                       color: widget.doneCollection!

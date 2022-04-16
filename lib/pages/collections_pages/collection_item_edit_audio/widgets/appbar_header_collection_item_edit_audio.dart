@@ -13,40 +13,40 @@ import 'package:provider/provider.dart';
 
 class AppbarHeaderCollectionItemEditAudio extends StatelessWidget {
   AppbarHeaderCollectionItemEditAudio({Key? key}) : super(key: key);
-  final CollectionsRepositories repositories = CollectionsRepositories();
+  final CollectionsRepositories _rep = CollectionsRepositories();
 
-  void alertDone(BuildContext context) {
-    showDialog<String>(
-        context: context,
-        builder: (BuildContext context) {
-          Timer(const Duration(seconds: 3), () {
-            Navigator.pushNamed(context, Collections.routeName);
-            repositories.deleteCollection(
-                '${Provider.of<CollectionsItemPageModel>(context, listen: false).getIdCollection}',
-                'CollectionsTale');
-            repositories.copyPastCollections(
-              '${Provider.of<CollectionsItemPageModel>(context, listen: false).getIdCollection}',
-              'CollectionsTale',
-              'DeleteCollections',
-            );
-          });
-          return AlertDialog(
-            insetPadding: const EdgeInsets.all(75.0),
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(
-                  20.0,
-                ),
-              ),
-            ),
-            content: Image.asset(
-              AppIcons.tick,
-              width: 175.0,
-              height: 175.0,
-            ),
-          );
-        });
-  }
+  // void _alertDone(BuildContext context) {
+  //   showDialog<String>(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         Timer(const Duration(seconds: 3), () {
+  //           Navigator.pushNamed(context, Collections.routeName);
+  //           _rep.deleteCollection(
+  //               '${Provider.of<CollectionsItemPageModel>(context, listen: false).getIdCollection}',
+  //               'CollectionsTale');
+  //           _rep.copyPastCollections(
+  //             '${Provider.of<CollectionsItemPageModel>(context, listen: false).getIdCollection}',
+  //             'CollectionsTale',
+  //             'DeleteCollections',
+  //           );
+  //         });
+  //         return AlertDialog(
+  //           insetPadding: const EdgeInsets.all(75.0),
+  //           shape: const RoundedRectangleBorder(
+  //             borderRadius: BorderRadius.all(
+  //               Radius.circular(
+  //                 20.0,
+  //               ),
+  //             ),
+  //           ),
+  //           content: Image.asset(
+  //             AppIcons.tick,
+  //             width: 175.0,
+  //             height: 175.0,
+  //           ),
+  //         );
+  //       });
+  // }
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import '../../resources/constants.dart';
+import '../utils/constants.dart';
 import 'appbar_clipper.dart';
 
 class AppbarMenu extends StatelessWidget {

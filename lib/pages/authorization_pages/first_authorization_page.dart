@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:memory_box/widgets/appbar_header_authorization.dart';
 import 'package:memory_box/resources/app_icons.dart';
-import 'package:memory_box/resources/constants.dart';
+import 'package:memory_box/utils/constants.dart';
 import 'package:memory_box/widgets/container_shadow.dart';
 import '../main_page.dart';
 

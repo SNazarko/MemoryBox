@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/collection_item_edit_audio.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
-import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +13,7 @@ import '../collections_item_page_model.dart';
 
 class ListCollectionsAudio extends StatelessWidget {
   ListCollectionsAudio({Key? key}) : super(key: key);
-  final AudioRepositories repositories = AudioRepositories();
+  final AudioRepositories _rep = AudioRepositories();
 
   Widget buildAudio(AudioModel audio) => PlayerMini(
         playPause: audio.playPause,
@@ -40,7 +39,7 @@ class ListCollectionsAudio extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: StreamBuilder<List<AudioModel>>(
-        stream: repositories.readAudioSort(
+        stream: _rep.readAudioSort(
             context.watch<CollectionsItemPageModel>().getIdCollection),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -77,9 +76,7 @@ class _PopupMenuPlayerMini extends StatelessWidget {
     required this.idAudio,
     required this.collection,
   }) : super(key: key);
-  final AudioRepositories repositories = AudioRepositories();
-  final CollectionsRepositories collectionsRepositories =
-      CollectionsRepositories();
+  final AudioRepositories _rep = AudioRepositories();
   final String name;
   final String url;
   final String duration;
@@ -89,7 +86,7 @@ class _PopupMenuPlayerMini extends StatelessWidget {
   final bool done;
   final String idAudio;
   final List collection;
-  void init(BuildContext context) {
+  void _init(BuildContext context) {
     context.read<SavePageModel>().setCollection(collection);
     context.read<SavePageModel>().setIdAudio(idAudio);
     context.read<SavePageModel>().setAudioName(name);
@@ -100,9 +97,9 @@ class _PopupMenuPlayerMini extends StatelessWidget {
     context.read<SavePageModel>().setSearchName(searchName);
   }
 
-  void rename(BuildContext context) {
+  void _rename(BuildContext context) {
     Timer(const Duration(seconds: 1), () {
-      init(context);
+      _init(context);
       Navigator.push(context, MaterialPageRoute(builder: (context) {
         return SavePage(
           image:
@@ -130,7 +127,7 @@ class _PopupMenuPlayerMini extends StatelessWidget {
       itemBuilder: (context) => [
         popupMenuItem(
           'Переименовать',
-          () => rename(context),
+          () => _rename(context),
         ),
         popupMenuItem(
           'Добавить в подборку',
@@ -149,7 +146,7 @@ class _PopupMenuPlayerMini extends StatelessWidget {
         ),
         popupMenuItem(
           'Поделиться',
-          () => AudioRepositories().downloadAudio(idAudio, name),
+          () => _rep.downloadAudio(idAudio, name),
         ),
       ],
     );

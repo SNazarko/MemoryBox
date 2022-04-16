@@ -17,14 +17,14 @@ class PhotoContainer extends StatefulWidget {
 }
 
 class _PhotoContainerState extends State<PhotoContainer> {
-  ImagePick imagePick = ImagePick();
-  String? singleImage;
+  final ImagePick _imagePick = ImagePick();
+  String? _singleImage;
 
-  Future<void> imagePickPhoto(BuildContext context) async {
-    XFile? _image = await imagePick.singleImagePick();
+  Future<void> _imagePickPhoto(BuildContext context) async {
+    XFile? _image = await _imagePick.singleImagePick();
     if (_image != null && _image.path.isNotEmpty) {
-      singleImage = await UserRepositories().uploadImage(_image);
-      context.read<CollectionsEditModel>().image(singleImage ?? '');
+      _singleImage = await UserRepositories().uploadImage(_image);
+      context.read<CollectionsEditModel>().image(_singleImage ?? '');
       setState(() {});
     }
   }
@@ -39,9 +39,9 @@ class _PhotoContainerState extends State<PhotoContainer> {
         right: 15.0,
       ),
       child: ContainerShadow(
-        image: singleImage != null
+        image: _singleImage != null
             ? Image.network(
-                '$singleImage',
+                '$_singleImage',
                 fit: BoxFit.fitWidth,
               )
             : const Text(''),
@@ -49,7 +49,7 @@ class _PhotoContainerState extends State<PhotoContainer> {
         height: 200.0,
         widget: IconCamera(
           color: AppColor.glass,
-          onTap: () => imagePickPhoto(context),
+          onTap: () => _imagePickPhoto(context),
           colorBorder: AppColor.colorText80,
           position: 0.0,
         ),

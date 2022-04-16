@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../resources/app_colors.dart';
-import '../../../../resources/constants.dart';
+import '../../../../utils/constants.dart';
 import '../../../../widgets/appbar_clipper.dart';
 import '../../../../widgets/icon_back.dart';
 

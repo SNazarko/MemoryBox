@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../repositories/user_repositories.dart';
 import '../../../resources/app_colors.dart';
-import '../../../resources/constants.dart';
+import '../../../utils/constants.dart';
 
 class TextFieldSupportMessagePage extends StatelessWidget {
   TextFieldSupportMessagePage({Key? key}) : super(key: key);

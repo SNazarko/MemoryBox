@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/pages/search_page/widgets/appbar_header_search_page.dart';
 import 'package:memory_box/pages/search_page/widgets/list_players_search_page.dart';
 import 'package:memory_box/pages/search_page/widgets/list_players_search_page_not_is_authorization.dart';
-import 'package:memory_box/pages/search_page/widgets/popup_menu_search_page.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
-import 'package:memory_box/resources/constants.dart';
+import 'package:memory_box/utils/constants.dart';
 
 class SearchPage extends StatelessWidget {
   SearchPage({Key? key}) : super(key: key);
@@ -30,7 +29,6 @@ class SearchPage extends StatelessWidget {
           'Поиск',
           style: kTitleTextStyle2,
         ),
-        actions: const [PopupMenuSearchPage()],
       ),
       body: SingleChildScrollView(
         child: Column(

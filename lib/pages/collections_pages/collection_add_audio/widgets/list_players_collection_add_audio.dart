@@ -9,11 +9,11 @@ import 'package:provider/provider.dart';
 class ListPlayersCollectionAddAudio extends StatelessWidget {
   ListPlayersCollectionAddAudio({Key? key}) : super(key: key);
 
-  final AudioRepositories repositories = AudioRepositories();
+  final AudioRepositories _rep = AudioRepositories();
 
   Stream<List<AudioModel>> audio(BuildContext context) => FirebaseFirestore
       .instance
-      .collection(repositories.user!.phoneNumber!)
+      .collection(_rep.user!.phoneNumber!)
       .doc('id')
       .collection('Collections')
       .where('searchName',
@@ -29,7 +29,6 @@ class ListPlayersCollectionAddAudio extends StatelessWidget {
         done: audio.done = false,
         id: '${audio.id}',
         collection: audio.collections ?? [],
-        // idCollection: idCollection!,
       );
 
   @override
@@ -42,7 +41,7 @@ class ListPlayersCollectionAddAudio extends StatelessWidget {
           SizedBox(
             height: screenHeight * 0.95,
             child: StreamBuilder<List<AudioModel>>(
-              stream: repositories.readAudioSort('all'),
+              stream: _rep.readAudioSort('all'),
               builder: (
                 context,
                 snapshot,

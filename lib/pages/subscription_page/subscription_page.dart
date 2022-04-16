@@ -3,7 +3,7 @@ import 'package:memory_box/pages/subscription_page/widgets/appbar_menu_subscript
 import 'package:memory_box/pages/subscription_page/widgets/subscription_authorisation.dart';
 import 'package:memory_box/pages/subscription_page/widgets/subscription_not_authorisation.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
-import '../../resources/constants.dart';
+import '../../utils/constants.dart';
 
 class SubscriptionPage extends StatelessWidget {
   SubscriptionPage({Key? key}) : super(key: key);

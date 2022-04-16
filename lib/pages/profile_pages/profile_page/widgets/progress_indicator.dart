@@ -1,12 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
 
-import '../../../../repositories/collections_repositories.dart';
-
 class CustomProgressIndicator extends StatelessWidget {
-  CustomProgressIndicator({Key? key, this.size}) : super(key: key);
+  const CustomProgressIndicator({Key? key, this.size}) : super(key: key);
   final int? size;
 
   @override

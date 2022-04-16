@@ -4,14 +4,12 @@ import 'package:memory_box/pages/collections_pages/collection_add_audio/collecti
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../repositories/audio_repositories.dart';
 import '../collection_edit_model.dart';
 
 class ButtonAddAudio extends StatelessWidget {
-  ButtonAddAudio({Key? key}) : super(key: key);
+  const ButtonAddAudio({Key? key}) : super(key: key);
 
-  void addAudioInCollection(BuildContext context) {
+  void _addAudioInCollection(BuildContext context) {
     CollectionsRepositories().updateCollection(
       Provider.of<CollectionsEditModel>(context, listen: false).getId,
       Provider.of<CollectionsEditModel>(context, listen: false).getTitle ??
@@ -26,7 +24,7 @@ class ButtonAddAudio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-        onPressed: () => addAudioInCollection(context),
+        onPressed: () => _addAudioInCollection(context),
         child: const Center(
           child: Text(
             'Добавить аудиофайл',

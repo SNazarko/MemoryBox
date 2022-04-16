@@ -3,7 +3,7 @@ import 'package:memory_box/pages/collections_pages/collection/collection.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/resources/constants.dart';
+import 'package:memory_box/utils/constants.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/icon_back.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +36,7 @@ class AppbarHeaderCollectionItemEditState
     super.dispose();
   }
 
-  void editCollections(BuildContext context) {
+  void _editCollections(BuildContext context) {
     _repositories.updateCollection(
       Provider.of<CollectionsItemPageModel>(context, listen: false)
           .getIdCollection,
@@ -76,7 +76,7 @@ class AppbarHeaderCollectionItemEditState
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconBack(
-                onPressed: () => editCollections(context),
+                onPressed: () => _editCollections(context),
               ),
               TextButton(
                 onPressed: () {

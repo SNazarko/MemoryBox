@@ -18,6 +18,18 @@ class PhotoProfileEdit extends StatefulWidget {
 class _PhotoProfileEditState extends State<PhotoProfileEdit> {
   String? singleImage;
 
+  Future<void> onTapPhoto(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    XFile? _image = await UserRepositories().singleImagePick();
+    if (_image != null && _image.path.isNotEmpty) {
+      singleImage = await UserRepositories().uploadImage(_image);
+      context.read<DataModel>().userImage(singleImage!);
+      await prefs.setString(
+          'image', await UserRepositories().uploadImage(_image));
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -58,17 +70,7 @@ class _PhotoProfileEditState extends State<PhotoProfileEdit> {
           padding: const EdgeInsets.only(top: 110.0),
           child: IconCamera(
             colorBorder: Colors.white,
-            onTap: () async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              XFile? _image = await UserRepositories().singleImagePick();
-              if (_image != null && _image.path.isNotEmpty) {
-                singleImage = await UserRepositories().uploadImage(_image);
-                context.read<DataModel>().userImage(singleImage!);
-                await prefs.setString(
-                    'image', await UserRepositories().uploadImage(_image));
-                setState(() {});
-              }
-            },
+            onTap: () => onTapPhoto(context),
             // imagePicker,
             color: AppColor.black50,
             position: 0.0,

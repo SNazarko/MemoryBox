@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:memory_box/repositories/preferences_data_model_user.dart';
@@ -13,6 +12,14 @@ class DeleteAccount extends StatelessWidget {
   final DataModel model = DataModel();
   final _auth = FirebaseAuth.instance;
   final UserRepositories _repositories = UserRepositories();
+
+  void deleteAccount(BuildContext context) {
+    Navigator.pop(context);
+    _repositories.deleteAccount();
+    PreferencesDataUser().cleanKey();
+    _auth.signOut();
+    Phoenix.rebirth(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,13 +40,7 @@ class DeleteAccount extends StatelessWidget {
           ),
           actions: <Widget>[
             TextButton(
-              onPressed: () async {
-                Navigator.pop(context);
-                _repositories.deleteAccount();
-                PreferencesDataUser().cleanKey();
-                _auth.signOut();
-                Phoenix.rebirth(context);
-              },
+              onPressed: () => deleteAccount(context),
               child: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
                 child: Text(

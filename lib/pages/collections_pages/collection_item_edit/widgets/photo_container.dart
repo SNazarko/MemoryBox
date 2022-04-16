@@ -18,16 +18,16 @@ class PhotoContainer extends StatefulWidget {
 }
 
 class PhotoContainerState extends State<PhotoContainer> {
-  ImagePick imagePick = ImagePick();
-  String? singleImage;
+  final ImagePick _imagePick = ImagePick();
+  String? _singleImage;
 
-  Future<void> imagePickPhoto(BuildContext context) async {
-    XFile? _image = await imagePick.singleImagePick();
+  Future<void> _imagePickPhoto(BuildContext context) async {
+    XFile? _image = await _imagePick.singleImagePick();
     if (_image != null && _image.path.isNotEmpty) {
-      singleImage = await UserRepositories().uploadImage(_image);
+      _singleImage = await UserRepositories().uploadImage(_image);
       context
           .read<CollectionItemEditPageModel>()
-          .setAvatarCollectionsEdit(singleImage!);
+          .setAvatarCollectionsEdit(_singleImage!);
       setState(() {});
     }
   }
@@ -45,9 +45,9 @@ class PhotoContainerState extends State<PhotoContainer> {
           right: 15.0,
         ),
         child: ContainerShadow(
-          image: singleImage != null
+          image: _singleImage != null
               ? Image.network(
-                  '$singleImage',
+                  '$_singleImage',
                   fit: BoxFit.fitWidth,
                 )
               : Container(
@@ -57,7 +57,7 @@ class PhotoContainerState extends State<PhotoContainer> {
           height: 200.0,
           widget: IconCamera(
             color: AppColor.glass,
-            onTap: () => imagePickPhoto(context),
+            onTap: () => _imagePickPhoto(context),
             colorBorder: AppColor.colorText80,
             position: 0.0,
           ),
@@ -72,9 +72,9 @@ class PhotoContainerState extends State<PhotoContainer> {
           right: 15.0,
         ),
         child: ContainerShadow(
-          image: singleImage != null
+          image: _singleImage != null
               ? Image.network(
-                  '$singleImage',
+                  '$_singleImage',
                   fit: BoxFit.fitWidth,
                 )
               : Image.network(
@@ -85,16 +85,7 @@ class PhotoContainerState extends State<PhotoContainer> {
           height: 200.0,
           widget: IconCamera(
             color: AppColor.glass,
-            onTap: () async {
-              XFile? _image = await imagePick.singleImagePick();
-              if (_image != null && _image.path.isNotEmpty) {
-                singleImage = await UserRepositories().uploadImage(_image);
-                context
-                    .read<CollectionItemEditPageModel>()
-                    .setAvatarCollectionsEdit(singleImage!);
-                setState(() {});
-              }
-            },
+            onTap: () => _imagePickPhoto(context),
             colorBorder: AppColor.colorText80,
             position: 0.0,
           ),

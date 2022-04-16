@@ -5,7 +5,7 @@ import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/player_big.dart';
 
-import '../../resources/constants.dart';
+import '../../utils/constants.dart';
 
 class SavePage extends StatelessWidget {
   const SavePage({

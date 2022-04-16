@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/resources/constants.dart';
+import 'package:memory_box/utils/constants.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 
 class AppbarHeaderProfileProfile extends StatelessWidget {

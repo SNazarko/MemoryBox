@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/resources/constants.dart';
+import 'package:memory_box/utils/constants.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/icon_back.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +11,7 @@ import '../collection_edit_model.dart';
 class AppbarHeaderEdit extends StatelessWidget {
   const AppbarHeaderEdit({Key? key}) : super(key: key);
 
-  void updateCollection(BuildContext context) {
+  void _updateCollection(BuildContext context) {
     CollectionsRepositories().updateCollection(
       Provider.of<CollectionsEditModel>(context, listen: false).getId,
       Provider.of<CollectionsEditModel>(context, listen: false).getTitle ??
@@ -59,7 +59,7 @@ class AppbarHeaderEdit extends StatelessWidget {
               ),
               TextButton(
                   onPressed: () {
-                    updateCollection(context);
+                    _updateCollection(context);
 
                     Navigator.pop(context);
                   },

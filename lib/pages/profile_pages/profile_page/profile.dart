@@ -13,8 +13,7 @@ import 'package:provider/provider.dart';
 import '../../../models/user_model.dart';
 import '../../../models/view_model.dart';
 import '../../../repositories/user_repositories.dart';
-import '../../../resources/app_colors.dart';
-import '../../../resources/constants.dart';
+import '../../../utils/constants.dart';
 
 class Profile extends StatelessWidget {
   Profile({Key? key}) : super(key: key);
@@ -29,7 +28,6 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    final double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
@@ -108,7 +106,7 @@ class _Links extends StatelessWidget {
           stream: repositoriesUser.readUser(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return CustomProgressIndicator(
+              return const CustomProgressIndicator(
                 size: 150,
               );
             }
@@ -119,7 +117,7 @@ class _Links extends StatelessWidget {
                   child: user.map(buildUser).toList().single,
                 );
               } else {
-                return CustomProgressIndicator(
+                return const CustomProgressIndicator(
                   size: 150,
                 );
               }
@@ -185,7 +183,7 @@ class _LinksNotAuthorization extends StatelessWidget {
         const SizedBox(
           height: 15.0,
         ),
-        CustomProgressIndicator(
+        const CustomProgressIndicator(
           size: 150,
         ),
         const SizedBox(

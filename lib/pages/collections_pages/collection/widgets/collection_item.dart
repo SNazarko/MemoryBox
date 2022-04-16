@@ -28,19 +28,7 @@ class CollectionItem extends StatelessWidget {
   final String? totalTime;
   bool? doneCollection = false;
   bool done = true;
-
-  @override
-  Widget build(BuildContext context) {
-    final bool itemDone = context.watch<CollectionModel>().getItemDone;
-    return ClipRRect(
-      borderRadius: const BorderRadius.all(
-        Radius.circular(20.0),
-      ),
-      child: itemDone ? getCollectionDone(context) : getCollectionItem(context),
-    );
-  }
-
-  getCollectionItem(BuildContext context) {
+  _getCollectionItem(BuildContext context) {
     return GestureDetector(
       onTap: () {
         context.read<CollectionsItemPageModel>().setIdCollection(id!);
@@ -129,7 +117,7 @@ class CollectionItem extends StatelessWidget {
     );
   }
 
-  getCollectionDone(BuildContext context) {
+  _getCollectionDone(BuildContext context) {
     return Container(
       width: 185.0,
       height: 250.0,
@@ -247,6 +235,18 @@ class CollectionItem extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final bool itemDone = context.watch<CollectionModel>().getItemDone;
+    return ClipRRect(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(20.0),
+      ),
+      child:
+          itemDone ? _getCollectionDone(context) : _getCollectionItem(context),
     );
   }
 }

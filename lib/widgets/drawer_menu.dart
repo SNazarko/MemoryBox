@@ -4,7 +4,7 @@ import 'package:memory_box/models/view_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:provider/provider.dart';
-import '../../resources/constants.dart';
+import '../utils/constants.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({Key? key}) : super(key: key);

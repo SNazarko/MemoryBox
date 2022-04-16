@@ -16,15 +16,14 @@ import '../../collection_item/collections_item_page_model.dart';
 
 class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
   PopupMenuCollectionItemEditAudioPage({Key? key}) : super(key: key);
-  final CollectionsRepositories repositoriesCollections =
-      CollectionsRepositories();
-  List<String> idAudioList = [];
-  List<String> nameList = [];
-  List<List> collectionsList = [];
+  final CollectionsRepositories _rep = CollectionsRepositories();
+  final List<String> idAudioList = [];
+  final List<String> nameList = [];
+  final List<List> collectionsList = [];
 
-  Future<void> getIdAudio(BuildContext context) async {
+  Future<void> _getIdAudio(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(repositoriesCollections.user!.phoneNumber!)
+        .collection(_rep.user!.phoneNumber!)
         .doc('id')
         .collection('Collections')
         .where('collections',
@@ -44,13 +43,13 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
     });
   }
 
-  Future<void> deselect(BuildContext context) async {
-    await getIdAudio(context);
+  Future<void> _deselect(BuildContext context) async {
+    await _getIdAudio(context);
     for (var item in IterableZip([idAudioList, collectionsList])) {
       final idAudio = item[0];
       final collectionsTemp = item[1];
       final collections = collectionsTemp as List;
-      await repositoriesCollections.addAudioCollections(
+      await _rep.addAudioCollections(
           Provider.of<CollectionsItemPageModel>(context, listen: false)
               .getIdCollection,
           '$idAudio',
@@ -59,8 +58,8 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
     }
   }
 
-  Future<void> share(BuildContext context) async {
-    await getIdAudio(context);
+  Future<void> _share(BuildContext context) async {
+    await _getIdAudio(context);
     List<String> listFilePath = [];
     for (var item in IterableZip([idAudioList, nameList])) {
       final idAudio = item[0];
@@ -70,8 +69,7 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
       listFilePath.add(filePath);
       try {
         await FirebaseStorage.instance
-            .ref(
-                '${repositoriesCollections.user!.phoneNumber!}/userAudio/$idAudio.m4a')
+            .ref('${_rep.user!.phoneNumber!}/userAudio/$idAudio.m4a')
             .writeToFile(File(filePath));
       } on FirebaseException catch (e) {
         if (kDebugMode) {
@@ -88,8 +86,8 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
     );
   }
 
-  Future<void> downloadAll(BuildContext context) async {
-    await getIdAudio(context);
+  Future<void> _downloadAll(BuildContext context) async {
+    await _getIdAudio(context);
     for (var item in IterableZip([idAudioList, nameList])) {
       final idAudio = item[0];
       final name = item[1];
@@ -117,8 +115,7 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
 
       try {
         await FirebaseStorage.instance
-            .ref(
-                '${repositoriesCollections.user!.phoneNumber!}/userAudio/$idAudio.m4a')
+            .ref('${_rep.user!.phoneNumber!}/userAudio/$idAudio.m4a')
             .writeToFile(File(filePath));
       } on FirebaseException catch (e) {
         if (kDebugMode) {
@@ -135,13 +132,13 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
     }
   }
 
-  Future<void> deleteAll(BuildContext context) async {
-    await getIdAudio(context);
+  Future<void> _deleteAll(BuildContext context) async {
+    await _getIdAudio(context);
     for (var item in IterableZip([idAudioList, collectionsList])) {
       final idAudio = item[0];
       final collectionsTemp = item[1];
       final collections = collectionsTemp as List;
-      await repositoriesCollections.addAudioCollections(
+      await _rep.addAudioCollections(
           Provider.of<CollectionsItemPageModel>(context, listen: false)
               .getIdCollection,
           '$idAudio',
@@ -166,19 +163,19 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
       itemBuilder: (_) => [
         popupMenuItem(
           'Отменить выбор',
-          () => deselect(context),
+          () => _deselect(context),
         ),
         popupMenuItem(
           'Поделиться',
-          () => share(context),
+          () => _share(context),
         ),
         popupMenuItem(
           'Скачать все',
-          () => downloadAll(context),
+          () => _downloadAll(context),
         ),
         popupMenuItem(
           'Удалить все',
-          () => deleteAll(context),
+          () => _deleteAll(context),
         ),
       ],
     );

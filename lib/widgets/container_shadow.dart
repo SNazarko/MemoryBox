@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../resources/constants.dart';
+import '../utils/constants.dart';
 
 class ContainerShadow extends StatelessWidget {
   const ContainerShadow(

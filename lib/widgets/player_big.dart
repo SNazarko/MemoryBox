@@ -122,12 +122,9 @@ class _PlayerBigState extends State<PlayerBig> {
     Widget icon;
 
     if (_audioPlayer.playerState.playing) {
-      icon = Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Image.asset(
-          AppIcons.stop,
-          fit: BoxFit.fill,
-        ),
+      icon = Image.asset(
+        AppIcons.stop,
+        fit: BoxFit.fill,
       );
     } else {
       icon = Image.asset(
@@ -136,22 +133,19 @@ class _PlayerBigState extends State<PlayerBig> {
       );
     }
 
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: ClipOval(
-        child: Material(
-          child: InkWell(
-            child: SizedBox(width: 97, height: 97, child: icon),
-            onTap: () {
-              if (_audioPlayer.playerState.playing) {
-                pause();
-                setState(() {});
-              } else {
-                setState(() {});
-                play();
-              }
-            },
-          ),
+    return ClipOval(
+      child: Material(
+        child: InkWell(
+          child: SizedBox(width: 80, height: 80, child: icon),
+          onTap: () {
+            if (_audioPlayer.playerState.playing) {
+              pause();
+              setState(() {});
+            } else {
+              setState(() {});
+              play();
+            }
+          },
         ),
       ),
     );

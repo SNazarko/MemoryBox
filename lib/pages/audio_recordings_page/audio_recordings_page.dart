@@ -6,7 +6,7 @@ import 'package:memory_box/pages/audio_recordings_page/widgets/list_player_not_a
 import 'package:provider/provider.dart';
 import '../../animation/audio_recordings_page_player/audio_recordings_page_player_model.dart';
 import '../../repositories/user_repositories.dart';
-import '../../resources/constants.dart';
+import '../../utils/constants.dart';
 import '../../widgets/player_collections/player_collections.dart';
 
 class AudioRecordingsPage extends StatelessWidget {

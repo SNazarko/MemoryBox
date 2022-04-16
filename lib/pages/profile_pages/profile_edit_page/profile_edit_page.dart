@@ -123,9 +123,7 @@ class _SaveButton extends StatelessWidget {
           height: 20.0,
         ),
         TextButton(
-            onPressed: () {
-              saveUser(context);
-            },
+            onPressed: () => saveUser(context),
             child: const Text(
               'Сохранить',
               style: TextStyle(fontSize: 14, color: AppColor.colorText),

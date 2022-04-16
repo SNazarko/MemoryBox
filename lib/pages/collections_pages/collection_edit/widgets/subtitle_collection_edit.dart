@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:memory_box/resources/constants.dart';
+import 'package:memory_box/utils/constants.dart';
 import 'package:provider/src/provider.dart';
+import '../../../../repositories/collections_repositories.dart';
 import '../collection_edit_model.dart';
 
 class SubTitleCollectionEdit extends StatelessWidget {
   const SubTitleCollectionEdit({Key? key}) : super(key: key);
+  void _updateCollection(BuildContext context) {
+    CollectionsRepositories().updateCollection(
+      Provider.of<CollectionsEditModel>(context, listen: false).getId,
+      Provider.of<CollectionsEditModel>(context, listen: false).getTitle ??
+          'Без названия',
+      Provider.of<CollectionsEditModel>(context, listen: false).getSubTitle ??
+          '...',
+      Provider.of<CollectionsEditModel>(context, listen: false).getImage ?? '',
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +58,11 @@ class SubTitleCollectionEdit extends StatelessWidget {
           child: Align(
             alignment: Alignment.topRight,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                _updateCollection(context);
+
+                Navigator.pop(context);
+              },
               child: const Text(
                 'Готово',
                 style: kLinkColorText,

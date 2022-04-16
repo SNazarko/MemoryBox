@@ -5,7 +5,7 @@ import '../../../models/user_model.dart';
 import '../../../repositories/user_repositories.dart';
 import '../../../resources/app_colors.dart';
 import '../../../resources/app_icons.dart';
-import '../../../resources/constants.dart';
+import '../../../utils/constants.dart';
 import '../../../widgets/button_continue.dart';
 import '../../../widgets/container_shadow.dart';
 
@@ -106,11 +106,37 @@ class _SubscriptionItem extends StatelessWidget {
       required this.onceAMonth,
       required this.onceAYear})
       : super(key: key);
-  final UserRepositories repositories = UserRepositories();
+  final UserRepositories rep = UserRepositories();
   final double screenWidth;
   final bool onceAMonth;
   final bool onceAYear;
   bool? done = false;
+
+  Future<void> subscriptionOnceAMonth() async {
+    done = !done!;
+    if (done!) {
+      await rep.subscriptionDone('onceAMonth', true);
+      await rep.subscriptionDone('onceAYear', false);
+      await rep.subscription(31);
+    }
+    if (!done!) {
+      await rep.subscriptionDone('onceAMonth', false);
+      await rep.subscription(0);
+    }
+  }
+
+  Future<void> subscriptionOnceAYear() async {
+    done = !done!;
+    if (done!) {
+      await rep.subscriptionDone('onceAYear', true);
+      await rep.subscriptionDone('onceAMonth', false);
+      await rep.subscription(365);
+    }
+    if (!done!) {
+      await rep.subscriptionDone('onceAYear', false);
+      await rep.subscription(0);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,18 +170,7 @@ class _SubscriptionItem extends StatelessWidget {
               ),
               _DoneSubscriptionPage(
                 done: onceAMonth,
-                onTap: () async {
-                  done = !done!;
-                  if (done!) {
-                    await repositories.subscriptionDone('onceAMonth', true);
-                    await repositories.subscriptionDone('onceAYear', false);
-                    await UserRepositories().subscription(31);
-                  }
-                  if (!done!) {
-                    await repositories.subscriptionDone('onceAMonth', false);
-                    await UserRepositories().subscription(0);
-                  }
-                },
+                onTap: () => subscriptionOnceAMonth(),
               ),
             ],
           ),
@@ -164,7 +179,7 @@ class _SubscriptionItem extends StatelessWidget {
         ContainerShadow(
           width: screenWidth * 0.42,
           height: 175.0,
-          image: Text(''),
+          image: const Text(''),
           radius: 20.0,
           widget: Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -189,18 +204,7 @@ class _SubscriptionItem extends StatelessWidget {
               ),
               _DoneSubscriptionPage(
                 done: onceAYear,
-                onTap: () async {
-                  done = !done!;
-                  if (done!) {
-                    await repositories.subscriptionDone('onceAYear', true);
-                    await repositories.subscriptionDone('onceAMonth', false);
-                    await UserRepositories().subscription(365);
-                  }
-                  if (!done!) {
-                    await repositories.subscriptionDone('onceAYear', false);
-                    await UserRepositories().subscription(0);
-                  }
-                },
+                onTap: () => subscriptionOnceAYear(),
               ),
             ],
           ),
@@ -372,7 +376,7 @@ class _SubscribeNow extends StatelessWidget {
 
 class _SubscribeForAMonth extends StatelessWidget {
   _SubscribeForAMonth({Key? key}) : super(key: key);
-  final UserRepositories repositories = UserRepositories();
+  final UserRepositories rep = UserRepositories();
 
   @override
   Widget build(BuildContext context) {
@@ -381,8 +385,8 @@ class _SubscribeForAMonth extends StatelessWidget {
         padding: const EdgeInsets.only(top: 25.0, left: 10.0),
         child: ButtonContinue(
           onPressed: () {
-            repositories.subscriptionDone('onlyMonth', true);
-            UserRepositories().subscription(31);
+            rep.subscriptionDone('onlyMonth', true);
+            rep.subscription(31);
           },
           text: 'Подписаться на месяц',
         ),

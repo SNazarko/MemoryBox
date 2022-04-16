@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/models/view_model.dart';
 import 'package:memory_box/pages/authorization_pages/registration_page/registration_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/resources/constants.dart';
+import 'package:memory_box/utils/constants.dart';
 import 'package:provider/provider.dart';
 
 class HomePageNotIsAuthorization extends StatelessWidget {

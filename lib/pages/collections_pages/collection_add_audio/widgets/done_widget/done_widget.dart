@@ -21,14 +21,14 @@ class DoneWidget extends StatefulWidget {
 }
 
 class _DoneWidgetState extends State<DoneWidget> {
-  bool done = false;
+  bool _done = false;
 
-  final CollectionsRepositories repositories = CollectionsRepositories();
+  final CollectionsRepositories _rep = CollectionsRepositories();
   String? idCollection;
 
-  Future<void> getIdCollection(BuildContext context) async {
+  Future<void> _getIdCollection(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(repositories.user!.phoneNumber!)
+        .collection(_rep.user!.phoneNumber!)
         .doc('id')
         .collection('CollectionsTale')
         .where('titleCollections',
@@ -44,26 +44,26 @@ class _DoneWidgetState extends State<DoneWidget> {
         .setId(idCollection!);
   }
 
-  Future<void> onTapDone(BuildContext context) async {
-    done = !done;
-    if (!done) {
-      await getIdCollection(context);
-      await repositories.addAudioCollections(
+  Future<void> _onTapDone(BuildContext context) async {
+    _done = !_done;
+    if (!_done) {
+      await _getIdCollection(context);
+      await _rep.addAudioCollections(
         idCollection!,
         widget.id!,
         widget.collection,
         false,
       );
       // context.read<ModelDone>().doneWidget();
-      repositories.doneAudioItem(widget.id!, false, 'Collections');
+      _rep.doneAudioItem(widget.id!, false, 'Collections');
       setState(() {});
     }
-    if (done) {
-      await getIdCollection(context);
-      await repositories.addAudioCollections(
+    if (_done) {
+      await _getIdCollection(context);
+      await _rep.addAudioCollections(
           idCollection!, widget.id!, widget.collection, true);
       // context.read<ModelDone>().doneWidget();
-      repositories.doneAudioItem(widget.id!, true, 'Collections');
+      _rep.doneAudioItem(widget.id!, true, 'Collections');
       setState(() {});
     }
   }
@@ -76,7 +76,7 @@ class _DoneWidgetState extends State<DoneWidget> {
       child: Stack(
         children: [
           GestureDetector(
-            onTap: () => onTapDone(context),
+            onTap: () => _onTapDone(context),
             child: Container(
               width: 35,
               height: 35,
@@ -89,7 +89,7 @@ class _DoneWidgetState extends State<DoneWidget> {
               child: Center(
                 child: Icon(
                   Icons.done,
-                  color: done ? AppColor.colorText : AppColor.white,
+                  color: _done ? AppColor.colorText : AppColor.white,
                 ),
               ),
             ),

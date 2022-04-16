@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/pages/search_page/search_page_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
-import 'package:memory_box/resources/constants.dart';
+import 'package:memory_box/utils/constants.dart';
 import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:memory_box/widgets/icon_back.dart';
 import 'package:provider/src/provider.dart';

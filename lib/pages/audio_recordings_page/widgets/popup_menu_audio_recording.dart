@@ -4,7 +4,6 @@ import 'package:memory_box/widgets/alert_dialog.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:provider/provider.dart';
 import '../../../repositories/audio_repositories.dart';
-import '../../../repositories/collections_repositories.dart';
 import '../../collections_pages/collection_add_audio_in_collection/collection_add_audio_in_collection.dart';
 import '../../collections_pages/collection_add_audio_in_collection/collection_add_audio_in_collection_model.dart';
 import '../../save_page/save_page.dart';
@@ -32,11 +31,9 @@ class PopupMenuAudioRecording extends StatelessWidget {
   final List searchName;
   final String idAudio;
   final List collection;
-  final AudioRepositories repositoriesAudio = AudioRepositories();
-  final CollectionsRepositories repositoriesCollection =
-      CollectionsRepositories();
+  final AudioRepositories _repositoriesAudio = AudioRepositories();
 
-  void init(BuildContext context) {
+  void _init(BuildContext context) {
     context.read<SavePageModel>().setCollection(collection);
     context.read<SavePageModel>().setIdAudio(idAudio);
     context.read<SavePageModel>().setAudioName(name);
@@ -47,9 +44,9 @@ class PopupMenuAudioRecording extends StatelessWidget {
     context.read<SavePageModel>().setSearchName(searchName);
   }
 
-  void rename(BuildContext context) {
+  void _rename(BuildContext context) {
     Timer(const Duration(seconds: 1), () {
-      init(context);
+      _init(context);
       Navigator.push(context, MaterialPageRoute(builder: (context) {
         return SavePage(
           image: image ?? '',
@@ -61,7 +58,7 @@ class PopupMenuAudioRecording extends StatelessWidget {
     });
   }
 
-  void addInCollection(BuildContext context) {
+  void _addInCollection(BuildContext context) {
     Timer(const Duration(seconds: 1), () {
       context
           .read<CollectionAddAudioInCollectionModel>()
@@ -86,10 +83,10 @@ class PopupMenuAudioRecording extends StatelessWidget {
         ),
       ),
       itemBuilder: (context) => [
-        popupMenuItem('Переименовать', () => rename(context)),
+        popupMenuItem('Переименовать', () => _rename(context)),
         popupMenuItem(
           'Добавить в подборку',
-          () => addInCollection(context),
+          () => _addInCollection(context),
         ),
         popupMenuItem(
           'Удалить ',
@@ -102,7 +99,7 @@ class PopupMenuAudioRecording extends StatelessWidget {
         ),
         popupMenuItem(
           'Поделиться',
-          () => repositoriesAudio.downloadAudio(idAudio, name),
+          () => _repositoriesAudio.downloadAudio(idAudio, name),
         ),
       ],
     );

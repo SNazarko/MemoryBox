@@ -9,7 +9,7 @@ import 'model_audio_collection_add_audio_in_collection.dart';
 
 class ListCollectionAddAudioInCollection extends StatelessWidget {
   ListCollectionAddAudioInCollection({Key? key}) : super(key: key);
-  final CollectionsRepositories repositories = CollectionsRepositories();
+  final CollectionsRepositories _rep = CollectionsRepositories();
 
   Widget buildCollections(CollectionsModel collections) =>
       ModelAudioCollectionAddAudioInCollection(
@@ -28,7 +28,7 @@ class ListCollectionAddAudioInCollection extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 90.0),
       child: StreamBuilder<List<CollectionsModel>>(
-        stream: repositories.readCollections(),
+        stream: _rep.readCollections(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Column(

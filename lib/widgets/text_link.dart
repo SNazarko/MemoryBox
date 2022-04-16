@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:memory_box/resources/constants.dart';
+import 'package:memory_box/utils/constants.dart';
 
 class TextLink extends StatelessWidget {
   const TextLink(

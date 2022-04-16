@@ -28,10 +28,10 @@ class DoneCollectionItemEditAudio extends StatefulWidget {
 
 class _DoneCollectionItemEditAudioState
     extends State<DoneCollectionItemEditAudio> {
-  final CollectionsRepositories repositories = CollectionsRepositories();
+  final CollectionsRepositories _rep = CollectionsRepositories();
 
-  Future<void> onTapDone() async {
-    await repositories.addAudioCollections(
+  Future<void> _onTapDone() async {
+    await _rep.addAudioCollections(
         Provider.of<CollectionsItemPageModel>(context, listen: false)
             .getIdCollection,
         widget.id!,
@@ -39,7 +39,7 @@ class _DoneCollectionItemEditAudioState
         !widget.collection!.contains(
             Provider.of<CollectionsItemPageModel>(context, listen: false)
                 .getIdCollection));
-    await repositories.updateQualityAndTotalTime(
+    await _rep.updateQualityAndTotalTime(
       Provider.of<CollectionsItemPageModel>(context, listen: false)
           .getIdCollection,
     );
@@ -51,7 +51,7 @@ class _DoneCollectionItemEditAudioState
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: GestureDetector(
-        onTap: () => onTapDone(),
+        onTap: () => _onTapDone(),
         child: Container(
           width: 40,
           height: 40,

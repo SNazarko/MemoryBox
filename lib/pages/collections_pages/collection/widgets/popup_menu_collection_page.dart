@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
@@ -16,16 +17,16 @@ import 'package:collection/collection.dart';
 
 class PopupMenuCollectionPage extends StatelessWidget {
   PopupMenuCollectionPage({Key? key}) : super(key: key);
-  List<String> idCollectionsList = [];
+  final List<String> _idCollectionsList = [];
 
-  final CollectionsRepositories repositoriesCollections =
+  final CollectionsRepositories _repositoriesCollections =
       CollectionsRepositories();
-  List<String> idAudioList = [];
-  List<String> nameList = [];
+  final List<String> _idAudioList = [];
+  final List<String> _nameList = [];
 
-  Future<void> getIdAudio(BuildContext context) async {
+  Future<void> _getIdAudio(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(repositoriesCollections.user!.phoneNumber!)
+        .collection(_repositoriesCollections.user!.phoneNumber!)
         .doc('id')
         .collection('Collections')
         .where('collections',
@@ -37,18 +38,15 @@ class PopupMenuCollectionPage extends StatelessWidget {
       for (var result in querySnapshot.docs) {
         final String idAudio = result.data()['id'];
         final String name = result.data()['audioName'];
-        idAudioList.add(idAudio);
-        nameList.add(name);
+        _idAudioList.add(idAudio);
+        _nameList.add(name);
       }
     });
   }
 
-  Future<void> getIdCollection(BuildContext context) async {
-    final CollectionsRepositories repositoriesCollections =
-        CollectionsRepositories();
-
+  Future<void> _getIdCollection(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(repositoriesCollections.user!.phoneNumber!)
+        .collection(_repositoriesCollections.user!.phoneNumber!)
         .doc('id')
         .collection('CollectionsTale')
         .where('doneCollection', isEqualTo: true)
@@ -56,14 +54,14 @@ class PopupMenuCollectionPage extends StatelessWidget {
         .then((querySnapshot) {
       for (var result in querySnapshot.docs) {
         final String idCollections = result.data()['id'];
-        idCollectionsList.add(idCollections);
+        _idCollectionsList.add(idCollections);
       }
     });
   }
 
-  Future<void> deleteCollections(BuildContext context) async {
-    await getIdCollection(context);
-    for (var item in idCollectionsList) {
+  Future<void> _deleteCollections(BuildContext context) async {
+    await _getIdCollection(context);
+    for (var item in _idCollectionsList) {
       await CollectionsRepositories().deleteCollection(
         item,
         'CollectionsTale',
@@ -71,10 +69,10 @@ class PopupMenuCollectionPage extends StatelessWidget {
     }
   }
 
-  Future<void> shareCollections(BuildContext context) async {
-    await getIdAudio(context);
+  Future<void> _shareCollections(BuildContext context) async {
+    await _getIdAudio(context);
     List<String> listFilePath = [];
-    for (var item in IterableZip([idAudioList, nameList])) {
+    for (var item in IterableZip([_idAudioList, _nameList])) {
       final idAudio = item[0];
       final name = item[1];
       Directory directory = await getTemporaryDirectory();
@@ -83,10 +81,12 @@ class PopupMenuCollectionPage extends StatelessWidget {
       try {
         await FirebaseStorage.instance
             .ref(
-                '${repositoriesCollections.user!.phoneNumber!}/userAudio/$idAudio.m4a')
+                '${_repositoriesCollections.user!.phoneNumber!}/userAudio/$idAudio.m4a')
             .writeToFile(File(filePath));
       } on FirebaseException catch (e) {
-        print('Ошибка $e');
+        if (kDebugMode) {
+          print('Ошибка $e');
+        }
       }
     }
     await Share.shareFiles(
@@ -118,11 +118,11 @@ class PopupMenuCollectionPage extends StatelessWidget {
                       () => context.read<CollectionModel>().stateCollections()),
                   popupMenuItem(
                     'Удалить подборку',
-                    () => deleteCollections(context),
+                    () => _deleteCollections(context),
                   ),
                   popupMenuItem(
                     'Поделиться',
-                    () => shareCollections(context),
+                    () => _shareCollections(context),
                   ),
                 ]
             : (context) => [

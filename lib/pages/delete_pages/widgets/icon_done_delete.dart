@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-import '../../../repositories/collections_repositories.dart';
+import '../../../repositories/audio_repositories.dart';
 import '../../../resources/app_colors.dart';
 
 class IconDoneDelete extends StatefulWidget {
@@ -20,23 +18,8 @@ class IconDoneDelete extends StatefulWidget {
 }
 
 class _IconDoneDeleteState extends State<IconDoneDelete> {
-  final CollectionsRepositories _rep = CollectionsRepositories();
+  final AudioRepositories _rep = AudioRepositories();
   bool _done = false;
-  // String? _idCollection;
-  //
-  // Future<void> _getIdCollection(BuildContext context) async {
-  //   await FirebaseFirestore.instance
-  //       .collection(_rep.user!.phoneNumber!)
-  //       .doc('id')
-  //       .collection('CollectionsTale')
-  //       .where('done', isEqualTo: true)
-  //       .get()
-  //       .then((querySnapshot) {
-  //     for (var result in querySnapshot.docs) {
-  //       _idCollection = result.data()['id'];
-  //     }
-  //   });
-  // }
 
   Future<void> _onTapDone() async {
     _done = !_done;

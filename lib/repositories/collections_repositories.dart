@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:memory_box/models/collections_model.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
@@ -24,15 +25,7 @@ class CollectionsRepositories {
     user = auth!.currentUser;
   }
 
-  Stream<List<CollectionsModel>> readCollectionsDelete() =>
-      FirebaseFirestore.instance
-          .collection(user!.phoneNumber!)
-          .doc('id')
-          .collection('CollectionsTale')
-          .snapshots()
-          .map((snapshot) => snapshot.docs
-              .map((doc) => CollectionsModel.fromJson(doc.data()))
-              .toList());
+  // Stream list collections
 
   Stream<List<CollectionsModel>> readCollections() => FirebaseFirestore.instance
       .collection(user!.phoneNumber!)
@@ -42,6 +35,8 @@ class CollectionsRepositories {
       .map((snapshot) => snapshot.docs
           .map((doc) => CollectionsModel.fromJson(doc.data()))
           .toList());
+
+  // Add Collections in Firebase
 
   Future<void> addCollections(
       String titleCollections,
@@ -81,6 +76,8 @@ class CollectionsRepositories {
     Provider.of<CollectionsEditModel>(context, listen: false).image('');
   }
 
+  // Delete file from Applications
+
   Future<void> deleteCollectionApp(
     String idCollection,
     String collectionFirestore,
@@ -96,10 +93,13 @@ class CollectionsRepositories {
           .ref('${user!.phoneNumber!}/userAudio/$idCollection.m4a')
           .delete();
     } on Exception catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
+  // Delete file from collections
   Future<void> deleteCollection(
     String idCollection,
     String collectionFirestore,
@@ -112,6 +112,8 @@ class CollectionsRepositories {
         .delete();
   }
 
+  // Done in collections
+
   Future<void> doneCollections(String idCollection, bool doneCollection) async {
     FirebaseFirestore.instance
         .collection(user!.phoneNumber!)
@@ -120,6 +122,8 @@ class CollectionsRepositories {
         .doc(idCollection)
         .update({'doneCollection': doneCollection});
   }
+
+  // Copy collections
 
   Future<void> copyPastCollections(
     String idCollection,
@@ -156,34 +160,7 @@ class CollectionsRepositories {
     });
   }
 
-  Future<void> doneAudioItem(
-      String idAudio, bool done, String collectionFire) async {
-    FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
-        .doc('id')
-        .collection(collectionFire)
-        .doc(idAudio)
-        .update({'done': done});
-  }
-
-  Future<void> addAudioCollections(String nameCollection, String idAudio,
-      List collections, bool done) async {
-    if (done == true) {
-      collections.add(nameCollection);
-      print('1111111');
-    }
-    if (done == false) {
-      collections.remove(nameCollection);
-      print('22222222');
-    }
-
-    FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
-        .doc('id')
-        .collection('Collections')
-        .doc(idAudio)
-        .update({'collections': collections});
-  }
+  // Update Quality And Total Time
 
   Future<void> updateQualityAndTotalTime(String idCollection) async {
     final List quality = [];
@@ -230,6 +207,8 @@ class CollectionsRepositories {
       'qualityCollections': duration.length,
     });
   }
+
+  // update collection
 
   Future<void> updateCollection(
     String idCollection,

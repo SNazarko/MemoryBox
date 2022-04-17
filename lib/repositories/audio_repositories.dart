@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:flutter/foundation.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/models/user_model.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
@@ -30,6 +31,8 @@ class AudioRepositories {
     user = auth!.currentUser;
   }
 
+  //Stream play list delete audio
+
   Stream<List<AudioModel>> readAudioDelete(String sort) => FirebaseFirestore
       .instance
       .collection(user!.phoneNumber!)
@@ -39,6 +42,8 @@ class AudioRepositories {
       .snapshots()
       .map((snapshot) =>
           snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
+
+  //Stream play list audio
 
   Stream<List<AudioModel>> readAudioSort(String sort) => FirebaseFirestore
       .instance
@@ -50,7 +55,9 @@ class AudioRepositories {
       .map((snapshot) =>
           snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
 
-  Future<void> uploadAudio(
+// Save audio file in firebase
+
+  Future<void> addAudio(
     String path,
     String name,
     String duration,
@@ -89,20 +96,26 @@ class AudioRepositories {
         .set(json);
   }
 
-  Future<void> downloadAudio(String idAudio, String name) async {
-    Directory directory = await getTemporaryDirectory();
-    final filePath = directory.path + '/$name.mp3';
-    try {
-      await firebase_storage.FirebaseStorage.instance
-          .ref('${user!.phoneNumber!}/userAudio/$idAudio.m4a')
-          .writeToFile(File(filePath));
-    } on FirebaseException catch (e) {
-      print('Ошибка $e');
+  //Add audio in collection
+
+  Future<void> addAudioCollections(String nameCollection, String idAudio,
+      List collections, bool done) async {
+    if (done == true) {
+      collections.add(nameCollection);
     }
-    await Share.shareFiles(
-      [filePath],
-    );
+    if (done == false) {
+      collections.remove(nameCollection);
+    }
+
+    FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('id')
+        .collection('Collections')
+        .doc(idAudio)
+        .update({'collections': collections});
   }
+
+  // Rename audio file in firebase
 
   Future<void> renameAudio(
     String idAudio,
@@ -134,7 +147,50 @@ class AudioRepositories {
         .update(json);
   }
 
-  void finishDelete() async {
+  // Done in Audio
+
+  Future<void> doneAudioItem(
+      String idAudio, bool done, String collectionFire) async {
+    FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('id')
+        .collection(collectionFire)
+        .doc(idAudio)
+        .update({'done': done});
+  }
+
+  // Share audio file
+
+  Future<void> downloadAudio(String idAudio, String name) async {
+    Directory directory = await getTemporaryDirectory();
+    final filePath = directory.path + '/$name.mp3';
+    try {
+      await firebase_storage.FirebaseStorage.instance
+          .ref('${user!.phoneNumber!}/userAudio/$idAudio.m4a')
+          .writeToFile(File(filePath));
+    } on FirebaseException catch (e) {
+      if (kDebugMode) {
+        print('Ошибка $e');
+      }
+    }
+    await Share.shareFiles(
+      [filePath],
+    );
+  }
+
+  // Play/Pause in playing PlayerCollections
+
+  Future<void> playPause(String idAudio, bool donePlay) async {
+    FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('id')
+        .collection('Collections')
+        .doc(idAudio)
+        .update({'playPause': donePlay});
+  }
+
+  // Delete files after 15 days
+  Future<void> finishDelete() async {
     final now = DateTime.now();
     final later = now.add(const Duration(days: 15));
     String? idAudio;
@@ -158,14 +214,5 @@ class AudioRepositories {
       await CollectionsRepositories()
           .deleteCollectionApp(idAudio!, 'DeleteCollections');
     }
-  }
-
-  Future<void> playPause(String idAudio, bool donePlay) async {
-    FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
-        .doc('id')
-        .collection('Collections')
-        .doc(idAudio)
-        .update({'playPause': donePlay});
   }
 }

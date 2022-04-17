@@ -6,6 +6,7 @@ import '../../../../repositories/user_repositories.dart';
 import '../../../../resources/app_colors.dart';
 import '../../../../resources/app_icons.dart';
 import '../../../../widgets/icon_camera.dart';
+import '../../../../widgets/image_pick.dart';
 import '../../profile_model.dart';
 
 class PhotoProfileEdit extends StatefulWidget {
@@ -20,7 +21,7 @@ class _PhotoProfileEditState extends State<PhotoProfileEdit> {
 
   Future<void> _onTapPhoto(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    XFile? _image = await UserRepositories().singleImagePick();
+    XFile? _image = await ImagePick().singleImagePick();
     if (_image != null && _image.path.isNotEmpty) {
       singleImage = await UserRepositories().uploadImage(_image);
       context.read<DataModel>().userImage(singleImage!);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../repositories/audio_repositories.dart';
 import '../../../../repositories/collections_repositories.dart';
 import '../../../../resources/app_colors.dart';
 import '../collection_add_audio_in_collection_model.dart';
@@ -33,7 +34,8 @@ class ModelAudioCollectionAddAudioInCollection extends StatefulWidget {
 
 class _ModelAudioCollectionAddAudioInCollectionState
     extends State<ModelAudioCollectionAddAudioInCollection> {
-  final CollectionsRepositories _rep = CollectionsRepositories();
+  final CollectionsRepositories _repColl = CollectionsRepositories();
+  final AudioRepositories _repAud = AudioRepositories();
   final bool done = true;
   @override
   void initState() {
@@ -41,11 +43,11 @@ class _ModelAudioCollectionAddAudioInCollectionState
         Provider.of<CollectionAddAudioInCollectionModel>(context, listen: false)
             .getCollectionAudio;
     collectionAudio.contains(widget.id)
-        ? _rep.doneCollections(
+        ? _repColl.doneCollections(
             widget.id!,
             true,
           )
-        : _rep.doneCollections(
+        : _repColl.doneCollections(
             widget.id!,
             false,
           );
@@ -55,11 +57,11 @@ class _ModelAudioCollectionAddAudioInCollectionState
   Future<void> _onPressedDone(BuildContext context) async {
     widget.doneCollection = !widget.doneCollection!;
     if (!widget.doneCollection!) {
-      _rep.doneCollections(
+      _repColl.doneCollections(
         widget.id!,
         false,
       );
-      _rep.addAudioCollections(
+      _repAud.addAudioCollections(
         widget.id!,
         Provider.of<CollectionAddAudioInCollectionModel>(context, listen: false)
             .getIdAudio,
@@ -69,11 +71,11 @@ class _ModelAudioCollectionAddAudioInCollectionState
       );
     }
     if (widget.doneCollection!) {
-      _rep.doneCollections(
+      _repColl.doneCollections(
         widget.id!,
         true,
       );
-      _rep.addAudioCollections(
+      _repAud.addAudioCollections(
         widget.id!,
         Provider.of<CollectionAddAudioInCollectionModel>(context, listen: false)
             .getIdAudio,
@@ -82,7 +84,7 @@ class _ModelAudioCollectionAddAudioInCollectionState
         true,
       );
     }
-    _rep.updateQualityAndTotalTime(
+    _repColl.updateQualityAndTotalTime(
       widget.id!,
     );
   }

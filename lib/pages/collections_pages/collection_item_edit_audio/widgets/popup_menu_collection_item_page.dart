@@ -11,19 +11,19 @@ import 'package:provider/provider.dart';
 import 'package:collection/collection.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:share_plus/share_plus.dart';
-import '../../../../repositories/collections_repositories.dart';
+import '../../../../repositories/audio_repositories.dart';
 import '../../collection_item/collections_item_page_model.dart';
 
 class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
   PopupMenuCollectionItemEditAudioPage({Key? key}) : super(key: key);
-  final CollectionsRepositories _rep = CollectionsRepositories();
+  final AudioRepositories _repAud = AudioRepositories();
   final List<String> idAudioList = [];
   final List<String> nameList = [];
   final List<List> collectionsList = [];
 
   Future<void> _getIdAudio(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(_rep.user!.phoneNumber!)
+        .collection(_repAud.user!.phoneNumber!)
         .doc('id')
         .collection('Collections')
         .where('collections',
@@ -49,7 +49,7 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
       final idAudio = item[0];
       final collectionsTemp = item[1];
       final collections = collectionsTemp as List;
-      await _rep.addAudioCollections(
+      await _repAud.addAudioCollections(
           Provider.of<CollectionsItemPageModel>(context, listen: false)
               .getIdCollection,
           '$idAudio',
@@ -69,7 +69,7 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
       listFilePath.add(filePath);
       try {
         await FirebaseStorage.instance
-            .ref('${_rep.user!.phoneNumber!}/userAudio/$idAudio.m4a')
+            .ref('${_repAud.user!.phoneNumber!}/userAudio/$idAudio.m4a')
             .writeToFile(File(filePath));
       } on FirebaseException catch (e) {
         if (kDebugMode) {
@@ -115,7 +115,7 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
 
       try {
         await FirebaseStorage.instance
-            .ref('${_rep.user!.phoneNumber!}/userAudio/$idAudio.m4a')
+            .ref('${_repAud.user!.phoneNumber!}/userAudio/$idAudio.m4a')
             .writeToFile(File(filePath));
       } on FirebaseException catch (e) {
         if (kDebugMode) {
@@ -138,7 +138,7 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
       final idAudio = item[0];
       final collectionsTemp = item[1];
       final collections = collectionsTemp as List;
-      await _rep.addAudioCollections(
+      await _repAud.addAudioCollections(
           Provider.of<CollectionsItemPageModel>(context, listen: false)
               .getIdCollection,
           '$idAudio',

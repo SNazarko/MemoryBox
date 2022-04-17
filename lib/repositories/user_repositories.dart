@@ -21,19 +21,15 @@ class UserRepositories {
     user = auth!.currentUser;
   }
 
+  //Stream list user
+
   Stream<List<UserModel>> readUser() => FirebaseFirestore.instance
       .collection(user!.phoneNumber!)
       .snapshots()
       .map((snapshot) =>
           snapshot.docs.map((doc) => UserModel.fromJson(doc.data())).toList());
 
-  Future<XFile?> singleImagePick() async {
-    return await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-      maxHeight: 800,
-      maxWidth: 800,
-    );
-  }
+  // Basic filling of the database at the first event
 
   Future<void> firstAuthorization() async {
     final DateTime now = DateTime.now();
@@ -58,12 +54,15 @@ class UserRepositories {
     });
   }
 
+  // Update size repositories
   Future<void> updateSizeRepositories(int size) async {
     FirebaseFirestore.instance
         .collection(user!.phoneNumber!)
         .doc('user')
         .update({'totalSize': FieldValue.increment(size)});
   }
+
+  // Update total time quality
 
   Future<void> updateTotalTimeQuality() async {
     final List quality = [];
@@ -109,6 +108,8 @@ class UserRepositories {
     });
   }
 
+  // Update name & number phone
+
   Future<void> updateNameNumber(
       String name, String number, String image) async {
     await FirebaseFirestore.instance
@@ -120,6 +121,8 @@ class UserRepositories {
       'avatarUrl': image,
     });
   }
+
+  // Update image
 
   Future<String> uploadImage(XFile image) async {
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
@@ -133,6 +136,8 @@ class UserRepositories {
     return image.path.split('/').last;
   }
 
+  // Delete account from firebase
+
   Future<void> deleteAccount() async {
     final model = UserModel(
         displayName: 'Имя', phoneNumb: '+00(000)0000000', avatarUrl: '');
@@ -143,7 +148,8 @@ class UserRepositories {
         .set(json);
   }
 
-  // Subscription
+  // Limit not Subscription
+
   Future<void> limitNotSubscription() async {
     final now = Timestamp.now();
     await FirebaseFirestore.instance
@@ -205,6 +211,8 @@ class UserRepositories {
     });
   }
 
+  // Subscription for a certain number of days
+
   Future<void> subscription(int days) async {
     final DateTime now = DateTime.now();
     final DateTime later = now.add(Duration(days: days));
@@ -216,6 +224,8 @@ class UserRepositories {
       'finishTimeSubscription': laterTimestamp,
     });
   }
+
+  // Subscription done
 
   Future<void> subscriptionDone(String name, bool done) async {
     FirebaseFirestore.instance

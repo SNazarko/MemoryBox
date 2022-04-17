@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class PreferencesDataUser {
   final _storage = SharedPreferences.getInstance();
 
+  // Save data in SharedPreferences
+
   Future<void> counter(String counter) async {
     SharedPreferences storageData = await _storage;
     storageData.setString('counter_key', counter);

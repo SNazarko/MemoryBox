@@ -5,6 +5,8 @@ import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../repositories/audio_repositories.dart';
+
 class DoneWidget extends StatefulWidget {
   const DoneWidget({
     Key? key,
@@ -22,13 +24,12 @@ class DoneWidget extends StatefulWidget {
 
 class _DoneWidgetState extends State<DoneWidget> {
   bool _done = false;
-
-  final CollectionsRepositories _rep = CollectionsRepositories();
+  final AudioRepositories _repAud = AudioRepositories();
   String? idCollection;
 
   Future<void> _getIdCollection(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(_rep.user!.phoneNumber!)
+        .collection(_repAud.user!.phoneNumber!)
         .doc('id')
         .collection('CollectionsTale')
         .where('titleCollections',
@@ -48,22 +49,22 @@ class _DoneWidgetState extends State<DoneWidget> {
     _done = !_done;
     if (!_done) {
       await _getIdCollection(context);
-      await _rep.addAudioCollections(
+      await _repAud.addAudioCollections(
         idCollection!,
         widget.id!,
         widget.collection,
         false,
       );
       // context.read<ModelDone>().doneWidget();
-      _rep.doneAudioItem(widget.id!, false, 'Collections');
+      _repAud.doneAudioItem(widget.id!, false, 'Collections');
       setState(() {});
     }
     if (_done) {
       await _getIdCollection(context);
-      await _rep.addAudioCollections(
+      await _repAud.addAudioCollections(
           idCollection!, widget.id!, widget.collection, true);
       // context.read<ModelDone>().doneWidget();
-      _rep.doneAudioItem(widget.id!, true, 'Collections');
+      _repAud.doneAudioItem(widget.id!, true, 'Collections');
       setState(() {});
     }
   }

@@ -4,6 +4,8 @@ import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:provider/src/provider.dart';
 
+import '../../../../repositories/audio_repositories.dart';
+
 class DoneCollectionItemEditAudio extends StatefulWidget {
   const DoneCollectionItemEditAudio({
     Key? key,
@@ -28,10 +30,11 @@ class DoneCollectionItemEditAudio extends StatefulWidget {
 
 class _DoneCollectionItemEditAudioState
     extends State<DoneCollectionItemEditAudio> {
-  final CollectionsRepositories _rep = CollectionsRepositories();
+  final AudioRepositories _repAud = AudioRepositories();
+  final CollectionsRepositories _repColl = CollectionsRepositories();
 
   Future<void> _onTapDone() async {
-    await _rep.addAudioCollections(
+    await _repAud.addAudioCollections(
         Provider.of<CollectionsItemPageModel>(context, listen: false)
             .getIdCollection,
         widget.id!,
@@ -39,7 +42,7 @@ class _DoneCollectionItemEditAudioState
         !widget.collection!.contains(
             Provider.of<CollectionsItemPageModel>(context, listen: false)
                 .getIdCollection));
-    await _rep.updateQualityAndTotalTime(
+    await _repColl.updateQualityAndTotalTime(
       Provider.of<CollectionsItemPageModel>(context, listen: false)
           .getIdCollection,
     );

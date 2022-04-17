@@ -18,7 +18,7 @@ class PhotoProfileEdit extends StatefulWidget {
 class _PhotoProfileEditState extends State<PhotoProfileEdit> {
   String? singleImage;
 
-  Future<void> onTapPhoto(BuildContext context) async {
+  Future<void> _onTapPhoto(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     XFile? _image = await UserRepositories().singleImagePick();
     if (_image != null && _image.path.isNotEmpty) {
@@ -70,7 +70,7 @@ class _PhotoProfileEditState extends State<PhotoProfileEdit> {
           padding: const EdgeInsets.only(top: 110.0),
           child: IconCamera(
             colorBorder: Colors.white,
-            onTap: () => onTapPhoto(context),
+            onTap: () => _onTapPhoto(context),
             // imagePicker,
             color: AppColor.black50,
             position: 0.0,

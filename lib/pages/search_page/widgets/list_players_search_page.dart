@@ -7,7 +7,6 @@ import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:memory_box/widgets/popup_menu_button.dart';
 import 'package:provider/src/provider.dart';
-import '../../../repositories/collections_repositories.dart';
 import '../../../widgets/alert_dialog.dart';
 import '../../collections_pages/collection_add_audio_in_collection/collection_add_audio_in_collection.dart';
 import '../../collections_pages/collection_add_audio_in_collection/collection_add_audio_in_collection_model.dart';
@@ -16,10 +15,10 @@ import '../search_page_model.dart';
 
 class ListPlayersSearchPage extends StatelessWidget {
   ListPlayersSearchPage({Key? key}) : super(key: key);
-  final AudioRepositories repositories = AudioRepositories();
+  final AudioRepositories _rep = AudioRepositories();
   Stream<List<AudioModel>> audio(BuildContext context) => FirebaseFirestore
       .instance
-      .collection(repositories.user!.phoneNumber!)
+      .collection(_rep.user!.phoneNumber!)
       .doc('id')
       .collection('Collections')
       .where('searchName',
@@ -38,7 +37,7 @@ class ListPlayersSearchPage extends StatelessWidget {
         popupMenu: _PopupMenuAudioSearchPage(
           url: '${audio.audioUrl}',
           duration: '${audio.duration}',
-          name: '${audio.audioName}' ?? '',
+          name: '${audio.audioName}',
           image: '',
           searchName: audio.searchName ?? [],
           dateTime: audio.dateTime!,
@@ -58,7 +57,7 @@ class ListPlayersSearchPage extends StatelessWidget {
           SizedBox(
             height: screenHeight * 0.95,
             child: StreamBuilder<List<AudioModel>>(
-              stream: repositories.readAudioSort('all'),
+              stream: _rep.readAudioSort('all'),
               builder: (
                 context,
                 snapshot,
@@ -138,11 +137,9 @@ class _PopupMenuAudioSearchPage extends StatelessWidget {
   final List searchName;
   final String idAudio;
   final List collection;
-  final AudioRepositories repositoriesAudio = AudioRepositories();
-  final CollectionsRepositories repositoriesCollection =
-      CollectionsRepositories();
+  final AudioRepositories _rep = AudioRepositories();
 
-  void init(BuildContext context) {
+  void _init(BuildContext context) {
     context.read<SavePageModel>().setCollection(collection);
     context.read<SavePageModel>().setIdAudio(idAudio);
     context.read<SavePageModel>().setAudioName(name);
@@ -153,9 +150,9 @@ class _PopupMenuAudioSearchPage extends StatelessWidget {
     context.read<SavePageModel>().setSearchName(searchName);
   }
 
-  void rename(BuildContext context) {
+  void _rename(BuildContext context) {
     Timer(const Duration(seconds: 1), () {
-      init(context);
+      _init(context);
       Navigator.push(context, MaterialPageRoute(builder: (context) {
         return SavePage(
           image: image,
@@ -167,7 +164,7 @@ class _PopupMenuAudioSearchPage extends StatelessWidget {
     });
   }
 
-  void addInCollection(BuildContext context) {
+  void _addInCollection(BuildContext context) {
     Timer(const Duration(seconds: 1), () {
       context
           .read<CollectionAddAudioInCollectionModel>()
@@ -194,11 +191,11 @@ class _PopupMenuAudioSearchPage extends StatelessWidget {
       itemBuilder: (context) => [
         popupMenuItem(
           'Переименовать',
-          () => rename(context),
+          () => _rename(context),
         ),
         popupMenuItem(
           'Добавить в подборку',
-          () => addInCollection(context),
+          () => _addInCollection(context),
         ),
         popupMenuItem(
           'Удалить ',
@@ -211,7 +208,7 @@ class _PopupMenuAudioSearchPage extends StatelessWidget {
         ),
         popupMenuItem(
           'Поделиться',
-          () => repositoriesAudio.downloadAudio(idAudio, name),
+          () => _rep.downloadAudio(idAudio, name),
         ),
       ],
     );

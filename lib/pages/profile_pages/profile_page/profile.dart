@@ -19,7 +19,7 @@ class Profile extends StatelessWidget {
   Profile({Key? key}) : super(key: key);
   static const routeName = '/profile';
   final DataModel model = DataModel();
-  final UserRepositories rep = UserRepositories();
+  final UserRepositories _rep = UserRepositories();
 
   static Widget create() {
     return Profile();
@@ -54,7 +54,7 @@ class Profile extends StatelessWidget {
                 PhotoProfileProfile(),
               ],
             ),
-            rep.user == null
+            _rep.user == null
                 ? _LinksNotAuthorization(
                     screenWidth: screenWidth,
                   )

@@ -8,7 +8,7 @@ import 'package:memory_box/utils/constants.dart';
 class SearchPage extends StatelessWidget {
   SearchPage({Key? key}) : super(key: key);
   static const routeName = '/search_page';
-  final UserRepositories arg = UserRepositories();
+  final UserRepositories _arg = UserRepositories();
   static Widget create() {
     return SearchPage();
   }
@@ -36,7 +36,7 @@ class SearchPage extends StatelessWidget {
           children: [
             Stack(
               children: [
-                arg.user == null
+                _arg.user == null
                     ? const ListPlayersSearchPageNotIsAuthorization()
                     : ListPlayersSearchPage(),
                 const AppbarHeaderSearchPage(),

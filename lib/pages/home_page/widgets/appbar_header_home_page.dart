@@ -11,7 +11,7 @@ import '../../../widgets/home_page_containers/orange_container.dart';
 
 class AppbarHeaderHomePage extends StatelessWidget {
   const AppbarHeaderHomePage({Key? key}) : super(key: key);
-  final bool shouldPop = false;
+  final bool _shouldPop = false;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class AppbarHeaderHomePage extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
     return WillPopScope(
       onWillPop: () async {
-        return shouldPop;
+        return _shouldPop;
       },
       child: Stack(
         children: [

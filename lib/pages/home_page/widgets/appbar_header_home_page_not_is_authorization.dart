@@ -9,14 +9,14 @@ import '../../../widgets/home_page_containers/orange_container.dart';
 
 class AppbarHeaderHomePageNotIsAuthorization extends StatelessWidget {
   const AppbarHeaderHomePageNotIsAuthorization({Key? key}) : super(key: key);
-  final bool shouldPop = false;
+  final bool _shouldPop = false;
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
     return WillPopScope(
       onWillPop: () async {
-        return shouldPop;
+        return _shouldPop;
       },
       child: Stack(
         children: [

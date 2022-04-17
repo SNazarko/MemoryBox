@@ -24,7 +24,7 @@ class PopupMenuHomePage extends StatelessWidget {
     required this.idAudio,
     required this.collection,
   }) : super(key: key);
-  final AudioRepositories repositories = AudioRepositories();
+  final AudioRepositories _rep = AudioRepositories();
   final String name;
   final String url;
   final String duration;
@@ -34,7 +34,7 @@ class PopupMenuHomePage extends StatelessWidget {
   final List searchName;
   final String idAudio;
   final List collection;
-  void init(BuildContext context) {
+  void _init(BuildContext context) {
     context.read<SavePageModel>().setCollection(collection);
     context.read<SavePageModel>().setIdAudio(idAudio);
     context.read<SavePageModel>().setAudioName(name);
@@ -45,9 +45,9 @@ class PopupMenuHomePage extends StatelessWidget {
     context.read<SavePageModel>().setSearchName(searchName);
   }
 
-  void rename(BuildContext context) {
+  void _rename(BuildContext context) {
     Timer(const Duration(seconds: 1), () {
-      init(context);
+      _init(context);
       Navigator.push(context, MaterialPageRoute(builder: (context) {
         return SavePage(
           image: image,
@@ -59,7 +59,7 @@ class PopupMenuHomePage extends StatelessWidget {
     });
   }
 
-  void addInCollections(BuildContext context) {
+  void _addInCollections(BuildContext context) {
     Timer(const Duration(seconds: 1), () {
       context
           .read<CollectionAddAudioInCollectionModel>()
@@ -86,11 +86,11 @@ class PopupMenuHomePage extends StatelessWidget {
       itemBuilder: (context) => [
         popupMenuItem(
           'Переименовать',
-          () => rename(context),
+          () => _rename(context),
         ),
         popupMenuItem(
           'Добавить в подборку',
-          () => addInCollections(context),
+          () => _addInCollections(context),
         ),
         popupMenuItem(
           'Удалить ',
@@ -101,8 +101,7 @@ class PopupMenuHomePage extends StatelessWidget {
             'Collections',
           ),
         ),
-        popupMenuItem(
-            'Поделиться', () => repositories.downloadAudio(idAudio, name)),
+        popupMenuItem('Поделиться', () => _rep.downloadAudio(idAudio, name)),
       ],
     );
   }

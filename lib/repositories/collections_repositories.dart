@@ -81,7 +81,7 @@ class CollectionsRepositories {
     Provider.of<CollectionsEditModel>(context, listen: false).image('');
   }
 
-  Future<void> deleteCollection(
+  Future<void> deleteCollectionApp(
     String idCollection,
     String collectionFirestore,
   ) async {
@@ -98,6 +98,18 @@ class CollectionsRepositories {
     } on Exception catch (e) {
       print(e);
     }
+  }
+
+  Future<void> deleteCollection(
+    String idCollection,
+    String collectionFirestore,
+  ) async {
+    FirebaseFirestore.instance
+        .collection(user!.phoneNumber!)
+        .doc('id')
+        .collection(collectionFirestore)
+        .doc(idCollection)
+        .delete();
   }
 
   Future<void> doneCollections(String idCollection, bool doneCollection) async {

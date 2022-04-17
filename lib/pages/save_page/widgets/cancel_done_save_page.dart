@@ -8,10 +8,10 @@ import '../save_page_model.dart';
 
 class CancelDoneSavePage extends StatelessWidget {
   CancelDoneSavePage({Key? key}) : super(key: key);
-  final AudioRepositories repositories = AudioRepositories();
+  final AudioRepositories _rep = AudioRepositories();
 
-  void finished(BuildContext context) {
-    repositories.renameAudio(
+  void _finished(BuildContext context) {
+    _rep.renameAudio(
       Provider.of<SavePageModel>(context, listen: false).getIdAudio,
       Provider.of<SavePageModel>(context, listen: false).getNewAudioName ??
           Provider.of<SavePageModel>(context, listen: false).getAudioName,
@@ -42,7 +42,7 @@ class CancelDoneSavePage extends StatelessWidget {
                 style: kTitle3TextStyle3,
               )),
           TextButton(
-              onPressed: () => finished(context),
+              onPressed: () => _finished(context),
               child: const Text(
                 'Готово',
                 style: kTitle3TextStyle3,

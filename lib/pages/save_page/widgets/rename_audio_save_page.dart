@@ -6,7 +6,7 @@ import '../save_page_model.dart';
 
 class RenameAudioSavePage extends StatelessWidget {
   RenameAudioSavePage({Key? key}) : super(key: key);
-  final Set searchName = {};
+  final Set _searchName = {};
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +19,14 @@ class RenameAudioSavePage extends StatelessWidget {
         onChanged: (value) {
           if (value != '') {
             final data = value.toLowerCase();
-            searchName.add(data);
-            if (data != searchName.last) {
-              searchName.remove(searchName.last);
+            _searchName.add(data);
+            if (data != _searchName.last) {
+              _searchName.remove(_searchName.last);
             }
             context.read<SavePageModel>().setNewAudioName(value);
-            context.read<SavePageModel>().setNewSearchName(searchName.toList());
+            context
+                .read<SavePageModel>()
+                .setNewSearchName(_searchName.toList());
           } else {
             context.read<SavePageModel>().setNewAudioName(
                 Provider.of<SavePageModel>(context, listen: false)

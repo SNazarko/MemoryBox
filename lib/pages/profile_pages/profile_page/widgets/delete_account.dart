@@ -11,11 +11,11 @@ class DeleteAccount extends StatelessWidget {
   DeleteAccount({Key? key}) : super(key: key);
   final DataModel model = DataModel();
   final _auth = FirebaseAuth.instance;
-  final UserRepositories _repositories = UserRepositories();
+  final UserRepositories _rep = UserRepositories();
 
-  void deleteAccount(BuildContext context) {
+  void _deleteAccount(BuildContext context) {
     Navigator.pop(context);
-    _repositories.deleteAccount();
+    _rep.deleteAccount();
     PreferencesDataUser().cleanKey();
     _auth.signOut();
     Phoenix.rebirth(context);
@@ -40,7 +40,7 @@ class DeleteAccount extends StatelessWidget {
           ),
           actions: <Widget>[
             TextButton(
-              onPressed: () => deleteAccount(context),
+              onPressed: () => _deleteAccount(context),
               child: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
                 child: Text(

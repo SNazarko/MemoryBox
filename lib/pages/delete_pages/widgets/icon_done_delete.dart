@@ -20,36 +20,36 @@ class IconDoneDelete extends StatefulWidget {
 }
 
 class _IconDoneDeleteState extends State<IconDoneDelete> {
-  final CollectionsRepositories repositories = CollectionsRepositories();
-  bool done = false;
-  String? idCollection;
+  final CollectionsRepositories _rep = CollectionsRepositories();
+  bool _done = false;
+  // String? _idCollection;
+  //
+  // Future<void> _getIdCollection(BuildContext context) async {
+  //   await FirebaseFirestore.instance
+  //       .collection(_rep.user!.phoneNumber!)
+  //       .doc('id')
+  //       .collection('CollectionsTale')
+  //       .where('done', isEqualTo: true)
+  //       .get()
+  //       .then((querySnapshot) {
+  //     for (var result in querySnapshot.docs) {
+  //       _idCollection = result.data()['id'];
+  //     }
+  //   });
+  // }
 
-  Future<void> getIdCollection(BuildContext context) async {
-    await FirebaseFirestore.instance
-        .collection(repositories.user!.phoneNumber!)
-        .doc('id')
-        .collection('CollectionsTale')
-        .where('done', isEqualTo: true)
-        .get()
-        .then((querySnapshot) {
-      for (var result in querySnapshot.docs) {
-        idCollection = result.data()['id'];
-      }
-    });
-  }
-
-  Future<void> onTapDone() async {
-    done = !done;
-    if (done) {
-      repositories.doneAudioItem(
+  Future<void> _onTapDone() async {
+    _done = !_done;
+    if (_done) {
+      _rep.doneAudioItem(
         widget.id!,
         true,
         'DeleteCollections',
       );
       setState(() {});
     }
-    if (!done) {
-      repositories.doneAudioItem(
+    if (!_done) {
+      _rep.doneAudioItem(
         widget.id!,
         false,
         'DeleteCollections',
@@ -65,7 +65,7 @@ class _IconDoneDeleteState extends State<IconDoneDelete> {
       child: Stack(
         children: [
           GestureDetector(
-            onTap: () => onTapDone(),
+            onTap: () => _onTapDone(),
             child: Container(
               width: 35,
               height: 35,

@@ -22,7 +22,7 @@ class ListPlayersDeletePage extends StatelessWidget {
         collection: audio.collections!,
         popupMenu: IconDeleteAudio(
           idAudio: '${audio.id}',
-          size: audio.size!,
+          size: audio.size ?? 0,
         ),
       );
 

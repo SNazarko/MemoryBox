@@ -10,17 +10,16 @@ import '../delete_page_model.dart';
 
 class PopupMenuDeletePage extends StatelessWidget {
   PopupMenuDeletePage({Key? key}) : super(key: key);
-  final CollectionsRepositories repositoriesCollections =
-      CollectionsRepositories();
+  final CollectionsRepositories _rep = CollectionsRepositories();
   final UserRepositories repositoriesUser = UserRepositories();
-  List<String> idAudioList = [];
-  List<int> sizeList = [];
-  List<String> idAudioListAll = [];
-  List<int> sizeListAll = [];
+  final List<String> _idAudioList = [];
+  final List<int> _sizeList = [];
+  final List<String> _idAudioListAll = [];
+  final List<int> _sizeListAll = [];
 
-  Future<void> getIdCollection(BuildContext context) async {
+  Future<void> _getIdCollection(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(repositoriesCollections.user!.phoneNumber!)
+        .collection(_rep.user!.phoneNumber!)
         .doc('id')
         .collection('DeleteCollections')
         .where('done', isEqualTo: true)
@@ -28,78 +27,76 @@ class PopupMenuDeletePage extends StatelessWidget {
         .then((querySnapshot) {
       for (var result in querySnapshot.docs) {
         final String idAudio = result.data()['id'];
-        idAudioList.add(idAudio);
+        _idAudioList.add(idAudio);
         final int size = result.data()['size'];
-        sizeList.add(size);
+        _sizeList.add(size);
       }
     });
   }
 
-  Future<void> getIdCollectionAll(BuildContext context) async {
+  Future<void> _getIdCollectionAll(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(repositoriesCollections.user!.phoneNumber!)
+        .collection(_rep.user!.phoneNumber!)
         .doc('id')
         .collection('DeleteCollections')
         .get()
         .then((querySnapshot) {
       for (var result in querySnapshot.docs) {
         final String idAudioAll = result.data()['id'];
-        idAudioListAll.add(idAudioAll);
+        _idAudioListAll.add(idAudioAll);
         final int size = result.data()['size'];
-        sizeListAll.add(size);
+        _sizeListAll.add(size);
       }
     });
   }
 
-  Future<void> delete(BuildContext context) async {
-    await getIdCollection(context);
-    for (var item in IterableZip([idAudioList, sizeList])) {
+  Future<void> _delete(BuildContext context) async {
+    await _getIdCollection(context);
+    for (var item in IterableZip([_idAudioList, _sizeList])) {
       final idAudio = item[0];
       final sizeTemp = item[1];
       final size = sizeTemp as int;
-      await repositoriesCollections.deleteCollection(
-          '$idAudio', 'DeleteCollections');
+      await _rep.deleteCollectionApp('$idAudio', 'DeleteCollections');
       await repositoriesUser.updateSizeRepositories(-size);
     }
     await UserRepositories().updateTotalTimeQuality();
   }
 
-  Future<void> reestablish(BuildContext context) async {
-    await getIdCollection(context);
-    for (var item in idAudioList) {
-      await repositoriesCollections.copyPastCollections(
+  Future<void> _reestablish(BuildContext context) async {
+    await _getIdCollection(context);
+    for (var item in _idAudioList) {
+      await _rep.copyPastCollections(
         item,
         'DeleteCollections',
         'Collections',
       );
-      await repositoriesCollections.deleteCollection(item, 'DeleteCollections');
+      await _rep.deleteCollection(item, 'DeleteCollections');
       await UserRepositories().updateTotalTimeQuality();
     }
   }
 
-  Future<void> deleteAll(BuildContext context) async {
-    await getIdCollection(context);
-    for (var item in IterableZip([idAudioListAll, sizeListAll])) {
+  Future<void> _deleteAll(BuildContext context) async {
+    await _getIdCollectionAll(context);
+    for (var item in IterableZip([_idAudioListAll, _sizeListAll])) {
       final idAudio = item[0];
       final sizeTemp = item[1];
       final size = sizeTemp as int;
-      await repositoriesCollections.deleteCollection(
-          '$idAudio', 'DeleteCollections');
+      await _rep.deleteCollectionApp('$idAudio', 'DeleteCollections');
       await repositoriesUser.updateSizeRepositories(-size);
     }
 
     await UserRepositories().updateTotalTimeQuality();
   }
 
-  Future<void> reestablishAll(BuildContext context) async {
-    await getIdCollectionAll(context);
-    for (var item in idAudioListAll) {
-      await repositoriesCollections.copyPastCollections(
+  Future<void> _reestablishAll(BuildContext context) async {
+    await _getIdCollectionAll(context);
+    for (var item in _idAudioListAll) {
+      await _rep.copyPastCollections(
         item,
         'DeleteCollections',
         'Collections',
       );
-      await repositoriesCollections.deleteCollection(item, 'DeleteCollections');
+      await _rep.deleteCollection(item, 'DeleteCollections');
       await UserRepositories().updateTotalTimeQuality();
     }
   }
@@ -126,11 +123,11 @@ class PopupMenuDeletePage extends StatelessWidget {
                   ),
                   popupMenuItem(
                     'Удалить',
-                    () => delete(context),
+                    () => _delete(context),
                   ),
                   popupMenuItem(
                     'Восстановить',
-                    () => reestablish(context),
+                    () => _reestablish(context),
                   ),
                 ]
             : (context) => [
@@ -140,11 +137,11 @@ class PopupMenuDeletePage extends StatelessWidget {
                   ),
                   popupMenuItem(
                     'Удалить все',
-                    () => deleteAll(context),
+                    () => _deleteAll(context),
                   ),
                   popupMenuItem(
                     'Восстановить все',
-                    () => reestablishAll(context),
+                    () => _reestablishAll(context),
                   ),
                 ]);
   }

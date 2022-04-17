@@ -7,8 +7,7 @@ import '../../../../repositories/user_repositories.dart';
 import '../../profile_model.dart';
 
 class NameAndNumber extends StatelessWidget {
-  NameAndNumber({Key? key, required this.screenWidth}) : super(key: key);
-  final UserRepositories repositories = UserRepositories();
+  const NameAndNumber({Key? key, required this.screenWidth}) : super(key: key);
   final double? screenWidth;
 
   @override

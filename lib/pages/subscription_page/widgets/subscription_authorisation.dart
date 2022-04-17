@@ -11,8 +11,7 @@ import '../../../widgets/container_shadow.dart';
 
 class SubscriptionAuthorisation extends StatelessWidget {
   SubscriptionAuthorisation({Key? key}) : super(key: key);
-  final UserRepositories repUser = UserRepositories();
-  final now = Timestamp.now();
+  final UserRepositories _rep = UserRepositories();
   Widget buildUser(UserModel model) => _Subscription(
         onceAMonth: model.onceAMonth,
         onceAYear: model.onceAYear,
@@ -22,7 +21,7 @@ class SubscriptionAuthorisation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<UserModel>>(
-      stream: repUser.readUser(),
+      stream: _rep.readUser(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return const Text('Error');
@@ -55,7 +54,7 @@ class _Subscription extends StatelessWidget {
   final bool? onlyMonth;
   final Timestamp? finishTimeSubscription;
 
-  bool? getState() {
+  bool? _getState() {
     final now = Timestamp.now();
     final state = finishTimeSubscription!.compareTo(now);
     if (state >= 0) return true;
@@ -87,7 +86,7 @@ class _Subscription extends StatelessWidget {
               ),
               const _WhatDoesASubscriptionGive(),
               onlyMonth!
-                  ? getState()!
+                  ? _getState()!
                       ? _SubscribeTo(
                           finishTimeSubscription: finishTimeSubscription,
                         )
@@ -106,7 +105,7 @@ class _SubscriptionItem extends StatelessWidget {
       required this.onceAMonth,
       required this.onceAYear})
       : super(key: key);
-  final UserRepositories rep = UserRepositories();
+  final UserRepositories _rep = UserRepositories();
   final double screenWidth;
   final bool onceAMonth;
   final bool onceAYear;
@@ -115,26 +114,26 @@ class _SubscriptionItem extends StatelessWidget {
   Future<void> subscriptionOnceAMonth() async {
     done = !done!;
     if (done!) {
-      await rep.subscriptionDone('onceAMonth', true);
-      await rep.subscriptionDone('onceAYear', false);
-      await rep.subscription(31);
+      await _rep.subscriptionDone('onceAMonth', true);
+      await _rep.subscriptionDone('onceAYear', false);
+      await _rep.subscription(31);
     }
     if (!done!) {
-      await rep.subscriptionDone('onceAMonth', false);
-      await rep.subscription(0);
+      await _rep.subscriptionDone('onceAMonth', false);
+      await _rep.subscription(0);
     }
   }
 
   Future<void> subscriptionOnceAYear() async {
     done = !done!;
     if (done!) {
-      await rep.subscriptionDone('onceAYear', true);
-      await rep.subscriptionDone('onceAMonth', false);
-      await rep.subscription(365);
+      await _rep.subscriptionDone('onceAYear', true);
+      await _rep.subscriptionDone('onceAMonth', false);
+      await _rep.subscription(365);
     }
     if (!done!) {
-      await rep.subscriptionDone('onceAYear', false);
-      await rep.subscription(0);
+      await _rep.subscriptionDone('onceAYear', false);
+      await _rep.subscription(0);
     }
   }
 

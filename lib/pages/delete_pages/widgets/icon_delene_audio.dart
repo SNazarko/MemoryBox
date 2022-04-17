@@ -17,7 +17,7 @@ class IconDeleteAudio extends StatelessWidget {
           onTap: () async {
             await UserRepositories().updateSizeRepositories(-size!);
             await CollectionsRepositories()
-                .deleteCollection(idAudio, 'DeleteCollections');
+                .deleteCollectionApp(idAudio, 'DeleteCollections');
           },
           child: SizedBox(
             width: 25.0,

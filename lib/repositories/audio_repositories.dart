@@ -156,7 +156,7 @@ class AudioRepositories {
     if (state >= 0) {
       await repositories.updateSizeRepositories(-size!);
       await CollectionsRepositories()
-          .deleteCollection(idAudio!, 'DeleteCollections');
+          .deleteCollectionApp(idAudio!, 'DeleteCollections');
     }
   }
 

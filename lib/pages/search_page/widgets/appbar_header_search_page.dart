@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/utils/constants.dart';
-import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:provider/src/provider.dart';
 
+import '../../../widgets/uncategorized/appbar_clipper.dart';
 import '../search_page_model.dart';
 
 class AppbarHeaderSearchPage extends StatelessWidget {

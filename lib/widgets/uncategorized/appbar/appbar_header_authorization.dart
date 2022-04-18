@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/utils/constants.dart';
-import 'package:memory_box/widgets/appbar_clipper.dart';
+
+import '../appbar_clipper.dart';
+
+
 
 class AppbarHeaderAuthorization extends StatelessWidget {
   const AppbarHeaderAuthorization({Key? key, this.title, this.subtitle})

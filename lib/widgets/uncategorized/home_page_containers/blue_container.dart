@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../resources/app_colors.dart';
+
+import '../../../resources/app_colors.dart';
+
 
 class BlueContainer extends StatelessWidget {
   const BlueContainer({Key? key, required this.screenWidth}) : super(key: key);

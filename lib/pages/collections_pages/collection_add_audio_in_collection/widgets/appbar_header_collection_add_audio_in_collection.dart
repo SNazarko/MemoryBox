@@ -5,7 +5,7 @@ import '../../../../models/view_model.dart';
 import '../../../../repositories/collections_repositories.dart';
 import '../../../../resources/app_colors.dart';
 import '../../../../utils/constants.dart';
-import '../../../../widgets/appbar_clipper.dart';
+import '../../../../widgets/uncategorized/appbar_clipper.dart';
 import '../../collection_edit/collection_edit.dart';
 
 class AppbarHeaderCollectionAddAudioInCollection extends StatelessWidget {

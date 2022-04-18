@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
-import 'package:memory_box/widgets/player_mini/player_mini.dart';
+import '../../../../widgets/player/player_mini/player_mini.dart';
 import 'done_collection_item_edit_audio.dart';
 
 class ListCollectionItemEditAudio extends StatelessWidget {

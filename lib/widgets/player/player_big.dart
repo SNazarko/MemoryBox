@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:just_audio/just_audio.dart' as ap;
-import 'package:memory_box/widgets/slider.dart';
+import 'package:memory_box/widgets/uncategorized/slider.dart';
 import 'package:record/record.dart';
 
 class PlayerBig extends StatefulWidget {

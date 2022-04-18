@@ -14,7 +14,7 @@ import '../../../repositories/local_save_audiofile.dart';
 import '../../../resources/app_colors.dart';
 import '../../../resources/app_icons.dart';
 import '../../../utils/constants.dart';
-import '../../../widgets/slider.dart';
+import '../../../widgets/uncategorized/slider.dart';
 import '../model_recordings_page.dart';
 
 class AudioPlayer extends StatefulWidget {

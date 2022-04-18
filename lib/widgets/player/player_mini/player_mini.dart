@@ -1,15 +1,11 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:just_audio/just_audio.dart' as ap;
 import 'package:memory_box/resources/app_icons.dart';
-import 'package:memory_box/widgets/player_collections/player_collections.dart';
 
-import '../../repositories/audio_repositories.dart';
-import '../slider.dart';
+import '../../uncategorized/slider.dart';
 
 class PlayerMini extends StatefulWidget {
   const PlayerMini({

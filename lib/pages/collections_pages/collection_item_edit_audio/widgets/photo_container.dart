@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
 import 'package:memory_box/utils/constants.dart';
-import 'package:memory_box/widgets/container_shadow.dart';
+import 'package:memory_box/widgets/uncategorized/container_shadow.dart';
 import 'package:provider/provider.dart';
 
 class PhotoContainerCollectionItemEditAudio extends StatelessWidget {

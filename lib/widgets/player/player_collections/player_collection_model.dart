@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:just_audio/just_audio.dart' as ap;
 import 'package:flutter/cupertino.dart';
-import 'package:memory_box/widgets/player_collections/player_collections.dart';
 
 class PlayerCollectionModel extends ChangeNotifier {
   final _audioPlayer = ap.AudioPlayer();

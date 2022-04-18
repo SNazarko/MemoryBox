@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../resources/app_colors.dart';
 import '../../../../utils/constants.dart';
-import '../../../../widgets/appbar_clipper.dart';
-import '../../../../widgets/icon_back.dart';
+import '../../../../widgets/button/icon_back.dart';
+import '../../../../widgets/uncategorized/appbar_clipper.dart';
 
 class AppbarHeaderProfileEdit extends StatelessWidget {
   const AppbarHeaderProfileEdit({Key? key}) : super(key: key);

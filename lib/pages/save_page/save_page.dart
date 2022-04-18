@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/pages/save_page/widgets/cancel_done_save_page.dart';
 import 'package:memory_box/pages/save_page/widgets/rename_audio_save_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/widgets/appbar_clipper.dart';
-import 'package:memory_box/widgets/player_big.dart';
+import 'package:memory_box/widgets/player/player_big.dart';
 
 import '../../utils/constants.dart';
+import '../../widgets/uncategorized/appbar_clipper.dart';
 
 class SavePage extends StatelessWidget {
   const SavePage({

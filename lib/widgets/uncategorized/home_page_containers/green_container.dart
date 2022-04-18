@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../models/view_model.dart';
-import '../../resources/app_colors.dart';
+
+import '../../../models/view_model.dart';
+import '../../../resources/app_colors.dart';
+
 
 class GreenContainer extends StatelessWidget {
   const GreenContainer({Key? key, required this.screenWidth}) : super(key: key);

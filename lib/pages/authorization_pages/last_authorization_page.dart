@@ -1,14 +1,12 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/utils/constants.dart';
-import 'package:memory_box/widgets/container_shadow.dart';
-import '../../repositories/audio_repositories.dart';
+import 'package:memory_box/widgets/uncategorized/container_shadow.dart';
 import '../../repositories/user_repositories.dart';
-import '../../widgets/appbar_header_authorization.dart';
-import '../main_page.dart';
+import '../../widgets/uncategorized/appbar/appbar_header_authorization.dart';
+
 
 class LastAuthorizationPage extends StatefulWidget {
   const LastAuthorizationPage({Key? key}) : super(key: key);

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/pages/recordings_page/widgets/audio_player.dart';
 import 'package:memory_box/pages/recordings_page/widgets/audio_recorder.dart';
 import 'package:memory_box/utils/constants.dart';
-import 'package:memory_box/widgets/appbar_menu.dart';
 import 'package:just_audio/just_audio.dart' as ap;
 import 'package:provider/provider.dart';
+import '../../widgets/uncategorized/appbar/appbar_menu.dart';
 import 'model_recordings_page.dart';
 
 class RecordPage extends StatefulWidget {

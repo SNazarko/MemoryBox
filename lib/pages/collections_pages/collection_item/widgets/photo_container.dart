@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/utils/constants.dart';
-import 'package:memory_box/widgets/container_shadow.dart';
+import 'package:memory_box/widgets/uncategorized/container_shadow.dart';
 import 'package:provider/provider.dart';
 import '../collections_item_page_model.dart';
 import '../../../../animation/collection_item_page_player/buttom_play_pause.dart';

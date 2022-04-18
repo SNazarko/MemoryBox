@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/pages/collections_pages/collection_item_edit/collection_item_edit_page.dart';
 import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/collection_item_edit_audio.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/widgets/popup_menu_button.dart';
+import 'package:memory_box/widgets/button/popup_menu_button.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';

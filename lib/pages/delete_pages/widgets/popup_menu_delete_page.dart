@@ -5,7 +5,7 @@ import 'package:collection/collection.dart';
 import '../../../repositories/collections_repositories.dart';
 import '../../../repositories/user_repositories.dart';
 import '../../../resources/app_colors.dart';
-import '../../../widgets/popup_menu_button.dart';
+import '../../../widgets/button/popup_menu_button.dart';
 import '../delete_page_model.dart';
 
 class PopupMenuDeletePage extends StatelessWidget {

@@ -6,8 +6,8 @@ import '../../../repositories/user_repositories.dart';
 import '../../../resources/app_colors.dart';
 import '../../../resources/app_icons.dart';
 import '../../../utils/constants.dart';
-import '../../../widgets/button_continue.dart';
-import '../../../widgets/container_shadow.dart';
+import '../../../widgets/button/button_continue.dart';
+import '../../../widgets/uncategorized/container_shadow.dart';
 
 class SubscriptionAuthorisation extends StatelessWidget {
   SubscriptionAuthorisation({Key? key}) : super(key: key);

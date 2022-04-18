@@ -1,40 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
-import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/widgets/container_shadow.dart';
-import 'package:memory_box/widgets/icon_camera.dart';
-import 'package:memory_box/widgets/image_pick.dart';
+import 'package:memory_box/widgets/uncategorized/container_shadow.dart';
+import 'package:memory_box/widgets/button/icon_camera.dart';
 import 'package:provider/provider.dart';
 
 import '../collection_item_edit_page_model.dart';
 
-class PhotoContainer extends StatefulWidget {
+class PhotoContainer extends StatelessWidget {
   const PhotoContainer({Key? key}) : super(key: key);
-
-  @override
-  State<PhotoContainer> createState() => PhotoContainerState();
-}
-
-class PhotoContainerState extends State<PhotoContainer> {
-  final ImagePick _imagePick = ImagePick();
-  String? _singleImage;
-
-  Future<void> _imagePickPhoto(BuildContext context) async {
-    XFile? _image = await _imagePick.singleImagePick();
-    if (_image != null && _image.path.isNotEmpty) {
-      _singleImage = await UserRepositories().uploadImage(_image);
-      context
-          .read<CollectionItemEditPageModel>()
-          .setAvatarCollectionsEdit(_singleImage!);
-      setState(() {});
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
+    final String? singleImage =
+        Provider.of<CollectionItemEditPageModel>(context, listen: false)
+            .getSingleImage;
     final String image =
         Provider.of<CollectionsItemPageModel>(context, listen: false).getPhoto;
     if (image == '') {
@@ -45,9 +26,9 @@ class PhotoContainerState extends State<PhotoContainer> {
           right: 15.0,
         ),
         child: ContainerShadow(
-          image: _singleImage != null
+          image: singleImage != null
               ? Image.network(
-                  '$_singleImage',
+                  singleImage,
                   fit: BoxFit.fitWidth,
                 )
               : Container(
@@ -57,8 +38,10 @@ class PhotoContainerState extends State<PhotoContainer> {
           height: 200.0,
           widget: IconCamera(
             color: AppColor.glass,
-            onTap: () => _imagePickPhoto(context),
-            colorBorder: AppColor.colorText80,
+            onTap: () =>
+                Provider.of<CollectionItemEditPageModel>(context, listen: false)
+                    .imagePickPhoto(context),
+            colorBorder: AppColor.white100,
             position: 0.0,
           ),
           radius: 20.0,
@@ -72,9 +55,9 @@ class PhotoContainerState extends State<PhotoContainer> {
           right: 15.0,
         ),
         child: ContainerShadow(
-          image: _singleImage != null
+          image: singleImage != null
               ? Image.network(
-                  '$_singleImage',
+                  singleImage,
                   fit: BoxFit.fitWidth,
                 )
               : Image.network(
@@ -85,8 +68,10 @@ class PhotoContainerState extends State<PhotoContainer> {
           height: 200.0,
           widget: IconCamera(
             color: AppColor.glass,
-            onTap: () => _imagePickPhoto(context),
-            colorBorder: AppColor.colorText80,
+            onTap: () =>
+                Provider.of<CollectionItemEditPageModel>(context, listen: false)
+                    .imagePickPhoto(context),
+            colorBorder: AppColor.white100,
             position: 0.0,
           ),
           radius: 20.0,

@@ -6,8 +6,9 @@ import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/utils/constants.dart';
-import 'package:memory_box/widgets/player_mini/player_mini.dart';
 import 'package:provider/provider.dart';
+
+import '../../../widgets/player/player_mini/player_mini.dart';
 
 class HomePageAudio extends StatelessWidget {
   const HomePageAudio({Key? key}) : super(key: key);

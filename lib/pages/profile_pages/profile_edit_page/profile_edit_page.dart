@@ -5,7 +5,7 @@ import 'package:memory_box/pages/profile_pages/profile_model.dart';
 import 'package:memory_box/repositories/preferences_data_model_user.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/widgets/textfield_input.dart';
+import 'package:memory_box/widgets/uncategorized/textfield_input.dart';
 import 'package:provider/provider.dart';
 
 class ProfileEdit extends StatelessWidget {

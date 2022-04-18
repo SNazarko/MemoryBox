@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/view_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/widgets/appbar_clipper.dart';
 import 'package:provider/src/provider.dart';
-import '../../../widgets/home_page_containers/blue_container.dart';
-import '../../../widgets/home_page_containers/green_container.dart';
-import '../../../widgets/home_page_containers/orange_container.dart';
+
+import '../../../widgets/uncategorized/appbar_clipper.dart';
+import '../../../widgets/uncategorized/home_page_containers/blue_container.dart';
+import '../../../widgets/uncategorized/home_page_containers/green_container.dart';
+import '../../../widgets/uncategorized/home_page_containers/orange_container.dart';
 
 class AppbarHeaderHomePageNotIsAuthorization extends StatelessWidget {
   const AppbarHeaderHomePageNotIsAuthorization({Key? key}) : super(key: key);

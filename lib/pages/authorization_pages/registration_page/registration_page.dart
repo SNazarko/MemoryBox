@@ -2,14 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/authorization_pages/last_authorization_page.dart';
+import 'package:memory_box/pages/authorization_pages/registration_page/registration_page_%20model.dart';
 import 'package:memory_box/pages/authorization_pages/registration_page/widget/text_field_captcha.dart';
 import 'package:memory_box/pages/main_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/widgets/button_continue.dart';
-import 'package:memory_box/widgets/container_shadow.dart';
-import 'package:memory_box/widgets/textfield_input.dart';
+import 'package:memory_box/widgets/button/button_continue.dart';
+import 'package:memory_box/widgets/uncategorized/container_shadow.dart';
+import 'package:memory_box/widgets/uncategorized/textfield_input.dart';
+import 'package:provider/provider.dart';
 
-import '../../../widgets/appbar_header_authorization.dart';
+import '../../../widgets/uncategorized/appbar/appbar_header_authorization.dart';
 
 enum MobileVerificationState {
   showMobileFormState,
@@ -17,18 +19,18 @@ enum MobileVerificationState {
 }
 
 class RegistrationPage extends StatefulWidget {
-  const RegistrationPage({Key? key}) : super(key: key);
+  RegistrationPage({Key? key}) : super(key: key);
   static const routeName = '/registration_page';
 
   static Widget create() {
-    return const RegistrationPage();
+    return RegistrationPage();
   }
 
   @override
-  State<RegistrationPage> createState() => _RegistrationPageState();
+  State<RegistrationPage> createState() => RegistrationPageState();
 }
 
-class _RegistrationPageState extends State<RegistrationPage> {
+class RegistrationPageState extends State<RegistrationPage> {
   MobileVerificationState currentState =
       MobileVerificationState.showMobileFormState;
 
@@ -40,35 +42,37 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   String? verificationId;
 
-  bool showLoading = false;
+  // bool showLoading = false;
 
-  void _singInWithPhoneAuthCredential(
-      PhoneAuthCredential phoneAuthCredential) async {
-    setState(() {
-      showLoading = true;
-    });
-    try {
-      final authCredential =
-          await _auth.signInWithCredential(phoneAuthCredential);
-      setState(() {
-        showLoading = false;
-        if (authCredential.user != null) {
-          Navigator.pushNamed(context, LastAuthorizationPage.routeName);
-        }
-      });
-    } on FirebaseAuthException catch (e) {
-      setState(() {
-        showLoading = false;
-      });
-      _scaffoldKey.currentState!.showSnackBar(
-        SnackBar(
-          content: Text(e.message!),
-        ),
-      );
-    }
-  }
+  // void _singInWithPhoneAuthCredential(
+  //     PhoneAuthCredential phoneAuthCredential) async {
+  //   setState(() {
+  //     showLoading = true;
+  //   });
+  //   try {
+  //     final authCredential =
+  //         await _auth.signInWithCredential(phoneAuthCredential);
+  //     setState(() {
+  //       showLoading = false;
+  //       if (authCredential.user != null) {
+  //         Navigator.pushNamed(context, LastAuthorizationPage.routeName);
+  //       }
+  //     });
+  //   } on FirebaseAuthException catch (e) {
+  //     setState(() {
+  //       showLoading = false;
+  //     });
+  //     _scaffoldKey.currentState!.showSnackBar(
+  //       SnackBar(
+  //         content: Text(e.message!),
+  //       ),
+  //     );
+  //   }
+  // }
 
   _getMobileFormWidget(context) {
+    var showLoading = Provider.of<RegistrationPageModel>(context, listen: false)
+        .getShowLoading;
     return Column(
       children: [
         const Text(
@@ -89,6 +93,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
           height: 30.0,
         ),
         ButtonContinue(
+          // onPressed: () =>
+          //     Provider.of<RegistrationPageModel>(context, listen: false)
+          //         .buttonContinue(phoneController, currentState),
           onPressed: () async {
             setState(() {
               showLoading = true;
@@ -105,11 +112,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 setState(() {
                   showLoading = false;
                 });
-                _scaffoldKey.currentState!.showSnackBar(
-                  SnackBar(
-                    content: Text(verificationFailed.message!),
-                  ),
-                );
+                // _scaffoldKey.currentState!.showSnackBar(
+                //   SnackBar(
+                //     content: Text(verificationFailed.message!),
+                //   ),
+                // );
               },
               codeSent: (verificationId, resendingToken) async {
                 setState(() {
@@ -152,7 +159,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 PhoneAuthProvider.credential(
                     verificationId: verificationId!,
                     smsCode: otpController.text);
-            _singInWithPhoneAuthCredential(phoneAuthCredential);
+            Provider.of<RegistrationPageModel>(context, listen: false)
+                .singInWithPhoneAuthCredential(context, phoneAuthCredential);
+            // _singInWithPhoneAuthCredential(phoneAuthCredential);
           },
           text: 'Продолжыть',
         ),
@@ -160,11 +169,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  // final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
+    final showLoading =
+        Provider.of<RegistrationPageModel>(context, listen: false)
+            .getShowLoading;
     return Scaffold(
-      key: _scaffoldKey,
+      // key: _scaffoldKey,
       body: SingleChildScrollView(
         child: Column(
           children: [

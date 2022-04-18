@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import '../../../resources/app_colors.dart';
 import '../../../utils/constants.dart';
-import '../../../widgets/appbar_clipper.dart';
+import '../../../widgets/uncategorized/appbar_clipper.dart';
 
 class AppbarHeaderDeletePage extends StatelessWidget {
   const AppbarHeaderDeletePage({

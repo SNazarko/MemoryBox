@@ -5,15 +5,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:memory_box/resources/app_icons.dart';
-import 'package:memory_box/widgets/player_collections/player_collection_model.dart';
-import 'package:provider/provider.dart';
-import '../../repositories/audio_repositories.dart';
-import '../../repositories/collections_repositories.dart';
-import '../../resources/app_colors.dart';
-import '../player_mini/player_mini.dart';
-import '../slider.dart';
-import '../../pages/collections_pages/collection_item/collections_item_page_model.dart';
-import '../../pages/collections_pages/collection_item/widgets/list_collections.dart';
+import 'package:memory_box/widgets/player/player_collections/player_collection_model.dart';
+
+import '../../../repositories/audio_repositories.dart';
+import '../../../repositories/collections_repositories.dart';
+import '../../../resources/app_colors.dart';
+import '../../uncategorized/slider.dart';
 
 class PlayerCollections extends StatefulWidget {
   const PlayerCollections({

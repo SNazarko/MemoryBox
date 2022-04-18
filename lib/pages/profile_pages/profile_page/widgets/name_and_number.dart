@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memory_box/utils/constants.dart';
-import 'package:memory_box/widgets/container_shadow.dart';
+import 'package:memory_box/widgets/uncategorized/container_shadow.dart';
 import 'package:provider/src/provider.dart';
 import '../../../../models/user_model.dart';
 import '../../../../repositories/user_repositories.dart';

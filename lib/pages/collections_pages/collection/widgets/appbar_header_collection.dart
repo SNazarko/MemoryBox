@@ -3,9 +3,9 @@ import 'package:memory_box/pages/collections_pages/collection/widgets/popup_menu
 import 'package:memory_box/pages/collections_pages/collection_edit/collection_edit.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/utils/constants.dart';
-import 'package:memory_box/widgets/appbar_clipper.dart';
 
 import '../../../../repositories/collections_repositories.dart';
+import '../../../../widgets/uncategorized/appbar_clipper.dart';
 
 class AppbarHeaderCollection extends StatelessWidget {
   const AppbarHeaderCollection({Key? key}) : super(key: key);

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/pages/search_page/search_page_model.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
-import 'package:memory_box/widgets/player_mini_podborki.dart';
+import 'package:memory_box/widgets/player/player_mini_podborki.dart';
 import 'package:provider/provider.dart';
 
 class ListPlayersCollectionAddAudio extends StatelessWidget {

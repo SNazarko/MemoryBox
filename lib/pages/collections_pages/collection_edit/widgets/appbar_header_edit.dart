@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/utils/constants.dart';
-import 'package:memory_box/widgets/appbar_clipper.dart';
-import 'package:memory_box/widgets/icon_back.dart';
+import 'package:memory_box/widgets/button/icon_back.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../widgets/uncategorized/appbar_clipper.dart';
 import '../collection_edit_model.dart';
 
 class AppbarHeaderEdit extends StatelessWidget {

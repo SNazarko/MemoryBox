@@ -8,7 +8,7 @@ import 'package:memory_box/pages/profile_pages/profile_page/widgets/name_and_num
 import 'package:memory_box/pages/profile_pages/profile_page/widgets/photo_profile.dart';
 import 'package:memory_box/pages/profile_pages/profile_page/widgets/progress_indicator.dart';
 import 'package:memory_box/pages/profile_pages/profile_edit_page/profile_edit_page.dart';
-import 'package:memory_box/widgets/text_link.dart';
+import 'package:memory_box/widgets/uncategorized/text_link.dart';
 import 'package:provider/provider.dart';
 import '../../../models/user_model.dart';
 import '../../../models/view_model.dart';

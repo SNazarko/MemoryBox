@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
@@ -6,7 +6,9 @@ import 'package:memory_box/pages/audio_recordings_page/widgets/popup_menu_audio_
 import 'package:memory_box/pages/authorization_pages/registration_page/registration_page.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:memory_box/widgets/player_mini/player_mini.dart';
+
+import '../../../widgets/player/player_mini/player_mini.dart';
+
 
 class ListPlayer extends StatelessWidget {
   ListPlayer({Key? key}) : super(key: key);

@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
 import 'package:memory_box/utils/constants.dart';
 import 'package:memory_box/widgets/uncategorized/container_shadow.dart';
-import 'package:provider/provider.dart';
 
 class PhotoContainerCollectionItemEditAudio extends StatelessWidget {
   const PhotoContainerCollectionItemEditAudio({
     Key? key,
+    required this.qualityCollection,
+    required this.imageCollection,
+    required this.dataCollection,
+    required this.totalTimeCollection,
   }) : super(key: key);
+  final String qualityCollection;
+  final String imageCollection;
+  final String dataCollection;
+  final String totalTimeCollection;
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    final String image = context.watch<CollectionsItemPageModel>().getPhoto;
-    if (image == '') {
+    if (imageCollection == '') {
       return Padding(
         padding: const EdgeInsets.only(
           left: 15.0,
@@ -34,7 +39,7 @@ class PhotoContainerCollectionItemEditAudio extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${context.watch<CollectionsItemPageModel>().getData}',
+                    dataCollection,
                     style: kTitle4TextStyle,
                   ),
                   Row(
@@ -44,11 +49,11 @@ class PhotoContainerCollectionItemEditAudio extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${context.watch<CollectionsItemPageModel>().getQuality} аудио',
+                            '$qualityCollection аудио',
                             style: kTitle2TextStyle,
                           ),
                           Text(
-                            '${context.watch<CollectionsItemPageModel>().getTotalTime} часа',
+                            '$totalTimeCollection часа',
                             style: kTitle2TextStyle,
                           ),
                         ],
@@ -68,7 +73,7 @@ class PhotoContainerCollectionItemEditAudio extends StatelessWidget {
         ),
         child: ContainerShadow(
             image: Image.network(
-              image,
+              imageCollection,
               fit: BoxFit.fitWidth,
             ),
             width: screenWidth * 0.955,
@@ -81,7 +86,7 @@ class PhotoContainerCollectionItemEditAudio extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${context.watch<CollectionsItemPageModel>().getData}',
+                    dataCollection,
                     style: kTitle4TextStyle,
                   ),
                   Row(
@@ -91,11 +96,11 @@ class PhotoContainerCollectionItemEditAudio extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${context.watch<CollectionsItemPageModel>().getQuality} аудио',
+                            '$qualityCollection аудио',
                             style: kTitle2TextStyle,
                           ),
                           Text(
-                            '${context.watch<CollectionsItemPageModel>().getTotalTime} часа',
+                            '$totalTimeCollection часа',
                             style: kTitle2TextStyle,
                           ),
                         ],

@@ -8,12 +8,17 @@ import 'package:provider/provider.dart';
 import '../../../../widgets/button/alert_dialog.dart';
 import '../../../../widgets/player/player_mini/player_mini.dart';
 import '../../../save_page/save_page.dart';
-import '../../../save_page/save_page_model.dart';
 import '../collections_item_page_model.dart';
 
 class ListCollectionsAudio extends StatelessWidget {
-  ListCollectionsAudio({Key? key}) : super(key: key);
+  ListCollectionsAudio({
+    Key? key,
+    required this.idCollection,
+    required this.imageCollection,
+  }) : super(key: key);
   final AudioRepositories _rep = AudioRepositories();
+  final String idCollection;
+  final String imageCollection;
 
   Widget buildAudio(AudioModel audio) => PlayerMini(
         playPause: audio.playPause,
@@ -33,14 +38,14 @@ class ListCollectionsAudio extends StatelessWidget {
           dateTime: audio.dateTime!,
           collection: audio.collections!,
           idAudio: '${audio.id}',
+          imageCollection: imageCollection,
         ),
       );
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       child: StreamBuilder<List<AudioModel>>(
-        stream: _rep.readAudioSort(
-            context.watch<CollectionsItemPageModel>().getIdCollection),
+        stream: _rep.readAudioSort(idCollection),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Text('Ошибка');
@@ -75,6 +80,7 @@ class _PopupMenuPlayerMini extends StatelessWidget {
     required this.done,
     required this.idAudio,
     required this.collection,
+    required this.imageCollection,
   }) : super(key: key);
   final AudioRepositories _rep = AudioRepositories();
   final String name;
@@ -86,27 +92,21 @@ class _PopupMenuPlayerMini extends StatelessWidget {
   final bool done;
   final String idAudio;
   final List collection;
-  void _init(BuildContext context) {
-    context.read<SavePageModel>().setCollection(collection);
-    context.read<SavePageModel>().setIdAudio(idAudio);
-    context.read<SavePageModel>().setAudioName(name);
-    context.read<SavePageModel>().setAudioUrl(url);
-    context.read<SavePageModel>().setDuration(duration);
-    context.read<SavePageModel>().setDone(done);
-    context.read<SavePageModel>().setDateTime(dateTime);
-    context.read<SavePageModel>().setSearchName(searchName);
-  }
+  final String imageCollection;
 
-  void _rename(BuildContext context) {
+  void _rename(BuildContext context, String imageCollection) {
     Timer(const Duration(seconds: 1), () {
-      _init(context);
       Navigator.push(context, MaterialPageRoute(builder: (context) {
         return SavePage(
-          image:
-              '${Provider.of<CollectionsItemPageModel>(context, listen: false).getPhoto}',
-          url: url,
-          duration: duration,
-          name: name,
+          audioUrl: url,
+          audioImage: imageCollection,
+          audioDone: done,
+          audioTime: dateTime,
+          audioSearchName: searchName,
+          audioCollection: collection,
+          idAudio: idAudio,
+          audioDuration: duration,
+          audioName: name,
         );
       }));
     });
@@ -127,7 +127,7 @@ class _PopupMenuPlayerMini extends StatelessWidget {
       itemBuilder: (context) => [
         popupMenuItem(
           'Переименовать',
-          () => _rename(context),
+          () => _rename(context, imageCollection),
         ),
         popupMenuItem(
           'Добавить в подборку',

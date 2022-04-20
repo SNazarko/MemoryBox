@@ -6,8 +6,12 @@ import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/widgets/player/player_mini_podborki.dart';
 import 'package:provider/provider.dart';
 
+import '../collections_add_audio_model.dart';
+
 class ListPlayersCollectionAddAudio extends StatelessWidget {
-  ListPlayersCollectionAddAudio({Key? key}) : super(key: key);
+  ListPlayersCollectionAddAudio({Key? key, required this.titleCollections})
+      : super(key: key);
+  final String titleCollections;
 
   final AudioRepositories _rep = AudioRepositories();
 
@@ -17,7 +21,8 @@ class ListPlayersCollectionAddAudio extends StatelessWidget {
       .doc('id')
       .collection('Collections')
       .where('searchName',
-          arrayContains: context.watch<SearchPageModel>().getSearchAddAudio)
+          arrayContains:
+              context.watch<CollectionsAddAudioModel>().getSearchAddAudio)
       .snapshots()
       .map((snapshot) =>
           snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
@@ -29,11 +34,12 @@ class ListPlayersCollectionAddAudio extends StatelessWidget {
         done: audio.done = false,
         id: '${audio.id}',
         collection: audio.collections ?? [],
+        titleCollections: titleCollections,
       );
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<SearchPageModel>().getSearchData;
+    final state = context.watch<CollectionsAddAudioModel>().getSearchAddAudio;
     final double screenHeight = MediaQuery.of(context).size.height;
     if (state == '') {
       return Column(

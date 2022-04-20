@@ -5,8 +5,10 @@ import '../../../../widgets/player/player_mini/player_mini.dart';
 import 'done_collection_item_edit_audio.dart';
 
 class ListCollectionItemEditAudio extends StatelessWidget {
-  ListCollectionItemEditAudio({Key? key}) : super(key: key);
+  ListCollectionItemEditAudio({Key? key, required this.idCollection})
+      : super(key: key);
   final AudioRepositories _rep = AudioRepositories();
+  final String idCollection;
 
   Widget buildAudio(AudioModel audio) => PlayerMini(
         duration: '${audio.duration}',
@@ -20,6 +22,7 @@ class ListCollectionItemEditAudio extends StatelessWidget {
           name: '${audio.audioName}',
           collection: audio.collections,
           id: '${audio.id}',
+          idCollection: idCollection,
         ),
       );
   @override

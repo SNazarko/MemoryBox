@@ -31,17 +31,24 @@ class CollectionItem extends StatelessWidget {
   _getCollectionItem(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.read<CollectionsItemPageModel>().setIdCollection(id!);
-        context.read<CollectionsItemPageModel>().setTitle(title!);
-        context.read<CollectionsItemPageModel>().setSubTitle(subTitle!);
-        context.read<CollectionsItemPageModel>().setPhoto(image!);
-        context.read<CollectionsItemPageModel>().setData(data!);
-        context.read<CollectionsItemPageModel>().setQuality(quality!);
-        context.read<CollectionsItemPageModel>().setTotalTime(totalTime!);
-        Navigator.pushNamed(
-          context,
-          CollectionsItemPage.routeName,
-        );
+        // context.read<CollectionsItemPageModel>().setIdCollection(id!);
+        // context.read<CollectionsItemPageModel>().setTitle(title!);
+        // context.read<CollectionsItemPageModel>().setSubTitle(subTitle!);
+        // context.read<CollectionsItemPageModel>().setPhoto(image!);
+        // context.read<CollectionsItemPageModel>().setData(data!);
+        // context.read<CollectionsItemPageModel>().setQuality(quality!);
+        // context.read<CollectionsItemPageModel>().setTotalTime(totalTime!);
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return CollectionsItemPage(
+            qualityCollection: quality!,
+            dataCollection: data!,
+            titleCollection: title!,
+            imageCollection: image!,
+            totalTimeCollection: totalTime!,
+            subTitleCollection: subTitle!,
+            idCollection: id!,
+          );
+        }));
       },
       child: Container(
         width: 185.0,

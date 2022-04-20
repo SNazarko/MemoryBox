@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
 import 'package:provider/provider.dart';
 import '../collection_item_edit_page_model.dart';
 
 class SubTitleCollectionItemEdit extends StatefulWidget {
-  const SubTitleCollectionItemEdit({Key? key}) : super(key: key);
-
+  const SubTitleCollectionItemEdit({Key? key, required this.subTitleCollection})
+      : super(key: key);
+  final String subTitleCollection;
   @override
   _SubTitleCollectionItemEditState createState() =>
       _SubTitleCollectionItemEditState();
@@ -17,8 +17,7 @@ class _SubTitleCollectionItemEditState
 
   @override
   void didChangeDependencies() {
-    _controller.text =
-        '${context.read<CollectionsItemPageModel>().getSubTitle}';
+    _controller.text = widget.subTitleCollection;
     super.didChangeDependencies();
   }
 

@@ -25,14 +25,12 @@ class PopupMenuCollectionPage extends StatelessWidget {
   final List<String> _nameList = [];
 
   Future<void> _getIdAudio(BuildContext context) async {
+    await _getIdCollection(context);
     await FirebaseFirestore.instance
         .collection(_repositoriesCollections.user!.phoneNumber!)
         .doc('id')
         .collection('Collections')
-        .where('collections',
-            arrayContains:
-                Provider.of<CollectionsItemPageModel>(context, listen: false)
-                    .getIdCollection)
+        .where('collections', arrayContains: _idCollectionsList)
         .get()
         .then((querySnapshot) {
       for (var result in querySnapshot.docs) {
@@ -91,10 +89,6 @@ class PopupMenuCollectionPage extends StatelessWidget {
     }
     await Share.shareFiles(
       listFilePath,
-      text: Provider.of<CollectionsItemPageModel>(context, listen: false)
-          .getTitle,
-      subject: Provider.of<CollectionsItemPageModel>(context, listen: false)
-          .getSubTitle,
     );
   }
 

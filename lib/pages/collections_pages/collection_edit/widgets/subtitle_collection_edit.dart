@@ -5,15 +5,27 @@ import '../../../../repositories/collections_repositories.dart';
 import '../collection_edit_model.dart';
 
 class SubTitleCollectionEdit extends StatelessWidget {
-  const SubTitleCollectionEdit({Key? key}) : super(key: key);
+  const SubTitleCollectionEdit({
+    Key? key,
+    required this.idCollection,
+    required this.titleCollection,
+    required this.subTitleCollection,
+    required this.imageCollection,
+  }) : super(key: key);
+  final String idCollection;
+  final String titleCollection;
+  final String subTitleCollection;
+  final String imageCollection;
+
   void _updateCollection(BuildContext context) {
     CollectionsRepositories().updateCollection(
-      Provider.of<CollectionsEditModel>(context, listen: false).getId,
+      idCollection,
       Provider.of<CollectionsEditModel>(context, listen: false).getTitle ??
-          'Без названия',
+          titleCollection,
       Provider.of<CollectionsEditModel>(context, listen: false).getSubTitle ??
-          '...',
-      Provider.of<CollectionsEditModel>(context, listen: false).getImage ?? '',
+          subTitleCollection,
+      Provider.of<CollectionsEditModel>(context, listen: false).getImage ??
+          imageCollection,
     );
   }
 

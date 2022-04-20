@@ -208,11 +208,13 @@ class AudioRepositories {
         size = result.data()['size'];
       }
     });
-    final state = dateTimeDelete!.compareTo(Timestamp.fromDate(later));
-    if (state >= 0) {
-      await repositories.updateSizeRepositories(-size!);
-      await CollectionsRepositories()
-          .deleteCollectionApp(idAudio!, 'DeleteCollections');
+    if (dateTimeDelete != null) {
+      final state = dateTimeDelete!.compareTo(Timestamp.fromDate(later));
+      if (state >= 0) {
+        await repositories.updateSizeRepositories(-size!);
+        await CollectionsRepositories()
+            .deleteCollectionApp(idAudio!, 'DeleteCollections');
+      }
     }
   }
 }

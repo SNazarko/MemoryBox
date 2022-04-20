@@ -5,7 +5,8 @@ import 'package:provider/src/provider.dart';
 import '../save_page_model.dart';
 
 class RenameAudioSavePage extends StatelessWidget {
-  RenameAudioSavePage({Key? key}) : super(key: key);
+  RenameAudioSavePage({Key? key, required this.audioName}) : super(key: key);
+  final String audioName;
   final Set _searchName = {};
 
   @override
@@ -28,9 +29,7 @@ class RenameAudioSavePage extends StatelessWidget {
                 .read<SavePageModel>()
                 .setNewSearchName(_searchName.toList());
           } else {
-            context.read<SavePageModel>().setNewAudioName(
-                Provider.of<SavePageModel>(context, listen: false)
-                    .getAudioName);
+            context.read<SavePageModel>().setNewAudioName(audioName);
           }
         },
         textAlign: TextAlign.center,
@@ -40,8 +39,7 @@ class RenameAudioSavePage extends StatelessWidget {
         ),
         decoration: InputDecoration(
           border: InputBorder.none,
-          hintText:
-              '${Provider.of<SavePageModel>(context, listen: false).getAudioName}',
+          hintText: audioName,
           hintStyle: const TextStyle(
             fontSize: 14.0,
             color: AppColor.colorText,

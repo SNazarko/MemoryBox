@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/collections_pages/collection/collection.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
@@ -12,41 +10,15 @@ import '../../../../resources/app_colors.dart';
 import '../../../../widgets/uncategorized/appbar_clipper.dart';
 
 class AppbarHeaderCollectionItemEditAudio extends StatelessWidget {
-  AppbarHeaderCollectionItemEditAudio({Key? key}) : super(key: key);
-  final CollectionsRepositories _rep = CollectionsRepositories();
-
-  // void _alertDone(BuildContext context) {
-  //   showDialog<String>(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         Timer(const Duration(seconds: 3), () {
-  //           Navigator.pushNamed(context, Collections.routeName);
-  //           _rep.deleteCollection(
-  //               '${Provider.of<CollectionsItemPageModel>(context, listen: false).getIdCollection}',
-  //               'CollectionsTale');
-  //           _rep.copyPastCollections(
-  //             '${Provider.of<CollectionsItemPageModel>(context, listen: false).getIdCollection}',
-  //             'CollectionsTale',
-  //             'DeleteCollections',
-  //           );
-  //         });
-  //         return AlertDialog(
-  //           insetPadding: const EdgeInsets.all(75.0),
-  //           shape: const RoundedRectangleBorder(
-  //             borderRadius: BorderRadius.all(
-  //               Radius.circular(
-  //                 20.0,
-  //               ),
-  //             ),
-  //           ),
-  //           content: Image.asset(
-  //             AppIcons.tick,
-  //             width: 175.0,
-  //             height: 175.0,
-  //           ),
-  //         );
-  //       });
-  // }
+  const AppbarHeaderCollectionItemEditAudio({
+    Key? key,
+    required this.idCollection,
+    required this.titleCollection,
+    required this.subTitleCollection,
+  }) : super(key: key);
+  final String idCollection;
+  final String titleCollection;
+  final String subTitleCollection;
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +41,15 @@ class AppbarHeaderCollectionItemEditAudio extends StatelessWidget {
               IconBack(
                 onPressed: () {
                   Navigator.pushNamed(context, Collections.routeName);
+                  CollectionsRepositories()
+                      .updateQualityAndTotalTime(idCollection);
                 },
               ),
-              PopupMenuCollectionItemEditAudioPage(),
+              PopupMenuCollectionItemEditAudioPage(
+                titleCollection: titleCollection,
+                subTitleCollection: subTitleCollection,
+                idCollection: idCollection,
+              ),
             ],
           ),
         ),
@@ -82,7 +60,7 @@ class AppbarHeaderCollectionItemEditAudio extends StatelessWidget {
               right: 15.0,
             ),
             child: Text(
-              '${context.watch<CollectionsItemPageModel>().getTitle}',
+              titleCollection,
               style: const TextStyle(
                 fontSize: 24.0,
                 color: AppColor.white100,

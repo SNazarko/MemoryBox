@@ -34,6 +34,8 @@ class RegistrationPageState extends State<RegistrationPage> {
   MobileVerificationState currentState =
       MobileVerificationState.showMobileFormState;
 
+  // bool currentState = true;
+
   final phoneController = TextEditingController();
 
   final otpController = TextEditingController();
@@ -42,37 +44,38 @@ class RegistrationPageState extends State<RegistrationPage> {
 
   String? verificationId;
 
-  // bool showLoading = false;
+  bool showLoading = false;
 
-  // void _singInWithPhoneAuthCredential(
-  //     PhoneAuthCredential phoneAuthCredential) async {
-  //   setState(() {
-  //     showLoading = true;
-  //   });
-  //   try {
-  //     final authCredential =
-  //         await _auth.signInWithCredential(phoneAuthCredential);
-  //     setState(() {
-  //       showLoading = false;
-  //       if (authCredential.user != null) {
-  //         Navigator.pushNamed(context, LastAuthorizationPage.routeName);
-  //       }
-  //     });
-  //   } on FirebaseAuthException catch (e) {
-  //     setState(() {
-  //       showLoading = false;
-  //     });
-  //     _scaffoldKey.currentState!.showSnackBar(
-  //       SnackBar(
-  //         content: Text(e.message!),
-  //       ),
-  //     );
-  //   }
-  // }
+  void _singInWithPhoneAuthCredential(
+      PhoneAuthCredential phoneAuthCredential) async {
+    setState(() {
+      showLoading = true;
+    });
+    try {
+      final authCredential =
+          await _auth.signInWithCredential(phoneAuthCredential);
+      setState(() {
+        showLoading = false;
+        if (authCredential.user != null) {
+          Navigator.pushNamed(context, LastAuthorizationPage.routeName);
+        }
+      });
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        showLoading = false;
+      });
+      _scaffoldKey.currentState!.showSnackBar(
+        SnackBar(
+          content: Text(e.message!),
+        ),
+      );
+    }
+  }
 
   _getMobileFormWidget(context) {
-    var showLoading = Provider.of<RegistrationPageModel>(context, listen: false)
-        .getShowLoading;
+    // final showLoading =
+    //     Provider.of<RegistrationPageModel>(context, listen: false)
+    //         .getShowLoading;
     return Column(
       children: [
         const Text(
@@ -95,7 +98,7 @@ class RegistrationPageState extends State<RegistrationPage> {
         ButtonContinue(
           // onPressed: () =>
           //     Provider.of<RegistrationPageModel>(context, listen: false)
-          //         .buttonContinue(phoneController, currentState),
+          //         .buttonContinue(context, phoneController),
           onPressed: () async {
             setState(() {
               showLoading = true;
@@ -112,11 +115,11 @@ class RegistrationPageState extends State<RegistrationPage> {
                 setState(() {
                   showLoading = false;
                 });
-                // _scaffoldKey.currentState!.showSnackBar(
-                //   SnackBar(
-                //     content: Text(verificationFailed.message!),
-                //   ),
-                // );
+                _scaffoldKey.currentState!.showSnackBar(
+                  SnackBar(
+                    content: Text(verificationFailed.message!),
+                  ),
+                );
               },
               codeSent: (verificationId, resendingToken) async {
                 setState(() {
@@ -159,9 +162,9 @@ class RegistrationPageState extends State<RegistrationPage> {
                 PhoneAuthProvider.credential(
                     verificationId: verificationId!,
                     smsCode: otpController.text);
-            Provider.of<RegistrationPageModel>(context, listen: false)
-                .singInWithPhoneAuthCredential(context, phoneAuthCredential);
-            // _singInWithPhoneAuthCredential(phoneAuthCredential);
+            // Provider.of<RegistrationPageModel>(context, listen: false)
+            //     .singInWithPhoneAuthCredential(context, phoneAuthCredential);
+            _singInWithPhoneAuthCredential(phoneAuthCredential);
           },
           text: 'Продолжыть',
         ),
@@ -169,14 +172,19 @@ class RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
-  // final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    final showLoading =
-        Provider.of<RegistrationPageModel>(context, listen: false)
-            .getShowLoading;
+    // final showLoading =
+    //     Provider.of<RegistrationPageModel>(context, listen: false)
+    //         .getShowLoading;
+    //
+    // final currentState =
+    //     Provider.of<RegistrationPageModel>(context, listen: false)
+    //         .getCurrentState;
+    // print(currentState);
     return Scaffold(
-      // key: _scaffoldKey,
+      key: _scaffoldKey,
       body: SingleChildScrollView(
         child: Column(
           children: [

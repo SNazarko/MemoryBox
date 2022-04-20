@@ -19,16 +19,23 @@ class Profile extends StatelessWidget {
   Profile({Key? key}) : super(key: key);
   static const routeName = '/profile';
   final DataModel model = DataModel();
-  final UserRepositories _rep = UserRepositories();
 
-  static Widget create() {
-    return Profile();
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<DataModel>(
+      create: (BuildContext context) => DataModel(),
+      child: ProfileCreate(),
+    );
   }
+}
+
+class ProfileCreate extends StatelessWidget {
+  ProfileCreate({Key? key}) : super(key: key);
+  final UserRepositories _rep = UserRepositories();
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -84,8 +91,29 @@ class _Links extends StatelessWidget {
       children: [
         NameAndNumber(screenWidth: screenWidth * 0.75),
         TextLink(
-          onPressed: () {
-            Navigator.pushNamed(context, ProfileEdit.routeName);
+          onPressed: () async {
+            final userName =
+                Provider.of<DataModel>(context, listen: false).getName ?? '';
+            final userImage =
+                Provider.of<DataModel>(context, listen: false).getUserImage ??
+                    '';
+            final userNumber =
+                Provider.of<DataModel>(context, listen: false).getNumber ?? '';
+            List result = await Navigator.push(context,
+                MaterialPageRoute(builder: (context) {
+              return ProfileEdit(
+                userName: userName,
+                userImage: userImage,
+                userNumber: userNumber,
+              );
+            }));
+            if (result.isNotEmpty) {
+              context.read<DataModel>().userName(result[0]);
+              context.read<DataModel>().userNumber(result[1]);
+              context.read<DataModel>().userImage(result[2]);
+
+              print(result);
+            }
           },
           text: 'Редактировать',
         ),

@@ -8,8 +8,14 @@ import '../../../authorization_pages/registration_page/registration_page.dart';
 import 'model_audio_collection_add_audio_in_collection.dart';
 
 class ListCollectionAddAudioInCollection extends StatelessWidget {
-  ListCollectionAddAudioInCollection({Key? key}) : super(key: key);
+  ListCollectionAddAudioInCollection({
+    Key? key,
+    required this.collectionAudio,
+    required this.idAudio,
+  }) : super(key: key);
   final CollectionsRepositories _rep = CollectionsRepositories();
+  final List collectionAudio;
+  final String idAudio;
 
   Widget buildCollections(CollectionsModel collections) =>
       ModelAudioCollectionAddAudioInCollection(
@@ -21,6 +27,8 @@ class ListCollectionAddAudioInCollection extends StatelessWidget {
         quality: '${collections.qualityCollections}',
         doneCollection: collections.doneCollection,
         totalTime: '${collections.totalTime}',
+        idAudio: idAudio,
+        collectionAudio: collectionAudio,
       );
 
   @override

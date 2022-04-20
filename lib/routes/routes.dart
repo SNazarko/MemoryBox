@@ -81,37 +81,83 @@ class AppRouter {
 
       // /collection_add_audio
       case CollectionsAddAudio.routeName:
-        builder = (_) => CollectionsAddAudio.create();
+        final CollectionsAddAudioArguments args =
+            arguments as CollectionsAddAudioArguments;
+        builder = (_) => CollectionsAddAudio(
+              titleCollections: args.titleCollections,
+            );
         break;
 
       // /collection_add_audio_in_collection
       case CollectionAddAudioInCollection.routeName:
-        builder = (_) => const CollectionAddAudioInCollection();
+        final CollectionAddAudioInCollectionArgument args =
+            arguments as CollectionAddAudioInCollectionArgument;
+        builder = (_) => CollectionAddAudioInCollection(
+              idAudio: args.idAudio,
+              collectionAudio: args.collectionAudio,
+            );
         break;
 
       // /collection_edit
       case CollectionsEdit.routeName:
-        builder = (_) => CollectionsEdit.create();
+        final CollectionsEditArguments args =
+            arguments as CollectionsEditArguments;
+        builder = (_) => CollectionsEdit(
+              idCollection: args.idCollection!,
+              titleCollection: args.titleCollection!,
+              subTitleCollection: args.subTitleCollection!,
+              imageCollection: args.imageCollection!,
+            );
         break;
 
       // /collection_item
       case CollectionsItemPage.routeName:
-        builder = (_) => CollectionsItemPage.create();
+        final CollectionsItemPageArguments args =
+            arguments as CollectionsItemPageArguments;
+        builder = (_) => CollectionsItemPage(
+              qualityCollection: args.qualityCollection,
+              dataCollection: args.dataCollection,
+              titleCollection: args.titleCollection,
+              imageCollection: args.imageCollection,
+              totalTimeCollection: args.totalTimeCollection,
+              subTitleCollection: args.subTitleCollection,
+              idCollection: args.idCollection,
+            );
         break;
 
       // /collection_item_edit
       case CollectionItemEditPage.routeName:
-        builder = (_) => const CollectionItemEditPage();
+        final CollectionItemEditPageArguments args =
+            arguments as CollectionItemEditPageArguments;
+        builder = (_) => CollectionItemEditPage(
+              subTitleCollection: args.subTitleCollection,
+              qualityCollection: args.qualityCollection,
+              dataCollection: args.dataCollection,
+              idCollection: args.idCollection,
+              totalTimeCollection: args.totalTimeCollection,
+              imageCollection: args.imageCollection,
+              titleCollection: args.titleCollection,
+            );
         break;
 
       // /collection_item_edit_audio
       case CollectionItemEditAudio.routeName:
-        builder = (_) => const CollectionItemEditAudio();
+        final CollectionItemEditAudioArguments args =
+            arguments as CollectionItemEditAudioArguments;
+        builder = (_) => CollectionItemEditAudio(
+              subTitleCollection: args.subTitleCollection,
+              qualityCollection: args.qualityCollection,
+              dataCollection: args.dataCollection,
+              idCollection: args.idCollection,
+              totalTimeCollection: args.totalTimeCollection,
+              imageCollection: args.imageCollection,
+              titleCollection: args.titleCollection,
+            );
         break;
 
       // delete_pages
       case DeletePage.routeName:
-        builder = (_) => DeletePage();
+        builder = (_) => DeletePage.create();
         break;
 
       // home_page
@@ -123,12 +169,17 @@ class AppRouter {
 
       // /profile_edit_page
       case ProfileEdit.routeName:
-        builder = (_) => ProfileEdit.create();
+        final ProfileEditArguments args = arguments as ProfileEditArguments;
+        builder = (_) => ProfileEdit(
+              userImage: args.userImage,
+              userNumber: args.userNumber,
+              userName: args.userName,
+            );
         break;
 
       // /profile_page
       case Profile.routeName:
-        builder = (_) => Profile.create();
+        builder = (_) => Profile();
         break;
 
       // recordings_page
@@ -138,18 +189,23 @@ class AppRouter {
 
       // save_page
       case SavePage.routeName:
-        final SavePage args = arguments as SavePage;
+        final SavePageArguments args = arguments as SavePageArguments;
         builder = (_) => SavePage(
-              duration: args.duration,
-              image: args.image,
-              url: args.url,
-              name: args.name,
+              audioUrl: args.audioUrl,
+              audioDone: args.audioDone,
+              audioImage: args.audioImage,
+              audioDuration: args.audioDuration,
+              audioName: args.audioName,
+              audioSearchName: args.audioSearchName,
+              audioTime: args.audioTime,
+              idAudio: args.idAudio,
+              audioCollection: args.audioCollection,
             );
         break;
 
       // search_page
       case SearchPage.routeName:
-        builder = (_) => SearchPage();
+        builder = (_) => const SearchPage();
         break;
 
       // subscription_page

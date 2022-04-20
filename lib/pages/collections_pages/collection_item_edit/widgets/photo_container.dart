@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/uncategorized/container_shadow.dart';
 import 'package:memory_box/widgets/button/icon_camera.dart';
@@ -8,7 +7,9 @@ import 'package:provider/provider.dart';
 import '../collection_item_edit_page_model.dart';
 
 class PhotoContainer extends StatelessWidget {
-  const PhotoContainer({Key? key}) : super(key: key);
+  const PhotoContainer({Key? key, required this.imageCollection})
+      : super(key: key);
+  final String imageCollection;
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +17,7 @@ class PhotoContainer extends StatelessWidget {
     final String? singleImage =
         Provider.of<CollectionItemEditPageModel>(context, listen: false)
             .getSingleImage;
-    final String image =
-        Provider.of<CollectionsItemPageModel>(context, listen: false).getPhoto;
-    if (image == '') {
+    if (imageCollection == '') {
       return Padding(
         padding: const EdgeInsets.only(
           left: 15.0,
@@ -61,7 +60,7 @@ class PhotoContainer extends StatelessWidget {
                   fit: BoxFit.fitWidth,
                 )
               : Image.network(
-                  '${Provider.of<CollectionsItemPageModel>(context, listen: false).getPhoto}',
+                  imageCollection,
                   fit: BoxFit.fitWidth,
                 ),
           width: screenWidth * 0.955,

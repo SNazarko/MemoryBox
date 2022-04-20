@@ -38,12 +38,9 @@ class CollectionsRepositories {
 
   // Add Collections in Firebase
 
-  Future<void> addCollections(
-      String titleCollections,
-      String subTitleCollections,
-      String avatarCollections,
-      BuildContext context) async {
-    var id = uuid.v1();
+  Future<void> addCollections(String titleCollections,
+      String subTitleCollections, String avatarCollections, id) async {
+    // var id = uuid.v1();
     final _todayDate = DateTime.now();
     final model = CollectionsModel(
       id: id,
@@ -68,12 +65,6 @@ class CollectionsRepositories {
         .collection('CollectionsTale')
         .doc(id)
         .set(json);
-    Provider.of<CollectionsEditModel>(context, listen: false).setId(id);
-    Provider.of<CollectionsEditModel>(context, listen: false)
-        .userTitle('Без названия');
-    Provider.of<CollectionsEditModel>(context, listen: false)
-        .userSubTitle('...');
-    Provider.of<CollectionsEditModel>(context, listen: false).image('');
   }
 
   // Delete file from Applications

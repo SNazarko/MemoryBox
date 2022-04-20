@@ -1,21 +1,25 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/utils/constants.dart';
 import 'package:memory_box/widgets/uncategorized/container_shadow.dart';
-import 'package:provider/provider.dart';
-import '../collections_item_page_model.dart';
 import '../../../../animation/collection_item_page_player/buttom_play_pause.dart';
 
 class PhotoContainer extends StatelessWidget {
   const PhotoContainer({
     Key? key,
+    required this.imageCollection,
+    required this.qualityCollection,
+    required this.dataCollection,
+    required this.totalTimeCollection,
   }) : super(key: key);
+  final String imageCollection;
+  final String qualityCollection;
+  final String dataCollection;
+  final String totalTimeCollection;
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    final String image = context.watch<CollectionsItemPageModel>().getPhoto;
-    if (image == '') {
+    if (imageCollection == '') {
       return Padding(
         padding: const EdgeInsets.only(
           left: 15.0,
@@ -36,7 +40,7 @@ class PhotoContainer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${context.watch<CollectionsItemPageModel>().getData}',
+                    dataCollection,
                     style: kTitle4TextStyle,
                   ),
                   Row(
@@ -46,11 +50,11 @@ class PhotoContainer extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${context.watch<CollectionsItemPageModel>().getQuality} аудио',
+                            '$qualityCollection аудио',
                             style: kTitle2TextStyle,
                           ),
                           Text(
-                            '${context.watch<CollectionsItemPageModel>().getTotalTime} часа',
+                            '$totalTimeCollection часа',
                             style: kTitle2TextStyle,
                           ),
                         ],
@@ -71,7 +75,7 @@ class PhotoContainer extends StatelessWidget {
         ),
         child: ContainerShadow(
             image: Image.network(
-              image,
+              imageCollection,
               fit: BoxFit.fitWidth,
             ),
             width: screenWidth * 0.955,
@@ -84,7 +88,7 @@ class PhotoContainer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${context.watch<CollectionsItemPageModel>().getData}',
+                    '$dataCollection',
                     style: kTitle4TextStyle,
                   ),
                   Row(
@@ -94,11 +98,11 @@ class PhotoContainer extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${context.watch<CollectionsItemPageModel>().getQuality} аудио',
+                            '$qualityCollection аудио',
                             style: kTitle2TextStyle,
                           ),
                           Text(
-                            '${context.watch<CollectionsItemPageModel>().getTotalTime} часа',
+                            '$totalTimeCollection часа',
                             style: kTitle2TextStyle,
                           ),
                         ],

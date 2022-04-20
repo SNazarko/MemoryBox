@@ -9,7 +9,23 @@ import '../../../../widgets/uncategorized/appbar_clipper.dart';
 import '../collections_item_page_model.dart';
 
 class AppbarHeaderCollectionItem extends StatelessWidget {
-  const AppbarHeaderCollectionItem({Key? key}) : super(key: key);
+  const AppbarHeaderCollectionItem({
+    Key? key,
+    required this.titleCollection,
+    required this.idCollection,
+    required this.subTitleCollection,
+    required this.qualityCollection,
+    required this.imageCollection,
+    required this.dataCollection,
+    required this.totalTimeCollection,
+  }) : super(key: key);
+  final String idCollection;
+  final String titleCollection;
+  final String subTitleCollection;
+  final String qualityCollection;
+  final String imageCollection;
+  final String dataCollection;
+  final String totalTimeCollection;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +50,15 @@ class AppbarHeaderCollectionItem extends StatelessWidget {
                   Navigator.pop(context);
                 },
               ),
-              PopupMenuCollectionItemPage(),
+              PopupMenuCollectionItemPage(
+                idCollection: idCollection,
+                subTitleCollection: subTitleCollection,
+                totalTimeCollection: totalTimeCollection,
+                imageCollection: imageCollection,
+                titleCollection: titleCollection,
+                dataCollection: dataCollection,
+                qualityCollection: qualityCollection,
+              ),
             ],
           ),
         ),
@@ -45,7 +69,7 @@ class AppbarHeaderCollectionItem extends StatelessWidget {
               right: 15.0,
             ),
             child: Text(
-              '${context.watch<CollectionsItemPageModel>().getTitle}',
+              titleCollection,
               style: const TextStyle(
                 fontSize: 24.0,
                 color: AppColor.white100,

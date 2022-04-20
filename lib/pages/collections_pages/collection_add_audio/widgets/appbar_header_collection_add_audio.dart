@@ -7,6 +7,7 @@ import 'package:memory_box/widgets/button/icon_back.dart';
 import 'package:provider/src/provider.dart';
 
 import '../../../../widgets/uncategorized/appbar_clipper.dart';
+import '../collections_add_audio_model.dart';
 
 class AppbarHeaderCollectionAddAudio extends StatelessWidget {
   const AppbarHeaderCollectionAddAudio({Key? key}) : super(key: key);
@@ -93,7 +94,7 @@ class _SearchPanel extends StatelessWidget {
                     onChanged: (searchTxt) {
                       var text = searchTxt;
                       context
-                          .read<SearchPageModel>()
+                          .read<CollectionsAddAudioModel>()
                           .setSearchAddAudio(text.toLowerCase());
                     },
                     style: const TextStyle(

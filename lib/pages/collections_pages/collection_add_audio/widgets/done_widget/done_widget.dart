@@ -13,8 +13,10 @@ class DoneWidget extends StatefulWidget {
     required this.id,
     required this.done,
     required this.collection,
+    required this.titleCollections,
   }) : super(key: key);
-  final String? id;
+  final String id;
+  final String titleCollections;
   final List collection;
   final bool? done;
 
@@ -32,17 +34,15 @@ class _DoneWidgetState extends State<DoneWidget> {
         .collection(_repAud.user!.phoneNumber!)
         .doc('id')
         .collection('CollectionsTale')
-        .where('titleCollections',
-            isEqualTo: Provider.of<CollectionsEditModel>(context, listen: false)
-                .getTitle)
+        .where('titleCollections', isEqualTo: widget.titleCollections)
         .get()
         .then((querySnapshot) {
       for (var result in querySnapshot.docs) {
         idCollection = result.data()['id'];
       }
     });
-    Provider.of<CollectionsEditModel>(context, listen: false)
-        .setId(idCollection!);
+    // Provider.of<CollectionsEditModel>(context, listen: false)
+    //     .setId(idCollection!);
   }
 
   Future<void> _onTapDone(BuildContext context) async {
@@ -51,20 +51,20 @@ class _DoneWidgetState extends State<DoneWidget> {
       await _getIdCollection(context);
       await _repAud.addAudioCollections(
         idCollection!,
-        widget.id!,
+        widget.id,
         widget.collection,
         false,
       );
       // context.read<ModelDone>().doneWidget();
-      _repAud.doneAudioItem(widget.id!, false, 'Collections');
+      _repAud.doneAudioItem(widget.id, false, 'Collections');
       setState(() {});
     }
     if (_done) {
       await _getIdCollection(context);
       await _repAud.addAudioCollections(
-          idCollection!, widget.id!, widget.collection, true);
+          idCollection!, widget.id, widget.collection, true);
       // context.read<ModelDone>().doneWidget();
-      _repAud.doneAudioItem(widget.id!, true, 'Collections');
+      _repAud.doneAudioItem(widget.id, true, 'Collections');
       setState(() {});
     }
   }

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:provider/src/provider.dart';
 
 import '../../../../repositories/audio_repositories.dart';
 
@@ -15,6 +13,7 @@ class DoneCollectionItemEditAudio extends StatefulWidget {
     this.audio,
     this.duration,
     this.collection,
+    required this.idCollection,
   }) : super(key: key);
   final String? id;
   final String? name;
@@ -22,6 +21,7 @@ class DoneCollectionItemEditAudio extends StatefulWidget {
   final String? duration;
   final bool? done;
   final List? collection;
+  final String idCollection;
 
   @override
   State<DoneCollectionItemEditAudio> createState() =>
@@ -34,17 +34,10 @@ class _DoneCollectionItemEditAudioState
   final CollectionsRepositories _repColl = CollectionsRepositories();
 
   Future<void> _onTapDone() async {
-    await _repAud.addAudioCollections(
-        Provider.of<CollectionsItemPageModel>(context, listen: false)
-            .getIdCollection,
-        widget.id!,
-        widget.collection!,
-        !widget.collection!.contains(
-            Provider.of<CollectionsItemPageModel>(context, listen: false)
-                .getIdCollection));
+    await _repAud.addAudioCollections(widget.idCollection, widget.id!,
+        widget.collection!, !widget.collection!.contains(widget.idCollection));
     await _repColl.updateQualityAndTotalTime(
-      Provider.of<CollectionsItemPageModel>(context, listen: false)
-          .getIdCollection,
+      widget.idCollection,
     );
     setState(() {});
   }
@@ -67,10 +60,7 @@ class _DoneCollectionItemEditAudioState
           child: Center(
             child: Icon(
               Icons.done,
-              color: widget.collection!.contains(
-                      Provider.of<CollectionsItemPageModel>(context,
-                              listen: false)
-                          .getIdCollection)
+              color: widget.collection!.contains(widget.idCollection)
                   ? AppColor.colorText
                   : AppColor.white,
             ),

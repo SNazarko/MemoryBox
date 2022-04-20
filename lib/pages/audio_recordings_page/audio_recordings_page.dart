@@ -9,7 +9,6 @@ import '../../repositories/user_repositories.dart';
 import '../../utils/constants.dart';
 import '../../widgets/player/player_collections/player_collections.dart';
 
-
 class AudioRecordingsPage extends StatelessWidget {
   AudioRecordingsPage({Key? key}) : super(key: key);
   final UserRepositories rep = UserRepositories();
@@ -41,20 +40,22 @@ class AudioRecordingsPage extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Stack(
-                children: [
-                  rep.user == null
-                      ? const ListPlayerNotAuthorization()
-                      : ListPlayer(),
-                  rep.user == null
-                      ? const AppbarHeaderAudioRecordingsNotAuthorization()
-                      : AppbarHeaderAudioRecordings(),
-                ],
-              ),
-            ],
+          SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Stack(
+                  children: [
+                    rep.user == null
+                        ? const ListPlayerNotAuthorization()
+                        : ListPlayer(),
+                    rep.user == null
+                        ? const AppbarHeaderAudioRecordingsNotAuthorization()
+                        : AppbarHeaderAudioRecordings(),
+                  ],
+                ),
+              ],
+            ),
           ),
           Align(
             alignment: Alignment.bottomCenter,

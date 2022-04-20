@@ -34,26 +34,20 @@ class PopupMenuHomePage extends StatelessWidget {
   final List searchName;
   final String idAudio;
   final List collection;
-  void _init(BuildContext context) {
-    context.read<SavePageModel>().setCollection(collection);
-    context.read<SavePageModel>().setIdAudio(idAudio);
-    context.read<SavePageModel>().setAudioName(name);
-    context.read<SavePageModel>().setAudioUrl(url);
-    context.read<SavePageModel>().setDuration(duration);
-    context.read<SavePageModel>().setDone(done);
-    context.read<SavePageModel>().setDateTime(dateTime);
-    context.read<SavePageModel>().setSearchName(searchName);
-  }
 
   void _rename(BuildContext context) {
     Timer(const Duration(seconds: 1), () {
-      _init(context);
       Navigator.push(context, MaterialPageRoute(builder: (context) {
         return SavePage(
-          image: image,
-          url: url,
-          duration: duration,
-          name: name,
+          audioUrl: url,
+          audioImage: image,
+          audioDone: done,
+          audioTime: dateTime,
+          audioSearchName: searchName,
+          audioCollection: collection,
+          idAudio: idAudio,
+          audioDuration: duration,
+          audioName: name,
         );
       }));
     });
@@ -61,12 +55,15 @@ class PopupMenuHomePage extends StatelessWidget {
 
   void _addInCollections(BuildContext context) {
     Timer(const Duration(seconds: 1), () {
-      context
-          .read<CollectionAddAudioInCollectionModel>()
-          .setCollectionAudio(collection);
-      context.read<CollectionAddAudioInCollectionModel>().setIdAudio(idAudio);
+      // context
+      //     .read<CollectionAddAudioInCollectionModel>()
+      //     .setCollectionAudio(collection);
+      // context.read<CollectionAddAudioInCollectionModel>().setIdAudio(idAudio);
       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return const CollectionAddAudioInCollection();
+        return CollectionAddAudioInCollection(
+          collectionAudio: collection,
+          idAudio: idAudio,
+        );
       }));
     });
   }

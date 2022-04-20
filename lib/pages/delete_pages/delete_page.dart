@@ -5,13 +5,20 @@ import 'package:memory_box/pages/delete_pages/widgets/model_delete_not_authoriza
 import 'package:memory_box/pages/delete_pages/widgets/popup_menu_delete_page.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/utils/constants.dart';
+import 'package:provider/provider.dart';
+
+import 'delete_page_model.dart';
 
 class DeletePage extends StatelessWidget {
   DeletePage({Key? key}) : super(key: key);
   static const routeName = '/delete_page';
+
   final UserRepositories rep = UserRepositories();
   static Widget create() {
-    return DeletePage();
+    return ChangeNotifierProvider<DeletePageModel>(
+      create: (BuildContext context) => DeletePageModel(),
+      child: DeletePage(),
+    );
   }
 
   @override

@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:memory_box/pages/search_page/search_page_model.dart';
 import 'package:memory_box/pages/search_page/widgets/appbar_header_search_page.dart';
 import 'package:memory_box/pages/search_page/widgets/list_players_search_page.dart';
 import 'package:memory_box/pages/search_page/widgets/list_players_search_page_not_is_authorization.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/utils/constants.dart';
+import 'package:provider/provider.dart';
 
 class SearchPage extends StatelessWidget {
-  SearchPage({Key? key}) : super(key: key);
+  const SearchPage({Key? key}) : super(key: key);
   static const routeName = '/search_page';
-  final UserRepositories _arg = UserRepositories();
-  static Widget create() {
-    return SearchPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<SearchPageModel>(
+      create: (BuildContext context) => SearchPageModel(),
+      child: const SavePageCreate(),
+    );
   }
+}
+
+class SavePageCreate extends StatelessWidget {
+  const SavePageCreate({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +46,7 @@ class SearchPage extends StatelessWidget {
           children: [
             Stack(
               children: [
-                _arg.user == null
+                UserRepositories().user == null
                     ? const ListPlayersSearchPageNotIsAuthorization()
                     : ListPlayersSearchPage(),
                 const AppbarHeaderSearchPage(),

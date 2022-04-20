@@ -1,20 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:memory_box/pages/profile_pages/profile_edit_page/profile_edit_page_model.dart';
 import 'package:memory_box/pages/profile_pages/profile_edit_page/widgets/appbar_header_profile_edit.dart';
 import 'package:memory_box/pages/profile_pages/profile_edit_page/widgets/photo_profile_edit.dart';
-import 'package:memory_box/pages/profile_pages/profile_model.dart';
 import 'package:memory_box/repositories/preferences_data_model_user.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/uncategorized/textfield_input.dart';
 import 'package:provider/provider.dart';
 
-class ProfileEdit extends StatelessWidget {
-  const ProfileEdit({Key? key}) : super(key: key);
-  static const routeName = '/profile_edit';
+class ProfileEditArguments {
+  ProfileEditArguments(this.userName, this.userNumber, this.userImage);
+  final String userName;
+  final String userNumber;
+  final String userImage;
+}
 
-  static Widget create() {
-    return const ProfileEdit();
+class ProfileEdit extends StatelessWidget {
+  const ProfileEdit(
+      {Key? key,
+      required this.userName,
+      required this.userNumber,
+      required this.userImage})
+      : super(key: key);
+  static const routeName = '/profile_edit';
+  final String userName;
+  final String userNumber;
+  final String userImage;
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<ProfileEditPageModel>(
+      create: (BuildContext context) => ProfileEditPageModel(),
+      child: ProfileEditCreate(
+        userName: userName,
+        userImage: userImage,
+        userNumber: userNumber,
+      ),
+    );
   }
+}
+
+class ProfileEditCreate extends StatelessWidget {
+  const ProfileEditCreate({
+    Key? key,
+    required this.userName,
+    required this.userNumber,
+    required this.userImage,
+  }) : super(key: key);
+  final String userName;
+  final String userNumber;
+  final String userImage;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +75,11 @@ class ProfileEdit extends StatelessWidget {
                   children: [
                     const _TextFieldName(),
                     const _TextFieldNumber(),
-                    _SaveButton()
+                    _SaveButton(
+                      userName: userName,
+                      userImage: userImage,
+                      userNumber: userNumber,
+                    )
                   ],
                 ),
               ),
@@ -67,7 +106,7 @@ class _TextFieldName extends StatelessWidget {
           height: 40.0,
           child: TextField(
             onChanged: (userName) {
-              context.read<DataModel>().userName(userName);
+              context.read<ProfileEditPageModel>().setName(userName);
             },
             style: const TextStyle(fontSize: 24.0),
             textAlign: TextAlign.center,
@@ -90,7 +129,7 @@ class _TextFieldNumber extends StatelessWidget {
         ),
         TextFieldInput(
           onChanged: (userNumber) {
-            context.read<DataModel>().userNumber(userNumber);
+            context.read<ProfileEditPageModel>().setNumber(userNumber);
           },
         ),
       ],
@@ -99,18 +138,36 @@ class _TextFieldNumber extends StatelessWidget {
 }
 
 class _SaveButton extends StatelessWidget {
-  _SaveButton({Key? key}) : super(key: key);
+  _SaveButton({
+    Key? key,
+    required this.userName,
+    required this.userNumber,
+    required this.userImage,
+  }) : super(key: key);
   final PreferencesDataUser _preferencesDataUser = PreferencesDataUser();
   final UserRepositories _repositories = UserRepositories();
+  final String userName;
+  final String userNumber;
+  final String userImage;
 
   Future<void> saveUser(BuildContext context) async {
-    Navigator.pop(context);
     final String image =
-        Provider.of<DataModel>(context, listen: false).getUserImage!;
-    final String name = Provider.of<DataModel>(context, listen: false).getName!;
-    _preferencesDataUser.saveName(name);
+        Provider.of<ProfileEditPageModel>(context, listen: false)
+                .getSingleImage ??
+            userImage;
+    final String name =
+        Provider.of<ProfileEditPageModel>(context, listen: false).getName ??
+            userName;
     final String number =
-        Provider.of<DataModel>(context, listen: false).getNumber!;
+        Provider.of<ProfileEditPageModel>(context, listen: false).getNumber ??
+            userNumber;
+
+    Navigator.pop(context, [
+      name,
+      number,
+      image,
+    ]);
+    _preferencesDataUser.saveName(name);
     _preferencesDataUser.saveNumber(number);
     _repositories.updateNameNumber(name, number, image);
   }

@@ -10,17 +10,31 @@ import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/co
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/button/popup_menu_button.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../../repositories/collections_repositories.dart';
 import '../../collection/collection.dart';
-import '../collections_item_page_model.dart';
 import 'package:collection/collection.dart';
 
 class PopupMenuCollectionItemPage extends StatelessWidget {
-  PopupMenuCollectionItemPage({Key? key}) : super(key: key);
+  PopupMenuCollectionItemPage({
+    Key? key,
+    required this.idCollection,
+    required this.titleCollection,
+    required this.subTitleCollection,
+    required this.qualityCollection,
+    required this.imageCollection,
+    required this.dataCollection,
+    required this.totalTimeCollection,
+  }) : super(key: key);
   final CollectionsRepositories _rep = CollectionsRepositories();
+  final String idCollection;
+  final String titleCollection;
+  final String subTitleCollection;
+  final String qualityCollection;
+  final String imageCollection;
+  final String dataCollection;
+  final String totalTimeCollection;
   List<String> idAudioList = [];
   List<String> nameList = [];
 
@@ -29,10 +43,7 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
         .collection(_rep.user!.phoneNumber!)
         .doc('id')
         .collection('Collections')
-        .where('collections',
-            arrayContains:
-                Provider.of<CollectionsItemPageModel>(context, listen: false)
-                    .getIdCollection)
+        .where('collections', arrayContains: idCollection)
         .get()
         .then((querySnapshot) {
       for (var result in querySnapshot.docs) {
@@ -62,7 +73,17 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
           'Редактировать',
           () {
             Timer(const Duration(seconds: 1), () {
-              Navigator.pushNamed(context, CollectionItemEditPage.routeName);
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return CollectionItemEditPage(
+                  qualityCollection: qualityCollection,
+                  dataCollection: dataCollection,
+                  titleCollection: titleCollection,
+                  imageCollection: imageCollection,
+                  idCollection: idCollection,
+                  totalTimeCollection: totalTimeCollection,
+                  subTitleCollection: subTitleCollection,
+                );
+              }));
             });
           },
         ),
@@ -70,7 +91,17 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
           'Выбрать несколько',
           () {
             Timer(const Duration(seconds: 1), () {
-              Navigator.pushNamed(context, CollectionItemEditAudio.routeName);
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return CollectionItemEditAudio(
+                  qualityCollection: qualityCollection,
+                  dataCollection: dataCollection,
+                  titleCollection: titleCollection,
+                  imageCollection: imageCollection,
+                  idCollection: idCollection,
+                  totalTimeCollection: totalTimeCollection,
+                  subTitleCollection: subTitleCollection,
+                );
+              }));
             });
           },
         ),
@@ -79,8 +110,7 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
           () {
             Timer(const Duration(seconds: 1), () {
               CollectionsRepositories().deleteCollection(
-                Provider.of<CollectionsItemPageModel>(context, listen: false)
-                    .getIdCollection,
+                idCollection,
                 'CollectionsTale',
               );
               Navigator.pushNamed(context, Collections.routeName);
@@ -110,12 +140,8 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
             }
             await Share.shareFiles(
               listFilePath,
-              text:
-                  Provider.of<CollectionsItemPageModel>(context, listen: false)
-                      .getTitle,
-              subject:
-                  Provider.of<CollectionsItemPageModel>(context, listen: false)
-                      .getSubTitle,
+              text: titleCollection,
+              subject: subTitleCollection,
             );
           },
         ),

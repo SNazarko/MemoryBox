@@ -14,6 +14,7 @@ class PlayerMiniPodborki extends StatefulWidget {
     required this.done,
     required this.id,
     required this.collection,
+    required this.titleCollections,
   }) : super(key: key);
   final String url;
   final String name;
@@ -21,6 +22,7 @@ class PlayerMiniPodborki extends StatefulWidget {
   final bool done;
   final String id;
   final List collection;
+  final String titleCollections;
 
   @override
   State<PlayerMiniPodborki> createState() => _PlayerMiniPodborkiState();
@@ -158,6 +160,7 @@ class _PlayerMiniPodborkiState extends State<PlayerMiniPodborki> {
               id: widget.id,
               done: widget.done,
               collection: widget.collection,
+              titleCollections: widget.titleCollections,
             )
           ],
         ),

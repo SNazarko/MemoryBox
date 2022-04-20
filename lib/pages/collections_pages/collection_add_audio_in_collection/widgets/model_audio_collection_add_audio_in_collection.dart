@@ -1,3 +1,4 @@
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +18,8 @@ class ModelAudioCollectionAddAudioInCollection extends StatefulWidget {
     this.doneCollection,
     this.id,
     this.totalTime,
+    required this.collectionAudio,
+    required this.idAudio,
   }) : super(key: key);
   final String? id;
   final String? title;
@@ -25,6 +28,8 @@ class ModelAudioCollectionAddAudioInCollection extends StatefulWidget {
   final String? image;
   final String? data;
   final String? totalTime;
+  final List collectionAudio;
+  final String idAudio;
   bool? doneCollection = false;
 
   @override
@@ -39,9 +44,7 @@ class _ModelAudioCollectionAddAudioInCollectionState
   final bool done = true;
   @override
   void initState() {
-    final List collectionAudio =
-        Provider.of<CollectionAddAudioInCollectionModel>(context, listen: false)
-            .getCollectionAudio;
+    final List collectionAudio = widget.collectionAudio;
     collectionAudio.contains(widget.id)
         ? _repColl.doneCollections(
             widget.id!,
@@ -57,36 +60,35 @@ class _ModelAudioCollectionAddAudioInCollectionState
   Future<void> _onPressedDone(BuildContext context) async {
     widget.doneCollection = !widget.doneCollection!;
     if (!widget.doneCollection!) {
-      _repColl.doneCollections(
+      await _repColl.doneCollections(
         widget.id!,
         false,
       );
-      _repAud.addAudioCollections(
+      await _repAud.addAudioCollections(
         widget.id!,
-        Provider.of<CollectionAddAudioInCollectionModel>(context, listen: false)
-            .getIdAudio,
-        Provider.of<CollectionAddAudioInCollectionModel>(context, listen: false)
-            .getCollectionAudio,
+        widget.idAudio,
+        widget.collectionAudio,
         false,
+      );
+      await _repColl.updateQualityAndTotalTime(
+        widget.id!,
       );
     }
     if (widget.doneCollection!) {
-      _repColl.doneCollections(
+      await _repColl.doneCollections(
         widget.id!,
         true,
       );
-      _repAud.addAudioCollections(
+      await _repAud.addAudioCollections(
         widget.id!,
-        Provider.of<CollectionAddAudioInCollectionModel>(context, listen: false)
-            .getIdAudio,
-        Provider.of<CollectionAddAudioInCollectionModel>(context, listen: false)
-            .getCollectionAudio,
+        widget.idAudio,
+        widget.collectionAudio,
         true,
+      );
+      await _repColl.updateQualityAndTotalTime(
+        widget.id!,
       );
     }
-    _repColl.updateQualityAndTotalTime(
-      widget.id!,
-    );
   }
 
   @override

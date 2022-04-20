@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:memory_box/resources/app_icons.dart';
-import 'package:memory_box/widgets/player/player_collections/player_collection_model.dart';
 
 import '../../../repositories/audio_repositories.dart';
 import '../../../repositories/collections_repositories.dart';
@@ -30,7 +29,6 @@ class PlayerCollections extends StatefulWidget {
 }
 
 class PlayerCollectionsState extends State<PlayerCollections> {
-  PlayerCollectionModel playerCollectionModel = PlayerCollectionModel();
   final _audioPlayer = ap.AudioPlayer();
   late StreamSubscription<ap.PlayerState> _playerStateChangedSubscription;
   late StreamSubscription<Duration?> _durationChangedSubscription;

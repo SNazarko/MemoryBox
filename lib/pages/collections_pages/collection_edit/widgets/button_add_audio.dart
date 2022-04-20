@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/collections_pages/collection_add_audio/collections_add_audio.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
@@ -7,24 +6,40 @@ import 'package:provider/provider.dart';
 import '../collection_edit_model.dart';
 
 class ButtonAddAudio extends StatelessWidget {
-  const ButtonAddAudio({Key? key}) : super(key: key);
+  const ButtonAddAudio({
+    Key? key,
+    required this.idCollection,
+    required this.titleCollection,
+    required this.subTitleCollection,
+    required this.imageCollection,
+  }) : super(key: key);
+  final String idCollection;
+  final String titleCollection;
+  final String subTitleCollection;
+  final String imageCollection;
 
-  void _addAudioInCollection(BuildContext context) {
+  void _addAudioInCollection(BuildContext context, String title) {
     CollectionsRepositories().updateCollection(
-      Provider.of<CollectionsEditModel>(context, listen: false).getId,
-      Provider.of<CollectionsEditModel>(context, listen: false).getTitle ??
-          'Без названия',
-      Provider.of<CollectionsEditModel>(context, listen: false).getSubTitle ??
-          '...',
-      Provider.of<CollectionsEditModel>(context, listen: false).getImage ?? '',
-    );
-    Navigator.pushNamed(context, CollectionsAddAudio.routeName);
+        idCollection,
+        Provider.of<CollectionsEditModel>(context, listen: false).getTitle ??
+            titleCollection,
+        Provider.of<CollectionsEditModel>(context, listen: false).getSubTitle ??
+            subTitleCollection,
+        Provider.of<CollectionsEditModel>(context, listen: false).getImage ??
+            imageCollection);
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return CollectionsAddAudio(titleCollections: title);
+    }));
   }
 
   @override
   Widget build(BuildContext context) {
+    final title =
+        Provider.of<CollectionsEditModel>(context, listen: false).getTitle ??
+            titleCollection;
     return TextButton(
-        onPressed: () => _addAudioInCollection(context),
+        onPressed: () => _addAudioInCollection(context, title),
         child: const Center(
           child: Text(
             'Добавить аудиофайл',

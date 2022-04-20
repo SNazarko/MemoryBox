@@ -5,7 +5,9 @@ import 'package:memory_box/utils/constants.dart';
 import 'package:provider/provider.dart';
 
 class SubTitle extends StatefulWidget {
-  const SubTitle({Key? key}) : super(key: key);
+  const SubTitle({Key? key, required this.subTitleCollection})
+      : super(key: key);
+  final String subTitleCollection;
 
   @override
   State<SubTitle> createState() => _SubTitleState();
@@ -25,8 +27,7 @@ class _SubTitleState extends State<SubTitle> {
           padding: const EdgeInsets.only(
             left: 28.0,
           ),
-          child: Text(
-              '${context.watch<CollectionsItemPageModel>().getSubTitle}',
+          child: Text(widget.subTitleCollection,
               style: kBodi2TextStyle,
               maxLines: allText ? 4 : 100,
               overflow: TextOverflow.ellipsis),

@@ -7,15 +7,21 @@ import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/button/popup_menu_button.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:provider/provider.dart';
 import 'package:collection/collection.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:share_plus/share_plus.dart';
 import '../../../../repositories/audio_repositories.dart';
-import '../../collection_item/collections_item_page_model.dart';
 
 class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
-  PopupMenuCollectionItemEditAudioPage({Key? key}) : super(key: key);
+  PopupMenuCollectionItemEditAudioPage({
+    Key? key,
+    required this.idCollection,
+    required this.titleCollection,
+    required this.subTitleCollection,
+  }) : super(key: key);
+  final String idCollection;
+  final String titleCollection;
+  final String subTitleCollection;
   final AudioRepositories _repAud = AudioRepositories();
   final List<String> idAudioList = [];
   final List<String> nameList = [];
@@ -26,10 +32,7 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
         .collection(_repAud.user!.phoneNumber!)
         .doc('id')
         .collection('Collections')
-        .where('collections',
-            arrayContains:
-                Provider.of<CollectionsItemPageModel>(context, listen: false)
-                    .getIdCollection)
+        .where('collections', arrayContains: idCollection)
         .get()
         .then((querySnapshot) {
       for (var result in querySnapshot.docs) {
@@ -50,11 +53,7 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
       final collectionsTemp = item[1];
       final collections = collectionsTemp as List;
       await _repAud.addAudioCollections(
-          Provider.of<CollectionsItemPageModel>(context, listen: false)
-              .getIdCollection,
-          '$idAudio',
-          collections,
-          true);
+          idCollection, '$idAudio', collections, true);
     }
   }
 
@@ -79,10 +78,8 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
     }
     await Share.shareFiles(
       listFilePath,
-      text: Provider.of<CollectionsItemPageModel>(context, listen: false)
-          .getTitle,
-      subject: Provider.of<CollectionsItemPageModel>(context, listen: false)
-          .getSubTitle,
+      text: titleCollection,
+      subject: subTitleCollection,
     );
   }
 
@@ -139,11 +136,7 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
       final collectionsTemp = item[1];
       final collections = collectionsTemp as List;
       await _repAud.addAudioCollections(
-          Provider.of<CollectionsItemPageModel>(context, listen: false)
-              .getIdCollection,
-          '$idAudio',
-          collections,
-          false);
+          idCollection, '$idAudio', collections, false);
     }
   }
 

@@ -11,7 +11,17 @@ import '../../../../widgets/uncategorized/appbar_clipper.dart';
 import '../collection_item_edit_page_model.dart';
 
 class AppbarHeaderCollectionItemEdit extends StatefulWidget {
-  const AppbarHeaderCollectionItemEdit({Key? key}) : super(key: key);
+  const AppbarHeaderCollectionItemEdit({
+    Key? key,
+    required this.idCollection,
+    required this.titleCollection,
+    required this.subTitleCollection,
+    required this.imageCollection,
+  }) : super(key: key);
+  final String idCollection;
+  final String titleCollection;
+  final String subTitleCollection;
+  final String imageCollection;
 
   @override
   State<AppbarHeaderCollectionItemEdit> createState() =>
@@ -25,8 +35,7 @@ class AppbarHeaderCollectionItemEditState
 
   @override
   void didChangeDependencies() {
-    _controller.text =
-        '${Provider.of<CollectionsItemPageModel>(context, listen: false).getTitle}';
+    _controller.text = widget.titleCollection;
     super.didChangeDependencies();
   }
 
@@ -38,20 +47,16 @@ class AppbarHeaderCollectionItemEditState
 
   void _editCollections(BuildContext context) {
     _repositories.updateCollection(
-      Provider.of<CollectionsItemPageModel>(context, listen: false)
-          .getIdCollection,
+      widget.idCollection,
       Provider.of<CollectionItemEditPageModel>(context, listen: false)
               .getTitleCollectionsEdit ??
-          Provider.of<CollectionsItemPageModel>(context, listen: false)
-              .getTitle,
+          widget.titleCollection,
       Provider.of<CollectionItemEditPageModel>(context, listen: false)
               .getSubTitleCollectionsEdit ??
-          Provider.of<CollectionsItemPageModel>(context, listen: false)
-              .getSubTitle,
+          widget.subTitleCollection,
       Provider.of<CollectionItemEditPageModel>(context, listen: false)
               .getAvatarCollectionsEdit ??
-          Provider.of<CollectionsItemPageModel>(context, listen: false)
-              .getPhoto,
+          widget.imageCollection,
     );
     Navigator.pushNamed(context, Collections.routeName);
   }

@@ -162,7 +162,7 @@ class AppRouter {
 
       // home_page
       case HomePage.routeName:
-        builder = (_) => HomePage.create();
+        builder = (_) => const HomePage();
         break;
 
       // profile_pages

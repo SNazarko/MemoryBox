@@ -33,11 +33,12 @@ class _MainPageState extends State<MainPage> {
     RecordPage.routeName,
     AudioRecordingsPage.routeName,
     Profile.routeName,
-    DeletePage.routeName,
     SearchPage.routeName,
-    SubscriptionPage.routeName,
+    DeletePage.routeName,
     SupportMessagePage.routeName,
+    SubscriptionPage.routeName,
   ];
+
   static final GlobalKey<NavigatorState> _navigatorKey =
       GlobalKey<NavigatorState>();
   void _onSelectMenu(String route) {
@@ -93,7 +94,7 @@ class _MainPageState extends State<MainPage> {
               ),
               drawerEnableOpenDragGesture: false,
               drawer: const DrawerMenu(),
-              bottomNavigationBar: BottomNavBar(
+              bottomNavigationBar: CustomBottomNavBar(
                 currentTab: state.currentIndex,
                 onSelect: (int index) {
                   if (state.currentIndex != index) {

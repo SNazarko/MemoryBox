@@ -30,4 +30,5 @@ class AppIcons {
   static const String subscription_upload = '$path/subscription_upload.png';
   static const String subscription_infinity = '$path/subscription_infinity.png';
   static const String subscription_download = '$path/subscription_download.png';
+  static const String delete = '$path/delete.png';
 }

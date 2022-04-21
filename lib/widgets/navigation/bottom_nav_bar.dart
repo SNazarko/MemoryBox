@@ -1,13 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/models/view_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
-import 'package:memory_box/utils/constants.dart';
-import 'package:provider/provider.dart';
 
-class BottomNavBar extends StatelessWidget {
-  const BottomNavBar(
+class CustomBottomNavBar extends StatelessWidget {
+  const CustomBottomNavBar(
       {Key? key, required this.currentTab, required this.onSelect})
       : super(key: key);
   final int currentTab;
@@ -150,93 +146,6 @@ class BottomNavBar extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-//
-// class _ButtonItem extends StatelessWidget {
-//   final String title;
-//   final String icon;
-//   final int index;
-//   const _ButtonItem({
-//     Key? key,
-//     required this.title,
-//     required this.icon,
-//     required this.index,
-//   }) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     final model = context.watch<Navigation>();
-//
-//     void _setIndex(int index) {
-//       model.setCurrentIndex = index;
-//     }
-//
-//     return Column(
-//       mainAxisSize: MainAxisSize.min,
-//       children: [
-//         IconButton(
-//             icon: Image.asset(
-//               icon,
-//               color: model.currentIndex == index
-//                   ? AppColor.colorAppbar
-//                   : Colors.black,
-//             ),
-//             onPressed: () {
-//               _setIndex(index);
-//             }),
-//         Text(title,
-//             style: kBottombarTextStyle.copyWith(
-//               color: model.currentIndex == index
-//                   ? AppColor.colorAppbar
-//                   : Colors.black,
-//             ))
-//       ],
-//     );
-//   }
-// }
-//
-class _RecordItem extends StatelessWidget {
-  const _RecordItem({Key? key, required this.iconPath, required this.title})
-      : super(key: key);
-  final String iconPath;
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    final model = context.watch<Navigation>();
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(22), color: AppColor.pinkRec),
-          child: GestureDetector(
-            onTap: () {
-              model.setCurrentIndex = 2;
-            },
-            child: Image.asset(
-              AppIcons.microfon,
-              width: 35,
-              height: 35,
-              color: model.currentIndex != 2 ? Colors.white : AppColor.pinkRec,
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        Text(
-          'Запись',
-          style: kBottombarTextStyle.copyWith(
-              color: model.currentIndex != 2 ? AppColor.pinkRec : Colors.white),
-        )
-      ],
     );
   }
 }

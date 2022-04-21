@@ -224,8 +224,8 @@ class AppRouter {
         break;
 
       // main_page.dart
-      case Main.routeName:
-        builder = (_) => Main.create();
+      case MainPage.routeName:
+        builder = (_) => const MainPage();
         break;
 
       default:

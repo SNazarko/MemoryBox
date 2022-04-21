@@ -24,7 +24,7 @@ class _FirstAuthorizationPageState extends State<FirstAuthorizationPage> {
   @override
   void initState() {
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushNamed(context, Main.routeName);
+      Navigator.pushNamed(context, MainPage.routeName);
     });
     super.initState();
   }

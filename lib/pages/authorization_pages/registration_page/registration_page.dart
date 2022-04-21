@@ -205,7 +205,7 @@ class RegistrationPageState extends State<RegistrationPage> {
             ),
             TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, Main.routeName);
+                  Navigator.pushNamed(context, MainPage.routeName);
                 },
                 child: const Text(
                   'Позже',

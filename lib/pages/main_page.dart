@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:memory_box/models/view_model.dart';
 import 'package:memory_box/pages/home_page/home_page.dart';
 import 'package:memory_box/pages/profile_pages/profile_page/profile.dart';
 import 'package:memory_box/pages/recordings_page/record_page.dart';
@@ -10,7 +9,6 @@ import 'package:memory_box/pages/support_message_page/support_message_page.dart'
 import 'package:memory_box/routes/routes.dart';
 import 'package:memory_box/widgets/navigation/bottom_nav_bar.dart';
 import 'package:memory_box/widgets/navigation/drawer_menu.dart';
-import 'package:provider/provider.dart';
 import '../Blocs/navigation_bloc/navigation__bloc.dart';
 import '../Blocs/navigation_bloc/navigation__event.dart';
 import '../Blocs/navigation_bloc/navigation__state.dart';
@@ -93,7 +91,7 @@ class _MainPageState extends State<MainPage> {
                 onGenerateRoute: AppRouter.generateRoute,
               ),
               drawerEnableOpenDragGesture: false,
-              drawer: const DrawerMenu(),
+              drawer: const CustomDrawerMenu(),
               bottomNavigationBar: CustomBottomNavBar(
                 currentTab: state.currentIndex,
                 onSelect: (int index) {

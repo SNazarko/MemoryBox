@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/appbar_header_audio_recordings.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/appbar_header_audio_recordings_not_authorization.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/list_player.dart';
@@ -8,6 +9,8 @@ import '../../animation/audio_recordings_page_player/audio_recordings_page_playe
 import '../../repositories/user_repositories.dart';
 import '../../utils/constants.dart';
 import '../../widgets/player/player_collections/player_collections.dart';
+import 'blocs/bloc_anim/anim_bloc.dart';
+import 'blocs/bloc_list/audio_recordings_list_bloc.dart';
 
 class AudioRecordingsPage extends StatelessWidget {
   AudioRecordingsPage({Key? key}) : super(key: key);
@@ -24,53 +27,63 @@ class AudioRecordingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWight = MediaQuery.of(context).size.width;
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
-          icon: const Icon(Icons.menu),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AudioRecordingsListBloc>(
+          create: (context) => AudioRecordingsListBloc(),
         ),
-        elevation: 0.0,
-        title: const Text(
-          'Аудиозаписи',
-          style: kTitleTextStyle2,
-        ),
-      ),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Stack(
-                  children: [
-                    rep.user == null
-                        ? const ListPlayerNotAuthorization()
-                        : ListPlayer(),
-                    rep.user == null
-                        ? const AppbarHeaderAudioRecordingsNotAuthorization()
-                        : AppbarHeaderAudioRecordings(),
-                  ],
-                ),
-              ],
-            ),
+        BlocProvider<AnimBloc>(
+          create: (context) => AnimBloc(),
+        )
+      ],
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: const Icon(Icons.menu),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 70.0),
-              child: PlayerCollections(
-                screenWight: screenWight,
-                screenHeight: screenHeight,
-                idCollection: 'all',
-                animation:
-                    context.watch<AudioRecordingsPagePlayerModel>().getAnim,
+          elevation: 0.0,
+          title: const Text(
+            'Аудиозаписи',
+            style: kTitleTextStyle2,
+          ),
+        ),
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Stack(
+                    children: [
+                      rep.user == null
+                          ? const ListPlayerNotAuthorization()
+                          : ListPlayer(),
+                      rep.user == null
+                          ? const AppbarHeaderAudioRecordingsNotAuthorization()
+                          : AppbarHeaderAudioRecordings(),
+                    ],
+                  ),
+                ],
               ),
             ),
-          )
-        ],
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 70.0),
+                child: PlayerCollections(
+                  screenWight: screenWight,
+                  screenHeight: screenHeight,
+                  idCollection: 'all',
+                  animation:
+                      context.watch<AudioRecordingsPagePlayerModel>().getAnim,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -1,6 +1,6 @@
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/popup_menu_audio_recording.dart';
 import 'package:memory_box/pages/authorization_pages/registration_page/registration_page.dart';
@@ -8,7 +8,8 @@ import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 
 import '../../../widgets/player/player_mini/player_mini.dart';
-
+import '../blocs/bloc_list/audio_recordings_list_bloc.dart';
+import '../blocs/bloc_list/audio_recordings_list_state.dart';
 
 class ListPlayer extends StatelessWidget {
   ListPlayer({Key? key}) : super(key: key);
@@ -36,71 +37,108 @@ class ListPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    return Column(
-      children: [
-        SizedBox(
-          height: screenHeight * 0.88,
-          child: StreamBuilder<List<AudioModel>>(
-            stream: repositories.readAudioSort('all'),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Column(
-                  children: [
-                    const SizedBox(
-                      height: 200.0,
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 50.0,
-                          horizontal: 40.0,
+    return BlocBuilder<AudioRecordingsListBloc, AudioRecordingsListState>(
+      builder: (context, state) {
+        if (state.status == AudioRecordingsListStateStatus.failed) {
+          return Column(
+            children: [
+              const SizedBox(
+                height: 200.0,
+              ),
+              Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 50.0,
+                    horizontal: 40.0,
+                  ),
+                  child: Column(
+                    children: const [
+                      Text(
+                        'Ошибка загрузки',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          color: AppColor.colorText50,
                         ),
-                        child: Column(
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                  text: '     Для открытия полного \n '
-                                      '            функционала \n '
-                                      '   приложения вам нужно \n '
-                                      ' зарегистрироваться',
-                                  style: const TextStyle(
-                                    fontSize: 20.0,
-                                    color: AppColor.colorText50,
-                                  ),
-                                  children: [
-                                    TextSpan(
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () {
-                                          Navigator.pushNamed(context,
-                                              RegistrationPage.routeName);
-                                        },
-                                      text: ' здесь',
-                                      style: const TextStyle(
-                                        fontSize: 20.0,
-                                        color: AppColor.pink,
-                                      ),
-                                    )
-                                  ]),
-                            )
-                          ],
-                        )),
-                  ],
-                );
-              }
-              if (snapshot.hasData) {
-                final audio = snapshot.data!;
-                return ListView(
-                  padding: const EdgeInsets.only(top: 127, bottom: 190),
-                  children: audio.map(buildAudio).toList(),
-                );
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            },
-          ),
-        ),
-      ],
+                      )
+                    ],
+                  )),
+            ],
+          );
+        }
+        if (state.status == AudioRecordingsListStateStatus.initial) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (state.status == AudioRecordingsListStateStatus.success) {
+          return Column(
+            children: [
+              SizedBox(
+                height: screenHeight * 0.88,
+                child: StreamBuilder<List<AudioModel>>(
+                  stream: state.loadedAudio,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Column(
+                        children: [
+                          const SizedBox(
+                            height: 200.0,
+                          ),
+                          Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 50.0,
+                                horizontal: 40.0,
+                              ),
+                              child: Column(
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                        text: '     Для открытия полного \n '
+                                            '            функционала \n '
+                                            '   приложения вам нужно \n '
+                                            ' зарегистрироваться',
+                                        style: const TextStyle(
+                                          fontSize: 20.0,
+                                          color: AppColor.colorText50,
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                            recognizer: TapGestureRecognizer()
+                                              ..onTap = () {
+                                                Navigator.pushNamed(context,
+                                                    RegistrationPage.routeName);
+                                              },
+                                            text: ' здесь',
+                                            style: const TextStyle(
+                                              fontSize: 20.0,
+                                              color: AppColor.pink,
+                                            ),
+                                          )
+                                        ]),
+                                  )
+                                ],
+                              )),
+                        ],
+                      );
+                    }
+                    if (snapshot.hasData) {
+                      final audio = snapshot.data!;
+                      return ListView(
+                        padding: const EdgeInsets.only(top: 127, bottom: 190),
+                        children: audio.map(buildAudio).toList(),
+                      );
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                ),
+              ),
+            ],
+          );
+        }
+        return SizedBox.shrink();
+      },
     );
   }
 }

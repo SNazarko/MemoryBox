@@ -7,8 +7,9 @@ import 'audio_recordings_list_state.dart';
 
 class AudioRecordingsListBloc
     extends Bloc<AudioRecordingsListEvent, AudioRecordingsListState> {
-  AudioRecordingsListBloc() : super(const AudioRecordingsListState()) {
-    final AudioRepositories repositories = AudioRepositories();
+  AudioRepositories repositories = AudioRepositories();
+  AudioRecordingsListBloc(this.repositories)
+      : super(const AudioRecordingsListState()) {
     on<AudioRecordingsListEvent>((event, emit) async {
       emit(
         state.copyWith(

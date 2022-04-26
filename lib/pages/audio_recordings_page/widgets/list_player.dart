@@ -39,105 +39,107 @@ class ListPlayer extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
     return BlocBuilder<AudioRecordingsListBloc, AudioRecordingsListState>(
       builder: (context, state) {
-        if (state.status == AudioRecordingsListStateStatus.failed) {
-          return Column(
-            children: [
-              const SizedBox(
-                height: 200.0,
-              ),
-              Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 50.0,
-                    horizontal: 40.0,
+        switch (state.status) {
+          case AudioRecordingsListStateStatus.failed:
+            return Column(
+              children: [
+                const Center(
+                  child: SizedBox(
+                    height: 200.0,
                   ),
-                  child: Column(
-                    children: const [
-                      Text(
-                        'Ошибка загрузки',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          color: AppColor.colorText50,
-                        ),
-                      )
-                    ],
-                  )),
-            ],
-          );
-        }
-        if (state.status == AudioRecordingsListStateStatus.initial) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        if (state.status == AudioRecordingsListStateStatus.success) {
-          return Column(
-            children: [
-              SizedBox(
-                height: screenHeight * 0.88,
-                child: StreamBuilder<List<AudioModel>>(
-                  stream: state.loadedAudio,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return Column(
-                        children: [
-                          const SizedBox(
-                            height: 200.0,
-                          ),
-                          Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 50.0,
-                                horizontal: 40.0,
-                              ),
-                              child: Column(
-                                children: [
-                                  RichText(
-                                    text: TextSpan(
-                                        text: '     Для открытия полного \n '
-                                            '            функционала \n '
-                                            '   приложения вам нужно \n '
-                                            ' зарегистрироваться',
-                                        style: const TextStyle(
-                                          fontSize: 20.0,
-                                          color: AppColor.colorText50,
-                                        ),
-                                        children: [
-                                          TextSpan(
-                                            recognizer: TapGestureRecognizer()
-                                              ..onTap = () {
-                                                Navigator.pushNamed(context,
-                                                    RegistrationPage.routeName);
-                                              },
-                                            text: ' здесь',
-                                            style: const TextStyle(
-                                              fontSize: 20.0,
-                                              color: AppColor.pink,
-                                            ),
-                                          )
-                                        ]),
-                                  )
-                                ],
-                              )),
-                        ],
-                      );
-                    }
-                    if (snapshot.hasData) {
-                      final audio = snapshot.data!;
-                      return ListView(
-                        padding: const EdgeInsets.only(top: 127, bottom: 190),
-                        children: audio.map(buildAudio).toList(),
-                      );
-                    } else {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  },
                 ),
-              ),
-            ],
-          );
+                Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 50.0,
+                      horizontal: 40.0,
+                    ),
+                    child: Column(
+                      children: const [
+                        Text(
+                          'Ошибка загрузки',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: AppColor.colorText50,
+                          ),
+                        )
+                      ],
+                    )),
+              ],
+            );
+          case AudioRecordingsListStateStatus.success:
+            return Column(
+              children: [
+                SizedBox(
+                  height: screenHeight * 0.88,
+                  child: StreamBuilder<List<AudioModel>>(
+                    stream: state.loadedAudio,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Column(
+                          children: [
+                            const SizedBox(
+                              height: 200.0,
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 50.0,
+                                  horizontal: 40.0,
+                                ),
+                                child: Column(
+                                  children: [
+                                    RichText(
+                                      text: TextSpan(
+                                          text: '     Для открытия полного \n '
+                                              '            функционала \n '
+                                              '   приложения вам нужно \n '
+                                              ' зарегистрироваться',
+                                          style: const TextStyle(
+                                            fontSize: 20.0,
+                                            color: AppColor.colorText50,
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              recognizer: TapGestureRecognizer()
+                                                ..onTap = () {
+                                                  Navigator.pushNamed(
+                                                      context,
+                                                      RegistrationPage
+                                                          .routeName);
+                                                },
+                                              text: ' здесь',
+                                              style: const TextStyle(
+                                                fontSize: 20.0,
+                                                color: AppColor.pink,
+                                              ),
+                                            )
+                                          ]),
+                                    )
+                                  ],
+                                )),
+                          ],
+                        );
+                      }
+                      if (snapshot.hasData) {
+                        final audio = snapshot.data!;
+                        return ListView(
+                          padding: const EdgeInsets.only(top: 127, bottom: 190),
+                          children: audio.map(buildAudio).toList(),
+                        );
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
+                  ),
+                ),
+              ],
+            );
         }
-        return SizedBox.shrink();
+
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
       },
     );
   }

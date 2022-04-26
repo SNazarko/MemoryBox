@@ -6,6 +6,7 @@ import 'package:memory_box/pages/audio_recordings_page/widgets/list_player.dart'
 import 'package:memory_box/pages/audio_recordings_page/widgets/list_player_not_authorization.dart';
 import 'package:provider/provider.dart';
 import '../../animation/audio_recordings_page_player/audio_recordings_page_player_model.dart';
+import '../../repositories/audio_repositories.dart';
 import '../../repositories/user_repositories.dart';
 import '../../utils/constants.dart';
 import '../../widgets/player/player_collections/player_collections.dart';
@@ -15,6 +16,7 @@ import 'blocs/bloc_list/audio_recordings_list_bloc.dart';
 class AudioRecordingsPage extends StatelessWidget {
   AudioRecordingsPage({Key? key}) : super(key: key);
   final UserRepositories rep = UserRepositories();
+  final AudioRepositories repAudio = AudioRepositories();
   static const routeName = '/audio_recordings_page';
   static Widget create() {
     return ChangeNotifierProvider<AudioRecordingsPagePlayerModel>(
@@ -30,7 +32,7 @@ class AudioRecordingsPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AudioRecordingsListBloc>(
-          create: (context) => AudioRecordingsListBloc(),
+          create: (context) => AudioRecordingsListBloc(repAudio),
         ),
         BlocProvider<AnimBloc>(
           create: (context) => AnimBloc(),

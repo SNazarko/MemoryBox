@@ -12,6 +12,8 @@ import '../../utils/constants.dart';
 import '../../widgets/player/player_collections/player_collections.dart';
 import 'blocs/bloc_list/audio_recordings_list_bloc.dart';
 import 'blocs/bloc_list/audio_recordings_list_event.dart';
+import 'blocs/bloc_quality_total_time/quality_total_time_bloc.dart';
+import 'blocs/bloc_quality_total_time/quality_total_time_event.dart';
 
 class AudioRecordingsPage extends StatelessWidget {
   AudioRecordingsPage({Key? key}) : super(key: key);
@@ -35,6 +37,10 @@ class AudioRecordingsPage extends StatelessWidget {
             create: (context) =>
                 AudioRecordingsListBloc(repositories: AudioRepositories())
                   ..add(LoadAudioRecordingsListEvent())),
+        BlocProvider<QualityTotalTimeBloc>(
+            create: (context) =>
+                QualityTotalTimeBloc(repositories: UserRepositories())
+                  ..add(LoadQualityTotalTimeEvent())),
       ],
       child: Scaffold(
         appBar: AppBar(

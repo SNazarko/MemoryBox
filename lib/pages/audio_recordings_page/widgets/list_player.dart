@@ -16,10 +16,10 @@ class ListPlayer extends StatelessWidget {
       height: screenHeight - 140.0,
       child: BlocBuilder<AudioRecordingsListBloc, AudioRecordingsListState>(
           builder: (context, state) {
-        if (state.status == AudioRecordingsListStateStatus.loading) {
+        if (state.status == AudioRecordingsListStateStatus.initial) {
           return const Center(child: CircularProgressIndicator());
         }
-        if (state.status == AudioRecordingsListStateStatus.loaded) {
+        if (state.status == AudioRecordingsListStateStatus.success) {
           return ListView.builder(
             padding: const EdgeInsets.only(top: 135.0, bottom: 110.0),
             itemCount: state.loadedAudio.length,

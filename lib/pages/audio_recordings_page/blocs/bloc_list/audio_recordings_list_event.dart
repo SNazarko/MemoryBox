@@ -13,10 +13,3 @@ class UpdateAudioRecordingsListEvent extends AudioRecordingsListEvent {
   });
   final List<AudioModel> loadedAudio;
 }
-
-class SelectAudioRecordingsListEvent extends AudioRecordingsListEvent {
-  SelectAudioRecordingsListEvent({
-    required this.loadedAudio,
-  });
-  final List<AudioModel> loadedAudio;
-}

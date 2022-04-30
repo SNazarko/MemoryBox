@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/models/user_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/utils/constants.dart';
 import '../../../animation/audio_recordings_page_player/audio_recordings_page_player.dart';
 import '../../../repositories/user_repositories.dart';
 import '../../../widgets/uncategorized/appbar_clipper.dart';
+import '../blocs/bloc_quality_total_time/quality_total_time_bloc.dart';
+import '../blocs/bloc_quality_total_time/quality_total_time_state.dart';
 
 class AppbarHeaderAudioRecordings extends StatelessWidget {
   AppbarHeaderAudioRecordings({Key? key}) : super(key: key);
@@ -46,25 +49,24 @@ class AppbarHeaderAudioRecordings extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              StreamBuilder<List<UserModel>>(
-                stream: repositories.readUser(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return const Text('Error');
+              BlocBuilder<QualityTotalTimeBloc, QualityTotalTimeState>(
+                builder: (context, state) {
+                  if (state.status == QualityTotalTimeStatus.initial) {
+                    return const Center(child: CircularProgressIndicator());
                   }
-                  if (snapshot.hasData) {
-                    final collections = snapshot.data!;
-                    if (collections.map(buildCollections).toList().isNotEmpty) {
-                      return Container(
-                        child: collections.map(buildCollections).toList().last,
+                  if (state.status == QualityTotalTimeStatus.success) {
+                    if (state.qualityTotalTime.isNotEmpty) {
+                      final user = state.qualityTotalTime.last;
+                      return _QualityTotalTime(
+                        quality: user.totalQuality ?? 0,
+                        totalTime: user.totalTime ?? '00:00',
                       );
                     } else {
                       return Container();
                     }
                   } else {
                     return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                        child: Text('Ouch: There was an error!'));
                   }
                 },
               ),

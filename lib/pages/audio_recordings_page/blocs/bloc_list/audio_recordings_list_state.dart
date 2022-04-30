@@ -3,15 +3,14 @@ import 'package:flutter/cupertino.dart';
 import '../../../../models/audio_model.dart';
 
 enum AudioRecordingsListStateStatus {
-  loading,
-  loaded,
-  selected,
+  initial,
+  success,
 }
 
 @immutable
 class AudioRecordingsListState {
   const AudioRecordingsListState({
-    this.status = AudioRecordingsListStateStatus.loading,
+    this.status = AudioRecordingsListStateStatus.initial,
     this.loadedAudio = const <AudioModel>[],
   });
   final AudioRecordingsListStateStatus status;

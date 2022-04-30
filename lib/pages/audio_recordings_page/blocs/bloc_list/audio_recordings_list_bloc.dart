@@ -24,16 +24,7 @@ class AudioRecordingsListBloc
         Emitter<AudioRecordingsListState> emit) {
       emit(
         state.copyWith(
-            status: AudioRecordingsListStateStatus.loaded,
-            loadedAudio: event.loadedAudio),
-      );
-    }
-
-    void _onSelectAudioRecordingsListEvent(SelectAudioRecordingsListEvent event,
-        Emitter<AudioRecordingsListState> emit) {
-      emit(
-        state.copyWith(
-            status: AudioRecordingsListStateStatus.selected,
+            status: AudioRecordingsListStateStatus.success,
             loadedAudio: event.loadedAudio),
       );
     }
@@ -44,10 +35,6 @@ class AudioRecordingsListBloc
 
     on<UpdateAudioRecordingsListEvent>(
       _onUpdateAudioRecordingsListEvent,
-    );
-
-    on<SelectAudioRecordingsListEvent>(
-      _onSelectAudioRecordingsListEvent,
     );
   }
 }

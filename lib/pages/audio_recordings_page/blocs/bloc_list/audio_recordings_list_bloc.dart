@@ -1,30 +1,53 @@
+import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../models/audio_model.dart';
 import '../../../../repositories/audio_repositories.dart';
 import 'audio_recordings_list_event.dart';
 import 'audio_recordings_list_state.dart';
 
 class AudioRecordingsListBloc
     extends Bloc<AudioRecordingsListEvent, AudioRecordingsListState> {
-  AudioRepositories repositories = AudioRepositories();
-  AudioRecordingsListBloc(this.repositories)
-      : super(const AudioRecordingsListState()) {
-    on<AudioRecordingsListEvent>((event, emit) async {
+  final AudioRepositories _repositories;
+  StreamSubscription? _itemsSubscriptions;
+  AudioRecordingsListBloc({required AudioRepositories repositories})
+      : _repositories = repositories,
+        super(const AudioRecordingsListState()) {
+    void _onLoadAudioRecordingsListEvent(LoadAudioRecordingsListEvent event,
+        Emitter<AudioRecordingsListState> emit) {
+      _itemsSubscriptions?.cancel();
+      _itemsSubscriptions =
+          _repositories.readAudioSort('all').listen((loadedAudio) {
+        add(UpdateAudioRecordingsListEvent(loadedAudio: loadedAudio));
+      });
+    }
+
+    void _onUpdateAudioRecordingsListEvent(UpdateAudioRecordingsListEvent event,
+        Emitter<AudioRecordingsListState> emit) {
       emit(
         state.copyWith(
-          status: AudioRecordingsListStateStatus.initial,
-        ),
+            status: AudioRecordingsListStateStatus.loaded,
+            loadedAudio: event.loadedAudio),
       );
-      try {
-        final Stream<List<AudioModel>> _loadedUserList =
-            repositories.readAudioSort('all');
-        emit(state.copyWith(
-            status: AudioRecordingsListStateStatus.success,
-            loadedAudio: _loadedUserList));
-      } on Exception catch (e) {
-        emit(state.copyWith(status: AudioRecordingsListStateStatus.failed));
-      }
-    });
+    }
+
+    void _onSelectAudioRecordingsListEvent(SelectAudioRecordingsListEvent event,
+        Emitter<AudioRecordingsListState> emit) {
+      emit(
+        state.copyWith(
+            status: AudioRecordingsListStateStatus.selected,
+            loadedAudio: event.loadedAudio),
+      );
+    }
+
+    on<LoadAudioRecordingsListEvent>(
+      _onLoadAudioRecordingsListEvent,
+    );
+
+    on<UpdateAudioRecordingsListEvent>(
+      _onUpdateAudioRecordingsListEvent,
+    );
+
+    on<SelectAudioRecordingsListEvent>(
+      _onSelectAudioRecordingsListEvent,
+    );
   }
 }

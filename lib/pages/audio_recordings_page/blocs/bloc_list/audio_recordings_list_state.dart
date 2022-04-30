@@ -3,24 +3,23 @@ import 'package:flutter/cupertino.dart';
 import '../../../../models/audio_model.dart';
 
 enum AudioRecordingsListStateStatus {
-  initial,
-  success,
-  failed,
+  loading,
+  loaded,
+  selected,
 }
 
 @immutable
 class AudioRecordingsListState {
   const AudioRecordingsListState({
-    this.status = AudioRecordingsListStateStatus.initial,
-    this.loadedAudio,
+    this.status = AudioRecordingsListStateStatus.loading,
+    this.loadedAudio = const <AudioModel>[],
   });
-  // : assert(loadedAudio != null);
   final AudioRecordingsListStateStatus status;
-  final Stream<List<AudioModel>>? loadedAudio;
+  final List<AudioModel> loadedAudio;
 
   AudioRecordingsListState copyWith({
     AudioRecordingsListStateStatus? status,
-    Stream<List<AudioModel>>? loadedAudio,
+    List<AudioModel>? loadedAudio,
   }) {
     return AudioRecordingsListState(
       status: status ?? this.status,

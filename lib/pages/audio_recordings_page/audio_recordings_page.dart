@@ -10,8 +10,8 @@ import '../../repositories/audio_repositories.dart';
 import '../../repositories/user_repositories.dart';
 import '../../utils/constants.dart';
 import '../../widgets/player/player_collections/player_collections.dart';
-import 'blocs/bloc_anim/anim_bloc.dart';
 import 'blocs/bloc_list/audio_recordings_list_bloc.dart';
+import 'blocs/bloc_list/audio_recordings_list_event.dart';
 
 class AudioRecordingsPage extends StatelessWidget {
   AudioRecordingsPage({Key? key}) : super(key: key);
@@ -32,11 +32,9 @@ class AudioRecordingsPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AudioRecordingsListBloc>(
-          create: (context) => AudioRecordingsListBloc(repAudio),
-        ),
-        BlocProvider<AnimBloc>(
-          create: (context) => AnimBloc(),
-        )
+            create: (context) =>
+                AudioRecordingsListBloc(repositories: AudioRepositories())
+                  ..add(LoadAudioRecordingsListEvent())),
       ],
       child: Scaffold(
         appBar: AppBar(
@@ -62,7 +60,7 @@ class AudioRecordingsPage extends StatelessWidget {
                     children: [
                       rep.user == null
                           ? const ListPlayerNotAuthorization()
-                          : ListPlayer(),
+                          : const ListPlayer(),
                       rep.user == null
                           ? const AppbarHeaderAudioRecordingsNotAuthorization()
                           : AppbarHeaderAudioRecordings(),
@@ -74,7 +72,7 @@ class AudioRecordingsPage extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 70.0),
+                padding: const EdgeInsets.only(bottom: 5.0),
                 child: PlayerCollections(
                   screenWight: screenWight,
                   screenHeight: screenHeight,

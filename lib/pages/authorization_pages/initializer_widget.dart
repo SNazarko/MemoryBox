@@ -6,6 +6,11 @@ import 'package:memory_box/repositories/user_repositories.dart';
 class InitializerWidget extends StatelessWidget {
   InitializerWidget({Key? key}) : super(key: key);
   static const routeName = '/initializer_widget';
+  static const List<String> _pages = [
+    FirstPage.routeName,
+    FirstAuthorizationPage.routeName,
+  ];
+
   final UserRepositories rep = UserRepositories();
   final isLoading = false;
   static Widget create() {

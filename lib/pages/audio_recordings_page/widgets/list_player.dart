@@ -17,7 +17,9 @@ class ListPlayer extends StatelessWidget {
       child: BlocBuilder<AudioRecordingsListBloc, AudioRecordingsListState>(
           builder: (context, state) {
         if (state.status == AudioRecordingsListStateStatus.initial) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         }
         if (state.status == AudioRecordingsListStateStatus.success) {
           return ListView.builder(
@@ -46,8 +48,15 @@ class ListPlayer extends StatelessWidget {
               );
             },
           );
+        }
+        if (state.status == AudioRecordingsListStateStatus.failed) {
+          return const Center(
+            child: Text('Ой: сталася помилка!'),
+          );
         } else {
-          return const Center(child: Text('Ouch: There was an error!'));
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         }
       }),
     );

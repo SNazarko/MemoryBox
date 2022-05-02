@@ -2,10 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../models/audio_model.dart';
 
-enum AudioRecordingsListStateStatus {
-  initial,
-  success,
-}
+enum AudioRecordingsListStateStatus { initial, success, failed, }
 
 @immutable
 class AudioRecordingsListState {

@@ -54,6 +54,12 @@ class AppbarHeaderAudioRecordings extends StatelessWidget {
                   if (state.status == QualityTotalTimeStatus.initial) {
                     return const Center(child: CircularProgressIndicator());
                   }
+                  if (state.status == QualityTotalTimeStatus.failed) {
+                    return const _QualityTotalTime(
+                      totalTime: '??:??',
+                      quality: 0,
+                    );
+                  }
                   if (state.status == QualityTotalTimeStatus.success) {
                     if (state.qualityTotalTime.isNotEmpty) {
                       final user = state.qualityTotalTime.last;
@@ -66,7 +72,8 @@ class AppbarHeaderAudioRecordings extends StatelessWidget {
                     }
                   } else {
                     return const Center(
-                        child: Text('Ouch: There was an error!'));
+                      child: CircularProgressIndicator(),
+                    );
                   }
                 },
               ),

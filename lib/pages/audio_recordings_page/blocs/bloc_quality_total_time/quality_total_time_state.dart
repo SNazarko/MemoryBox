@@ -7,6 +7,7 @@ import '../../../../models/user_model.dart';
 enum QualityTotalTimeStatus {
   initial,
   success,
+  failed,
 }
 
 @immutable

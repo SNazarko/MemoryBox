@@ -15,17 +15,26 @@ class QualityTotalTimeBloc
         super(const QualityTotalTimeState()) {
     void _onLoadQualityTotalTimeEvent(
         LoadQualityTotalTimeEvent event, Emitter<QualityTotalTimeState> emit) {
-      _itemsSubscriptions?.cancel();
-      _itemsSubscriptions = _repositories.readUser().listen((qualityTotalTime) {
-        add(UpdateQualityTotalTimeEvent(qualityTotalTime: qualityTotalTime));
-      });
+      try {
+        _itemsSubscriptions?.cancel();
+        _itemsSubscriptions =
+            _repositories.readUser().listen((qualityTotalTime) {
+          add(UpdateQualityTotalTimeEvent(qualityTotalTime: qualityTotalTime));
+        });
+      } on Exception catch (e) {
+        emit(state.copyWith(status: QualityTotalTimeStatus.failed));
+      }
     }
 
     void _onUpdateQualityTotalTimeEvent(UpdateQualityTotalTimeEvent event,
         Emitter<QualityTotalTimeState> emit) {
-      emit(state.copyWith(
-          status: QualityTotalTimeStatus.success,
-          qualityTotalTime: event.qualityTotalTime));
+      try {
+        emit(state.copyWith(
+            status: QualityTotalTimeStatus.success,
+            qualityTotalTime: event.qualityTotalTime));
+      } on Exception catch (e) {
+        emit(state.copyWith(status: QualityTotalTimeStatus.failed));
+      }
     }
 
     on<LoadQualityTotalTimeEvent>(

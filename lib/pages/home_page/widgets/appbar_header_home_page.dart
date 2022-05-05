@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/models/collections_model.dart';
-import 'package:memory_box/models/view_model.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:provider/src/provider.dart';
@@ -9,6 +8,7 @@ import 'package:provider/src/provider.dart';
 import '../../../Blocs/navigation_bloc/navigation__bloc.dart';
 import '../../../Blocs/navigation_bloc/navigation__event.dart';
 import '../../../Blocs/navigation_bloc/navigation__state.dart';
+import '../../../widgets/navigation/navigate_to_page.dart';
 import '../../../widgets/uncategorized/appbar_clipper.dart';
 import '../../../widgets/uncategorized/home_page_containers/blue_container.dart';
 import '../../../widgets/uncategorized/home_page_containers/green_container.dart';
@@ -61,23 +61,6 @@ class AppbarHeaderHomePage extends StatelessWidget {
 class _TitleAppbar extends StatelessWidget {
   const _TitleAppbar({Key? key, required this.screenWidth}) : super(key: key);
   final double screenWidth;
-  void _navigateToPage(
-    BuildContext context, {
-    required int index,
-    required int currentIndex,
-    required String route,
-  }) {
-    Navigator.pop(context);
-
-    if (index != currentIndex) {
-      context.read<NavigationBloc>().add(
-            NavigateMenu(
-              menuIndex: index,
-              route: route,
-            ),
-          );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +86,7 @@ class _TitleAppbar extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: GestureDetector(
-                    onTap: () => _navigateToPage(context,
+                    onTap: () => NavigateToPage.instance?.navigate(context,
                         index: 1,
                         currentIndex: state.currentIndex,
                         route: Collections.routeName),

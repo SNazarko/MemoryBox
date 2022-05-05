@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/pages/profile_pages/profile_model.dart';
 import 'package:memory_box/pages/profile_pages/profile_page/widgets/appbar_header_profile.dart';
 import 'package:memory_box/pages/profile_pages/profile_page/widgets/delete_account.dart';
@@ -10,10 +11,13 @@ import 'package:memory_box/pages/profile_pages/profile_page/widgets/progress_ind
 import 'package:memory_box/pages/profile_pages/profile_edit_page/profile_edit_page.dart';
 import 'package:memory_box/widgets/uncategorized/text_link.dart';
 import 'package:provider/provider.dart';
+import '../../../Blocs/navigation_bloc/navigation__bloc.dart';
+import '../../../Blocs/navigation_bloc/navigation__state.dart';
 import '../../../models/user_model.dart';
-import '../../../models/view_model.dart';
 import '../../../repositories/user_repositories.dart';
 import '../../../utils/constants.dart';
+import '../../../widgets/navigation/navigate_to_page.dart';
+import '../../subscription_page/subscription_page.dart';
 
 class Profile extends StatelessWidget {
   Profile({Key? key}) : super(key: key);
@@ -86,96 +90,103 @@ class _Links extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        NameAndNumber(screenWidth: screenWidth * 0.75),
-        TextLink(
-          onPressed: () async {
-            final userName =
-                Provider.of<DataModel>(context, listen: false).getName ?? '';
-            final userImage =
-                Provider.of<DataModel>(context, listen: false).getUserImage ??
+    return BlocBuilder<NavigationBloc, NavigationState>(
+      builder: (context, state) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            NameAndNumber(screenWidth: screenWidth * 0.75),
+            TextLink(
+              onPressed: () async {
+                final userName =
+                    Provider.of<DataModel>(context, listen: false).getName ??
+                        '';
+                final userImage = Provider.of<DataModel>(context, listen: false)
+                        .getUserImage ??
                     '';
-            final userNumber =
-                Provider.of<DataModel>(context, listen: false).getNumber ?? '';
-            List result = await Navigator.push(context,
-                MaterialPageRoute(builder: (context) {
-              return ProfileEdit(
-                userName: userName,
-                userImage: userImage,
-                userNumber: userNumber,
-              );
-            }));
-            if (result.isNotEmpty) {
-              context.read<DataModel>().userName(result[0]);
-              context.read<DataModel>().userNumber(result[1]);
-              context.read<DataModel>().userImage(result[2]);
-
-              print(result);
-            }
-          },
-          text: 'Редактировать',
-        ),
-        const SizedBox(
-          height: 40.0,
-        ),
-        TextLink(
-          onPressed: () {
-            Provider.of<Navigation>(context, listen: false).setCurrentIndex = 7;
-          },
-          underline: false,
-          text: 'Подписка',
-        ),
-        const SizedBox(
-          height: 15.0,
-        ),
-        StreamBuilder<List<UserModel>>(
-          stream: repositoriesUser.readUser(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return const CustomProgressIndicator(
-                size: 150,
-              );
-            }
-            if (snapshot.hasData) {
-              final user = snapshot.data!;
-              if (user.map(buildUser).toList().isNotEmpty) {
-                return Container(
-                  child: user.map(buildUser).toList().single,
-                );
-              } else {
-                return const CustomProgressIndicator(
-                  size: 150,
-                );
-              }
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-        ),
-        const SizedBox(
-          height: 15.0,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextLink(
-                text: 'Вийти из приложения',
-                onPressed: () async {
-                  await _auth.signOut();
-                  exit(0);
-                },
+                final userNumber =
+                    Provider.of<DataModel>(context, listen: false).getNumber ??
+                        '';
+                List result = await Navigator.push(context,
+                    MaterialPageRoute(builder: (context) {
+                  return ProfileEdit(
+                    userName: userName,
+                    userImage: userImage,
+                    userNumber: userNumber,
+                  );
+                }));
+                if (result.isNotEmpty) {
+                  context.read<DataModel>().userName(result[0]);
+                  context.read<DataModel>().userNumber(result[1]);
+                  context.read<DataModel>().userImage(result[2]);
+                }
+              },
+              text: 'Редактировать',
+            ),
+            const SizedBox(
+              height: 40.0,
+            ),
+            TextLink(
+              onPressed: () => NavigateToPage.instance?.navigate(
+                context,
+                index: 7,
+                currentIndex: state.currentIndex,
+                route: SubscriptionPage.routeName,
               ),
-              DeleteAccount(),
-            ],
-          ),
-        )
-      ],
+              underline: false,
+              text: 'Подписка',
+            ),
+            const SizedBox(
+              height: 15.0,
+            ),
+            StreamBuilder<List<UserModel>>(
+              stream: repositoriesUser.readUser(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return const CustomProgressIndicator(
+                    size: 150,
+                  );
+                }
+                if (snapshot.hasData) {
+                  final user = snapshot.data!;
+                  if (user.map(buildUser).toList().isNotEmpty) {
+                    return Container(
+                      child: user.map(buildUser).toList().single,
+                    );
+                  } else {
+                    return const CustomProgressIndicator(
+                      size: 150,
+                    );
+                  }
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
+            const SizedBox(
+              height: 15.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextLink(
+                    text: 'Вийти из приложения',
+                    onPressed: () async {
+                      await _auth.signOut();
+                      exit(0);
+                    },
+                  ),
+                  DeleteAccount(),
+                ],
+              ),
+            )
+          ],
+        );
+      },
     );
   }
 }
@@ -188,52 +199,59 @@ class _LinksNotAuthorization extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        NameAndNumber(screenWidth: screenWidth * 0.75),
-        TextLink(
-          onPressed: () {
-            Navigator.pushNamed(context, ProfileEdit.routeName);
-          },
-          text: 'Редактировать',
-        ),
-        const SizedBox(
-          height: 40.0,
-        ),
-        TextLink(
-          onPressed: () {
-            Provider.of<Navigation>(context, listen: false).setCurrentIndex = 7;
-          },
-          underline: false,
-          text: 'Подписка',
-        ),
-        const SizedBox(
-          height: 15.0,
-        ),
-        const CustomProgressIndicator(
-          size: 150,
-        ),
-        const SizedBox(
-          height: 15.0,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextLink(
-                text: 'Вийти из приложения',
-                onPressed: () async {
-                  await _auth.signOut();
-                  exit(0);
-                },
+    return BlocBuilder<NavigationBloc, NavigationState>(
+      builder: (context, state) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            NameAndNumber(screenWidth: screenWidth * 0.75),
+            TextLink(
+              onPressed: () {
+                Navigator.pushNamed(context, ProfileEdit.routeName);
+              },
+              text: 'Редактировать',
+            ),
+            const SizedBox(
+              height: 40.0,
+            ),
+            TextLink(
+              onPressed: () => NavigateToPage.instance?.navigate(
+                context,
+                index: 7,
+                currentIndex: state.currentIndex,
+                route: SubscriptionPage.routeName,
               ),
-              DeleteAccount(),
-            ],
-          ),
-        )
-      ],
+              underline: false,
+              text: 'Подписка',
+            ),
+            const SizedBox(
+              height: 15.0,
+            ),
+            const CustomProgressIndicator(
+              size: 150,
+            ),
+            const SizedBox(
+              height: 15.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextLink(
+                    text: 'Вийти из приложения',
+                    onPressed: () async {
+                      await _auth.signOut();
+                      exit(0);
+                    },
+                  ),
+                  DeleteAccount(),
+                ],
+              ),
+            )
+          ],
+        );
+      },
     );
   }
 }

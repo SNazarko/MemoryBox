@@ -152,63 +152,65 @@ class UserRepositories {
 
   Future<void> limitNotSubscription() async {
     final now = Timestamp.now();
-    await FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
-        .get()
-        .then((querySnapshot) {
-      for (var result in querySnapshot.docs) {
-        final Timestamp finishTimeSubscription =
-            result.data()['finishTimeSubscription'] ?? now;
-        final state = finishTimeSubscription.compareTo(now);
-        if (state >= 0) {
-          FirebaseFirestore.instance
-              .collection(user!.phoneNumber!)
-              .doc('user')
-              .update({
-            'subscriptionLimit': 524288000000000,
-          });
-        } else {
-          FirebaseFirestore.instance
-              .collection(user!.phoneNumber!)
-              .doc('user')
-              .update({
-            'subscriptionLimit': 524288000,
-          });
-          FirebaseFirestore.instance
-              .collection(user!.phoneNumber!)
-              .doc('user')
-              .update({
-            'onceAMonth': false,
-            'onceAYear': false,
-          });
+    if (user != null) {
+      await FirebaseFirestore.instance
+          .collection(user!.phoneNumber!)
+          .get()
+          .then((querySnapshot) {
+        for (var result in querySnapshot.docs) {
+          final Timestamp finishTimeSubscription =
+              result.data()['finishTimeSubscription'] ?? now;
+          final state = finishTimeSubscription.compareTo(now);
+          if (state >= 0) {
+            FirebaseFirestore.instance
+                .collection(user!.phoneNumber!)
+                .doc('user')
+                .update({
+              'subscriptionLimit': 524288000000000,
+            });
+          } else {
+            FirebaseFirestore.instance
+                .collection(user!.phoneNumber!)
+                .doc('user')
+                .update({
+              'subscriptionLimit': 524288000,
+            });
+            FirebaseFirestore.instance
+                .collection(user!.phoneNumber!)
+                .doc('user')
+                .update({
+              'onceAMonth': false,
+              'onceAYear': false,
+            });
+          }
         }
-      }
-    });
-    await FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
-        .get()
-        .then((querySnapshot) {
-      for (var result in querySnapshot.docs) {
-        final int totalSize = result.data()['totalSize'] ?? 0;
-        final int subscriptionLimit = result.data()['subscriptionLimit'] ?? 0;
-        if (totalSize >= subscriptionLimit) {
-          FirebaseFirestore.instance
-              .collection(user!.phoneNumber!)
-              .doc('user')
-              .update({
-            'subscription': false,
-          });
+      });
+      await FirebaseFirestore.instance
+          .collection(user!.phoneNumber!)
+          .get()
+          .then((querySnapshot) {
+        for (var result in querySnapshot.docs) {
+          final int totalSize = result.data()['totalSize'] ?? 0;
+          final int subscriptionLimit = result.data()['subscriptionLimit'] ?? 0;
+          if (totalSize >= subscriptionLimit) {
+            FirebaseFirestore.instance
+                .collection(user!.phoneNumber!)
+                .doc('user')
+                .update({
+              'subscription': false,
+            });
+          }
+          if (totalSize < subscriptionLimit) {
+            FirebaseFirestore.instance
+                .collection(user!.phoneNumber!)
+                .doc('user')
+                .update({
+              'subscription': true,
+            });
+          }
         }
-        if (totalSize < subscriptionLimit) {
-          FirebaseFirestore.instance
-              .collection(user!.phoneNumber!)
-              .doc('user')
-              .update({
-            'subscription': true,
-          });
-        }
-      }
-    });
+      });
+    }
   }
 
   // Subscription for a certain number of days

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/support_message_page/widgets/appbar_menu_support_message_page.dart';
 import 'package:memory_box/pages/support_message_page/widgets/support_message_page_list.dart';
+import 'package:memory_box/pages/support_message_page/widgets/support_not_authorisation_page.dart';
 import 'package:memory_box/pages/support_message_page/widgets/text_field_support_message_page.dart';
 import '../../repositories/user_repositories.dart';
 import '../../utils/constants.dart';
-import '../subscription_page/widgets/subscription_not_authorisation.dart';
 
 class SupportMessagePage extends StatelessWidget {
   SupportMessagePage({Key? key}) : super(key: key);
@@ -44,7 +44,7 @@ class SupportMessagePage extends StatelessWidget {
                     width: screenWidth * 0.975,
                     decoration: kBorderContainer2,
                     child: rep.user == null
-                        ? const SubscriptionNotAuthorisation()
+                        ? const SupportNotAuthorisationPage()
                         : Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [

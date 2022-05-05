@@ -8,10 +8,6 @@ abstract class AuthEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class SingAppEvent extends AuthEvent {
-  // alsdnaldsnaldnaldn
-}
-
 class PhoneNumberVerificationIdEvent extends AuthEvent {
   const PhoneNumberVerificationIdEvent({this.phone});
   final String? phone;

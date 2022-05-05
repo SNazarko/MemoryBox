@@ -196,24 +196,26 @@ class AudioRepositories {
     String? idAudio;
     int? size;
     Timestamp? dateTimeDelete;
-    await FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
-        .doc('id')
-        .collection('DeleteCollections')
-        .get()
-        .then((querySnapshot) {
-      for (var result in querySnapshot.docs) {
-        dateTimeDelete = result.data()['dateTimeDelete'];
-        idAudio = result.data()['id'];
-        size = result.data()['size'];
-      }
-    });
-    if (dateTimeDelete != null) {
-      final state = dateTimeDelete!.compareTo(Timestamp.fromDate(later));
-      if (state >= 0) {
-        await repositories.updateSizeRepositories(-size!);
-        await CollectionsRepositories()
-            .deleteCollectionApp(idAudio!, 'DeleteCollections');
+    if (user != null) {
+      await FirebaseFirestore.instance
+          .collection(user!.phoneNumber!)
+          .doc('id')
+          .collection('DeleteCollections')
+          .get()
+          .then((querySnapshot) {
+        for (var result in querySnapshot.docs) {
+          dateTimeDelete = result.data()['dateTimeDelete'];
+          idAudio = result.data()['id'];
+          size = result.data()['size'];
+        }
+      });
+      if (dateTimeDelete != null) {
+        final state = dateTimeDelete!.compareTo(Timestamp.fromDate(later));
+        if (state >= 0) {
+          await repositories.updateSizeRepositories(-size!);
+          await CollectionsRepositories()
+              .deleteCollectionApp(idAudio!, 'DeleteCollections');
+        }
       }
     }
   }

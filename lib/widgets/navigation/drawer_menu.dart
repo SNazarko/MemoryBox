@@ -15,7 +15,6 @@ import '../../pages/home_page/home_page.dart';
 import '../../pages/search_page/search_page.dart';
 import '../../pages/subscription_page/subscription_page.dart';
 import '../../pages/support_message_page/support_message_page.dart';
-import '../../utils/constants.dart';
 
 class CustomDrawerMenu extends StatelessWidget {
   const CustomDrawerMenu({Key? key}) : super(key: key);

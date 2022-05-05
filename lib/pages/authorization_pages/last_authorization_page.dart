@@ -5,7 +5,10 @@ import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/utils/constants.dart';
 import 'package:memory_box/widgets/uncategorized/container_shadow.dart';
 import '../../repositories/user_repositories.dart';
+import '../../widgets/navigation/navigate_to_page.dart';
 import '../../widgets/uncategorized/appbar/appbar_header_authorization.dart';
+import '../main_page.dart';
+import 'first_authorization_page.dart';
 
 class LastAuthorizationPage extends StatefulWidget {
   const LastAuthorizationPage({Key? key}) : super(key: key);
@@ -24,8 +27,7 @@ class _LastAuthorizationPageState extends State<LastAuthorizationPage> {
   @override
   void initState() {
     Timer(const Duration(seconds: 3), () {
-      // Navigator.pushNamed(context, Main.routeName);
-      Phoenix.rebirth(context);
+      Navigator.pushNamed(context, FirstAuthorizationPage.routeName);
     });
     super.initState();
   }

@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../Blocs/navigation_bloc/navigation__bloc.dart';
 import '../../../Blocs/navigation_bloc/navigation__state.dart';
 import '../../../resources/app_colors.dart';
 import '../../../widgets/navigation/navigate_to_page.dart';
 import '../../authorization_pages/registration_page/registration_page.dart';
 
-class SubscriptionNotAuthorisation extends StatelessWidget {
-  const SubscriptionNotAuthorisation({Key? key}) : super(key: key);
+class SupportNotAuthorisationPage extends StatelessWidget {
+  const SupportNotAuthorisationPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

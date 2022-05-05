@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/models/audio_model.dart';
-import 'package:memory_box/models/view_model.dart';
 import 'package:memory_box/pages/home_page/widgets/popup_menu_home_page.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
@@ -12,6 +11,7 @@ import 'package:provider/provider.dart';
 import '../../../Blocs/navigation_bloc/navigation__bloc.dart';
 import '../../../Blocs/navigation_bloc/navigation__event.dart';
 import '../../../Blocs/navigation_bloc/navigation__state.dart';
+import '../../../widgets/navigation/navigate_to_page.dart';
 import '../../../widgets/player/player_mini/player_mini.dart';
 import '../../audio_recordings_page/audio_recordings_page.dart';
 
@@ -135,23 +135,6 @@ class _AudioList extends StatelessWidget {
 
 class _TitleAudioList extends StatelessWidget {
   const _TitleAudioList({Key? key}) : super(key: key);
-  void _navigateToPage(
-    BuildContext context, {
-    required int index,
-    required int currentIndex,
-    required String route,
-  }) {
-    Navigator.pop(context);
-
-    if (index != currentIndex) {
-      context.read<NavigationBloc>().add(
-            NavigateMenu(
-              menuIndex: index,
-              route: route,
-            ),
-          );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -168,14 +151,10 @@ class _TitleAudioList extends StatelessWidget {
                 style: TextStyle(fontSize: 24.0),
               ),
               GestureDetector(
-                onTap: () => _navigateToPage(context,
+                onTap: () => NavigateToPage.instance?.navigate(context,
                     index: 3,
                     currentIndex: state.currentIndex,
                     route: AudioRecordingsPage.routeName),
-                // {
-                //   Provider.of<Navigation>(context, listen: false).setCurrentIndex =
-                //       3;
-                // },
                 child: const Text(
                   'Открыть все',
                   style: TextStyle(fontSize: 14.0),

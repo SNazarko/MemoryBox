@@ -152,33 +152,34 @@ class PlayerCollectionsState extends State<PlayerCollections> {
   Future<void> player() async {
     CollectionsRepositories rep = CollectionsRepositories();
     List<AudioSource> audioUrlList = [];
+    if (rep.user != null) {
+      await FirebaseFirestore.instance
+          .collection(rep.user!.phoneNumber!)
+          .doc('id')
+          .collection('Collections')
+          .where('collections', arrayContains: widget.idCollection)
+          .get()
+          .then((querySnapshot) {
+        for (var result in querySnapshot.docs) {
+          final String audioUrl = result.data()['audioUrl'];
+          final String audioName = result.data()['audioName'];
+          final String audioId = result.data()['id'];
+          audioUrlList.add(AudioSource.uri(Uri.parse(audioUrl)));
+          audioNameList.add(audioName);
+          audioIdList.add(audioId);
+        }
+      });
 
-    await FirebaseFirestore.instance
-        .collection(rep.user!.phoneNumber!)
-        .doc('id')
-        .collection('Collections')
-        .where('collections', arrayContains: widget.idCollection)
-        .get()
-        .then((querySnapshot) {
-      for (var result in querySnapshot.docs) {
-        final String audioUrl = result.data()['audioUrl'];
-        final String audioName = result.data()['audioName'];
-        final String audioId = result.data()['id'];
-        audioUrlList.add(AudioSource.uri(Uri.parse(audioUrl)));
-        audioNameList.add(audioName);
-        audioIdList.add(audioId);
-      }
-    });
-
-    await _audioPlayer.setAudioSource(
-      ConcatenatingAudioSource(
-        useLazyPreparation: true, // default
-        shuffleOrder: DefaultShuffleOrder(), // default
-        children: audioUrlList,
-      ),
-      initialIndex: initialIndex, // default
-      initialPosition: Duration.zero, // default
-    );
+      await _audioPlayer.setAudioSource(
+        ConcatenatingAudioSource(
+          useLazyPreparation: true, // default
+          shuffleOrder: DefaultShuffleOrder(), // default
+          children: audioUrlList,
+        ),
+        initialIndex: initialIndex, // default
+        initialPosition: Duration.zero, // default
+      );
+    }
   }
 
   Future<void> seekToNext() {

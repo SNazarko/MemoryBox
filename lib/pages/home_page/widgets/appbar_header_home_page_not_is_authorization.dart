@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:memory_box/models/view_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:provider/src/provider.dart';
 
+import '../../../Blocs/navigation_bloc/navigation__bloc.dart';
+import '../../../Blocs/navigation_bloc/navigation__event.dart';
+import '../../../Blocs/navigation_bloc/navigation__state.dart';
 import '../../../widgets/uncategorized/appbar_clipper.dart';
 import '../../../widgets/uncategorized/home_page_containers/blue_container.dart';
 import '../../../widgets/uncategorized/home_page_containers/green_container.dart';
 import '../../../widgets/uncategorized/home_page_containers/orange_container.dart';
+import '../../collections_pages/collection/collection.dart';
 
 class AppbarHeaderHomePageNotIsAuthorization extends StatelessWidget {
   const AppbarHeaderHomePageNotIsAuthorization({Key? key}) : super(key: key);
@@ -83,44 +89,68 @@ class AppbarHeaderHomePageNotIsAuthorization extends StatelessWidget {
 class _TitleAppbar extends StatelessWidget {
   const _TitleAppbar({Key? key, required this.screenWidth}) : super(key: key);
   final double screenWidth;
+  void _navigateToPage(
+    BuildContext context, {
+    required int index,
+    required int currentIndex,
+    required String route,
+  }) {
+    Navigator.pop(context);
+
+    if (index != currentIndex) {
+      context.read<NavigationBloc>().add(
+            NavigateMenu(
+              menuIndex: index,
+              route: route,
+            ),
+          );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: 0.0,
-      child: SizedBox(
-        width: screenWidth,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                'Подборки',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: GestureDetector(
-                onTap: () {
-                  Provider.of<Navigation>(context, listen: false)
-                      .setCurrentIndex = 1;
-                },
-                child: const Text(
-                  'Открыть все',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.white,
+    return BlocBuilder<NavigationBloc, NavigationState>(
+      builder: (context, state) {
+        return Positioned(
+          top: 0.0,
+          child: SizedBox(
+            width: screenWidth,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text(
+                    'Подборки',
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: GestureDetector(
+                    onTap: () => _navigateToPage(
+                      context,
+                      index: 1,
+                      currentIndex: state.currentIndex,
+                      route: Collections.routeName,
+                    ),
+                    child: const Text(
+                      'Открыть все',
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

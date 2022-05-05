@@ -5,10 +5,12 @@ import 'app_authorization_event.dart';
 import 'app_authorization_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc() : super(AuthInitialState()) {
+  AuthBloc() : super(const AuthState()) {
     on<PhoneNumberVerificationIdEvent>(
         (PhoneNumberVerificationIdEvent event, Emitter<AuthState> emit) async {
-      emit(LoadingAuthState());
+      emit(
+        state.copyWith(status: AuthStatus.loading),
+      );
       await AuthRepositories.instance?.verifyPhoneSendOtp(event.phone!,
           completed: (credential) {
         print('completed');
@@ -32,13 +34,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         event.smsCode!,
         event.phone!,
       );
-      emit(LoggedInState(uid: uid));
+      emit(
+        state.copyWith(
+          status: AuthStatus.logged,
+          uid: uid,
+        ),
+      );
     });
     on<CodeSendEvent>((CodeSendEvent event, Emitter<AuthState> emit) {
-      emit(CodeSendState(
-        verificationId: event.verificationId,
-        token: event.token,
-      ));
+      emit(
+        state.copyWith(
+          status: AuthStatus.codeSent,
+          verificationId: event.verificationId,
+          token: event.token,
+        ),
+      );
     });
   }
 

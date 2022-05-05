@@ -1,10 +1,16 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/models/view_model.dart';
 import 'package:memory_box/pages/authorization_pages/registration_page/registration_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/utils/constants.dart';
 import 'package:provider/provider.dart';
+
+import '../../../Blocs/navigation_bloc/navigation__bloc.dart';
+import '../../../Blocs/navigation_bloc/navigation__event.dart';
+import '../../../Blocs/navigation_bloc/navigation__state.dart';
+import '../../audio_recordings_page/audio_recordings_page.dart';
 
 class HomePageNotIsAuthorization extends StatelessWidget {
   const HomePageNotIsAuthorization({Key? key}) : super(key: key);
@@ -79,31 +85,52 @@ class HomePageNotIsAuthorization extends StatelessWidget {
 
 class _TitleAudioList extends StatelessWidget {
   const _TitleAudioList({Key? key}) : super(key: key);
+  void _navigateToPage(
+    BuildContext context, {
+    required int index,
+    required int currentIndex,
+    required String route,
+  }) {
+    Navigator.pop(context);
+
+    if (index != currentIndex) {
+      context.read<NavigationBloc>().add(
+            NavigateMenu(
+              menuIndex: index,
+              route: route,
+            ),
+          );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            'Аудиозаписи',
-            style: TextStyle(fontSize: 24.0),
+    return BlocBuilder<NavigationBloc, NavigationState>(
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Аудиозаписи',
+                style: TextStyle(fontSize: 24.0),
+              ),
+              GestureDetector(
+                onTap: () => _navigateToPage(context,
+                    index: 3,
+                    currentIndex: state.currentIndex,
+                    route: AudioRecordingsPage.routeName),
+                child: const Text(
+                  'Открыть все',
+                  style: TextStyle(fontSize: 14.0),
+                ),
+              )
+            ],
           ),
-          GestureDetector(
-            onTap: () {
-              Provider.of<Navigation>(context, listen: false).setCurrentIndex =
-                  3;
-            },
-            child: const Text(
-              'Открыть все',
-              style: TextStyle(fontSize: 14.0),
-            ),
-          )
-        ],
-      ),
+        );
+      },
     );
   }
 }

@@ -26,7 +26,7 @@ class AuthWidget extends StatelessWidget {
   TextEditingController otpController = TextEditingController();
 
   void buttonContinue(BuildContext context, state) {
-    if (phoneController.text.isNotEmpty && state is AuthInitialState) {
+    if (phoneController.text.isNotEmpty && state.status == AuthStatus.initial) {
       BlocProvider.of<AuthBloc>(context)
           .add(PhoneNumberVerificationIdEvent(phone: phoneController.text));
       controller.animateToPage(
@@ -34,7 +34,7 @@ class AuthWidget extends StatelessWidget {
         duration: const Duration(milliseconds: 400),
         curve: Curves.easeIn,
       );
-    } else if (state is CodeSendState) {
+    } else if (state.status == AuthStatus.codeSent) {
       BlocProvider.of<AuthBloc>(context).add(PhoneAuthCodeVerificationIdEvent(
           phone: phoneController.text,
           smsCode: otpController.text,
@@ -52,7 +52,7 @@ class AuthWidget extends StatelessWidget {
     return BlocConsumer<AuthBloc, AuthState>(
       bloc: context.watch<AuthBloc>(),
       listener: (_, state) {
-        if (state is LoggedInState) {
+        if (state.status == AuthStatus.logged) {
           controller.animateToPage(2,
               duration: const Duration(milliseconds: 400),
               curve: Curves.easeIn);
@@ -87,7 +87,7 @@ class AuthWidget extends StatelessWidget {
                     height: 30.0,
                   ),
                   ButtonContinue(
-                    onPressed: state is LoadingAuthState
+                    onPressed: state.status == AuthStatus.loading
                         ? null
                         : () => buttonContinue(context, state),
                     text: 'Продолжыть',
@@ -147,7 +147,7 @@ class _Sms extends StatelessWidget {
       builder: (context, state) {
         return Column(
           children: [
-            state is LoadingAuthState
+            state.status == AuthStatus.loading
                 ? const Text(
                     'Мы вас щас регистрируем ...',
                     textAlign: TextAlign.center,
@@ -156,7 +156,7 @@ class _Sms extends StatelessWidget {
                     ),
                   )
                 : const SizedBox.shrink(),
-            state is CodeSendState
+            state.status == AuthStatus.codeSent
                 ? const Text(
                     'Введи код из смс, чтобы мы \n  тебя запомнили',
                     textAlign: TextAlign.center,
@@ -168,10 +168,10 @@ class _Sms extends StatelessWidget {
             const SizedBox(
               height: 10.0,
             ),
-            state is LoadingAuthState
+            state.status == AuthStatus.loading
                 ? const CircularProgressIndicator()
                 : const SizedBox.shrink(),
-            state is CodeSendState
+            state.status == AuthStatus.codeSent
                 ? TextFieldCaptcha(
                     controller: otpController,
                   )

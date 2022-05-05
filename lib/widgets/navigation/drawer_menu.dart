@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:memory_box/models/view_model.dart';
 import 'package:memory_box/pages/collections_pages/collection/collection.dart';
 import 'package:memory_box/pages/profile_pages/profile_page/profile.dart';
 import 'package:memory_box/resources/app_colors.dart';
@@ -20,7 +19,6 @@ import '../../utils/constants.dart';
 
 class CustomDrawerMenu extends StatelessWidget {
   const CustomDrawerMenu({Key? key}) : super(key: key);
-
   void _navigateToPage(
     BuildContext context, {
     required int index,

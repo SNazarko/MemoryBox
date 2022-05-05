@@ -13,6 +13,7 @@ import '../Blocs/navigation_bloc/navigation__bloc.dart';
 import '../Blocs/navigation_bloc/navigation__event.dart';
 import '../Blocs/navigation_bloc/navigation__state.dart';
 import 'audio_recordings_page/audio_recordings_page.dart';
+import 'authorization_pages/registration_page/registration_page.dart';
 import 'collections_pages/collection/collection.dart';
 import 'delete_pages/delete_page.dart';
 

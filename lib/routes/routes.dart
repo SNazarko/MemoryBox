@@ -44,7 +44,7 @@ class AppRouter {
 
       // /registration_page
       case RegistrationPage.routeName:
-        builder = (_) => RegistrationPage.create();
+        builder = (_) => RegistrationPage();
         break;
 
       // /first_authorization_page.dart

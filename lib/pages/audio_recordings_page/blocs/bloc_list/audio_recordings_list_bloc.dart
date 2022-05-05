@@ -11,7 +11,7 @@ class AudioRecordingsListBloc
   AudioRecordingsListBloc({required AudioRepositories repositories})
       : _repositories = repositories,
         super(const AudioRecordingsListState()) {
-    void _onLoadAudioRecordingsListEvent(LoadAudioRecordingsListEvent event,
+    on<LoadAudioRecordingsListEvent>((LoadAudioRecordingsListEvent event,
         Emitter<AudioRecordingsListState> emit) {
       try {
         _itemsSubscriptions?.cancel();
@@ -22,27 +22,15 @@ class AudioRecordingsListBloc
       } on Exception catch (e) {
         emit(state.copyWith(status: AudioRecordingsListStateStatus.failed));
       }
-    }
+    });
 
-    void _onUpdateAudioRecordingsListEvent(UpdateAudioRecordingsListEvent event,
+    on<UpdateAudioRecordingsListEvent>((UpdateAudioRecordingsListEvent event,
         Emitter<AudioRecordingsListState> emit) {
-      try {
-        emit(
-          state.copyWith(
-              status: AudioRecordingsListStateStatus.success,
-              loadedAudio: event.loadedAudio),
-        );
-      } on Exception catch (e) {
-        emit(state.copyWith(status: AudioRecordingsListStateStatus.failed));
-      }
-    }
-
-    on<LoadAudioRecordingsListEvent>(
-      _onLoadAudioRecordingsListEvent,
-    );
-
-    on<UpdateAudioRecordingsListEvent>(
-      _onUpdateAudioRecordingsListEvent,
-    );
+      emit(
+        state.copyWith(
+            status: AudioRecordingsListStateStatus.success,
+            loadedAudio: event.loadedAudio),
+      );
+    });
   }
 }

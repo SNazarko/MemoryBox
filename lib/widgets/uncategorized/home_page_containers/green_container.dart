@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 import '../../../Blocs/navigation_bloc/navigation__bloc.dart';
 import '../../../Blocs/navigation_bloc/navigation__state.dart';
-import '../../../models/view_model.dart';
 import '../../../pages/collections_pages/collection/collection.dart';
 import '../../../resources/app_colors.dart';
 import '../../navigation/navigate_to_page.dart';

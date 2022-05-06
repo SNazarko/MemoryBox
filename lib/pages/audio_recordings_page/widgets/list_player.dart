@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/popup_menu_audio_recording.dart';
 
+import '../../../blocs/list_item_bloc/list_item_bloc.dart';
+import '../../../resources/app_colors.dart';
 import '../../../widgets/player/player_mini/player_mini.dart';
-import '../blocs/bloc_list/audio_recordings_list_bloc.dart';
-import '../blocs/bloc_list/audio_recordings_list_state.dart';
 
 class ListPlayer extends StatelessWidget {
   const ListPlayer({Key? key}) : super(key: key);
@@ -14,19 +14,37 @@ class ListPlayer extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
     return SizedBox(
       height: screenHeight - 140.0,
-      child: BlocBuilder<AudioRecordingsListBloc, AudioRecordingsListState>(
-          builder: (context, state) {
-        if (state.status == AudioRecordingsListStateStatus.initial) {
+      child:
+          BlocBuilder<ListItemBloc, ListItemState>(builder: (context, state) {
+        if (state.status == ListItemStatus.emptyList) {
+          return const Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: 50.0,
+              horizontal: 40.0,
+            ),
+            child: Center(
+              child: Text(
+                'Как только ты запишешь аудио, она появится здесь.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: AppColor.colorText50,
+                ),
+              ),
+            ),
+          );
+        }
+        if (state.status == ListItemStatus.initial) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
-        if (state.status == AudioRecordingsListStateStatus.success) {
+        if (state.status == ListItemStatus.success) {
           return ListView.builder(
             padding: const EdgeInsets.only(top: 135.0, bottom: 110.0),
-            itemCount: state.loadedAudio.length,
+            itemCount: state.list.length,
             itemBuilder: (BuildContext context, int index) {
-              final audio = state.loadedAudio[index];
+              final audio = state.list[index];
               return PlayerMini(
                 playPause: audio.playPause,
                 duration: '${audio.duration}',
@@ -49,7 +67,7 @@ class ListPlayer extends StatelessWidget {
             },
           );
         }
-        if (state.status == AudioRecordingsListStateStatus.failed) {
+        if (state.status == ListItemStatus.failed) {
           return const Center(
             child: Text('Ой: сталася помилка!'),
           );

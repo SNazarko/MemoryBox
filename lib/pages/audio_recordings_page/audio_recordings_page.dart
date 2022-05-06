@@ -6,12 +6,11 @@ import 'package:memory_box/pages/audio_recordings_page/widgets/list_player.dart'
 import 'package:memory_box/pages/audio_recordings_page/widgets/list_player_not_authorization.dart';
 import 'package:provider/provider.dart';
 import '../../animation/audio_recordings_page_player/audio_recordings_page_player_model.dart';
+import '../../blocs/list_item_bloc/list_item_bloc.dart';
 import '../../repositories/audio_repositories.dart';
 import '../../repositories/user_repositories.dart';
 import '../../utils/constants.dart';
 import '../../widgets/player/player_collections/player_collections.dart';
-import 'blocs/bloc_list/audio_recordings_list_bloc.dart';
-import 'blocs/bloc_list/audio_recordings_list_event.dart';
 import 'blocs/bloc_quality_total_time/quality_total_time_bloc.dart';
 import 'blocs/bloc_quality_total_time/quality_total_time_event.dart';
 
@@ -33,14 +32,20 @@ class AudioRecordingsPage extends StatelessWidget {
     final double screenWight = MediaQuery.of(context).size.width;
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AudioRecordingsListBloc>(
-            create: (context) =>
-                AudioRecordingsListBloc(repositories: AudioRepositories())
-                  ..add(LoadAudioRecordingsListEvent())),
+        BlocProvider<ListItemBloc>(
+          create: (context) => ListItemBloc()
+            ..add(
+              LoadListItemEvent(
+                  streamList: AudioRepositories().readAudioSort('all')),
+            ),
+        ),
         BlocProvider<QualityTotalTimeBloc>(
-            create: (context) =>
-                QualityTotalTimeBloc(repositories: UserRepositories())
-                  ..add(LoadQualityTotalTimeEvent())),
+          create: (context) => QualityTotalTimeBloc(
+            repositories: UserRepositories(),
+          )..add(
+              LoadQualityTotalTimeEvent(),
+            ),
+        ),
       ],
       child: Scaffold(
         appBar: AppBar(

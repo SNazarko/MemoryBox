@@ -35,9 +35,8 @@ class AppRouter {
     WidgetBuilder builder;
 
     switch (settings.name) {
-      // audio_recordings_page
       case AudioRecordingsPage.routeName:
-        builder = (_) => AudioRecordingsPage.create();
+        builder = (_) => AudioRecordingsPage();
         break;
 
       // authorization_pages/

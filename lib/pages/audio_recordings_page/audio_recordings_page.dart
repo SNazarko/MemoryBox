@@ -4,13 +4,12 @@ import 'package:memory_box/pages/audio_recordings_page/widgets/appbar_header_aud
 import 'package:memory_box/pages/audio_recordings_page/widgets/appbar_header_audio_recordings_not_authorization.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/list_player.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/list_player_not_authorization.dart';
-import 'package:provider/provider.dart';
-import '../../animation/audio_recordings_page_player/audio_recordings_page_player_model.dart';
 import '../../blocs/list_item_bloc/list_item_bloc.dart';
 import '../../repositories/audio_repositories.dart';
 import '../../repositories/user_repositories.dart';
 import '../../utils/constants.dart';
 import '../../widgets/player/player_collections/player_collections.dart';
+import 'blocs/bloc_anim/anim_bloc.dart';
 import 'blocs/bloc_quality_total_time/quality_total_time_bloc.dart';
 import 'blocs/bloc_quality_total_time/quality_total_time_event.dart';
 
@@ -19,12 +18,6 @@ class AudioRecordingsPage extends StatelessWidget {
   final UserRepositories rep = UserRepositories();
   final AudioRepositories repAudio = AudioRepositories();
   static const routeName = '/audio_recordings_page';
-  static Widget create() {
-    return ChangeNotifierProvider<AudioRecordingsPagePlayerModel>(
-      create: (BuildContext context) => AudioRecordingsPagePlayerModel(),
-      child: AudioRecordingsPage(),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +25,15 @@ class AudioRecordingsPage extends StatelessWidget {
     final double screenWight = MediaQuery.of(context).size.width;
     return MultiBlocProvider(
       providers: [
+        BlocProvider<AnimBloc>(
+          create: (context) => AnimBloc(),
+        ),
         BlocProvider<ListItemBloc>(
           create: (context) => ListItemBloc()
             ..add(
               LoadListItemEvent(
-                  streamList: AudioRepositories().readAudioSort('all')),
+                streamList: AudioRepositories().readAudioSort('all'),
+              ),
             ),
         ),
         BlocProvider<QualityTotalTimeBloc>(
@@ -80,18 +77,21 @@ class AudioRecordingsPage extends StatelessWidget {
                 ],
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 5.0),
-                child: PlayerCollections(
-                  screenWight: screenWight,
-                  screenHeight: screenHeight,
-                  idCollection: 'all',
-                  animation:
-                      context.watch<AudioRecordingsPagePlayerModel>().getAnim,
-                ),
-              ),
+            BlocBuilder<AnimBloc, AnimState>(
+              builder: (_, state) {
+                return Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 5.0),
+                    child: PlayerCollections(
+                      screenWight: screenWight,
+                      screenHeight: screenHeight,
+                      idCollection: 'all',
+                      animation: state.anim,
+                    ),
+                  ),
+                );
+              },
             )
           ],
         ),

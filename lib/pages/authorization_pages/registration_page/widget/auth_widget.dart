@@ -114,7 +114,7 @@ class AuthWidget extends StatelessWidget {
                         : () => buttonContinue(context, state),
                     text: state.status == AuthStatus.failed ||
                             state.status == AuthStatus.failedCodeSent
-                        ? 'Попробуйте еще раз'
+                        ? 'Отправить еще раз'
                         : 'Продолжыть',
                   ),
                   const SizedBox(
@@ -177,7 +177,7 @@ class _Sms extends StatelessWidget {
           children: [
             state.status == AuthStatus.loading
                 ? const Text(
-                    'Регистрацыя телефона ...',
+                    'Регистрация телефона ...',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16.0,
@@ -195,7 +195,7 @@ class _Sms extends StatelessWidget {
                 : const SizedBox.shrink(),
             state.status == AuthStatus.failed
                 ? const Text(
-                    'Ошибка ввода номера \n ',
+                    'Ошибка ввода номера',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16.0,

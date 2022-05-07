@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_formatter/formatters/masked_input_formatter.dart';
 
 class TextFieldCaptcha extends StatelessWidget {
   const TextFieldCaptcha({Key? key, this.controller}) : super(key: key);
@@ -21,7 +22,8 @@ class TextFieldCaptcha extends StatelessWidget {
             )
           ]),
       child: TextField(
-        maxLength: ,
+        autofocus: true,
+        inputFormatters: [MaskedInputFormatter('######')],
         controller: controller,
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,

@@ -27,8 +27,9 @@ class _LastAuthorizationPageState extends State<LastAuthorizationPage> {
   @override
   void initState() {
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushNamed(context, FirstAuthorizationPage.routeName);
+      Phoenix.rebirth(context);
     });
+
     super.initState();
   }
 

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/pages/authorization_pages/registration_page/widget/text_field_captcha.dart';
@@ -39,9 +40,27 @@ class AuthWidget extends StatelessWidget {
           phone: phoneController.text,
           smsCode: otpController.text,
           verificationId: state.verificationId));
-      Timer(const Duration(milliseconds: 1), () {
-        Navigator.pushNamed(context, LastAuthorizationPage.routeName);
+      FirebaseAuth.instance.idTokenChanges().listen((User? user) {
+        if (user == null) {
+          print('User is currently signed out!');
+        } else {
+          print('User is signed in!');
+          Timer(const Duration(milliseconds: 1), () {
+            Navigator.pushNamed(context, LastAuthorizationPage.routeName);
+          });
+        }
       });
+    } else if (state.status == AuthStatus.failed) {
+      BlocProvider.of<AuthBloc>(context)
+          .add(PhoneNumberVerificationIdEvent(phone: phoneController.text));
+      controller.animateToPage(
+        1,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeIn,
+      );
+    } else if (state.status == AuthStatus.failedCodeSent) {
+      BlocProvider.of<AuthBloc>(context)
+          .add(PhoneNumberVerificationIdEvent(phone: phoneController.text));
     }
   }
 
@@ -59,6 +78,7 @@ class AuthWidget extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        print(state.status);
         return Stack(
           children: [
             SizedBox(
@@ -73,6 +93,8 @@ class AuthWidget extends StatelessWidget {
                   ),
                   _Sms(
                     otpController: otpController,
+                    controller: controller,
+                    phoneController: phoneController,
                   ),
                   const LastAuthorizationPage(),
                 ],
@@ -90,7 +112,10 @@ class AuthWidget extends StatelessWidget {
                     onPressed: state.status == AuthStatus.loading
                         ? null
                         : () => buttonContinue(context, state),
-                    text: 'Продолжыть',
+                    text: state.status == AuthStatus.failed ||
+                            state.status == AuthStatus.failedCodeSent
+                        ? 'Попробуйте еще раз'
+                        : 'Продолжыть',
                   ),
                   const SizedBox(
                     height: 15.0,
@@ -134,22 +159,25 @@ class AuthWidget extends StatelessWidget {
 }
 
 class _Sms extends StatelessWidget {
-  _Sms({
-    Key? key,
-    required this.otpController,
-  }) : super(key: key);
+  _Sms(
+      {Key? key,
+      required this.otpController,
+      required this.controller,
+      required this.phoneController})
+      : super(key: key);
   TextEditingController otpController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  PageController controller = PageController();
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthBloc, AuthState>(
-      listener: (_, state) {},
+    return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         return Column(
           children: [
             state.status == AuthStatus.loading
                 ? const Text(
-                    'Мы вас щас регистрируем ...',
+                    'Регистрацыя телефона ...',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16.0,
@@ -165,6 +193,24 @@ class _Sms extends StatelessWidget {
                     ),
                   )
                 : const SizedBox.shrink(),
+            state.status == AuthStatus.failed
+                ? const Text(
+                    'Ошибка ввода номера \n ',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16.0,
+                    ),
+                  )
+                : const SizedBox.shrink(),
+            state.status == AuthStatus.failedCodeSent
+                ? const Text(
+                    'Отправить смс еще раз',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16.0,
+                    ),
+                  )
+                : const SizedBox.shrink(),
             const SizedBox(
               height: 10.0,
             ),
@@ -172,6 +218,16 @@ class _Sms extends StatelessWidget {
                 ? const CircularProgressIndicator()
                 : const SizedBox.shrink(),
             state.status == AuthStatus.codeSent
+                ? TextFieldCaptcha(
+                    controller: otpController,
+                  )
+                : const SizedBox.shrink(),
+            state.status == AuthStatus.failed
+                ? TextFieldInput(
+                    controller: phoneController,
+                  )
+                : const SizedBox.shrink(),
+            state.status == AuthStatus.failedCodeSent
                 ? TextFieldCaptcha(
                     controller: otpController,
                   )
@@ -201,10 +257,11 @@ class _Phone extends StatelessWidget {
           height: 15.0,
         ),
         Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40),
-            child: TextFieldInput(
-              controller: phoneController,
-            )),
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          child: TextFieldInput(
+            controller: phoneController,
+          ),
+        ),
       ],
     );
   }

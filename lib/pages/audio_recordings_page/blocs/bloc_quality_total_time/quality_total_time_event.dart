@@ -1,16 +1,20 @@
 import 'package:flutter/cupertino.dart';
-import 'package:memory_box/pages/collections_pages/collection/collection_model.dart';
 
 import '../../../../models/user_model.dart';
 
 @immutable
 abstract class QualityTotalTimeEvent {}
 
-class LoadQualityTotalTimeEvent extends QualityTotalTimeEvent {}
+class LoadQualityTotalTimeEvent extends QualityTotalTimeEvent {
+  LoadQualityTotalTimeEvent({
+    this.streamList,
+  });
+  final Stream<List>? streamList;
+}
 
 class UpdateQualityTotalTimeEvent extends QualityTotalTimeEvent {
   UpdateQualityTotalTimeEvent({
-    this.qualityTotalTime = const <UserModel>[],
+    this.qualityTotalTime = const [],
   });
-  final List<UserModel> qualityTotalTime;
+  final List qualityTotalTime;
 }

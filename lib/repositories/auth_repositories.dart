@@ -48,7 +48,7 @@ class AuthRepositories {
           .collection(phoneNumber!)
           .doc('user')
           .get();
-      if (userSnap.exists) {
+      if (!userSnap.exists) {
         await FirebaseFirestore.instance
             .collection(phoneNumber)
             .doc('user')

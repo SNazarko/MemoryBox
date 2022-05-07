@@ -46,3 +46,8 @@ class CodeSendEvent extends AuthEvent {
   final int? token;
   final String? verificationId;
 }
+
+class ErrorCodeSendEvent extends AuthEvent {
+  ErrorCodeSendEvent({this.error});
+  final String? error;
+}

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:memory_box/repositories/auth_repositories.dart';
 
 import 'app_authorization_event.dart';
@@ -17,19 +18,39 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           print('completed');
           add(CompletedAuthEvent(credential: credential));
         }, failed: (error) {
+          print('error111111111111');
           print(error);
           add(ErrorOccuredEvent(error: error.toString()));
         }, codeSent: (String id, int? token) {
-          print('$id');
+          print('22222222222222');
           add(CodeSendEvent(token: token, verificationId: id));
         }, codeAutoRetrievalTimeout: (String id) {
-          print('$id');
-          add(CodeSendEvent(verificationId: id, token: 0));
+          print('333333333333333333');
+          // add(CodeSendEvent(verificationId: id, token: 0));
+          add(ErrorCodeSendEvent());
         });
       } on Exception catch (e) {
-        print(e);
+        if (kDebugMode) {
+          print(e);
+        }
       }
     });
+    on<ErrorCodeSendEvent>((ErrorCodeSendEvent event, Emitter<AuthState> emit) {
+      emit(
+        state.copyWith(
+          status: AuthStatus.failedCodeSent,
+        ),
+      );
+    });
+
+    on<ErrorOccuredEvent>((ErrorOccuredEvent event, Emitter<AuthState> emit) {
+      emit(
+        state.copyWith(
+          status: AuthStatus.failed,
+        ),
+      );
+    });
+
     on<PhoneAuthCodeVerificationIdEvent>(
         (PhoneAuthCodeVerificationIdEvent event,
             Emitter<AuthState> emit) async {

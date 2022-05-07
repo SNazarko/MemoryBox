@@ -31,28 +31,28 @@ class UserRepositories {
 
   // Basic filling of the database at the first event
 
-  Future<void> firstAuthorization() async {
-    final DateTime now = DateTime.now();
-    final DateTime later = now.add(const Duration(days: 30));
-    final Timestamp laterTimestamp = Timestamp.fromDate(later);
-    await FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
-        .doc('user')
-        .set({
-      'displayName': 'Имя',
-      'phoneNumb': '+00(000)0000000',
-      'avatarUrl': '',
-      'onceAMonth': false,
-      'onceAYear': false,
-      'onlyMonth': false,
-      'finishTimeSubscription': laterTimestamp,
-      'subscription': true,
-      'subscriptionLimit': 524288000,
-      'totalQuality': 0,
-      'totalSize': 0,
-      'totalTime': '00:00',
-    });
-  }
+  // Future<void> firstAuthorization() async {
+  //   final DateTime now = DateTime.now();
+  //   final DateTime later = now.add(const Duration(days: 30));
+  //   final Timestamp laterTimestamp = Timestamp.fromDate(later);
+  //   await FirebaseFirestore.instance
+  //       .collection(user!.phoneNumber!)
+  //       .doc('user')
+  //       .set({
+  //     'displayName': 'Имя',
+  //     'phoneNumb': '+00(000)0000000',
+  //     'avatarUrl': '',
+  //     'onceAMonth': false,
+  //     'onceAYear': false,
+  //     'onlyMonth': false,
+  //     'finishTimeSubscription': laterTimestamp,
+  //     'subscription': true,
+  //     'subscriptionLimit': 524288000,
+  //     'totalQuality': 0,
+  //     'totalSize': 0,
+  //     'totalTime': '00:00',
+  //   });
+  // }
 
   // Update size repositories
   Future<void> updateSizeRepositories(int size) async {

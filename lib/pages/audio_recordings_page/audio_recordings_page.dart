@@ -37,10 +37,11 @@ class AudioRecordingsPage extends StatelessWidget {
             ),
         ),
         BlocProvider<QualityTotalTimeBloc>(
-          create: (context) => QualityTotalTimeBloc(
-            repositories: UserRepositories(),
-          )..add(
-              LoadQualityTotalTimeEvent(),
+          create: (context) => QualityTotalTimeBloc()
+            ..add(
+              LoadQualityTotalTimeEvent(
+                streamList: UserRepositories().readUser(),
+              ),
             ),
         ),
       ],

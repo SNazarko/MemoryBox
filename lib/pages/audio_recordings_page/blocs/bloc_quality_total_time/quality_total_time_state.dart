@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
-import 'package:memory_box/pages/collections_pages/collection/collection_model.dart';
+import 'dart:async';
 
-import '../../../../models/audio_model.dart';
+import 'package:flutter/cupertino.dart';
 import '../../../../models/user_model.dart';
 
 enum QualityTotalTimeStatus {
@@ -14,18 +13,22 @@ enum QualityTotalTimeStatus {
 class QualityTotalTimeState {
   const QualityTotalTimeState({
     this.status = QualityTotalTimeStatus.initial,
-    this.qualityTotalTime = const <UserModel>[],
+    this.qualityTotalTime = const [],
+    this.streamList,
   });
   final QualityTotalTimeStatus status;
-  final List<UserModel> qualityTotalTime;
+  final List qualityTotalTime;
+  final StreamSubscription<List>? streamList;
 
   QualityTotalTimeState copyWith({
     QualityTotalTimeStatus? status,
-    List<UserModel>? qualityTotalTime,
+    List? qualityTotalTime,
+    StreamSubscription<List>? streamList,
   }) {
     return QualityTotalTimeState(
       status: status ?? this.status,
       qualityTotalTime: qualityTotalTime ?? this.qualityTotalTime,
+      streamList: streamList ?? this.streamList,
     );
   }
 }

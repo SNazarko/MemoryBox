@@ -21,6 +21,7 @@ class TextFieldCaptcha extends StatelessWidget {
             )
           ]),
       child: TextField(
+        maxLength: ,
         controller: controller,
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,

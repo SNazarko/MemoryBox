@@ -5,6 +5,7 @@ enum AuthStatus {
   loading,
   logged,
   codeSent,
+  failedCodeSent,
   failed,
 }
 

@@ -13,6 +13,7 @@ import '../../repositories/auth_repositories.dart';
 import '../../repositories/collections_repositories.dart';
 import '../../repositories/user_repositories.dart';
 import '../subscription_page/subscription_page.dart';
+import 'blocs/blue _list_collections/blue_list_collections_bloc.dart';
 import 'blocs/green_list_collections/green_list_collections_bloc.dart';
 import 'blocs/orange_list_collections/orange_list_collections_bloc.dart';
 
@@ -62,8 +63,9 @@ class _HomePageState extends State<HomePage> {
           create: (context) => ListItemBloc()
             ..add(
               LoadListItemEvent(
-                  streamList: AudioRepositories.instance!
-                      .readAudio('all', 'Collections')),
+                streamList:
+                    AudioRepositories.instance!.readAudio('all', 'Collections'),
+              ),
             ),
         ),
         BlocProvider<GreenListItemBloc>(
@@ -78,6 +80,14 @@ class _HomePageState extends State<HomePage> {
           create: (context) => OrangeListItemBloc()
             ..add(
               LoadOrangeListItemEvent(
+                streamList: CollectionsRepositories.instance?.readCollections(),
+              ),
+            ),
+        ),
+        BlocProvider<BlueListItemBloc>(
+          create: (context) => BlueListItemBloc()
+            ..add(
+              LoadBlueListItemEvent(
                 streamList: CollectionsRepositories.instance?.readCollections(),
               ),
             ),
@@ -106,10 +116,11 @@ class _HomePageState extends State<HomePage> {
                       : const AppbarHeaderHomePage(),
                 ),
                 Expanded(
-                    flex: 11,
-                    child: AuthRepositories.instance?.user == null
-                        ? const HomePageNotIsAuthorization()
-                        : const HomePageAudio()),
+                  flex: 11,
+                  child: AuthRepositories.instance?.user == null
+                      ? const HomePageNotIsAuthorization()
+                      : const HomePageAudio(),
+                ),
               ],
             ),
           ),

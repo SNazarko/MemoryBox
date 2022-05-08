@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:provider/src/provider.dart';
-
 import '../../../Blocs/navigation_bloc/navigation__bloc.dart';
-import '../../../Blocs/navigation_bloc/navigation__event.dart';
 import '../../../Blocs/navigation_bloc/navigation__state.dart';
 import '../../../widgets/navigation/navigate_to_page.dart';
 import '../../../widgets/uncategorized/appbar_clipper.dart';

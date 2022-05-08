@@ -1,6 +1,5 @@
 part of 'orange_list_collections_bloc.dart';
 
-
 @immutable
 abstract class OrangeListItemEvent {}
 

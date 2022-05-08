@@ -10,8 +10,7 @@ import '../../../widgets/button/button_continue.dart';
 import '../../../widgets/uncategorized/container_shadow.dart';
 
 class SubscriptionAuthorisation extends StatelessWidget {
-  SubscriptionAuthorisation({Key? key}) : super(key: key);
-  final UserRepositories _rep = UserRepositories();
+  const SubscriptionAuthorisation({Key? key}) : super(key: key);
   Widget buildUser(UserModel model) => _Subscription(
         onceAMonth: model.onceAMonth,
         onceAYear: model.onceAYear,
@@ -21,7 +20,7 @@ class SubscriptionAuthorisation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<UserModel>>(
-      stream: _rep.readUser(),
+      stream: UserRepositories.instance!.readUser(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return const Text('Error');
@@ -105,7 +104,7 @@ class _SubscriptionItem extends StatelessWidget {
       required this.onceAMonth,
       required this.onceAYear})
       : super(key: key);
-  final UserRepositories _rep = UserRepositories();
+  final UserRepositories _rep = UserRepositories.instance!;
   final double screenWidth;
   final bool onceAMonth;
   final bool onceAYear;
@@ -374,8 +373,7 @@ class _SubscribeNow extends StatelessWidget {
 }
 
 class _SubscribeForAMonth extends StatelessWidget {
-  _SubscribeForAMonth({Key? key}) : super(key: key);
-  final UserRepositories rep = UserRepositories();
+  const _SubscribeForAMonth({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -384,8 +382,8 @@ class _SubscribeForAMonth extends StatelessWidget {
         padding: const EdgeInsets.only(top: 25.0, left: 10.0),
         child: ButtonContinue(
           onPressed: () {
-            rep.subscriptionDone('onlyMonth', true);
-            rep.subscription(31);
+            UserRepositories.instance!.subscriptionDone('onlyMonth', true);
+            UserRepositories.instance!.subscription(31);
           },
           text: 'Подписаться на месяц',
         ),

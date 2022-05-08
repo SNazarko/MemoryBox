@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../models/audio_model.dart';
 import '../../../repositories/audio_repositories.dart';
 import '../../../resources/app_colors.dart';
@@ -10,8 +9,7 @@ import 'icon_delene_audio.dart';
 import 'icon_done_delete.dart';
 
 class ListPlayersDeletePage extends StatelessWidget {
-  ListPlayersDeletePage({Key? key}) : super(key: key);
-  final AudioRepositories repAudio = AudioRepositories();
+  const ListPlayersDeletePage({Key? key}) : super(key: key);
 
   Widget buildAudioDel(AudioModel audio) => PlayerMini(
         duration: '${audio.duration}',
@@ -47,7 +45,7 @@ class ListPlayersDeletePage extends StatelessWidget {
         SizedBox(
           height: screenHeight * 0.95,
           child: StreamBuilder<List<AudioModel>>(
-            stream: repAudio.readAudioDelete('all'),
+            stream: AudioRepositories.instance!.readAudioDelete('all'),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return const Text('Ошибка');

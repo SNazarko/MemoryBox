@@ -4,30 +4,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/repositories/auth_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/button/popup_menu_button.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-
 import '../../../../repositories/collections_repositories.dart';
-import '../../collection_item/collections_item_page_model.dart';
 import '../collection_model.dart';
 import 'package:collection/collection.dart';
 
 class PopupMenuCollectionPage extends StatelessWidget {
   PopupMenuCollectionPage({Key? key}) : super(key: key);
   final List<String> _idCollectionsList = [];
-
-  final CollectionsRepositories _repositoriesCollections =
-      CollectionsRepositories();
   final List<String> _idAudioList = [];
   final List<String> _nameList = [];
 
   Future<void> _getIdAudio(BuildContext context) async {
     await _getIdCollection(context);
     await FirebaseFirestore.instance
-        .collection(_repositoriesCollections.user!.phoneNumber!)
+        .collection(AuthRepositories.instance!.user!.phoneNumber!)
         .doc('id')
         .collection('Collections')
         .where('collections', arrayContains: _idCollectionsList)
@@ -44,7 +40,7 @@ class PopupMenuCollectionPage extends StatelessWidget {
 
   Future<void> _getIdCollection(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(_repositoriesCollections.user!.phoneNumber!)
+        .collection(AuthRepositories.instance!.user!.phoneNumber!)
         .doc('id')
         .collection('CollectionsTale')
         .where('doneCollection', isEqualTo: true)
@@ -60,7 +56,7 @@ class PopupMenuCollectionPage extends StatelessWidget {
   Future<void> _deleteCollections(BuildContext context) async {
     await _getIdCollection(context);
     for (var item in _idCollectionsList) {
-      await CollectionsRepositories().deleteCollection(
+      await CollectionsRepositories.instance!.deleteCollection(
         item,
         'CollectionsTale',
       );
@@ -79,7 +75,7 @@ class PopupMenuCollectionPage extends StatelessWidget {
       try {
         await FirebaseStorage.instance
             .ref(
-                '${_repositoriesCollections.user!.phoneNumber!}/userAudio/$idAudio.m4a')
+                '${AuthRepositories.instance!.user!.phoneNumber!}/userAudio/$idAudio.m4a')
             .writeToFile(File(filePath));
       } on FirebaseException catch (e) {
         if (kDebugMode) {

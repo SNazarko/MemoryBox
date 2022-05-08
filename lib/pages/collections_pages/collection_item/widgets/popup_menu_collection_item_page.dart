@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/collections_pages/collection_item_edit/collection_item_edit_page.dart';
 import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/collection_item_edit_audio.dart';
+import 'package:memory_box/repositories/auth_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/button/popup_menu_button.dart';
 import 'package:path_provider/path_provider.dart';
@@ -27,7 +28,6 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
     required this.dataCollection,
     required this.totalTimeCollection,
   }) : super(key: key);
-  final CollectionsRepositories _rep = CollectionsRepositories();
   final String idCollection;
   final String titleCollection;
   final String subTitleCollection;
@@ -40,7 +40,7 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
 
   Future<void> _getIdAudio(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(_rep.user!.phoneNumber!)
+        .collection(AuthRepositories.instance!.user!.phoneNumber!)
         .doc('id')
         .collection('Collections')
         .where('collections', arrayContains: idCollection)
@@ -109,7 +109,7 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
           'Удалить подборку',
           () {
             Timer(const Duration(seconds: 1), () {
-              CollectionsRepositories().deleteCollection(
+              CollectionsRepositories.instance!.deleteCollection(
                 idCollection,
                 'CollectionsTale',
               );
@@ -130,7 +130,8 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
               listFilePath.add(filePath);
               try {
                 await FirebaseStorage.instance
-                    .ref('${_rep.user!.phoneNumber!}/userAudio/$idAudio.m4a')
+                    .ref(
+                        '${AuthRepositories.instance!.user!.phoneNumber!}/userAudio/$idAudio.m4a')
                     .writeToFile(File(filePath));
               } on FirebaseException catch (e) {
                 if (kDebugMode) {

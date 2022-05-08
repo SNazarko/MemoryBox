@@ -30,10 +30,10 @@ class ProfileEditPageModel extends ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     XFile? _image = await ImagePick().singleImagePick();
     if (_image != null && _image.path.isNotEmpty) {
-      _singleImage = await UserRepositories().uploadImage(_image);
+      _singleImage = await UserRepositories.instance!.uploadImage(_image);
       context.read<DataModel>().userImage(_singleImage!);
       await prefs.setString(
-          'image', await UserRepositories().uploadImage(_image));
+          'image', await UserRepositories.instance!.uploadImage(_image));
       notifyListeners();
     }
   }

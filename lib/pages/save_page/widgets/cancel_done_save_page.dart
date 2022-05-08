@@ -17,7 +17,6 @@ class CancelDoneSavePage extends StatelessWidget {
     required this.audioSearchName,
     required this.audioCollection,
   }) : super(key: key);
-  final AudioRepositories _rep = AudioRepositories();
   final String idAudio;
   final String audioName;
   final String audioUrl;
@@ -28,7 +27,7 @@ class CancelDoneSavePage extends StatelessWidget {
   final List audioCollection;
 
   void _finished(BuildContext context) {
-    _rep.renameAudio(
+    AudioRepositories.instance!.renameAudio(
       idAudio,
       Provider.of<SavePageModel>(context, listen: false).getNewAudioName ??
           audioName,

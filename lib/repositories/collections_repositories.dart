@@ -2,33 +2,27 @@ import 'dart:async';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:memory_box/models/collections_model.dart';
-import 'package:provider/provider.dart';
+import 'package:memory_box/repositories/auth_repositories.dart';
 import 'package:uuid/uuid.dart';
-import '../pages/collections_pages/collection_edit/collection_edit_model.dart';
 
 class CollectionsRepositories {
-  CollectionsRepositories() {
-    init();
-  }
-  firebase_storage.FirebaseStorage storage =
-      firebase_storage.FirebaseStorage.instance;
-  var uuid = const Uuid();
-  FirebaseAuth? auth;
-  User? user;
+  CollectionsRepositories._();
+  static CollectionsRepositories? _instance;
 
-  void init() {
-    auth = FirebaseAuth.instance;
-    user = auth!.currentUser;
+  static CollectionsRepositories? get instance {
+    _instance ??= CollectionsRepositories._();
+    return _instance;
   }
+
+  final phoneNumber = AuthRepositories.instance!.user!.phoneNumber!;
+  final uuid = const Uuid();
 
   // Stream list collections
 
   Stream<List<CollectionsModel>> readCollections() => FirebaseFirestore.instance
-      .collection(user!.phoneNumber!)
+      .collection(phoneNumber)
       .doc('id')
       .collection('CollectionsTale')
       .snapshots()
@@ -40,7 +34,6 @@ class CollectionsRepositories {
 
   Future<void> addCollections(String titleCollections,
       String subTitleCollections, String avatarCollections, id) async {
-    // var id = uuid.v1();
     final _todayDate = DateTime.now();
     final model = CollectionsModel(
       id: id,
@@ -60,7 +53,7 @@ class CollectionsRepositories {
     );
     final json = model.toJson();
     FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
+        .collection(phoneNumber)
         .doc('id')
         .collection('CollectionsTale')
         .doc(id)
@@ -74,14 +67,14 @@ class CollectionsRepositories {
     String collectionFirestore,
   ) async {
     FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
+        .collection(phoneNumber)
         .doc('id')
         .collection(collectionFirestore)
         .doc(idCollection)
         .delete();
     try {
       firebase_storage.FirebaseStorage.instance
-          .ref('${user!.phoneNumber!}/userAudio/$idCollection.m4a')
+          .ref('$phoneNumber/userAudio/$idCollection.m4a')
           .delete();
     } on Exception catch (e) {
       if (kDebugMode) {
@@ -96,7 +89,7 @@ class CollectionsRepositories {
     String collectionFirestore,
   ) async {
     FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
+        .collection(phoneNumber)
         .doc('id')
         .collection(collectionFirestore)
         .doc(idCollection)
@@ -107,7 +100,7 @@ class CollectionsRepositories {
 
   Future<void> doneCollections(String idCollection, bool doneCollection) async {
     FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
+        .collection(phoneNumber)
         .doc('id')
         .collection('CollectionsTale')
         .doc(idCollection)
@@ -123,7 +116,7 @@ class CollectionsRepositories {
   ) async {
     final _todayDate2 = Timestamp.now();
     await FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
+        .collection(phoneNumber)
         .doc('id')
         .collection(fromTheCollection)
         .where('id', isEqualTo: idCollection)
@@ -131,7 +124,7 @@ class CollectionsRepositories {
         .then((querySnapshot) {
       for (var result in querySnapshot.docs) {
         FirebaseFirestore.instance
-            .collection(user!.phoneNumber!)
+            .collection(phoneNumber)
             .doc('id')
             .collection(inTheCollection)
             .doc(idCollection)
@@ -140,7 +133,7 @@ class CollectionsRepositories {
     });
     Timer(const Duration(seconds: 5), () {
       FirebaseFirestore.instance
-          .collection(user!.phoneNumber!)
+          .collection(phoneNumber)
           .doc('id')
           .collection(inTheCollection)
           .doc(idCollection)
@@ -159,7 +152,7 @@ class CollectionsRepositories {
     var sum = 0;
 
     await FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
+        .collection(phoneNumber)
         .doc('id')
         .collection('Collections')
         .where('collections', arrayContainsAny: [idCollection])
@@ -189,7 +182,7 @@ class CollectionsRepositories {
     final String hour = formatNumber(sum ~/ 60);
     final String minutes = formatNumber(sum % 60);
     await FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
+        .collection(phoneNumber)
         .doc('id')
         .collection('CollectionsTale')
         .doc(idCollection)
@@ -212,7 +205,7 @@ class CollectionsRepositories {
     var sum = 0;
 
     await FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
+        .collection(phoneNumber)
         .doc('id')
         .collection('Collections')
         .where('collections', arrayContainsAny: [idCollection])
@@ -260,7 +253,7 @@ class CollectionsRepositories {
     );
     final json = model.toJson();
     await FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
+        .collection(phoneNumber)
         .doc('id')
         .collection('CollectionsTale')
         .doc(idCollection)

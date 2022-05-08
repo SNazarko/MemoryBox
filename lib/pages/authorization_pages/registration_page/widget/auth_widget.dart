@@ -42,9 +42,7 @@ class AuthWidget extends StatelessWidget {
           verificationId: state.verificationId));
       FirebaseAuth.instance.idTokenChanges().listen((User? user) {
         if (user == null) {
-          print('User is currently signed out!');
         } else {
-          print('User is signed in!');
           Timer(const Duration(milliseconds: 1), () {
             Navigator.pushNamed(context, LastAuthorizationPage.routeName);
           });
@@ -78,7 +76,6 @@ class AuthWidget extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        print(state.status);
         return Stack(
           children: [
             SizedBox(

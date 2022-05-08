@@ -13,7 +13,6 @@ class ListCollectionAddAudioInCollection extends StatelessWidget {
     required this.collectionAudio,
     required this.idAudio,
   }) : super(key: key);
-  final CollectionsRepositories _rep = CollectionsRepositories();
   final List collectionAudio;
   final String idAudio;
 
@@ -36,7 +35,7 @@ class ListCollectionAddAudioInCollection extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 90.0),
       child: StreamBuilder<List<CollectionsModel>>(
-        stream: _rep.readCollections(),
+        stream: CollectionsRepositories.instance!.readCollections(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Column(

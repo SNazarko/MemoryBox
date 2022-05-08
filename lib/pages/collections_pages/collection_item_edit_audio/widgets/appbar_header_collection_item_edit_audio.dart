@@ -41,7 +41,7 @@ class AppbarHeaderCollectionItemEditAudio extends StatelessWidget {
               IconBack(
                 onPressed: () {
                   Navigator.pushNamed(context, Collections.routeName);
-                  CollectionsRepositories()
+                  CollectionsRepositories.instance!
                       .updateQualityAndTotalTime(idCollection);
                 },
               ),

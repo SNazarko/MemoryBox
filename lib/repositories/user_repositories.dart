@@ -1,30 +1,27 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:image_picker/image_picker.dart';
 import 'package:memory_box/models/user_model.dart';
+import 'package:memory_box/repositories/auth_repositories.dart';
 import 'package:uuid/uuid.dart';
 
 class UserRepositories {
-  UserRepositories() {
-    init();
-  }
-  firebase_storage.FirebaseStorage storage =
-      firebase_storage.FirebaseStorage.instance;
-  FirebaseAuth? auth;
-  User? user;
-  var uuid = const Uuid();
+  UserRepositories._();
+  static UserRepositories? _instance;
 
-  void init() {
-    auth = FirebaseAuth.instance;
-    user = auth!.currentUser;
+  static UserRepositories? get instance {
+    _instance ??= UserRepositories._();
+    return _instance;
   }
+
+  final phoneNumber = AuthRepositories.instance!.user!.phoneNumber!;
+  var uuid = const Uuid();
 
   //Stream list user
 
   Stream<List<UserModel>> readUser() => FirebaseFirestore.instance
-      .collection(user!.phoneNumber!)
+      .collection(phoneNumber)
       .snapshots()
       .map((snapshot) =>
           snapshot.docs.map((doc) => UserModel.fromJson(doc.data())).toList());
@@ -57,7 +54,7 @@ class UserRepositories {
   // Update size repositories
   Future<void> updateSizeRepositories(int size) async {
     FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
+        .collection(phoneNumber)
         .doc('user')
         .update({'totalSize': FieldValue.increment(size)});
   }
@@ -70,7 +67,7 @@ class UserRepositories {
     var sum = 0;
 
     await FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
+        .collection(phoneNumber)
         .doc('id')
         .collection('Collections')
         .where('collections', arrayContainsAny: ['all'])
@@ -100,7 +97,7 @@ class UserRepositories {
     final String hour = formatNumber(sum ~/ 60);
     final String minutes = formatNumber(sum % 60);
     await FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
+        .collection(phoneNumber)
         .doc('user')
         .update({
       'totalQuality': duration.length,
@@ -113,7 +110,7 @@ class UserRepositories {
   Future<void> updateNameNumber(
       String name, String number, String image) async {
     await FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
+        .collection(phoneNumber)
         .doc('user')
         .update({
       'displayName': name,
@@ -126,7 +123,7 @@ class UserRepositories {
 
   Future<String> uploadImage(XFile image) async {
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
-        .ref('${user!.phoneNumber!}/userImage/${getImageName(image)}');
+        .ref('$phoneNumber/userImage/${getImageName(image)}');
     await ref.putFile(File(image.path));
     UserModel(avatarUrl: '${ref.getDownloadURL()}');
     return ref.getDownloadURL();
@@ -143,7 +140,7 @@ class UserRepositories {
         displayName: 'Имя', phoneNumb: '+00(000)0000000', avatarUrl: '');
     final json = model.toJson();
     await FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
+        .collection(phoneNumber)
         .doc('user')
         .set(json);
   }
@@ -152,9 +149,9 @@ class UserRepositories {
 
   Future<void> limitNotSubscription() async {
     final now = Timestamp.now();
-    if (user != null) {
+    if (AuthRepositories.instance!.user != null) {
       await FirebaseFirestore.instance
-          .collection(user!.phoneNumber!)
+          .collection(phoneNumber)
           .get()
           .then((querySnapshot) {
         for (var result in querySnapshot.docs) {
@@ -163,20 +160,20 @@ class UserRepositories {
           final state = finishTimeSubscription.compareTo(now);
           if (state >= 0) {
             FirebaseFirestore.instance
-                .collection(user!.phoneNumber!)
+                .collection(phoneNumber)
                 .doc('user')
                 .update({
               'subscriptionLimit': 524288000000000,
             });
           } else {
             FirebaseFirestore.instance
-                .collection(user!.phoneNumber!)
+                .collection(phoneNumber)
                 .doc('user')
                 .update({
               'subscriptionLimit': 524288000,
             });
             FirebaseFirestore.instance
-                .collection(user!.phoneNumber!)
+                .collection(phoneNumber)
                 .doc('user')
                 .update({
               'onceAMonth': false,
@@ -186,7 +183,7 @@ class UserRepositories {
         }
       });
       await FirebaseFirestore.instance
-          .collection(user!.phoneNumber!)
+          .collection(phoneNumber)
           .get()
           .then((querySnapshot) {
         for (var result in querySnapshot.docs) {
@@ -194,7 +191,7 @@ class UserRepositories {
           final int subscriptionLimit = result.data()['subscriptionLimit'] ?? 0;
           if (totalSize >= subscriptionLimit) {
             FirebaseFirestore.instance
-                .collection(user!.phoneNumber!)
+                .collection(phoneNumber)
                 .doc('user')
                 .update({
               'subscription': false,
@@ -202,7 +199,7 @@ class UserRepositories {
           }
           if (totalSize < subscriptionLimit) {
             FirebaseFirestore.instance
-                .collection(user!.phoneNumber!)
+                .collection(phoneNumber)
                 .doc('user')
                 .update({
               'subscription': true,
@@ -219,10 +216,7 @@ class UserRepositories {
     final DateTime now = DateTime.now();
     final DateTime later = now.add(Duration(days: days));
     final Timestamp laterTimestamp = Timestamp.fromDate(later);
-    FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
-        .doc('user')
-        .update({
+    FirebaseFirestore.instance.collection(phoneNumber).doc('user').update({
       'finishTimeSubscription': laterTimestamp,
     });
   }
@@ -230,10 +224,7 @@ class UserRepositories {
   // Subscription done
 
   Future<void> subscriptionDone(String name, bool done) async {
-    FirebaseFirestore.instance
-        .collection(user!.phoneNumber!)
-        .doc('user')
-        .update({
+    FirebaseFirestore.instance.collection(phoneNumber).doc('user').update({
       name: done,
     });
   }
@@ -246,7 +237,7 @@ class UserRepositories {
         .collection('SupportQuestions')
         .doc(uuid.v1())
         .set({
-      'phoneNumber': user!.phoneNumber!,
+      'phoneNumber': phoneNumber,
       'message': questions,
       'dateTime': now,
     });

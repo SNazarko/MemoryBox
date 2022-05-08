@@ -4,13 +4,14 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart' as ap;
+import 'package:memory_box/repositories/auth_repositories.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../repositories/audio_repositories.dart';
-import '../../../repositories/local_save_audiofile.dart';
+import '../../../database/local_save_audiofile.dart';
 import '../../../resources/app_colors.dart';
 import '../../../resources/app_icons.dart';
 import '../../../utils/constants.dart';
@@ -35,7 +36,6 @@ class AudioPlayer extends StatefulWidget {
 }
 
 class _AudioPlayerState extends State<AudioPlayer> {
-  final UserRepositories _rep = UserRepositories();
   static const double _controlSize = 56;
   static const double _deleteBtnSize = 24;
 
@@ -101,12 +101,12 @@ class _AudioPlayerState extends State<AudioPlayer> {
 
   Future<void> logicSave() async {
     await FirebaseFirestore.instance
-        .collection(_rep.user!.phoneNumber!)
+        .collection(AuthRepositories.instance!.user!.phoneNumber!)
         .get()
         .then((querySnapshot) {
       for (var result in querySnapshot.docs) {
         final bool subscription = result.data()['subscription'] ?? true;
-        _rep.user == null
+        AuthRepositories.instance!.user == null
             ? saveRecordLocal()
             : subscription
                 ? saveRecordsFirebase()
@@ -126,13 +126,13 @@ class _AudioPlayerState extends State<AudioPlayer> {
 
   void saveRecordsFirebase() async {
     _audioPlayer.stop().then((value) => widget.onDelete());
-    await AudioRepositories().addAudio(
+    await AudioRepositories.instance!.addAudio(
       Provider.of<ModelRP>(context, listen: false).getData,
       _saveRecord,
       Provider.of<ModelRP>(context, listen: false).getDuration,
       searchName,
     );
-    await _rep.updateTotalTimeQuality();
+    await UserRepositories.instance!.updateTotalTimeQuality();
   }
 
   Future<void> play() {

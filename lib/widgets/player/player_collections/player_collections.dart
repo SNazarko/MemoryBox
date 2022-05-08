@@ -7,6 +7,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:memory_box/resources/app_icons.dart';
 
 import '../../../repositories/audio_repositories.dart';
+import '../../../repositories/auth_repositories.dart';
 import '../../../repositories/collections_repositories.dart';
 import '../../../resources/app_colors.dart';
 import '../../uncategorized/slider.dart';
@@ -150,11 +151,10 @@ class PlayerCollectionsState extends State<PlayerCollections> {
   }
 
   Future<void> player() async {
-    CollectionsRepositories rep = CollectionsRepositories();
     List<AudioSource> audioUrlList = [];
-    if (rep.user != null) {
+    if (AuthRepositories.instance!.user != null) {
       await FirebaseFirestore.instance
-          .collection(rep.user!.phoneNumber!)
+          .collection(AuthRepositories.instance!.user!.phoneNumber!)
           .doc('id')
           .collection('Collections')
           .where('collections', arrayContains: widget.idCollection)
@@ -243,28 +243,28 @@ class PlayerCollectionsState extends State<PlayerCollections> {
 
     if (index!.isEven == true) {
       if (index.toInt() >= 1) {
-        AudioRepositories().playPause(
+        AudioRepositories.instance!.playPause(
           audioIdList[index.toInt() - 1],
           false,
         );
       }
-      AudioRepositories().playPause(
+      AudioRepositories.instance!.playPause(
         audioIdList[index.toInt()],
         true,
       );
     }
     if (index.isEven == false) {
-      AudioRepositories().playPause(
+      AudioRepositories.instance!.playPause(
         audioIdList[index.toInt()],
         true,
       );
-      AudioRepositories().playPause(
+      AudioRepositories.instance!.playPause(
         audioIdList[index.toInt() - 1],
         false,
       );
     }
     if (_audioPlayer.playing == false) {
-      AudioRepositories().playPause(
+      AudioRepositories.instance!.playPause(
         audioIdList[index.toInt()],
         false,
       );
@@ -310,12 +310,6 @@ class PlayerCollectionsState extends State<PlayerCollections> {
 
   @override
   Widget build(BuildContext context) {
-    final double openClose = widget.animation;
-    if (openClose == 1) {
-      // player();
-      print(openClose);
-    }
-
     return SizedBox(
       height: widget.screenHeight * 0.9,
       width: widget.screenWight,
@@ -393,7 +387,7 @@ class PlayerCollectionsState extends State<PlayerCollections> {
                             if (_audioPlayer.nextIndex != null) {
                               seekToNext();
                             } else {
-                              AudioRepositories().playPause(
+                              AudioRepositories.instance!.playPause(
                                 audioIdList[_audioPlayer.currentIndex!.toInt()],
                                 false,
                               );

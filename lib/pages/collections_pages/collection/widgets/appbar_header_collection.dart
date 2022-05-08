@@ -3,12 +3,11 @@ import 'package:memory_box/pages/collections_pages/collection/widgets/popup_menu
 import 'package:memory_box/pages/collections_pages/collection_edit/collection_edit.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/utils/constants.dart';
-import 'package:provider/provider.dart';
+
 import 'package:uuid/uuid.dart';
 
 import '../../../../repositories/collections_repositories.dart';
 import '../../../../widgets/uncategorized/appbar_clipper.dart';
-import '../../collection_edit/collection_edit_model.dart';
 
 class AppbarHeaderCollection extends StatelessWidget {
   const AppbarHeaderCollection({Key? key}) : super(key: key);
@@ -35,7 +34,7 @@ class AppbarHeaderCollection extends StatelessWidget {
                 onPressed: () {
                   var uuid = const Uuid();
                   var id = uuid.v1();
-                  CollectionsRepositories()
+                  CollectionsRepositories.instance!
                       .addCollections('Без названия', '...', '', id);
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return CollectionsEdit(

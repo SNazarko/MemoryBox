@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/pages/save_page/save_page.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
+import 'package:memory_box/repositories/auth_repositories.dart';
 import 'package:memory_box/widgets/button/popup_menu_button.dart';
 import 'package:provider/src/provider.dart';
 import '../../../widgets/button/alert_dialog.dart';
@@ -13,10 +14,9 @@ import '../search_page_model.dart';
 
 class ListPlayersSearchPage extends StatelessWidget {
   ListPlayersSearchPage({Key? key}) : super(key: key);
-  final AudioRepositories _rep = AudioRepositories();
   Stream<List<AudioModel>> audio(BuildContext context) => FirebaseFirestore
       .instance
-      .collection(_rep.user!.phoneNumber!)
+      .collection(AuthRepositories.instance!.user!.phoneNumber!)
       .doc('id')
       .collection('Collections')
       .where('searchName',
@@ -55,7 +55,7 @@ class ListPlayersSearchPage extends StatelessWidget {
           SizedBox(
             height: screenHeight * 0.95,
             child: StreamBuilder<List<AudioModel>>(
-              stream: _rep.readAudioSort('all'),
+              stream: AudioRepositories.instance!.readAudioSort('all'),
               builder: (
                 context,
                 snapshot,
@@ -135,7 +135,6 @@ class _PopupMenuAudioSearchPage extends StatelessWidget {
   final List searchName;
   final String idAudio;
   final List collection;
-  final AudioRepositories _rep = AudioRepositories();
 
   void _rename(BuildContext context) {
     Timer(const Duration(seconds: 1), () {
@@ -202,7 +201,7 @@ class _PopupMenuAudioSearchPage extends StatelessWidget {
         ),
         popupMenuItem(
           'Поделиться',
-          () => _rep.downloadAudio(idAudio, name),
+          () => AudioRepositories.instance!.downloadAudio(idAudio, name),
         ),
       ],
     );

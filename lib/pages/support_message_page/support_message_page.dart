@@ -3,13 +3,13 @@ import 'package:memory_box/pages/support_message_page/widgets/appbar_menu_suppor
 import 'package:memory_box/pages/support_message_page/widgets/support_message_page_list.dart';
 import 'package:memory_box/pages/support_message_page/widgets/support_not_authorisation_page.dart';
 import 'package:memory_box/pages/support_message_page/widgets/text_field_support_message_page.dart';
+import 'package:memory_box/repositories/auth_repositories.dart';
 import '../../repositories/user_repositories.dart';
 import '../../utils/constants.dart';
 
 class SupportMessagePage extends StatelessWidget {
-  SupportMessagePage({Key? key}) : super(key: key);
+  const SupportMessagePage({Key? key}) : super(key: key);
   static const routeName = '/support_message_page';
-  final UserRepositories rep = UserRepositories();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class SupportMessagePage extends StatelessWidget {
                     height: screenHeight - 160.0,
                     width: screenWidth * 0.975,
                     decoration: kBorderContainer2,
-                    child: rep.user == null
+                    child: AuthRepositories.instance!.user == null
                         ? const SupportNotAuthorisationPage()
                         : Column(
                             mainAxisAlignment: MainAxisAlignment.end,

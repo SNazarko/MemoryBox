@@ -8,14 +8,12 @@ import '../../repositories/user_repositories.dart';
 
 class AlertDialogApp {
   AlertDialogApp({Key? key});
-  final CollectionsRepositories repositoriesCollection =
-      CollectionsRepositories();
   void alertDone(BuildContext context) {
     showDialog<String>(
         context: context,
         builder: (BuildContext context) {
           Timer(const Duration(seconds: 1), () async {
-            await UserRepositories().updateTotalTimeQuality();
+            await UserRepositories.instance!.updateTotalTimeQuality();
             Navigator.pop(context);
           });
           return AlertDialog(
@@ -63,13 +61,13 @@ class AlertDialogApp {
                 onPressed: () async {
                   Navigator.pop(context);
                   alertDone(context);
-                  await repositoriesCollection.copyPastCollections(
+                  await CollectionsRepositories.instance!.copyPastCollections(
                     idAudio,
                     fromCollection,
                     inCollection,
                   );
-                  await repositoriesCollection.deleteCollection(
-                      idAudio, fromCollection);
+                  await CollectionsRepositories.instance!
+                      .deleteCollection(idAudio, fromCollection);
                 },
                 child: const Padding(
                   padding:

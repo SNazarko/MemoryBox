@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRepositories {
-  AuthRepositories._();
+  AuthRepositories._() {
+    init();
+  }
   static AuthRepositories? _instance;
 
   static AuthRepositories? get instance {
@@ -10,7 +12,14 @@ class AuthRepositories {
     return _instance;
   }
 
-  FirebaseAuth? _auth = FirebaseAuth.instance;
+  final FirebaseAuth? _auth = FirebaseAuth.instance;
+  FirebaseAuth? auth;
+  User? user;
+
+  void init() {
+    auth = FirebaseAuth.instance;
+    user = auth!.currentUser;
+  }
 
   Future<void> verifyPhoneSendOtp(
     String phone, {

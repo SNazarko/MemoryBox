@@ -6,10 +6,9 @@ import '../../../utils/constants.dart';
 class TextFieldSupportMessagePage extends StatelessWidget {
   TextFieldSupportMessagePage({Key? key}) : super(key: key);
   final messageTextController = TextEditingController();
-  final UserRepositories repositories = UserRepositories();
 
   void _onSubmitted(String message) {
-    repositories.supportQuestions(message);
+    UserRepositories.instance!.supportQuestions(message);
     messageTextController.clear();
   }
 

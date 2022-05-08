@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/pages/profile_pages/profile_edit_page/profile_edit_page_model.dart';
 import 'package:memory_box/pages/profile_pages/profile_edit_page/widgets/appbar_header_profile_edit.dart';
 import 'package:memory_box/pages/profile_pages/profile_edit_page/widgets/photo_profile_edit.dart';
-import 'package:memory_box/repositories/preferences_data_model_user.dart';
+import 'package:memory_box/database/preferences_data_model_user.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/uncategorized/textfield_input.dart';
@@ -145,7 +145,6 @@ class _SaveButton extends StatelessWidget {
     required this.userImage,
   }) : super(key: key);
   final PreferencesDataUser _preferencesDataUser = PreferencesDataUser();
-  final UserRepositories _repositories = UserRepositories();
   final String userName;
   final String userNumber;
   final String userImage;
@@ -169,7 +168,7 @@ class _SaveButton extends StatelessWidget {
     ]);
     _preferencesDataUser.saveName(name);
     _preferencesDataUser.saveNumber(number);
-    _repositories.updateNameNumber(name, number, image);
+    UserRepositories.instance!.updateNameNumber(name, number, image);
   }
 
   @override

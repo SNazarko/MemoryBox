@@ -4,11 +4,7 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/utils/constants.dart';
 import 'package:memory_box/widgets/uncategorized/container_shadow.dart';
-import '../../repositories/user_repositories.dart';
-import '../../widgets/navigation/navigate_to_page.dart';
 import '../../widgets/uncategorized/appbar/appbar_header_authorization.dart';
-import '../main_page.dart';
-import 'first_authorization_page.dart';
 
 class LastAuthorizationPage extends StatefulWidget {
   const LastAuthorizationPage({Key? key}) : super(key: key);
@@ -23,7 +19,6 @@ class LastAuthorizationPage extends StatefulWidget {
 
 class _LastAuthorizationPageState extends State<LastAuthorizationPage> {
   final bool shouldPop = false;
-  final UserRepositories repositories = UserRepositories();
   @override
   void initState() {
     Timer(const Duration(seconds: 3), () {

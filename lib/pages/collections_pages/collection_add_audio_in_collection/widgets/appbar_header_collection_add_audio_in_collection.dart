@@ -42,7 +42,7 @@ class AppbarHeaderCollectionAddAudioInCollection extends StatelessWidget {
                     onPressed: () {
                       var uuid = const Uuid();
                       var id = uuid.v1();
-                      CollectionsRepositories()
+                      CollectionsRepositories.instance!
                           .addCollections('Без названия', '...', '', id);
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {

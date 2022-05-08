@@ -9,9 +9,11 @@ import 'package:memory_box/pages/home_page/widgets/home_page_audio.dart';
 import 'package:memory_box/pages/home_page/widgets/home_page_not_is_authorization.dart';
 import '../../blocs/list_item_bloc/list_item_bloc.dart';
 import '../../repositories/audio_repositories.dart';
+import '../../repositories/auth_repositories.dart';
 import '../../repositories/collections_repositories.dart';
 import '../../repositories/user_repositories.dart';
 import '../subscription_page/subscription_page.dart';
+import 'blocs/green_list_collections/green_list_collections_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,12 +24,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final CollectionsRepositories repCollections = CollectionsRepositories();
-  final UserRepositories repUser = UserRepositories();
   Future<void> subscriptionDone(BuildContext context) async {
-    if (repCollections.user != null) {
+    if (AuthRepositories.instance!.user != null) {
       await FirebaseFirestore.instance
-          .collection(repCollections.user!.phoneNumber!)
+          .collection(AuthRepositories.instance!.user!.phoneNumber!)
           .get()
           .then(
         (querySnapshot) {
@@ -46,21 +46,34 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    repUser.limitNotSubscription();
+    UserRepositories.instance!.limitNotSubscription();
     subscriptionDone(context);
-    AudioRepositories().finishDelete();
+    AudioRepositories.instance!.finishDelete();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    return BlocProvider<ListItemBloc>(
-      create: (context) => ListItemBloc()
-        ..add(
-          LoadListItemEvent(
-              streamList: AudioRepositories().readAudioSort('all')),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ListItemBloc>(
+          create: (context) => ListItemBloc()
+            ..add(
+              LoadListItemEvent(
+                  streamList: AudioRepositories.instance!
+                      .readAudio('all', 'Collections')),
+            ),
         ),
+        BlocProvider<GreenListItemBloc>(
+          create: (context) => GreenListItemBloc()
+            ..add(
+              LoadGreenListItemEvent(
+                streamList: CollectionsRepositories.instance?.readCollections(),
+              ),
+            ),
+        ),
+      ],
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -79,13 +92,13 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Expanded(
                   flex: 8,
-                  child: repUser.user == null
+                  child: AuthRepositories.instance?.user == null
                       ? const AppbarHeaderHomePageNotIsAuthorization()
                       : const AppbarHeaderHomePage(),
                 ),
                 Expanded(
                     flex: 11,
-                    child: repUser.user == null
+                    child: AuthRepositories.instance?.user == null
                         ? const HomePageNotIsAuthorization()
                         : const HomePageAudio()),
               ],

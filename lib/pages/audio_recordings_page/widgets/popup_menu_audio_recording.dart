@@ -2,15 +2,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:memory_box/widgets/button/alert_dialog.dart';
 import 'package:memory_box/widgets/button/popup_menu_button.dart';
-import 'package:provider/provider.dart';
 import '../../../repositories/audio_repositories.dart';
 import '../../collections_pages/collection_add_audio_in_collection/collection_add_audio_in_collection.dart';
-import '../../collections_pages/collection_add_audio_in_collection/collection_add_audio_in_collection_model.dart';
 import '../../save_page/save_page.dart';
-import '../../save_page/save_page_model.dart';
 
 class PopupMenuAudioRecording extends StatelessWidget {
-  PopupMenuAudioRecording({
+  const PopupMenuAudioRecording({
     Key? key,
     this.image,
     required this.url,
@@ -31,7 +28,6 @@ class PopupMenuAudioRecording extends StatelessWidget {
   final List searchName;
   final String idAudio;
   final List collection;
-  final AudioRepositories _repositoriesAudio = AudioRepositories();
 
   void _rename(BuildContext context) {
     Timer(const Duration(seconds: 1), () {
@@ -91,7 +87,7 @@ class PopupMenuAudioRecording extends StatelessWidget {
         ),
         popupMenuItem(
           'Поделиться',
-          () => _repositoriesAudio.downloadAudio(idAudio, name),
+          () => AudioRepositories.instance!.downloadAudio(idAudio, name),
         ),
       ],
     );

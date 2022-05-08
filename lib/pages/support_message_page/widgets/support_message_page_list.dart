@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/repositories/auth_repositories.dart';
 import '../../../repositories/user_repositories.dart';
-
-final UserRepositories rep = UserRepositories();
 
 class SupportMessagePageList extends StatelessWidget {
   const SupportMessagePageList({Key? key}) : super(key: key);
@@ -33,7 +32,8 @@ class SupportMessagePageList extends StatelessWidget {
                       document.data() as Map<String, dynamic>;
                   final message = data['message'] ?? '';
                   final phoneNumber = data['phoneNumber'] ?? '';
-                  final currentUser = rep.user!.phoneNumber;
+                  final currentUser =
+                      AuthRepositories.instance!.user!.phoneNumber;
                   bool? isMe;
                   if (currentUser == phoneNumber) {
                     isMe = true;

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/formatters/masked_input_formatter.dart';
 
 class TextFieldCaptcha extends StatelessWidget {
-  const TextFieldCaptcha({Key? key, this.controller}) : super(key: key);
-  final controller;
+  const TextFieldCaptcha({Key? key, required this.controller})
+      : super(key: key);
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {

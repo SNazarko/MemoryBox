@@ -12,7 +12,7 @@ import '../../save_page/save_page.dart';
 import '../../save_page/save_page_model.dart';
 
 class PopupMenuHomePage extends StatelessWidget {
-  PopupMenuHomePage({
+  const PopupMenuHomePage({
     Key? key,
     required this.name,
     required this.url,
@@ -24,7 +24,6 @@ class PopupMenuHomePage extends StatelessWidget {
     required this.idAudio,
     required this.collection,
   }) : super(key: key);
-  final AudioRepositories _rep = AudioRepositories();
   final String name;
   final String url;
   final String duration;
@@ -98,7 +97,8 @@ class PopupMenuHomePage extends StatelessWidget {
             'Collections',
           ),
         ),
-        popupMenuItem('Поделиться', () => _rep.downloadAudio(idAudio, name)),
+        popupMenuItem('Поделиться',
+            () => AudioRepositories.instance!.downloadAudio(idAudio, name)),
       ],
     );
   }

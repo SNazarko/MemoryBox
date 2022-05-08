@@ -3,7 +3,7 @@ import 'package:memory_box/pages/search_page/search_page_model.dart';
 import 'package:memory_box/pages/search_page/widgets/appbar_header_search_page.dart';
 import 'package:memory_box/pages/search_page/widgets/list_players_search_page.dart';
 import 'package:memory_box/pages/search_page/widgets/list_players_search_page_not_is_authorization.dart';
-import 'package:memory_box/repositories/user_repositories.dart';
+import 'package:memory_box/repositories/auth_repositories.dart';
 import 'package:memory_box/utils/constants.dart';
 import 'package:provider/provider.dart';
 
@@ -46,7 +46,7 @@ class SavePageCreate extends StatelessWidget {
           children: [
             Stack(
               children: [
-                UserRepositories().user == null
+                AuthRepositories.instance!.user == null
                     ? const ListPlayersSearchPageNotIsAuthorization()
                     : ListPlayersSearchPage(),
                 const AppbarHeaderSearchPage(),

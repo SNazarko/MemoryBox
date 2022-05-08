@@ -4,6 +4,7 @@ import 'package:memory_box/pages/audio_recordings_page/widgets/appbar_header_aud
 import 'package:memory_box/pages/audio_recordings_page/widgets/appbar_header_audio_recordings_not_authorization.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/list_player.dart';
 import 'package:memory_box/pages/audio_recordings_page/widgets/list_player_not_authorization.dart';
+import 'package:memory_box/repositories/auth_repositories.dart';
 import '../../blocs/list_item_bloc/list_item_bloc.dart';
 import '../../repositories/audio_repositories.dart';
 import '../../repositories/user_repositories.dart';
@@ -14,9 +15,7 @@ import 'blocs/bloc_quality_total_time/quality_total_time_bloc.dart';
 import 'blocs/bloc_quality_total_time/quality_total_time_event.dart';
 
 class AudioRecordingsPage extends StatelessWidget {
-  AudioRecordingsPage({Key? key}) : super(key: key);
-  final UserRepositories rep = UserRepositories();
-  final AudioRepositories repAudio = AudioRepositories();
+  const AudioRecordingsPage({Key? key}) : super(key: key);
   static const routeName = '/audio_recordings_page';
 
   @override
@@ -32,7 +31,8 @@ class AudioRecordingsPage extends StatelessWidget {
           create: (context) => ListItemBloc()
             ..add(
               LoadListItemEvent(
-                streamList: AudioRepositories().readAudioSort('all'),
+                streamList:
+                    AudioRepositories.instance!.readAudio('all', 'Collections'),
               ),
             ),
         ),
@@ -40,7 +40,7 @@ class AudioRecordingsPage extends StatelessWidget {
           create: (context) => QualityTotalTimeBloc()
             ..add(
               LoadQualityTotalTimeEvent(
-                streamList: UserRepositories().readUser(),
+                streamList: UserRepositories.instance!.readUser(),
               ),
             ),
         ),
@@ -67,12 +67,12 @@ class AudioRecordingsPage extends StatelessWidget {
                 children: [
                   Stack(
                     children: [
-                      rep.user == null
+                      AuthRepositories.instance!.user == null
                           ? const ListPlayerNotAuthorization()
                           : const ListPlayer(),
-                      rep.user == null
+                      AuthRepositories.instance!.user == null
                           ? const AppbarHeaderAudioRecordingsNotAuthorization()
-                          : AppbarHeaderAudioRecordings(),
+                          : const AppbarHeaderAudioRecordings(),
                     ],
                   ),
                 ],

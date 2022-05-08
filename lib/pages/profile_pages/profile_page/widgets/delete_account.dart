@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:memory_box/repositories/preferences_data_model_user.dart';
+import 'package:memory_box/database/preferences_data_model_user.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 
@@ -11,11 +11,10 @@ class DeleteAccount extends StatelessWidget {
   DeleteAccount({Key? key}) : super(key: key);
   final DataModel model = DataModel();
   final _auth = FirebaseAuth.instance;
-  final UserRepositories _rep = UserRepositories();
 
   void _deleteAccount(BuildContext context) {
     Navigator.pop(context);
-    _rep.deleteAccount();
+    UserRepositories.instance!.deleteAccount();
     PreferencesDataUser().cleanKey();
     _auth.signOut();
     Phoenix.rebirth(context);

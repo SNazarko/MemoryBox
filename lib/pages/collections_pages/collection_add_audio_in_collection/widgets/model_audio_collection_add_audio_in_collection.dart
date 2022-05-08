@@ -1,11 +1,7 @@
-import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 import '../../../../repositories/audio_repositories.dart';
 import '../../../../repositories/collections_repositories.dart';
 import '../../../../resources/app_colors.dart';
-import '../collection_add_audio_in_collection_model.dart';
 
 class ModelAudioCollectionAddAudioInCollection extends StatefulWidget {
   ModelAudioCollectionAddAudioInCollection({
@@ -39,18 +35,16 @@ class ModelAudioCollectionAddAudioInCollection extends StatefulWidget {
 
 class _ModelAudioCollectionAddAudioInCollectionState
     extends State<ModelAudioCollectionAddAudioInCollection> {
-  final CollectionsRepositories _repColl = CollectionsRepositories();
-  final AudioRepositories _repAud = AudioRepositories();
   final bool done = true;
   @override
   void initState() {
     final List collectionAudio = widget.collectionAudio;
     collectionAudio.contains(widget.id)
-        ? _repColl.doneCollections(
+        ? CollectionsRepositories.instance!.doneCollections(
             widget.id!,
             true,
           )
-        : _repColl.doneCollections(
+        : CollectionsRepositories.instance!.doneCollections(
             widget.id!,
             false,
           );
@@ -60,32 +54,32 @@ class _ModelAudioCollectionAddAudioInCollectionState
   Future<void> _onPressedDone(BuildContext context) async {
     widget.doneCollection = !widget.doneCollection!;
     if (!widget.doneCollection!) {
-      await _repColl.doneCollections(
+      await CollectionsRepositories.instance!.doneCollections(
         widget.id!,
         false,
       );
-      await _repAud.addAudioCollections(
+      await AudioRepositories.instance!.addAudioCollections(
         widget.id!,
         widget.idAudio,
         widget.collectionAudio,
         false,
       );
-      await _repColl.updateQualityAndTotalTime(
+      await CollectionsRepositories.instance!.updateQualityAndTotalTime(
         widget.id!,
       );
     }
     if (widget.doneCollection!) {
-      await _repColl.doneCollections(
+      await CollectionsRepositories.instance!.doneCollections(
         widget.id!,
         true,
       );
-      await _repAud.addAudioCollections(
+      await AudioRepositories.instance!.addAudioCollections(
         widget.id!,
         widget.idAudio,
         widget.collectionAudio,
         true,
       );
-      await _repColl.updateQualityAndTotalTime(
+      await CollectionsRepositories.instance!.updateQualityAndTotalTime(
         widget.id!,
       );
     }

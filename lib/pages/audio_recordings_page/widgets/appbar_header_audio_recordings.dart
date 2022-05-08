@@ -4,14 +4,12 @@ import 'package:memory_box/models/user_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/utils/constants.dart';
 import '../../../animation/audio_recordings_page_player/audio_recordings_page_player.dart';
-import '../../../repositories/user_repositories.dart';
 import '../../../widgets/uncategorized/appbar_clipper.dart';
 import '../blocs/bloc_quality_total_time/quality_total_time_bloc.dart';
 import '../blocs/bloc_quality_total_time/quality_total_time_state.dart';
 
 class AppbarHeaderAudioRecordings extends StatelessWidget {
-  AppbarHeaderAudioRecordings({Key? key}) : super(key: key);
-  final UserRepositories repositories = UserRepositories();
+  const AppbarHeaderAudioRecordings({Key? key}) : super(key: key);
 
   Widget buildCollections(UserModel model) => _QualityTotalTime(
         quality: model.totalQuality ?? 0,
@@ -52,7 +50,9 @@ class AppbarHeaderAudioRecordings extends StatelessWidget {
               BlocBuilder<QualityTotalTimeBloc, QualityTotalTimeState>(
                 builder: (context, state) {
                   if (state.status == QualityTotalTimeStatus.initial) {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
                   if (state.status == QualityTotalTimeStatus.failed) {
                     return const _QualityTotalTime(

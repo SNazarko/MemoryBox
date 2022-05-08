@@ -18,13 +18,12 @@ class IconDoneDelete extends StatefulWidget {
 }
 
 class _IconDoneDeleteState extends State<IconDoneDelete> {
-  final AudioRepositories _rep = AudioRepositories();
   bool _done = false;
 
   Future<void> _onTapDone() async {
     _done = !_done;
     if (_done) {
-      _rep.doneAudioItem(
+      AudioRepositories.instance!.doneAudioItem(
         widget.id!,
         true,
         'DeleteCollections',
@@ -32,7 +31,7 @@ class _IconDoneDeleteState extends State<IconDoneDelete> {
       setState(() {});
     }
     if (!_done) {
-      _rep.doneAudioItem(
+      AudioRepositories.instance!.doneAudioItem(
         widget.id!,
         false,
         'DeleteCollections',

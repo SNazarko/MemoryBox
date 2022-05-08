@@ -30,13 +30,13 @@ class DoneCollectionItemEditAudio extends StatefulWidget {
 
 class _DoneCollectionItemEditAudioState
     extends State<DoneCollectionItemEditAudio> {
-  final AudioRepositories _repAud = AudioRepositories();
-  final CollectionsRepositories _repColl = CollectionsRepositories();
-
   Future<void> _onTapDone() async {
-    await _repAud.addAudioCollections(widget.idCollection, widget.id!,
-        widget.collection!, !widget.collection!.contains(widget.idCollection));
-    await _repColl.updateQualityAndTotalTime(
+    await AudioRepositories.instance!.addAudioCollections(
+        widget.idCollection,
+        widget.id!,
+        widget.collection!,
+        !widget.collection!.contains(widget.idCollection));
+    await CollectionsRepositories.instance!.updateQualityAndTotalTime(
       widget.idCollection,
     );
     setState(() {});

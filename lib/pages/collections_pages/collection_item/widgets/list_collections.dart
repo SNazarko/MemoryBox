@@ -16,7 +16,6 @@ class ListCollectionsAudio extends StatelessWidget {
     required this.idCollection,
     required this.imageCollection,
   }) : super(key: key);
-  final AudioRepositories _rep = AudioRepositories();
   final String idCollection;
   final String imageCollection;
 
@@ -45,7 +44,7 @@ class ListCollectionsAudio extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: StreamBuilder<List<AudioModel>>(
-        stream: _rep.readAudioSort(idCollection),
+        stream: AudioRepositories.instance!.readAudioSort(idCollection),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Text('Ошибка');
@@ -69,7 +68,7 @@ class ListCollectionsAudio extends StatelessWidget {
 }
 
 class _PopupMenuPlayerMini extends StatelessWidget {
-  _PopupMenuPlayerMini({
+  const _PopupMenuPlayerMini({
     Key? key,
     required this.name,
     required this.url,
@@ -82,7 +81,6 @@ class _PopupMenuPlayerMini extends StatelessWidget {
     required this.collection,
     required this.imageCollection,
   }) : super(key: key);
-  final AudioRepositories _rep = AudioRepositories();
   final String name;
   final String url;
   final String duration;
@@ -146,7 +144,7 @@ class _PopupMenuPlayerMini extends StatelessWidget {
         ),
         popupMenuItem(
           'Поделиться',
-          () => _rep.downloadAudio(idAudio, name),
+          () => AudioRepositories.instance!.downloadAudio(idAudio, name),
         ),
       ],
     );

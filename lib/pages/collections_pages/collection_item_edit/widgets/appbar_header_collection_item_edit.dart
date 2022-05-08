@@ -31,7 +31,6 @@ class AppbarHeaderCollectionItemEdit extends StatefulWidget {
 class AppbarHeaderCollectionItemEditState
     extends State<AppbarHeaderCollectionItemEdit> {
   final TextEditingController _controller = TextEditingController();
-  final CollectionsRepositories _repositories = CollectionsRepositories();
 
   @override
   void didChangeDependencies() {
@@ -46,7 +45,7 @@ class AppbarHeaderCollectionItemEditState
   }
 
   void _editCollections(BuildContext context) {
-    _repositories.updateCollection(
+    CollectionsRepositories.instance!.updateCollection(
       widget.idCollection,
       Provider.of<CollectionItemEditPageModel>(context, listen: false)
               .getTitleCollectionsEdit ??

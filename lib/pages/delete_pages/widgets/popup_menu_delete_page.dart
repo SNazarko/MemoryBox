@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_box/repositories/auth_repositories.dart';
 import 'package:provider/provider.dart';
 import 'package:collection/collection.dart';
 import '../../../repositories/collections_repositories.dart';
@@ -10,8 +11,6 @@ import '../delete_page_model.dart';
 
 class PopupMenuDeletePage extends StatelessWidget {
   PopupMenuDeletePage({Key? key}) : super(key: key);
-  final CollectionsRepositories _rep = CollectionsRepositories();
-  final UserRepositories repositoriesUser = UserRepositories();
   final List<String> _idAudioList = [];
   final List<int> _sizeList = [];
   final List<String> _idAudioListAll = [];
@@ -19,7 +18,7 @@ class PopupMenuDeletePage extends StatelessWidget {
 
   Future<void> _getIdCollection(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(_rep.user!.phoneNumber!)
+        .collection(AuthRepositories.instance!.user!.phoneNumber!)
         .doc('id')
         .collection('DeleteCollections')
         .where('done', isEqualTo: true)
@@ -36,7 +35,7 @@ class PopupMenuDeletePage extends StatelessWidget {
 
   Future<void> _getIdCollectionAll(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(_rep.user!.phoneNumber!)
+        .collection(AuthRepositories.instance!.user!.phoneNumber!)
         .doc('id')
         .collection('DeleteCollections')
         .get()
@@ -56,22 +55,24 @@ class PopupMenuDeletePage extends StatelessWidget {
       final idAudio = item[0];
       final sizeTemp = item[1];
       final size = sizeTemp as int;
-      await _rep.deleteCollectionApp('$idAudio', 'DeleteCollections');
-      await repositoriesUser.updateSizeRepositories(-size);
+      await CollectionsRepositories.instance!
+          .deleteCollectionApp('$idAudio', 'DeleteCollections');
+      await UserRepositories.instance!.updateSizeRepositories(-size);
     }
-    await UserRepositories().updateTotalTimeQuality();
+    await UserRepositories.instance!.updateTotalTimeQuality();
   }
 
   Future<void> _reestablish(BuildContext context) async {
     await _getIdCollection(context);
     for (var item in _idAudioList) {
-      await _rep.copyPastCollections(
+      await CollectionsRepositories.instance!.copyPastCollections(
         item,
         'DeleteCollections',
         'Collections',
       );
-      await _rep.deleteCollection(item, 'DeleteCollections');
-      await UserRepositories().updateTotalTimeQuality();
+      await CollectionsRepositories.instance!
+          .deleteCollection(item, 'DeleteCollections');
+      await UserRepositories.instance!.updateTotalTimeQuality();
     }
   }
 
@@ -81,23 +82,25 @@ class PopupMenuDeletePage extends StatelessWidget {
       final idAudio = item[0];
       final sizeTemp = item[1];
       final size = sizeTemp as int;
-      await _rep.deleteCollectionApp('$idAudio', 'DeleteCollections');
-      await repositoriesUser.updateSizeRepositories(-size);
+      await CollectionsRepositories.instance!
+          .deleteCollectionApp('$idAudio', 'DeleteCollections');
+      await UserRepositories.instance!.updateSizeRepositories(-size);
     }
 
-    await UserRepositories().updateTotalTimeQuality();
+    await UserRepositories.instance!.updateTotalTimeQuality();
   }
 
   Future<void> _reestablishAll(BuildContext context) async {
     await _getIdCollectionAll(context);
     for (var item in _idAudioListAll) {
-      await _rep.copyPastCollections(
+      await CollectionsRepositories.instance!.copyPastCollections(
         item,
         'DeleteCollections',
         'Collections',
       );
-      await _rep.deleteCollection(item, 'DeleteCollections');
-      await UserRepositories().updateTotalTimeQuality();
+      await CollectionsRepositories.instance!
+          .deleteCollection(item, 'DeleteCollections');
+      await UserRepositories.instance!.updateTotalTimeQuality();
     }
   }
 

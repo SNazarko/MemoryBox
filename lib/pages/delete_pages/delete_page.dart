@@ -3,6 +3,7 @@ import 'package:memory_box/pages/delete_pages/widgets/appbar_header_delete_page.
 import 'package:memory_box/pages/delete_pages/widgets/list_players_delete_page.dart';
 import 'package:memory_box/pages/delete_pages/widgets/model_delete_not_authorization.dart';
 import 'package:memory_box/pages/delete_pages/widgets/popup_menu_delete_page.dart';
+import 'package:memory_box/repositories/auth_repositories.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/utils/constants.dart';
 import 'package:provider/provider.dart';
@@ -12,8 +13,6 @@ import 'delete_page_model.dart';
 class DeletePage extends StatelessWidget {
   DeletePage({Key? key}) : super(key: key);
   static const routeName = '/delete_page';
-
-  final UserRepositories rep = UserRepositories();
   static Widget create() {
     return ChangeNotifierProvider<DeletePageModel>(
       create: (BuildContext context) => DeletePageModel(),
@@ -47,7 +46,7 @@ class DeletePage extends StatelessWidget {
           children: [
             Stack(
               children: [
-                rep.user == null
+                AuthRepositories.instance!.user == null
                     ? const ModelDeleteNotIsAuthorization()
                     : ListPlayersDeletePage(),
                 const AppbarHeaderDeletePage(),

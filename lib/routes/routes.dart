@@ -63,7 +63,7 @@ class AppRouter {
 
       // /initializer_widget.dart
       case InitializerWidget.routeName:
-        builder = (_) => InitializerWidget.create();
+        builder = (_) => InitializerWidget();
         break;
 
       // /last_authorization_page.dart

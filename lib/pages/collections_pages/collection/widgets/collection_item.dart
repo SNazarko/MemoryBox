@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page.dart';
-import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:provider/provider.dart';
@@ -31,24 +30,20 @@ class CollectionItem extends StatelessWidget {
   _getCollectionItem(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // context.read<CollectionsItemPageModel>().setIdCollection(id!);
-        // context.read<CollectionsItemPageModel>().setTitle(title!);
-        // context.read<CollectionsItemPageModel>().setSubTitle(subTitle!);
-        // context.read<CollectionsItemPageModel>().setPhoto(image!);
-        // context.read<CollectionsItemPageModel>().setData(data!);
-        // context.read<CollectionsItemPageModel>().setQuality(quality!);
-        // context.read<CollectionsItemPageModel>().setTotalTime(totalTime!);
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return CollectionsItemPage(
-            qualityCollection: quality!,
-            dataCollection: data!,
-            titleCollection: title!,
-            imageCollection: image!,
-            totalTimeCollection: totalTime!,
-            subTitleCollection: subTitle!,
-            idCollection: id!,
-          );
-        }));
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) {
+            return CollectionsItemPage(
+              qualityCollection: quality!,
+              dataCollection: data!,
+              titleCollection: title!,
+              imageCollection: image!,
+              totalTimeCollection: totalTime!,
+              subTitleCollection: subTitle!,
+              idCollection: id!,
+            );
+          }),
+        );
       },
       child: Container(
         width: 185.0,
@@ -220,13 +215,13 @@ class CollectionItem extends StatelessWidget {
                   onPressed: () {
                     doneCollection = !doneCollection!;
                     if (!doneCollection!) {
-                      CollectionsRepositories().doneCollections(
+                      CollectionsRepositories.instance!.doneCollections(
                         id!,
                         false,
                       );
                     }
                     if (doneCollection!) {
-                      CollectionsRepositories().doneCollections(
+                      CollectionsRepositories.instance!.doneCollections(
                         id!,
                         true,
                       );

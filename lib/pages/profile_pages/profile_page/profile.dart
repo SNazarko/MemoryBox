@@ -9,6 +9,7 @@ import 'package:memory_box/pages/profile_pages/profile_page/widgets/name_and_num
 import 'package:memory_box/pages/profile_pages/profile_page/widgets/photo_profile.dart';
 import 'package:memory_box/pages/profile_pages/profile_page/widgets/progress_indicator.dart';
 import 'package:memory_box/pages/profile_pages/profile_edit_page/profile_edit_page.dart';
+import 'package:memory_box/repositories/auth_repositories.dart';
 import 'package:memory_box/widgets/uncategorized/text_link.dart';
 import 'package:provider/provider.dart';
 import '../../../Blocs/navigation_bloc/navigation__bloc.dart';
@@ -34,8 +35,7 @@ class Profile extends StatelessWidget {
 }
 
 class ProfileCreate extends StatelessWidget {
-  ProfileCreate({Key? key}) : super(key: key);
-  final UserRepositories _rep = UserRepositories();
+  const ProfileCreate({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class ProfileCreate extends StatelessWidget {
                 PhotoProfileProfile(),
               ],
             ),
-            _rep.user == null
+            AuthRepositories.instance!.user == null
                 ? _LinksNotAuthorization(
                     screenWidth: screenWidth,
                   )
@@ -81,7 +81,6 @@ class ProfileCreate extends StatelessWidget {
 
 class _Links extends StatelessWidget {
   _Links({Key? key, required this.screenWidth}) : super(key: key);
-  final UserRepositories repositoriesUser = UserRepositories();
   final _auth = FirebaseAuth.instance;
   final double screenWidth;
   Widget buildUser(UserModel model) => CustomProgressIndicator(
@@ -140,7 +139,7 @@ class _Links extends StatelessWidget {
               height: 15.0,
             ),
             StreamBuilder<List<UserModel>>(
-              stream: repositoriesUser.readUser(),
+              stream: UserRepositories.instance!.readUser(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return const CustomProgressIndicator(

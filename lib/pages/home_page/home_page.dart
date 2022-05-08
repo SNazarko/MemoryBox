@@ -14,6 +14,7 @@ import '../../repositories/collections_repositories.dart';
 import '../../repositories/user_repositories.dart';
 import '../subscription_page/subscription_page.dart';
 import 'blocs/green_list_collections/green_list_collections_bloc.dart';
+import 'blocs/orange_list_collections/orange_list_collections_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -69,6 +70,14 @@ class _HomePageState extends State<HomePage> {
           create: (context) => GreenListItemBloc()
             ..add(
               LoadGreenListItemEvent(
+                streamList: CollectionsRepositories.instance?.readCollections(),
+              ),
+            ),
+        ),
+        BlocProvider<OrangeListItemBloc>(
+          create: (context) => OrangeListItemBloc()
+            ..add(
+              LoadOrangeListItemEvent(
                 streamList: CollectionsRepositories.instance?.readCollections(),
               ),
             ),

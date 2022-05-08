@@ -15,6 +15,7 @@ import '../../../widgets/uncategorized/home_page_containers/green_container.dart
 import '../../../widgets/uncategorized/home_page_containers/orange_container.dart';
 import '../../collections_pages/collection/collection.dart';
 import '../blocs/green_list_collections/green_list_collections_bloc.dart';
+import '../blocs/orange_list_collections/orange_list_collections_bloc.dart';
 
 class AppbarHeaderHomePage extends StatelessWidget {
   const AppbarHeaderHomePage({Key? key}) : super(key: key);
@@ -292,16 +293,6 @@ class _OrangeListCollections extends StatelessWidget {
       : super(key: key);
   final double screenWidth;
 
-  Widget buildCollections(CollectionsModel collections) => _ContainerModel(
-        image: '${collections.avatarCollections}',
-        title: '${collections.titleCollections}',
-        totalTime: '${collections.totalTime}',
-        quality: '${collections.qualityCollections}',
-        screenWidth: screenWidth,
-        boxFit: BoxFit.fitWidth,
-        height: 95.0,
-      );
-
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -312,20 +303,34 @@ class _OrangeListCollections extends StatelessWidget {
           top: 16.0,
           right: 16.0,
         ),
-        child: StreamBuilder<List<CollectionsModel>>(
-          stream: CollectionsRepositories.instance!.readCollections(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
+        child: BlocBuilder<OrangeListItemBloc, OrangeListItemState>(
+          builder: (context, state) {
+            if (state.status == GreenListItemStatus.initial) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (state.status == GreenListItemStatus.failed) {
               return OrangeContainer(
                 screenWidth: screenWidth,
               );
             }
-            if (snapshot.hasData) {
-              final collections = snapshot.data!;
-              if (collections.map(buildCollections).toList().length - 2 >= 0) {
-                return Container(
-                  child: collections.map(buildCollections).toList()[
-                      collections.map(buildCollections).toList().length - 2],
+            if (state.status == GreenListItemStatus.emptyList) {
+              return OrangeContainer(
+                screenWidth: screenWidth,
+              );
+            }
+            if (state.status == GreenListItemStatus.success) {
+              if (state.list.length - 2 >= 0) {
+                final collections = state.list[state.list.length - 2];
+                return _ContainerModel(
+                  image: '${collections.avatarCollections}',
+                  title: '${collections.titleCollections}',
+                  totalTime: '${collections.totalTime}',
+                  quality: '${collections.qualityCollections}',
+                  screenWidth: screenWidth,
+                  boxFit: BoxFit.fitWidth,
+                  height: 95.0,
                 );
               } else {
                 return OrangeContainer(

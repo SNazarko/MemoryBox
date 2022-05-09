@@ -19,7 +19,6 @@ class AudioRepositories {
   static AudioRepositories? _instance;
 
   static AudioRepositories? get instance {
-    _instance ??= AudioRepositories._();
     return _instance;
   }
 

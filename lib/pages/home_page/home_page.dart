@@ -48,9 +48,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    UserRepositories.instance!.limitNotSubscription();
+    UserRepositories.instance?.limitNotSubscription();
     subscriptionDone(context);
-    AudioRepositories.instance!.finishDelete();
+    AudioRepositories.instance?.finishDelete();
     super.initState();
   }
 

@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:record/record.dart';
 
 import '../../../resources/app_colors.dart';
 import '../../../resources/app_icons.dart';
 import '../../../utils/constants.dart';
+import '../../../widgets/button/alert_dialog.dart';
 import '../model_recordings_page.dart';
 
 class AudioRecorder extends StatefulWidget {
@@ -34,6 +36,7 @@ class _AudioRecorderState extends State<AudioRecorder> {
   @override
   void initState() {
     _isRecording = false;
+
     super.initState();
   }
 
@@ -155,17 +158,26 @@ class _AudioRecorderState extends State<AudioRecorder> {
 
   Future<void> _start() async {
     try {
-      if (await _audioRecorder.hasPermission()) {
-        await _audioRecorder.start();
+      var status = await Permission.microphone.shouldShowRequestRationale;
+      if (status == false) {
+        if (await _audioRecorder.hasPermission()) {
+          await _audioRecorder.start();
 
-        bool isRecording = await _audioRecorder.isRecording();
-        setState(() {
-          _isRecording = isRecording;
-          _recordDuration = 0;
-        });
+          bool isRecording = await _audioRecorder.isRecording();
+          setState(() {
+            _isRecording = isRecording;
+            _recordDuration = 0;
+          });
 
-        _startTimer();
-        _getAmplituder();
+          _startTimer();
+          _getAmplituder();
+        }
+      } else {
+        AlertDialogApp().alertDialogPermission(
+          context,
+          'Разрешыть приложению записывать аудио?',
+          Icons.mic,
+        );
       }
     } catch (e) {
       print(e);

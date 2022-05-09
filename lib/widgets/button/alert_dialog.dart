@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../repositories/collections_repositories.dart';
 import '../../repositories/user_repositories.dart';
@@ -117,6 +118,47 @@ class AlertDialogApp {
                   ),
                 ),
               ),
+            ),
+          ],
+        ),
+      );
+
+  void alertDialogPermission(
+          BuildContext context, String text, IconData icon) =>
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Flexible(
+                flex: 1,
+                child: Icon(
+                  icon,
+                  size: 40.0,
+                  color: Colors.grey,
+                ),
+              ),
+              const SizedBox(
+                width: 10.0,
+              ),
+              Flexible(flex: 4, child: Text(text)),
+            ],
+          ),
+          actions: [
+            TextButton(
+              child: const Text(
+                'Отключить',
+                style: TextStyle(fontSize: 18.0, color: Colors.grey),
+              ),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            TextButton(
+              child: const Text(
+                'Настройки',
+                style: TextStyle(fontSize: 18.0, color: Colors.grey),
+              ),
+              onPressed: () => openAppSettings(),
             ),
           ],
         ),

@@ -11,7 +11,6 @@ class UserRepositories {
   static UserRepositories? _instance;
 
   static UserRepositories? get instance {
-    _instance ??= UserRepositories._();
     return _instance;
   }
 

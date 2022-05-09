@@ -100,19 +100,23 @@ class _AudioPlayerState extends State<AudioPlayer> {
   }
 
   Future<void> logicSave() async {
-    await FirebaseFirestore.instance
-        .collection(AuthRepositories.instance!.user!.phoneNumber!)
-        .get()
-        .then((querySnapshot) {
-      for (var result in querySnapshot.docs) {
-        final bool subscription = result.data()['subscription'] ?? true;
-        AuthRepositories.instance!.user == null
-            ? saveRecordLocal()
-            : subscription
-                ? saveRecordsFirebase()
-                : saveRecordLocal();
-      }
-    });
+    if (AuthRepositories.instance!.user == null) {
+      saveRecordLocal();
+    } else {
+      await FirebaseFirestore.instance
+          .collection(AuthRepositories.instance!.user!.phoneNumber!)
+          .get()
+          .then((querySnapshot) {
+        for (var result in querySnapshot.docs) {
+          final bool subscription = result.data()['subscription'] ?? true;
+          AuthRepositories.instance!.user == null
+              ? saveRecordLocal()
+              : subscription
+                  ? saveRecordsFirebase()
+                  : saveRecordLocal();
+        }
+      });
+    }
   }
 
   void saveRecordLocal() {

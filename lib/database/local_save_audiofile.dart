@@ -4,6 +4,7 @@ import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:permission_handler/permission_handler.dart';
 
 import '../resources/app_colors.dart';
+import '../widgets/button/alert_dialog.dart';
 
 class LocalSaveAudioFile {
   // Save audio file in phone memory
@@ -11,9 +12,18 @@ class LocalSaveAudioFile {
   Future<void> saveAudioStorageDirectory(
       BuildContext context, String newPath, String name) async {
     Directory? directory;
-    var status = await Permission.storage.status;
-    if (!status.isGranted) {
-      await Permission.storage.request();
+    var status = await Permission.storage.shouldShowRequestRationale;
+    if (status == false) {
+      var status = await Permission.storage.status;
+      if (!status.isGranted) {
+        await Permission.storage.request();
+      }
+    } else {
+      AlertDialogApp().alertDialogPermission(
+        context,
+        'Разрешыть приложению доступ к фото, мультимедиа и файлам на устройстве?',
+        Icons.folder_open,
+      );
     }
     try {
       if (Platform.isIOS) {

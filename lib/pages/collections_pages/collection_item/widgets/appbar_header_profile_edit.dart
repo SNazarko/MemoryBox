@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/widgets/popup_menu_collection_item_page.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/button/icon_back.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../widgets/uncategorized/appbar_clipper.dart';
-import '../collections_item_page_model.dart';
 
 class AppbarHeaderCollectionItem extends StatelessWidget {
   const AppbarHeaderCollectionItem({

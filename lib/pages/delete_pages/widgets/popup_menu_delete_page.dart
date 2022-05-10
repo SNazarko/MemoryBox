@@ -18,7 +18,7 @@ class PopupMenuDeletePage extends StatelessWidget {
 
   Future<void> _getIdCollection(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(AuthRepositories.instance!.user!.phoneNumber!)
+        .collection(AuthRepositories.instance.user!.phoneNumber!)
         .doc('id')
         .collection('DeleteCollections')
         .where('done', isEqualTo: true)
@@ -35,7 +35,7 @@ class PopupMenuDeletePage extends StatelessWidget {
 
   Future<void> _getIdCollectionAll(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(AuthRepositories.instance!.user!.phoneNumber!)
+        .collection(AuthRepositories.instance.user!.phoneNumber!)
         .doc('id')
         .collection('DeleteCollections')
         .get()
@@ -55,24 +55,24 @@ class PopupMenuDeletePage extends StatelessWidget {
       final idAudio = item[0];
       final sizeTemp = item[1];
       final size = sizeTemp as int;
-      await CollectionsRepositories.instance!
+      await CollectionsRepositories.instance
           .deleteCollectionApp('$idAudio', 'DeleteCollections');
-      await UserRepositories.instance!.updateSizeRepositories(-size);
+      await UserRepositories.instance.updateSizeRepositories(-size);
     }
-    await UserRepositories.instance!.updateTotalTimeQuality();
+    await UserRepositories.instance.updateTotalTimeQuality();
   }
 
   Future<void> _reestablish(BuildContext context) async {
     await _getIdCollection(context);
     for (var item in _idAudioList) {
-      await CollectionsRepositories.instance!.copyPastCollections(
+      await CollectionsRepositories.instance.copyPastCollections(
         item,
         'DeleteCollections',
         'Collections',
       );
-      await CollectionsRepositories.instance!
+      await CollectionsRepositories.instance
           .deleteCollection(item, 'DeleteCollections');
-      await UserRepositories.instance!.updateTotalTimeQuality();
+      await UserRepositories.instance.updateTotalTimeQuality();
     }
   }
 
@@ -82,25 +82,25 @@ class PopupMenuDeletePage extends StatelessWidget {
       final idAudio = item[0];
       final sizeTemp = item[1];
       final size = sizeTemp as int;
-      await CollectionsRepositories.instance!
+      await CollectionsRepositories.instance
           .deleteCollectionApp('$idAudio', 'DeleteCollections');
-      await UserRepositories.instance!.updateSizeRepositories(-size);
+      await UserRepositories.instance.updateSizeRepositories(-size);
     }
 
-    await UserRepositories.instance!.updateTotalTimeQuality();
+    await UserRepositories.instance.updateTotalTimeQuality();
   }
 
   Future<void> _reestablishAll(BuildContext context) async {
     await _getIdCollectionAll(context);
     for (var item in _idAudioListAll) {
-      await CollectionsRepositories.instance!.copyPastCollections(
+      await CollectionsRepositories.instance.copyPastCollections(
         item,
         'DeleteCollections',
         'Collections',
       );
-      await CollectionsRepositories.instance!
+      await CollectionsRepositories.instance
           .deleteCollection(item, 'DeleteCollections');
-      await UserRepositories.instance!.updateTotalTimeQuality();
+      await UserRepositories.instance.updateTotalTimeQuality();
     }
   }
 

@@ -9,14 +9,10 @@ import 'package:uuid/uuid.dart';
 
 class CollectionsRepositories {
   CollectionsRepositories._();
-  static CollectionsRepositories? _instance;
 
-  static CollectionsRepositories? get instance {
-    _instance ??= CollectionsRepositories._();
-    return _instance;
-  }
+  static final CollectionsRepositories instance = CollectionsRepositories._();
 
-  final phoneNumber = AuthRepositories.instance!.user!.phoneNumber!;
+  final phoneNumber = AuthRepositories.instance.user!.phoneNumber!;
   final uuid = const Uuid();
 
   // Stream list collections

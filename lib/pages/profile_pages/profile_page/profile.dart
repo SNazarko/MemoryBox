@@ -65,7 +65,7 @@ class ProfileCreate extends StatelessWidget {
                 PhotoProfileProfile(),
               ],
             ),
-            AuthRepositories.instance!.user == null
+            AuthRepositories.instance.user == null
                 ? _LinksNotAuthorization(
                     screenWidth: screenWidth,
                   )
@@ -139,7 +139,7 @@ class _Links extends StatelessWidget {
               height: 15.0,
             ),
             StreamBuilder<List<UserModel>>(
-              stream: UserRepositories.instance!.readUser(),
+              stream: UserRepositories.instance.readUser(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return const CustomProgressIndicator(

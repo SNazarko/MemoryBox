@@ -40,7 +40,7 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
 
   Future<void> _getIdAudio(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(AuthRepositories.instance!.user!.phoneNumber!)
+        .collection(AuthRepositories.instance.user!.phoneNumber!)
         .doc('id')
         .collection('Collections')
         .where('collections', arrayContains: idCollection)
@@ -109,7 +109,7 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
           'Удалить подборку',
           () {
             Timer(const Duration(seconds: 1), () {
-              CollectionsRepositories.instance!.deleteCollection(
+              CollectionsRepositories.instance.deleteCollection(
                 idCollection,
                 'CollectionsTale',
               );
@@ -131,7 +131,7 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
               try {
                 await FirebaseStorage.instance
                     .ref(
-                        '${AuthRepositories.instance!.user!.phoneNumber!}/userAudio/$idAudio.m4a')
+                        '${AuthRepositories.instance.user!.phoneNumber!}/userAudio/$idAudio.m4a')
                     .writeToFile(File(filePath));
               } on FirebaseException catch (e) {
                 if (kDebugMode) {

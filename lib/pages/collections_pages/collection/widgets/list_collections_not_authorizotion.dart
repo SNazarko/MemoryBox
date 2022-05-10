@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../Blocs/navigation_bloc/navigation__bloc.dart';
 import '../../../../Blocs/navigation_bloc/navigation__state.dart';
 import '../../../../resources/app_colors.dart';

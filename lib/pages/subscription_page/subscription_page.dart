@@ -42,7 +42,7 @@ class SubscriptionPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                AuthRepositories.instance!.user == null
+                AuthRepositories.instance.user == null
                     ? const SubscriptionNotAuthorisation()
                     : SubscriptionAuthorisation()
               ],

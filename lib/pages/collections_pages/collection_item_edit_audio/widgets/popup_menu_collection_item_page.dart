@@ -29,7 +29,7 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
 
   Future<void> _getIdAudio(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(AuthRepositories.instance!.user!.phoneNumber!)
+        .collection(AuthRepositories.instance.user!.phoneNumber!)
         .doc('id')
         .collection('Collections')
         .where('collections', arrayContains: idCollection)
@@ -52,8 +52,12 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
       final idAudio = item[0];
       final collectionsTemp = item[1];
       final collections = collectionsTemp as List;
-      await AudioRepositories.instance!
-          .addAudioCollections(idCollection, '$idAudio', collections, true);
+      await AudioRepositories.instance.addAudioCollections(
+        idCollection,
+        '$idAudio',
+        collections,
+        true,
+      );
     }
   }
 
@@ -69,7 +73,7 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
       try {
         await FirebaseStorage.instance
             .ref(
-                '${AuthRepositories.instance!.user!.phoneNumber!}/userAudio/$idAudio.m4a')
+                '${AuthRepositories.instance.user!.phoneNumber!}/userAudio/$idAudio.m4a')
             .writeToFile(File(filePath));
       } on FirebaseException catch (e) {
         if (kDebugMode) {
@@ -114,7 +118,7 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
       try {
         await FirebaseStorage.instance
             .ref(
-                '${AuthRepositories.instance!.user!.phoneNumber!}/userAudio/$idAudio.m4a')
+                '${AuthRepositories.instance.user!.phoneNumber!}/userAudio/$idAudio.m4a')
             .writeToFile(File(filePath));
       } on FirebaseException catch (e) {
         if (kDebugMode) {
@@ -137,7 +141,7 @@ class PopupMenuCollectionItemEditAudioPage extends StatelessWidget {
       final idAudio = item[0];
       final collectionsTemp = item[1];
       final collections = collectionsTemp as List;
-      await AudioRepositories.instance!
+      await AudioRepositories.instance
           .addAudioCollections(idCollection, '$idAudio', collections, false);
     }
   }

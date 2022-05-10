@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/foundation.dart';
 import 'package:memory_box/models/audio_model.dart';
@@ -16,13 +15,10 @@ import 'collections_repositories.dart';
 
 class AudioRepositories {
   AudioRepositories._();
-  static AudioRepositories? _instance;
 
-  static AudioRepositories? get instance {
-    return _instance;
-  }
+  static final AudioRepositories instance = AudioRepositories._();
 
-  final phoneNumber = AuthRepositories.instance!.user!.phoneNumber!;
+  final phoneNumber = AuthRepositories.instance.user!.phoneNumber!;
   final uuid = const Uuid();
 
   Stream<List<AudioModel>> readAudio(String sort, String collection) =>
@@ -92,7 +88,7 @@ class AudioRepositories {
       size: size,
     );
     final json = model.toJson();
-    await UserRepositories.instance!.updateSizeRepositories(size);
+    await UserRepositories.instance.updateSizeRepositories(size);
     await FirebaseFirestore.instance
         .collection(phoneNumber)
         .doc('id')
@@ -201,7 +197,7 @@ class AudioRepositories {
     String? idAudio;
     int? size;
     Timestamp? dateTimeDelete;
-    if (AuthRepositories.instance!.user != null) {
+    if (AuthRepositories.instance.user != null) {
       await FirebaseFirestore.instance
           .collection(phoneNumber)
           .doc('id')
@@ -217,8 +213,8 @@ class AudioRepositories {
       if (dateTimeDelete != null) {
         final state = dateTimeDelete!.compareTo(Timestamp.fromDate(later));
         if (state >= 0) {
-          await UserRepositories.instance!.updateSizeRepositories(-size!);
-          await CollectionsRepositories.instance!
+          await UserRepositories.instance.updateSizeRepositories(-size!);
+          await CollectionsRepositories.instance
               .deleteCollectionApp(idAudio!, 'DeleteCollections');
         }
       }

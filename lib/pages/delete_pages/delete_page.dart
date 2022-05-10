@@ -4,7 +4,6 @@ import 'package:memory_box/pages/delete_pages/widgets/list_players_delete_page.d
 import 'package:memory_box/pages/delete_pages/widgets/model_delete_not_authorization.dart';
 import 'package:memory_box/pages/delete_pages/widgets/popup_menu_delete_page.dart';
 import 'package:memory_box/repositories/auth_repositories.dart';
-import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/utils/constants.dart';
 import 'package:provider/provider.dart';
 
@@ -46,7 +45,7 @@ class DeletePage extends StatelessWidget {
           children: [
             Stack(
               children: [
-                AuthRepositories.instance!.user == null
+                AuthRepositories.instance.user == null
                     ? const ModelDeleteNotIsAuthorization()
                     : ListPlayersDeletePage(),
                 const AppbarHeaderDeletePage(),

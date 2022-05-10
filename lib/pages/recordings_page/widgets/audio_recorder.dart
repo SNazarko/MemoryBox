@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +31,7 @@ class _AudioRecorderState extends State<AudioRecorder> {
   Amplitude? _amplitude;
   Record? _record;
   double _dcb = 0;
-  List _listAmplitude = [];
+  final List _listAmplitude = [];
   final ScrollController? _scrollController = ScrollController();
 
   @override
@@ -134,7 +135,7 @@ class _AudioRecorderState extends State<AudioRecorder> {
       return _buildTimer();
     }
 
-    return Text('00:00');
+    return const Text('00:00');
   }
 
   Widget _buildTimer() {
@@ -180,7 +181,9 @@ class _AudioRecorderState extends State<AudioRecorder> {
         );
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -214,11 +217,6 @@ class _AudioRecorderState extends State<AudioRecorder> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        SizedBox(
-          child: Column(
-            children: [],
-          ),
-        ),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Align(

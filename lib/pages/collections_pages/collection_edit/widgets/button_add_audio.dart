@@ -19,7 +19,7 @@ class ButtonAddAudio extends StatelessWidget {
   final String imageCollection;
 
   void _addAudioInCollection(BuildContext context, String title) {
-    CollectionsRepositories.instance!.updateCollection(
+    CollectionsRepositories.instance.updateCollection(
         idCollection,
         Provider.of<CollectionsEditModel>(context, listen: false).getTitle ??
             titleCollection,

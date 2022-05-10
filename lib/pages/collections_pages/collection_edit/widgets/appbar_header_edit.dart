@@ -22,7 +22,7 @@ class AppbarHeaderEdit extends StatelessWidget {
   final String imageCollection;
 
   void _updateCollection(BuildContext context) {
-    CollectionsRepositories.instance!.updateCollection(
+    CollectionsRepositories.instance.updateCollection(
       idCollection,
       Provider.of<CollectionsEditModel>(context, listen: false).getTitle ??
           titleCollection,
@@ -55,7 +55,7 @@ class AppbarHeaderEdit extends StatelessWidget {
               IconBack(
                 onPressed: () {
                   Navigator.pop(context);
-                  CollectionsRepositories.instance!
+                  CollectionsRepositories.instance
                       .deleteCollection(idCollection, 'CollectionsTale');
                 },
               ),

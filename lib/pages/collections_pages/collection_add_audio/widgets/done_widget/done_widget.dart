@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/collections_pages/collection_edit/collection_edit_model.dart';
 import 'package:memory_box/repositories/auth_repositories.dart';
-import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../../repositories/audio_repositories.dart';
 
@@ -31,7 +28,7 @@ class _DoneWidgetState extends State<DoneWidget> {
 
   Future<void> _getIdCollection(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(AuthRepositories.instance!.user!.phoneNumber!)
+        .collection(AuthRepositories.instance.user!.phoneNumber!)
         .doc('id')
         .collection('CollectionsTale')
         .where('titleCollections', isEqualTo: widget.titleCollections)
@@ -49,23 +46,22 @@ class _DoneWidgetState extends State<DoneWidget> {
     _done = !_done;
     if (!_done) {
       await _getIdCollection(context);
-      await AudioRepositories.instance!.addAudioCollections(
+      await AudioRepositories.instance.addAudioCollections(
         idCollection!,
         widget.id,
         widget.collection,
         false,
       );
       // context.read<ModelDone>().doneWidget();
-      AudioRepositories.instance!
-          .doneAudioItem(widget.id, false, 'Collections');
+      AudioRepositories.instance.doneAudioItem(widget.id, false, 'Collections');
       setState(() {});
     }
     if (_done) {
       await _getIdCollection(context);
-      await AudioRepositories.instance!.addAudioCollections(
+      await AudioRepositories.instance.addAudioCollections(
           idCollection!, widget.id, widget.collection, true);
       // context.read<ModelDone>().doneWidget();
-      AudioRepositories.instance!.doneAudioItem(widget.id, true, 'Collections');
+      AudioRepositories.instance.doneAudioItem(widget.id, true, 'Collections');
       setState(() {});
     }
   }

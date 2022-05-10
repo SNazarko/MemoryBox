@@ -5,12 +5,8 @@ class AuthRepositories {
   AuthRepositories._() {
     init();
   }
-  static AuthRepositories? _instance;
 
-  static AuthRepositories? get instance {
-    _instance ??= AuthRepositories._();
-    return _instance;
-  }
+  static final AuthRepositories instance = AuthRepositories._();
 
   final FirebaseAuth? _auth = FirebaseAuth.instance;
   FirebaseAuth? auth;
@@ -19,6 +15,10 @@ class AuthRepositories {
   void init() {
     auth = FirebaseAuth.instance;
     user = auth!.currentUser;
+    final user2 = auth?.authStateChanges().listen((event) {
+      print('user2$event');
+    });
+    print('user$user');
   }
 
   Future<void> verifyPhoneSendOtp(

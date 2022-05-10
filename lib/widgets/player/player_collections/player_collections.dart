@@ -152,9 +152,9 @@ class PlayerCollectionsState extends State<PlayerCollections> {
 
   Future<void> player() async {
     List<AudioSource> audioUrlList = [];
-    if (AuthRepositories.instance!.user != null) {
+    if (AuthRepositories.instance.user != null) {
       await FirebaseFirestore.instance
-          .collection(AuthRepositories.instance!.user!.phoneNumber!)
+          .collection(AuthRepositories.instance.user!.phoneNumber!)
           .doc('id')
           .collection('Collections')
           .where('collections', arrayContains: widget.idCollection)
@@ -243,28 +243,28 @@ class PlayerCollectionsState extends State<PlayerCollections> {
 
     if (index!.isEven == true) {
       if (index.toInt() >= 1) {
-        AudioRepositories.instance!.playPause(
+        AudioRepositories.instance.playPause(
           audioIdList[index.toInt() - 1],
           false,
         );
       }
-      AudioRepositories.instance!.playPause(
+      AudioRepositories.instance.playPause(
         audioIdList[index.toInt()],
         true,
       );
     }
     if (index.isEven == false) {
-      AudioRepositories.instance!.playPause(
+      AudioRepositories.instance.playPause(
         audioIdList[index.toInt()],
         true,
       );
-      AudioRepositories.instance!.playPause(
+      AudioRepositories.instance.playPause(
         audioIdList[index.toInt() - 1],
         false,
       );
     }
     if (_audioPlayer.playing == false) {
-      AudioRepositories.instance!.playPause(
+      AudioRepositories.instance.playPause(
         audioIdList[index.toInt()],
         false,
       );
@@ -387,7 +387,7 @@ class PlayerCollectionsState extends State<PlayerCollections> {
                             if (_audioPlayer.nextIndex != null) {
                               seekToNext();
                             } else {
-                              AudioRepositories.instance!.playPause(
+                              AudioRepositories.instance.playPause(
                                 audioIdList[_audioPlayer.currentIndex!.toInt()],
                                 false,
                               );

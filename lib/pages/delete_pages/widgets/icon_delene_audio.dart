@@ -15,8 +15,8 @@ class IconDeleteAudio extends StatelessWidget {
       padding: const EdgeInsets.all(15.0),
       child: GestureDetector(
           onTap: () async {
-            await UserRepositories.instance!.updateSizeRepositories(-size!);
-            await CollectionsRepositories.instance!
+            await UserRepositories.instance.updateSizeRepositories(-size!);
+            await CollectionsRepositories.instance
                 .deleteCollectionApp(idAudio, 'DeleteCollections');
           },
           child: SizedBox(

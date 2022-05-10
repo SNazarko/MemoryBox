@@ -88,7 +88,7 @@ class PhotoContainer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '$dataCollection',
+                    dataCollection,
                     style: kTitle4TextStyle,
                   ),
                   Row(

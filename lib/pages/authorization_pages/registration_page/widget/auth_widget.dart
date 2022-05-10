@@ -40,7 +40,7 @@ class AuthWidget extends StatelessWidget {
           phone: phoneController.text,
           smsCode: otpController.text,
           verificationId: state.verificationId));
-      FirebaseAuth.instance.idTokenChanges().listen((User? user) {
+      FirebaseAuth.instance.authStateChanges().listen((User? user) {
         if (user == null) {
         } else {
           Timer(const Duration(milliseconds: 1), () {

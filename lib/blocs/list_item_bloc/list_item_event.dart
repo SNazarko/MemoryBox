@@ -5,9 +5,11 @@ abstract class ListItemEvent {}
 
 class LoadListItemEvent extends ListItemEvent {
   LoadListItemEvent({
-    this.streamList,
+    this.collection,
+    this.sort,
   });
-  final Stream<List>? streamList;
+  final String? collection;
+  final String? sort;
 }
 
 class UpdateListItemEvent extends ListItemEvent {

@@ -45,7 +45,7 @@ class ListPlayersDeletePage extends StatelessWidget {
         SizedBox(
           height: screenHeight * 0.95,
           child: StreamBuilder<List<AudioModel>>(
-            stream: AudioRepositories.instance!.readAudioDelete('all'),
+            stream: AudioRepositories.instance.readAudioDelete('all'),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return const Text('Ошибка');

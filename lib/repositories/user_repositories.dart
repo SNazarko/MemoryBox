@@ -8,13 +8,10 @@ import 'package:uuid/uuid.dart';
 
 class UserRepositories {
   UserRepositories._();
-  static UserRepositories? _instance;
 
-  static UserRepositories? get instance {
-    return _instance;
-  }
+  static final UserRepositories instance = UserRepositories._();
 
-  final phoneNumber = AuthRepositories.instance!.user!.phoneNumber!;
+  final phoneNumber = AuthRepositories.instance.user!.phoneNumber!;
   var uuid = const Uuid();
 
   //Stream list user
@@ -148,7 +145,7 @@ class UserRepositories {
 
   Future<void> limitNotSubscription() async {
     final now = Timestamp.now();
-    if (AuthRepositories.instance!.user != null) {
+    if (AuthRepositories.instance.user != null) {
       await FirebaseFirestore.instance
           .collection(phoneNumber)
           .get()

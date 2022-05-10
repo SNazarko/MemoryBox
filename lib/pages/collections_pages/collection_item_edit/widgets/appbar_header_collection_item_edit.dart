@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/collections_pages/collection/collection.dart';
-import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/utils/constants.dart';
@@ -45,7 +44,7 @@ class AppbarHeaderCollectionItemEditState
   }
 
   void _editCollections(BuildContext context) {
-    CollectionsRepositories.instance!.updateCollection(
+    CollectionsRepositories.instance.updateCollection(
       widget.idCollection,
       Provider.of<CollectionItemEditPageModel>(context, listen: false)
               .getTitleCollectionsEdit ??

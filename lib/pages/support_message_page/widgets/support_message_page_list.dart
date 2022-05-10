@@ -33,7 +33,7 @@ class SupportMessagePageList extends StatelessWidget {
                   final message = data['message'] ?? '';
                   final phoneNumber = data['phoneNumber'] ?? '';
                   final currentUser =
-                      AuthRepositories.instance!.user!.phoneNumber;
+                      AuthRepositories.instance.user!.phoneNumber;
                   bool? isMe;
                   if (currentUser == phoneNumber) {
                     isMe = true;

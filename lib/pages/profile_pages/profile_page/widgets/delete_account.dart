@@ -14,7 +14,7 @@ class DeleteAccount extends StatelessWidget {
 
   void _deleteAccount(BuildContext context) {
     Navigator.pop(context);
-    UserRepositories.instance!.deleteAccount();
+    UserRepositories.instance.deleteAccount();
     PreferencesDataUser().cleanKey();
     _auth.signOut();
     Phoenix.rebirth(context);

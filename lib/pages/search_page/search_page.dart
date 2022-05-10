@@ -46,9 +46,9 @@ class SavePageCreate extends StatelessWidget {
           children: [
             Stack(
               children: [
-                AuthRepositories.instance!.user == null
+                AuthRepositories.instance.user == null
                     ? const ListPlayersSearchPageNotIsAuthorization()
-                    : ListPlayersSearchPage(),
+                    : const ListPlayersSearchPage(),
                 const AppbarHeaderSearchPage(),
               ],
             ),

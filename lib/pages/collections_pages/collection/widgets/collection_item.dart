@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:provider/provider.dart';
-
-import '../collection_model.dart';
+import '../blocs/item_done_cubit/item_done_cubit.dart';
 
 class CollectionItem extends StatelessWidget {
   CollectionItem({
@@ -26,7 +25,7 @@ class CollectionItem extends StatelessWidget {
   final String? data;
   final String? totalTime;
   bool? doneCollection = false;
-  bool done = true;
+
   _getCollectionItem(BuildContext context) {
     return GestureDetector(
       onTap: () {
@@ -64,7 +63,11 @@ class CollectionItem extends StatelessWidget {
                     color: Colors.grey,
                   ),
             Padding(
-              padding: const EdgeInsets.only(left: 10, right: 5, bottom: 15),
+              padding: const EdgeInsets.only(
+                left: 10.0,
+                right: 5.0,
+                bottom: 10.0,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -76,7 +79,7 @@ class CollectionItem extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 3,
                       style: const TextStyle(
-                        fontSize: 16.0,
+                        fontSize: 15.0,
                         fontWeight: FontWeight.w700,
                         color: AppColor.white100,
                       ),
@@ -139,7 +142,11 @@ class CollectionItem extends StatelessWidget {
                   color: Colors.grey,
                 ),
           Padding(
-            padding: const EdgeInsets.only(left: 10, right: 5, bottom: 10),
+            padding: const EdgeInsets.only(
+              left: 10.0,
+              right: 5.0,
+              bottom: 10.0,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -151,7 +158,7 @@ class CollectionItem extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                     style: const TextStyle(
-                      fontSize: 16.0,
+                      fontSize: 15.0,
                       fontWeight: FontWeight.w700,
                       color: AppColor.white100,
                     ),
@@ -192,7 +199,6 @@ class CollectionItem extends StatelessWidget {
               color: Colors.black.withOpacity(0.4),
               gradient: LinearGradient(
                   colors: doneCollection!
-                      // done
                       ? [const Color(0xFF000000), const Color(0xFF000000)]
                       : [const Color(0xFF000000), const Color(0xFF454545)],
                   begin: Alignment.bottomRight),
@@ -215,13 +221,13 @@ class CollectionItem extends StatelessWidget {
                   onPressed: () {
                     doneCollection = !doneCollection!;
                     if (!doneCollection!) {
-                      CollectionsRepositories.instance!.doneCollections(
+                      CollectionsRepositories.instance.doneCollections(
                         id!,
                         false,
                       );
                     }
                     if (doneCollection!) {
-                      CollectionsRepositories.instance!.doneCollections(
+                      CollectionsRepositories.instance.doneCollections(
                         id!,
                         true,
                       );
@@ -242,13 +248,16 @@ class CollectionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool itemDone = context.watch<CollectionModel>().getItemDone;
-    return ClipRRect(
-      borderRadius: const BorderRadius.all(
-        Radius.circular(20.0),
-      ),
-      child:
-          itemDone ? _getCollectionDone(context) : _getCollectionItem(context),
+    return BlocBuilder<ItemDoneCubit, bool>(
+      builder: (_, state) {
+        return ClipRRect(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(20.0),
+          ),
+          child:
+              state ? _getCollectionDone(context) : _getCollectionItem(context),
+        );
+      },
     );
   }
 }

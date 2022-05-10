@@ -40,11 +40,11 @@ class _ModelAudioCollectionAddAudioInCollectionState
   void initState() {
     final List collectionAudio = widget.collectionAudio;
     collectionAudio.contains(widget.id)
-        ? CollectionsRepositories.instance!.doneCollections(
+        ? CollectionsRepositories.instance.doneCollections(
             widget.id!,
             true,
           )
-        : CollectionsRepositories.instance!.doneCollections(
+        : CollectionsRepositories.instance.doneCollections(
             widget.id!,
             false,
           );
@@ -54,32 +54,32 @@ class _ModelAudioCollectionAddAudioInCollectionState
   Future<void> _onPressedDone(BuildContext context) async {
     widget.doneCollection = !widget.doneCollection!;
     if (!widget.doneCollection!) {
-      await CollectionsRepositories.instance!.doneCollections(
+      await CollectionsRepositories.instance.doneCollections(
         widget.id!,
         false,
       );
-      await AudioRepositories.instance!.addAudioCollections(
+      await AudioRepositories.instance.addAudioCollections(
         widget.id!,
         widget.idAudio,
         widget.collectionAudio,
         false,
       );
-      await CollectionsRepositories.instance!.updateQualityAndTotalTime(
+      await CollectionsRepositories.instance.updateQualityAndTotalTime(
         widget.id!,
       );
     }
     if (widget.doneCollection!) {
-      await CollectionsRepositories.instance!.doneCollections(
+      await CollectionsRepositories.instance.doneCollections(
         widget.id!,
         true,
       );
-      await AudioRepositories.instance!.addAudioCollections(
+      await AudioRepositories.instance.addAudioCollections(
         widget.id!,
         widget.idAudio,
         widget.collectionAudio,
         true,
       );
-      await CollectionsRepositories.instance!.updateQualityAndTotalTime(
+      await CollectionsRepositories.instance.updateQualityAndTotalTime(
         widget.id!,
       );
     }

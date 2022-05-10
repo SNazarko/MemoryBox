@@ -75,7 +75,7 @@ class AppRouter {
 
       // /collection
       case Collections.routeName:
-        builder = (_) => Collections.create();
+        builder = (_) => Collections();
         break;
 
       // /collection_add_audio

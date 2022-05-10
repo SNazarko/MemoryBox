@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../Blocs/navigation_bloc/navigation__bloc.dart';
@@ -12,7 +11,6 @@ import '../../../../widgets/navigation/navigate_to_page.dart';
 import '../../../../widgets/uncategorized/appbar_clipper.dart';
 import '../../collection/collection.dart';
 import '../../collection_edit/collection_edit.dart';
-import '../../collection_edit/collection_edit_model.dart';
 
 class AppbarHeaderCollectionAddAudioInCollection extends StatelessWidget {
   const AppbarHeaderCollectionAddAudioInCollection({Key? key})
@@ -42,7 +40,7 @@ class AppbarHeaderCollectionAddAudioInCollection extends StatelessWidget {
                     onPressed: () {
                       var uuid = const Uuid();
                       var id = uuid.v1();
-                      CollectionsRepositories.instance!
+                      CollectionsRepositories.instance
                           .addCollections('Без названия', '...', '', id);
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {

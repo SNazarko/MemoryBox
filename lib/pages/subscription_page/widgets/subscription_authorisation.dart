@@ -20,7 +20,7 @@ class SubscriptionAuthorisation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<UserModel>>(
-      stream: UserRepositories.instance!.readUser(),
+      stream: UserRepositories.instance.readUser(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return const Text('Error');
@@ -90,7 +90,7 @@ class _Subscription extends StatelessWidget {
                           finishTimeSubscription: finishTimeSubscription,
                         )
                       : const _SubscribeNow()
-                  : _SubscribeForAMonth(),
+                  : const _SubscribeForAMonth(),
             ],
           ),
         ));
@@ -104,7 +104,7 @@ class _SubscriptionItem extends StatelessWidget {
       required this.onceAMonth,
       required this.onceAYear})
       : super(key: key);
-  final UserRepositories _rep = UserRepositories.instance!;
+  final UserRepositories _rep = UserRepositories.instance;
   final double screenWidth;
   final bool onceAMonth;
   final bool onceAYear;
@@ -382,8 +382,8 @@ class _SubscribeForAMonth extends StatelessWidget {
         padding: const EdgeInsets.only(top: 25.0, left: 10.0),
         child: ButtonContinue(
           onPressed: () {
-            UserRepositories.instance!.subscriptionDone('onlyMonth', true);
-            UserRepositories.instance!.subscription(31);
+            UserRepositories.instance.subscriptionDone('onlyMonth', true);
+            UserRepositories.instance.subscription(31);
           },
           text: 'Подписаться на месяц',
         ),

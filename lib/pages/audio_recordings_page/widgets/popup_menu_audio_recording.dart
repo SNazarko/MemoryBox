@@ -87,7 +87,7 @@ class PopupMenuAudioRecording extends StatelessWidget {
         ),
         popupMenuItem(
           'Поделиться',
-          () => AudioRepositories.instance!.downloadAudio(idAudio, name),
+          () => AudioRepositories.instance.downloadAudio(idAudio, name),
         ),
       ],
     );

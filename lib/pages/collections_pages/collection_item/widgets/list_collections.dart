@@ -4,14 +4,13 @@ import 'package:memory_box/models/audio_model.dart';
 import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/collection_item_edit_audio.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/widgets/button/popup_menu_button.dart';
-import 'package:provider/provider.dart';
+
 import '../../../../widgets/button/alert_dialog.dart';
 import '../../../../widgets/player/player_mini/player_mini.dart';
 import '../../../save_page/save_page.dart';
-import '../collections_item_page_model.dart';
 
 class ListCollectionsAudio extends StatelessWidget {
-  ListCollectionsAudio({
+  const ListCollectionsAudio({
     Key? key,
     required this.idCollection,
     required this.imageCollection,
@@ -44,7 +43,7 @@ class ListCollectionsAudio extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: StreamBuilder<List<AudioModel>>(
-        stream: AudioRepositories.instance!.readAudioSort(idCollection),
+        stream: AudioRepositories.instance.readAudioSort(idCollection),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Text('Ошибка');
@@ -144,7 +143,7 @@ class _PopupMenuPlayerMini extends StatelessWidget {
         ),
         popupMenuItem(
           'Поделиться',
-          () => AudioRepositories.instance!.downloadAudio(idAudio, name),
+          () => AudioRepositories.instance.downloadAudio(idAudio, name),
         ),
       ],
     );

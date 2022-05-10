@@ -13,19 +13,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         state.copyWith(status: AuthStatus.loading),
       );
       try {
-        await AuthRepositories.instance?.verifyPhoneSendOtp(event.phone!,
+        await AuthRepositories.instance.verifyPhoneSendOtp(event.phone!,
             completed: (credential) {
           print('completed');
           add(CompletedAuthEvent(credential: credential));
         }, failed: (error) {
-          print('error111111111111');
           print(error);
           add(ErrorOccuredEvent(error: error.toString()));
         }, codeSent: (String id, int? token) {
-          print('22222222222222');
           add(CodeSendEvent(token: token, verificationId: id));
         }, codeAutoRetrievalTimeout: (String id) {
-          print('333333333333333333');
           // add(CodeSendEvent(verificationId: id, token: 0));
           add(ErrorCodeSendEvent());
         });
@@ -54,7 +51,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<PhoneAuthCodeVerificationIdEvent>(
         (PhoneAuthCodeVerificationIdEvent event,
             Emitter<AuthState> emit) async {
-      final uid = await AuthRepositories.instance?.verifyAndLogin(
+      final uid = await AuthRepositories.instance.verifyAndLogin(
         event.verificationId!,
         event.smsCode!,
         event.phone!,

@@ -100,16 +100,16 @@ class _AudioPlayerState extends State<AudioPlayer> {
   }
 
   Future<void> logicSave() async {
-    if (AuthRepositories.instance!.user == null) {
+    if (AuthRepositories.instance.user == null) {
       saveRecordLocal();
     } else {
       await FirebaseFirestore.instance
-          .collection(AuthRepositories.instance!.user!.phoneNumber!)
+          .collection(AuthRepositories.instance.user!.phoneNumber!)
           .get()
           .then((querySnapshot) {
         for (var result in querySnapshot.docs) {
           final bool subscription = result.data()['subscription'] ?? true;
-          AuthRepositories.instance!.user == null
+          AuthRepositories.instance.user == null
               ? saveRecordLocal()
               : subscription
                   ? saveRecordsFirebase()
@@ -130,13 +130,13 @@ class _AudioPlayerState extends State<AudioPlayer> {
 
   void saveRecordsFirebase() async {
     _audioPlayer.stop().then((value) => widget.onDelete());
-    await AudioRepositories.instance!.addAudio(
+    await AudioRepositories.instance.addAudio(
       Provider.of<ModelRP>(context, listen: false).getData,
       _saveRecord,
       Provider.of<ModelRP>(context, listen: false).getDuration,
       searchName,
     );
-    await UserRepositories.instance!.updateTotalTimeQuality();
+    await UserRepositories.instance.updateTotalTimeQuality();
   }
 
   Future<void> play() {
@@ -250,7 +250,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
       return _buildTimer();
     }
 
-    return Text('00:00');
+    return const Text('00:00');
   }
 
   Widget _buildTimer() {

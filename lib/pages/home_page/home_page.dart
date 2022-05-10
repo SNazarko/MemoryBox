@@ -27,9 +27,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future<void> subscriptionDone(BuildContext context) async {
-    if (AuthRepositories.instance!.user != null) {
+    if (AuthRepositories.instance.user != null) {
       await FirebaseFirestore.instance
-          .collection(AuthRepositories.instance!.user!.phoneNumber!)
+          .collection(AuthRepositories.instance.user!.phoneNumber!)
           .get()
           .then(
         (querySnapshot) {
@@ -48,9 +48,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    UserRepositories.instance?.limitNotSubscription();
+    UserRepositories.instance.limitNotSubscription();
     subscriptionDone(context);
-    AudioRepositories.instance?.finishDelete();
+    AudioRepositories.instance.finishDelete();
     super.initState();
   }
 
@@ -62,17 +62,14 @@ class _HomePageState extends State<HomePage> {
         BlocProvider<ListItemBloc>(
           create: (context) => ListItemBloc()
             ..add(
-              LoadListItemEvent(
-                streamList:
-                    AudioRepositories.instance!.readAudio('all', 'Collections'),
-              ),
+              LoadListItemEvent(sort: 'all', collection: 'Collections'),
             ),
         ),
         BlocProvider<GreenListItemBloc>(
           create: (context) => GreenListItemBloc()
             ..add(
               LoadGreenListItemEvent(
-                streamList: CollectionsRepositories.instance?.readCollections(),
+                streamList: CollectionsRepositories.instance.readCollections(),
               ),
             ),
         ),
@@ -80,7 +77,7 @@ class _HomePageState extends State<HomePage> {
           create: (context) => OrangeListItemBloc()
             ..add(
               LoadOrangeListItemEvent(
-                streamList: CollectionsRepositories.instance?.readCollections(),
+                streamList: CollectionsRepositories.instance.readCollections(),
               ),
             ),
         ),
@@ -88,7 +85,7 @@ class _HomePageState extends State<HomePage> {
           create: (context) => BlueListItemBloc()
             ..add(
               LoadBlueListItemEvent(
-                streamList: CollectionsRepositories.instance?.readCollections(),
+                streamList: CollectionsRepositories.instance.readCollections(),
               ),
             ),
         ),
@@ -111,13 +108,13 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Expanded(
                   flex: 8,
-                  child: AuthRepositories.instance?.user == null
+                  child: AuthRepositories.instance.user == null
                       ? const AppbarHeaderHomePageNotIsAuthorization()
                       : const AppbarHeaderHomePage(),
                 ),
                 Expanded(
                   flex: 11,
-                  child: AuthRepositories.instance?.user == null
+                  child: AuthRepositories.instance.user == null
                       ? const HomePageNotIsAuthorization()
                       : const HomePageAudio(),
                 ),

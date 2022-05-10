@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/widgets/uncategorized/container_shadow.dart';
 import 'package:memory_box/widgets/button/icon_camera.dart';
-import 'package:memory_box/widgets/uncategorized/image_pick.dart';
 import 'package:provider/src/provider.dart';
 
 import '../collection_edit_model.dart';

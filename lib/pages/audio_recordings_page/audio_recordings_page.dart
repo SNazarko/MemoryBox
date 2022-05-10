@@ -30,17 +30,14 @@ class AudioRecordingsPage extends StatelessWidget {
         BlocProvider<ListItemBloc>(
           create: (context) => ListItemBloc()
             ..add(
-              LoadListItemEvent(
-                streamList:
-                    AudioRepositories.instance!.readAudio('all', 'Collections'),
-              ),
+              LoadListItemEvent(sort: 'all', collection: 'Collections'),
             ),
         ),
         BlocProvider<QualityTotalTimeBloc>(
           create: (context) => QualityTotalTimeBloc()
             ..add(
               LoadQualityTotalTimeEvent(
-                streamList: UserRepositories.instance!.readUser(),
+                streamList: UserRepositories.instance.readUser(),
               ),
             ),
         ),
@@ -67,10 +64,10 @@ class AudioRecordingsPage extends StatelessWidget {
                 children: [
                   Stack(
                     children: [
-                      AuthRepositories.instance!.user == null
+                      AuthRepositories.instance.user == null
                           ? const ListPlayerNotAuthorization()
                           : const ListPlayer(),
-                      AuthRepositories.instance!.user == null
+                      AuthRepositories.instance.user == null
                           ? const AppbarHeaderAudioRecordingsNotAuthorization()
                           : const AppbarHeaderAudioRecordings(),
                     ],

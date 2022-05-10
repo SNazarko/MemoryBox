@@ -33,7 +33,7 @@ class ListCollectionsAudioItemEdit extends StatelessWidget {
       children: [
         SizedBox(
           child: StreamBuilder<List<AudioModel>>(
-            stream: AudioRepositories.instance!.readAudioSort(idCollection),
+            stream: AudioRepositories.instance.readAudioSort(idCollection),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return const Text('Ошибка');

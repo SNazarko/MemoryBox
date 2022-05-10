@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/search_page/search_page_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/utils/constants.dart';

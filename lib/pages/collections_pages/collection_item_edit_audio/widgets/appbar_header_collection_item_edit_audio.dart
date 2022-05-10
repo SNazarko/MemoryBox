@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:memory_box/pages/collections_pages/collection/collection.dart';
-import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
 import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/widgets/popup_menu_collection_item_page.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/widgets/button/icon_back.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../resources/app_colors.dart';
 import '../../../../widgets/uncategorized/appbar_clipper.dart';
@@ -41,7 +39,7 @@ class AppbarHeaderCollectionItemEditAudio extends StatelessWidget {
               IconBack(
                 onPressed: () {
                   Navigator.pushNamed(context, Collections.routeName);
-                  CollectionsRepositories.instance!
+                  CollectionsRepositories.instance
                       .updateQualityAndTotalTime(idCollection);
                 },
               ),

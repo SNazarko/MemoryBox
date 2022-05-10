@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/utils/constants.dart';
-import 'package:provider/provider.dart';
 
 class SubTitle extends StatefulWidget {
   const SubTitle({Key? key, required this.subTitleCollection})

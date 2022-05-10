@@ -13,10 +13,10 @@ import '../../collections_pages/collection_add_audio_in_collection/collection_ad
 import '../search_page_model.dart';
 
 class ListPlayersSearchPage extends StatelessWidget {
-  ListPlayersSearchPage({Key? key}) : super(key: key);
+  const ListPlayersSearchPage({Key? key}) : super(key: key);
   Stream<List<AudioModel>> audio(BuildContext context) => FirebaseFirestore
       .instance
-      .collection(AuthRepositories.instance!.user!.phoneNumber!)
+      .collection(AuthRepositories.instance.user!.phoneNumber!)
       .doc('id')
       .collection('Collections')
       .where('searchName',
@@ -55,7 +55,7 @@ class ListPlayersSearchPage extends StatelessWidget {
           SizedBox(
             height: screenHeight * 0.95,
             child: StreamBuilder<List<AudioModel>>(
-              stream: AudioRepositories.instance!.readAudioSort('all'),
+              stream: AudioRepositories.instance.readAudioSort('all'),
               builder: (
                 context,
                 snapshot,
@@ -114,7 +114,7 @@ class ListPlayersSearchPage extends StatelessWidget {
 }
 
 class _PopupMenuAudioSearchPage extends StatelessWidget {
-  _PopupMenuAudioSearchPage({
+  const _PopupMenuAudioSearchPage({
     Key? key,
     required this.name,
     required this.url,
@@ -201,7 +201,7 @@ class _PopupMenuAudioSearchPage extends StatelessWidget {
         ),
         popupMenuItem(
           'Поделиться',
-          () => AudioRepositories.instance!.downloadAudio(idAudio, name),
+          () => AudioRepositories.instance.downloadAudio(idAudio, name),
         ),
       ],
     );

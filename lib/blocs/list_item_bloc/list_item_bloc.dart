@@ -3,20 +3,23 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../repositories/audio_repositories.dart';
+
 part 'list_item_event.dart';
 part 'list_item_state.dart';
 
 class ListItemBloc extends Bloc<ListItemEvent, ListItemState> {
+  StreamSubscription? _audioSubscription;
   ListItemBloc() : super(const ListItemState()) {
     on<LoadListItemEvent>(
         (LoadListItemEvent event, Emitter<ListItemState> emit) {
       try {
-        emit(state.copyWith(
-          status: ListItemStatus.success,
-          streamList: event.streamList?.listen((loadedAudio) {
-            add(UpdateListItemEvent(list: loadedAudio));
-          }),
-        ));
+        _audioSubscription?.cancel();
+        _audioSubscription = AudioRepositories.instance
+            .readAudio(event.sort!, event.collection!)
+            .listen((audioList) {
+          add(UpdateListItemEvent(list: audioList));
+        });
       } on Exception {
         emit(state.copyWith(
           status: ListItemStatus.failed,

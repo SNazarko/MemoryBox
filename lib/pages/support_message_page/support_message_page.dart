@@ -43,7 +43,7 @@ class SupportMessagePage extends StatelessWidget {
                     height: screenHeight - 160.0,
                     width: screenWidth * 0.975,
                     decoration: kBorderContainer2,
-                    child: AuthRepositories.instance!.user == null
+                    child: AuthRepositories.instance.user == null
                         ? const SupportNotAuthorisationPage()
                         : Column(
                             mainAxisAlignment: MainAxisAlignment.end,

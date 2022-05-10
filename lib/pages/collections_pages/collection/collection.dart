@@ -1,36 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/pages/collections_pages/collection/widgets/appbar_header_collection.dart';
 import 'package:memory_box/pages/collections_pages/collection/widgets/appbar_header_collection_not_authorizotion.dart';
 import 'package:memory_box/pages/collections_pages/collection/widgets/list_collections.dart';
 import 'package:memory_box/pages/collections_pages/collection/widgets/list_collections_not_authorizotion.dart';
 import 'package:memory_box/repositories/auth_repositories.dart';
-import 'package:memory_box/repositories/user_repositories.dart';
-import 'package:provider/provider.dart';
-import 'collection_model.dart';
+import 'blocs/item_done_cubit/item_done_cubit.dart';
+import 'blocs/list_item_collection/list_item_collection_bloc.dart';
 
 class Collections extends StatelessWidget {
   const Collections({Key? key}) : super(key: key);
-
   static const routeName = '/collection';
-  static Widget create() {
-    return ChangeNotifierProvider<CollectionModel>(
-        create: (BuildContext context) => CollectionModel(),
-        child: Collections());
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            AuthRepositories.instance!.user == null
-                ? const AppbarHeaderCollectionNotAuthorization()
-                : const AppbarHeaderCollection(),
-            AuthRepositories.instance!.user == null
-                ? const ListCollectionsNotAuthorization()
-                : ListCollections(),
-          ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ItemDoneCubit>(
+          create: (context) => ItemDoneCubit(),
+        ),
+        BlocProvider<ListItemCollectionBloc>(
+          create: (context) => ListItemCollectionBloc()
+            ..add(const LoadListItemCollectionEvent()),
+        ),
+      ],
+      child: Scaffold(
+        body: SafeArea(
+          child: Stack(
+            children: [
+              AuthRepositories.instance.user == null
+                  ? const AppbarHeaderCollectionNotAuthorization()
+                  : const AppbarHeaderCollection(),
+              AuthRepositories.instance.user == null
+                  ? const ListCollectionsNotAuthorization()
+                  : ListCollections(),
+            ],
+          ),
         ),
       ),
     );

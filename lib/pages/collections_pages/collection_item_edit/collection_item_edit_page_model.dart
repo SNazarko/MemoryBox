@@ -17,7 +17,7 @@ class CollectionItemEditPageModel extends ChangeNotifier {
   Future<void> imagePickPhoto(BuildContext context) async {
     XFile? _image = await _imagePick.singleImagePick();
     if (_image != null && _image.path.isNotEmpty) {
-      _singleImage = await UserRepositories.instance!.uploadImage(_image);
+      _singleImage = await UserRepositories.instance.uploadImage(_image);
       context
           .read<CollectionItemEditPageModel>()
           .setAvatarCollectionsEdit(_singleImage!);

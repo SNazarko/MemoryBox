@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/widgets/button/popup_menu_button.dart';
 
 import '../../../repositories/audio_repositories.dart';
@@ -9,7 +8,6 @@ import '../../../widgets/button/alert_dialog.dart';
 import '../../collections_pages/collection_add_audio_in_collection/collection_add_audio_in_collection.dart';
 import '../../collections_pages/collection_add_audio_in_collection/collection_add_audio_in_collection_model.dart';
 import '../../save_page/save_page.dart';
-import '../../save_page/save_page_model.dart';
 
 class PopupMenuHomePage extends StatelessWidget {
   const PopupMenuHomePage({
@@ -98,7 +96,7 @@ class PopupMenuHomePage extends StatelessWidget {
           ),
         ),
         popupMenuItem('Поделиться',
-            () => AudioRepositories.instance!.downloadAudio(idAudio, name)),
+            () => AudioRepositories.instance.downloadAudio(idAudio, name)),
       ],
     );
   }

@@ -31,9 +31,9 @@ class _ScreensaverState extends State<Screensaver>
 
   void anim() {
     controller =
-        AnimationController(duration: Duration(seconds: 3), vsync: this);
+        AnimationController(duration: const Duration(seconds: 3), vsync: this);
     controller2 =
-        AnimationController(duration: Duration(seconds: 2), vsync: this);
+        AnimationController(duration: const Duration(seconds: 2), vsync: this);
     animation = CurvedAnimation(parent: controller, curve: Curves.decelerate);
     animationColor = ColorTween(begin: Colors.white, end: AppColor.glass)
         .animate(controller);
@@ -41,7 +41,7 @@ class _ScreensaverState extends State<Screensaver>
         ColorTween(begin: const Color(0XFF8077E4), end: AppColor.white100)
             .animate(controller);
     animationColor3 =
-        ColorTween(begin: const Color(0XFF8077E4), end: Color(0xFFF1B488))
+        ColorTween(begin: const Color(0XFF8077E4), end: const Color(0xFFF1B488))
             .animate(controller2);
     controller2.forward();
     controller2.addListener(() {});
@@ -56,7 +56,7 @@ class _ScreensaverState extends State<Screensaver>
 
     controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        final duration = Duration(seconds: 2);
+        const duration = Duration(seconds: 2);
         sleep(duration);
         Navigator.pushNamed(context, InitializerWidget.routeName);
       }
@@ -74,7 +74,7 @@ class _ScreensaverState extends State<Screensaver>
           width: double.infinity,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-                colors: [animationColor3.value, Color(0xFF8077E4)],
+                colors: [animationColor3.value, const Color(0xFF8077E4)],
                 begin: Alignment.bottomCenter),
           ),
           child: Column(

@@ -168,7 +168,7 @@ class _SaveButton extends StatelessWidget {
     ]);
     _preferencesDataUser.saveName(name);
     _preferencesDataUser.saveNumber(number);
-    UserRepositories.instance!.updateNameNumber(name, number, image);
+    UserRepositories.instance.updateNameNumber(name, number, image);
   }
 
   @override

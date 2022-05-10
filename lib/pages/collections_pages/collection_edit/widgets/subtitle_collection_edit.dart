@@ -18,7 +18,7 @@ class SubTitleCollectionEdit extends StatelessWidget {
   final String imageCollection;
 
   void _updateCollection(BuildContext context) {
-    CollectionsRepositories.instance!.updateCollection(
+    CollectionsRepositories.instance.updateCollection(
       idCollection,
       Provider.of<CollectionsEditModel>(context, listen: false).getTitle ??
           titleCollection,

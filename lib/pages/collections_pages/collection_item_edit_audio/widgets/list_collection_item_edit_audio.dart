@@ -5,7 +5,7 @@ import '../../../../widgets/player/player_mini/player_mini.dart';
 import 'done_collection_item_edit_audio.dart';
 
 class ListCollectionItemEditAudio extends StatelessWidget {
-  ListCollectionItemEditAudio({Key? key, required this.idCollection})
+  const ListCollectionItemEditAudio({Key? key, required this.idCollection})
       : super(key: key);
   final String idCollection;
 
@@ -28,7 +28,7 @@ class ListCollectionItemEditAudio extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: StreamBuilder<List<AudioModel>>(
-        stream: AudioRepositories.instance!.readAudioSort('all'),
+        stream: AudioRepositories.instance.readAudioSort('all'),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Text('Ошибка');

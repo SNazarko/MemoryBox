@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/models/audio_model.dart';
-import 'package:memory_box/pages/search_page/search_page_model.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/repositories/auth_repositories.dart';
 import 'package:memory_box/widgets/player/player_mini_podborki.dart';
@@ -17,7 +16,7 @@ class ListPlayersCollectionAddAudio extends StatelessWidget {
 
   Stream<List<AudioModel>> audio(BuildContext context) => FirebaseFirestore
       .instance
-      .collection(AuthRepositories.instance!.user!.phoneNumber!)
+      .collection(AuthRepositories.instance.user!.phoneNumber!)
       .doc('id')
       .collection('Collections')
       .where('searchName',
@@ -47,7 +46,7 @@ class ListPlayersCollectionAddAudio extends StatelessWidget {
           SizedBox(
             height: screenHeight * 0.95,
             child: StreamBuilder<List<AudioModel>>(
-              stream: AudioRepositories.instance!.readAudioSort('all'),
+              stream: AudioRepositories.instance.readAudioSort('all'),
               builder: (
                 context,
                 snapshot,

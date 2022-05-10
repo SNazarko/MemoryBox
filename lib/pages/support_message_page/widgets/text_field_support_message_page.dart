@@ -8,7 +8,7 @@ class TextFieldSupportMessagePage extends StatelessWidget {
   final messageTextController = TextEditingController();
 
   void _onSubmitted(String message) {
-    UserRepositories.instance!.supportQuestions(message);
+    UserRepositories.instance.supportQuestions(message);
     messageTextController.clear();
   }
 

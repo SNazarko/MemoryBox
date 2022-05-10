@@ -3,6 +3,10 @@ import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesDataUser {
+  PreferencesDataUser._();
+  static final PreferencesDataUser instance = PreferencesDataUser._();
+
+
   final _storage = SharedPreferences.getInstance();
 
   // Save data in SharedPreferences

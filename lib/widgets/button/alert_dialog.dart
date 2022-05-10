@@ -8,7 +8,8 @@ import '../../repositories/collections_repositories.dart';
 import '../../repositories/user_repositories.dart';
 
 class AlertDialogApp {
-  AlertDialogApp({Key? key});
+  AlertDialogApp._();
+  static final AlertDialogApp instance = AlertDialogApp._();
   void alertDone(BuildContext context) {
     showDialog<String>(
         context: context,

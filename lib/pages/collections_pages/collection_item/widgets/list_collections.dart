@@ -134,7 +134,7 @@ class _PopupMenuPlayerMini extends StatelessWidget {
         ),
         popupMenuItem(
           'Удалить ',
-          () => AlertDialogApp().alertDialog(
+          () => AlertDialogApp.instance.alertDialog(
             context,
             idAudio,
             'DeleteCollections',

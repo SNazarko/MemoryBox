@@ -138,13 +138,12 @@ class _TextFieldNumber extends StatelessWidget {
 }
 
 class _SaveButton extends StatelessWidget {
-  _SaveButton({
+  const _SaveButton({
     Key? key,
     required this.userName,
     required this.userNumber,
     required this.userImage,
   }) : super(key: key);
-  final PreferencesDataUser _preferencesDataUser = PreferencesDataUser();
   final String userName;
   final String userNumber;
   final String userImage;
@@ -166,8 +165,8 @@ class _SaveButton extends StatelessWidget {
       number,
       image,
     ]);
-    _preferencesDataUser.saveName(name);
-    _preferencesDataUser.saveNumber(number);
+    PreferencesDataUser.instance.saveName(name);
+    PreferencesDataUser.instance.saveNumber(number);
     UserRepositories.instance.updateNameNumber(name, number, image);
   }
 

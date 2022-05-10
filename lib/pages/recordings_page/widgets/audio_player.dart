@@ -120,7 +120,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
   }
 
   void saveRecordLocal() {
-    LocalSaveAudioFile().saveAudioStorageDirectory(
+    LocalSaveAudioFile.instance.saveAudioStorageDirectory(
       context,
       Provider.of<ModelRP>(context, listen: false).getData,
       _saveRecord,

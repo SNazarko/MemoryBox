@@ -174,7 +174,7 @@ class _AudioRecorderState extends State<AudioRecorder> {
           _getAmplituder();
         }
       } else {
-        AlertDialogApp().alertDialogPermission(
+        AlertDialogApp.instance.alertDialogPermission(
           context,
           'Разрешыть приложению записывать аудио?',
           Icons.mic,

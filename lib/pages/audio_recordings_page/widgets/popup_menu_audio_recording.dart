@@ -78,7 +78,7 @@ class PopupMenuAudioRecording extends StatelessWidget {
         ),
         popupMenuItem(
           'Удалить ',
-          () => AlertDialogApp().alertDialog(
+          () => AlertDialogApp.instance.alertDialog(
             context,
             idAudio,
             'DeleteCollections',

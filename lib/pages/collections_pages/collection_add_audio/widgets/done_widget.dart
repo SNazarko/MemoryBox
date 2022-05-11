@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/repositories/auth_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 
-import '../../../../../repositories/audio_repositories.dart';
+import '../../../../repositories/audio_repositories.dart';
 
 class DoneWidget extends StatefulWidget {
   const DoneWidget({
@@ -38,8 +38,6 @@ class _DoneWidgetState extends State<DoneWidget> {
         idCollection = result.data()['id'];
       }
     });
-    // Provider.of<CollectionsEditModel>(context, listen: false)
-    //     .setId(idCollection!);
   }
 
   Future<void> _onTapDone(BuildContext context) async {
@@ -52,7 +50,6 @@ class _DoneWidgetState extends State<DoneWidget> {
         widget.collection,
         false,
       );
-      // context.read<ModelDone>().doneWidget();
       AudioRepositories.instance.doneAudioItem(widget.id, false, 'Collections');
       setState(() {});
     }
@@ -60,7 +57,6 @@ class _DoneWidgetState extends State<DoneWidget> {
       await _getIdCollection(context);
       await AudioRepositories.instance.addAudioCollections(
           idCollection!, widget.id, widget.collection, true);
-      // context.read<ModelDone>().doneWidget();
       AudioRepositories.instance.doneAudioItem(widget.id, true, 'Collections');
       setState(() {});
     }
@@ -68,7 +64,6 @@ class _DoneWidgetState extends State<DoneWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // final bool doneProvider = context.watch<ModelDone>().getDone;
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Stack(

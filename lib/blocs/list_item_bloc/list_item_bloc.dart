@@ -16,7 +16,7 @@ class ListItemBloc extends Bloc<ListItemEvent, ListItemState> {
       try {
         _audioSubscription?.cancel();
         _audioSubscription = AudioRepositories.instance
-            .readAudio(event.sort!, event.collection!)
+            .readAudio(event.sort!, event.collection!, event.nameSort!)
             .listen((audioList) {
           add(UpdateListItemEvent(list: audioList));
         });
@@ -42,5 +42,11 @@ class ListItemBloc extends Bloc<ListItemEvent, ListItemState> {
         ));
       }
     });
+  }
+
+  @override
+  Future<void> close() {
+    _audioSubscription?.cancel();
+    return super.close();
   }
 }

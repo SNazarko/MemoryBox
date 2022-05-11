@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:memory_box/pages/collections_pages/collection_add_audio/widgets/done_widget/done_widget.dart';
+import 'package:memory_box/pages/collections_pages/collection_add_audio/widgets/done_widget.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:just_audio/just_audio.dart' as ap;
 import 'package:memory_box/resources/app_icons.dart';

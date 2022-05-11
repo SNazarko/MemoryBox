@@ -7,9 +7,11 @@ class LoadListItemEvent extends ListItemEvent {
   LoadListItemEvent({
     this.collection,
     this.sort,
+    this.nameSort,
   });
   final String? collection;
   final String? sort;
+  final String? nameSort;
 }
 
 class UpdateListItemEvent extends ListItemEvent {

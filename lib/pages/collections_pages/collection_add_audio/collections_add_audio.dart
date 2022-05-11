@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/pages/collections_pages/collection_add_audio/widgets/appbar_header_collection_add_audio.dart';
-import 'package:memory_box/pages/collections_pages/collection_add_audio/widgets/done_widget/model_done.dart';
 import 'package:memory_box/pages/collections_pages/collection_add_audio/widgets/list_players_collection_add_audio.dart';
-import 'package:provider/provider.dart';
-
-import 'collections_add_audio_model.dart';
+import 'blocs/collection_add_audio/collection_add_audio_bloc.dart';
+import 'blocs/done_widget_cubit/done_widget_cubit.dart';
 
 class CollectionsAddAudioArguments {
   CollectionsAddAudioArguments({required this.titleCollections});
@@ -19,41 +18,33 @@ class CollectionsAddAudio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return MultiBlocProvider(
       providers: [
-        ChangeNotifierProvider<ModelDone>(
-          create: (BuildContext context) => ModelDone(),
+        BlocProvider<DoneWidgetCubit>(
+          create: (context) => DoneWidgetCubit(),
         ),
-        ChangeNotifierProvider<CollectionsAddAudioModel>(
-            create: (BuildContext context) => CollectionsAddAudioModel()),
-      ],
-      child: CollectionsAddAudioCreate(
-        titleCollections: titleCollections,
-      ),
-    );
-  }
-}
-
-class CollectionsAddAudioCreate extends StatelessWidget {
-  const CollectionsAddAudioCreate({Key? key, required this.titleCollections})
-      : super(key: key);
-  final String titleCollections;
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
-              children: [
-                ListPlayersCollectionAddAudio(
-                  titleCollections: titleCollections,
-                ),
-                const AppbarHeaderCollectionAddAudio(),
-              ],
+        BlocProvider<CollectionAddAudioBloc>(
+          create: (context) => CollectionAddAudioBloc()
+            ..add(
+              const LoadCollectionAddAudioEvent(),
             ),
-          ],
+        ),
+      ],
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                children: [
+                  ListPlayersCollectionAddAudio(
+                    titleCollections: titleCollections,
+                  ),
+                  const AppbarHeaderCollectionAddAudio(),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

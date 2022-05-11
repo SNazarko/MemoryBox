@@ -30,7 +30,11 @@ class AudioRecordingsPage extends StatelessWidget {
         BlocProvider<ListItemBloc>(
           create: (context) => ListItemBloc()
             ..add(
-              LoadListItemEvent(sort: 'all', collection: 'Collections'),
+              LoadListItemEvent(
+                sort: 'all',
+                collection: 'Collections',
+                nameSort: 'collections',
+              ),
             ),
         ),
         BlocProvider<QualityTotalTimeBloc>(

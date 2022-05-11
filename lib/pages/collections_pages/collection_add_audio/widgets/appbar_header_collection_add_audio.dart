@@ -6,6 +6,7 @@ import 'package:memory_box/widgets/button/icon_back.dart';
 import 'package:provider/src/provider.dart';
 
 import '../../../../widgets/uncategorized/appbar_clipper.dart';
+import '../blocs/collection_add_audio/collection_add_audio_bloc.dart';
 import '../collections_add_audio_model.dart';
 
 class AppbarHeaderCollectionAddAudio extends StatelessWidget {
@@ -92,9 +93,11 @@ class _SearchPanel extends StatelessWidget {
                   child: TextField(
                     onChanged: (searchTxt) {
                       var text = searchTxt;
-                      context
-                          .read<CollectionsAddAudioModel>()
-                          .setSearchAddAudio(text.toLowerCase());
+                      context.read<CollectionAddAudioBloc>().add(
+                            LoadCollectionAddAudioEvent(
+                              sort: text.toLowerCase(),
+                            ),
+                          );
                     },
                     style: const TextStyle(
                       fontSize: 20.0,

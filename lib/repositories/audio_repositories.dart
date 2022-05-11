@@ -21,12 +21,16 @@ class AudioRepositories {
   final phoneNumber = AuthRepositories.instance.user!.phoneNumber!;
   final uuid = const Uuid();
 
-  Stream<List<AudioModel>> readAudio(String sort, String collection) =>
+  Stream<List<AudioModel>> readAudio(
+    String sort,
+    String collection,
+    String nameSort,
+  ) =>
       FirebaseFirestore.instance
           .collection(phoneNumber)
           .doc('id')
           .collection(collection)
-          .where('collections', arrayContains: sort)
+          .where(nameSort, arrayContains: sort)
           .snapshots()
           .map((snapshot) => snapshot.docs
               .map((doc) => AudioModel.fromJson(doc.data()))

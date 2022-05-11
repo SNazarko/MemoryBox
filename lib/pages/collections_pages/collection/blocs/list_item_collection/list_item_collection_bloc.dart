@@ -15,7 +15,6 @@ class ListItemCollectionBloc
     on<LoadListItemCollectionEvent>((LoadListItemCollectionEvent event,
         Emitter<ListItemCollectionState> emit) {
       try {
-        print('11111111111112');
         _audioSubscription?.cancel();
         _audioSubscription = CollectionsRepositories.instance
             .readCollections()

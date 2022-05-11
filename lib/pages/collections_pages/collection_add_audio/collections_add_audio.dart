@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/pages/collections_pages/collection_add_audio/widgets/appbar_header_collection_add_audio.dart';
 import 'package:memory_box/pages/collections_pages/collection_add_audio/widgets/list_players_collection_add_audio.dart';
-import 'blocs/collection_add_audio/collection_add_audio_bloc.dart';
-import 'blocs/done_widget_cubit/done_widget_cubit.dart';
+import 'bloc/collection_add_audio/collection_add_audio_bloc.dart';
 
 class CollectionsAddAudioArguments {
   CollectionsAddAudioArguments({required this.titleCollections});
@@ -20,9 +19,6 @@ class CollectionsAddAudio extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<DoneWidgetCubit>(
-          create: (context) => DoneWidgetCubit(),
-        ),
         BlocProvider<CollectionAddAudioBloc>(
           create: (context) => CollectionAddAudioBloc()
             ..add(

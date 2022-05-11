@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/utils/constants.dart';
 import 'package:memory_box/widgets/button/icon_back.dart';
-import 'package:provider/src/provider.dart';
-
 import '../../../../widgets/uncategorized/appbar_clipper.dart';
-import '../blocs/collection_add_audio/collection_add_audio_bloc.dart';
-import '../collections_add_audio_model.dart';
+import '../bloc/collection_add_audio/collection_add_audio_bloc.dart';
 
 class AppbarHeaderCollectionAddAudio extends StatelessWidget {
   const AppbarHeaderCollectionAddAudio({Key? key}) : super(key: key);

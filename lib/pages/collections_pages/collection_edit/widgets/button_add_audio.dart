@@ -18,7 +18,10 @@ class ButtonAddAudio extends StatelessWidget {
   final String subTitleCollection;
   final String imageCollection;
 
-  void _addAudioInCollection(BuildContext context, String title) {
+  void _addAudioInCollection(BuildContext context) {
+    final title =
+        Provider.of<CollectionsEditModel>(context, listen: false).getTitle ??
+            titleCollection;
     CollectionsRepositories.instance.updateCollection(
         idCollection,
         Provider.of<CollectionsEditModel>(context, listen: false).getTitle ??
@@ -27,7 +30,6 @@ class ButtonAddAudio extends StatelessWidget {
             subTitleCollection,
         Provider.of<CollectionsEditModel>(context, listen: false).getImage ??
             imageCollection);
-
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return CollectionsAddAudio(titleCollections: title);
     }));
@@ -35,11 +37,8 @@ class ButtonAddAudio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title =
-        Provider.of<CollectionsEditModel>(context, listen: false).getTitle ??
-            titleCollection;
     return TextButton(
-        onPressed: () => _addAudioInCollection(context, title),
+        onPressed: () => _addAudioInCollection(context),
         child: const Center(
           child: Text(
             'Добавить аудиофайл',

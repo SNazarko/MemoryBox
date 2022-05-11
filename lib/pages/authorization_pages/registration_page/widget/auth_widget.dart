@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/pages/authorization_pages/registration_page/widget/text_field_captcha.dart';
 
+import '../../../../repositories/auth_repositories.dart';
 import '../../../../resources/app_colors.dart';
 import '../../../../widgets/button/button_continue.dart';
 import '../../../../widgets/uncategorized/container_shadow.dart';
@@ -28,6 +29,7 @@ class AuthWidget extends StatelessWidget {
 
   void buttonContinue(BuildContext context, state) {
     if (phoneController.text.isNotEmpty && state.status == AuthStatus.initial) {
+      FocusScope.of(context).unfocus();
       BlocProvider.of<AuthBloc>(context)
           .add(PhoneNumberVerificationIdEvent(phone: phoneController.text));
       controller.animateToPage(
@@ -36,18 +38,17 @@ class AuthWidget extends StatelessWidget {
         curve: Curves.easeIn,
       );
     } else if (state.status == AuthStatus.codeSent) {
+      FocusScope.of(context).unfocus();
       BlocProvider.of<AuthBloc>(context).add(PhoneAuthCodeVerificationIdEvent(
           phone: phoneController.text,
           smsCode: otpController.text,
           verificationId: state.verificationId));
-      FirebaseAuth.instance.authStateChanges().listen((User? user) {
-        if (user == null) {
-        } else {
-          Timer(const Duration(milliseconds: 1), () {
-            Navigator.pushNamed(context, LastAuthorizationPage.routeName);
-          });
-        }
-      });
+      if (AuthRepositories.instance.user != null) {
+        Timer(
+            const Duration(milliseconds: 0),
+            () =>
+                Navigator.pushNamed(context, LastAuthorizationPage.routeName));
+      }
     } else if (state.status == AuthStatus.failed) {
       BlocProvider.of<AuthBloc>(context)
           .add(PhoneNumberVerificationIdEvent(phone: phoneController.text));

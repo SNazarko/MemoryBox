@@ -33,7 +33,7 @@ class Collections extends StatelessWidget {
                   : const AppbarHeaderCollection(),
               AuthRepositories.instance.user == null
                   ? const ListCollectionsNotAuthorization()
-                  : ListCollections(),
+                  : const ListCollections(),
             ],
           ),
         ),

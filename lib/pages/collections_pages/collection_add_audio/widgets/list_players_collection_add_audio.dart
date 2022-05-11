@@ -1,14 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:memory_box/models/audio_model.dart';
-import 'package:memory_box/repositories/audio_repositories.dart';
-import 'package:memory_box/repositories/auth_repositories.dart';
 import 'package:memory_box/widgets/player/player_mini_podborki.dart';
-import 'package:provider/provider.dart';
-
-import '../blocs/collection_add_audio/collection_add_audio_bloc.dart';
-import '../collections_add_audio_model.dart';
+import '../bloc/collection_add_audio/collection_add_audio_bloc.dart';
 
 class ListPlayersCollectionAddAudio extends StatelessWidget {
   const ListPlayersCollectionAddAudio(

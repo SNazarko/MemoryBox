@@ -23,8 +23,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }, codeSent: (String id, int? token) {
           add(CodeSendEvent(token: token, verificationId: id));
         }, codeAutoRetrievalTimeout: (String id) {
-          // add(CodeSendEvent(verificationId: id, token: 0));
-          add(ErrorCodeSendEvent());
+          add(CodeSendEvent(verificationId: id, token: 0));
+          // add(ErrorCodeSendEvent());
         });
       } on Exception catch (e) {
         if (kDebugMode) {

@@ -62,6 +62,7 @@ class PopupMenuCollectionPage extends StatelessWidget {
         'CollectionsTale',
       );
     }
+    context.read<ItemDoneCubit>().itemDone();
   }
 
   Future<void> _shareCollections(BuildContext context) async {
@@ -87,6 +88,7 @@ class PopupMenuCollectionPage extends StatelessWidget {
     await Share.shareFiles(
       listFilePath,
     );
+    context.read<ItemDoneCubit>().itemDone();
   }
 
   @override

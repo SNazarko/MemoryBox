@@ -1,14 +1,10 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../models/collections_model.dart';
-import '../../../../repositories/collections_repositories.dart';
-import '../../../../resources/app_colors.dart';
-import '../../../authorization_pages/registration_page/registration_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../bloc/list_collection_add_audio_in_collection/list_collection_add_audio_in_collection_bloc.dart';
 import 'model_audio_collection_add_audio_in_collection.dart';
 
 class ListCollectionAddAudioInCollection extends StatelessWidget {
-  ListCollectionAddAudioInCollection({
+  const ListCollectionAddAudioInCollection({
     Key? key,
     required this.collectionAudio,
     required this.idAudio,
@@ -16,80 +12,51 @@ class ListCollectionAddAudioInCollection extends StatelessWidget {
   final List collectionAudio;
   final String idAudio;
 
-  Widget buildCollections(CollectionsModel collections) =>
-      ModelAudioCollectionAddAudioInCollection(
-        id: '${collections.id}',
-        image: '${collections.avatarCollections}',
-        title: '${collections.titleCollections}',
-        subTitle: '${collections.subTitleCollections}',
-        data: '${collections.dateTime}',
-        quality: '${collections.qualityCollections}',
-        doneCollection: collections.doneCollection,
-        totalTime: '${collections.totalTime}',
-        idAudio: idAudio,
-        collectionAudio: collectionAudio,
-      );
-
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 90.0),
-      child: StreamBuilder<List<CollectionsModel>>(
-        stream: CollectionsRepositories.instance.readCollections(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Column(
-              children: [
-                const SizedBox(
-                  height: 200.0,
-                ),
-                Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 50.0,
-                      horizontal: 40.0,
-                    ),
-                    child: Column(
-                      children: [
-                        RichText(
-                          text: TextSpan(
-                              text: '     Для открытия полного \n '
-                                  '            функционала \n '
-                                  '   приложения вам нужно \n '
-                                  ' зарегистрироваться',
-                              style: const TextStyle(
-                                fontSize: 20.0,
-                                color: AppColor.colorText50,
-                              ),
-                              children: [
-                                TextSpan(
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      Navigator.pushNamed(
-                                          context, RegistrationPage.routeName);
-                                    },
-                                  text: ' здесь',
-                                  style: const TextStyle(
-                                    fontSize: 20.0,
-                                    color: AppColor.pink,
-                                  ),
-                                )
-                              ]),
-                        )
-                      ],
-                    )),
-              ],
+      child: BlocBuilder<ListCollectionAddAudioInCollectionBloc,
+          ListCollectionAddAudioInCollectionState>(
+        builder: (context, state) {
+          if (state.status ==
+              ListCollectionAddAudioInCollectionStatus.initial) {
+            return const Center(
+              child: CircularProgressIndicator(),
             );
           }
-          if (snapshot.hasData) {
-            final collections = snapshot.data!;
-            return GridView.count(
+          if (state.status ==
+              ListCollectionAddAudioInCollectionStatus.success) {
+            return GridView.builder(
               primary: false,
               padding: const EdgeInsets.all(20.0),
-              crossAxisSpacing: 16.0,
-              mainAxisSpacing: 16.0,
-              crossAxisCount: 2,
-              childAspectRatio: 0.76,
-              children: collections.map(buildCollections).toList(),
+              itemCount: state.list.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisSpacing: 16.0,
+                mainAxisSpacing: 16.0,
+                crossAxisCount: 2,
+                childAspectRatio: 0.76,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                final collections = state.list[index];
+                return ModelAudioCollectionAddAudioInCollection(
+                  id: '${collections.id}',
+                  image: '${collections.avatarCollections}',
+                  title: '${collections.titleCollections}',
+                  subTitle: '${collections.subTitleCollections}',
+                  data: '${collections.dateTime}',
+                  quality: '${collections.qualityCollections}',
+                  doneCollection: collections.doneCollection,
+                  totalTime: '${collections.totalTime}',
+                  idAudio: idAudio,
+                  collectionAudio: collectionAudio,
+                );
+              },
+            );
+          }
+          if (state.status == ListCollectionAddAudioInCollectionStatus.failed) {
+            return const Center(
+              child: Text('Ой: сталася помилка!'),
             );
           } else {
             return const Center(

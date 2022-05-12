@@ -20,7 +20,6 @@ class ListCollectionsAudioItemEdit extends StatelessWidget {
               if (state.status == ListItemStatus.emptyList) {
                 return const Padding(
                   padding: EdgeInsets.symmetric(
-                    vertical: 50.0,
                     horizontal: 40.0,
                   ),
                   child: Center(

@@ -186,8 +186,6 @@ class _ModelAudioCollectionAddAudioInCollectionState
                     icon: Icon(
                       Icons.done,
                       color: widget.doneCollection!
-                          // done
-                          // context.watch<ModelPlayerMiniPodborki>().done
                           ? AppColor.white
                           : AppColor.glass,
                     ),

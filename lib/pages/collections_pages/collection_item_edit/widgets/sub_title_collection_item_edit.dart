@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../collection_item_edit_page_model.dart';
+import '../blocs/collection_item_edit/collection_item_edit_bloc.dart';
 
 class SubTitleCollectionItemEdit extends StatefulWidget {
   const SubTitleCollectionItemEdit({Key? key, required this.subTitleCollection})
@@ -38,8 +38,11 @@ class _SubTitleCollectionItemEditState
         maxLines: 10,
         minLines: 1,
         onChanged: (subTitleCollectionsEdit) {
-          Provider.of<CollectionItemEditPageModel>(context, listen: false)
-              .setSubTitleCollectionsEdit(subTitleCollectionsEdit);
+          context.read<CollectionItemEditBloc>().add(
+                CollectionItemEditEvent(
+                  subTitle: subTitleCollectionsEdit,
+                ),
+              );
         },
         decoration: const InputDecoration(
           border: InputBorder.none,

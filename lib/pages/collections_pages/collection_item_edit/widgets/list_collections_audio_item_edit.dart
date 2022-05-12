@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:memory_box/models/audio_model.dart';
-import 'package:memory_box/pages/collections_pages/collection_item/collections_item_page_model.dart';
-import 'package:memory_box/repositories/audio_repositories.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:provider/src/provider.dart';
 
+import '../../../../blocs/list_item_bloc/list_item_bloc.dart';
 import '../../../../widgets/player/player_mini/player_mini.dart';
 
 class ListCollectionsAudioItemEdit extends StatelessWidget {
@@ -12,37 +10,63 @@ class ListCollectionsAudioItemEdit extends StatelessWidget {
       : super(key: key);
   final String idCollection;
 
-  Widget buildAudio(AudioModel audio) => PlayerMini(
-      duration: '${audio.duration}',
-      url: '${audio.audioUrl}',
-      name: '${audio.audioName}',
-      done: audio.done!,
-      id: '${audio.id}',
-      collection: audio.collections!,
-      popupMenu: const Padding(
-        padding: EdgeInsets.only(right: 16.0),
-        child: Icon(
-          Icons.more_horiz,
-          color: AppColor.colorText,
-          size: 40.0,
-        ),
-      ));
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         SizedBox(
-          child: StreamBuilder<List<AudioModel>>(
-            stream: AudioRepositories.instance.readAudioSort(idCollection),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return const Text('Ошибка');
+          child: BlocBuilder<ListItemBloc, ListItemState>(
+            builder: (context, state) {
+              if (state.status == ListItemStatus.emptyList) {
+                return const Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 50.0,
+                    horizontal: 40.0,
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Как только ты додаш аудио, оно появится здесь.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        color: AppColor.colorText50,
+                      ),
+                    ),
+                  ),
+                );
               }
-              if (snapshot.hasData) {
-                final audio = snapshot.data!;
-                return ListView(
+              if (state.status == ListItemStatus.initial) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state.status == ListItemStatus.success) {
+                return ListView.builder(
                   padding: const EdgeInsets.only(bottom: 0.0),
-                  children: audio.map(buildAudio).toList(),
+                  itemCount: state.list.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final audio = state.list[index];
+                    return PlayerMini(
+                        duration: '${audio.duration}',
+                        url: '${audio.audioUrl}',
+                        name: '${audio.audioName}',
+                        done: audio.done!,
+                        id: '${audio.id}',
+                        collection: audio.collections!,
+                        popupMenu: const Padding(
+                          padding: EdgeInsets.only(right: 16.0),
+                          child: Icon(
+                            Icons.more_horiz,
+                            color: AppColor.colorText,
+                            size: 40.0,
+                          ),
+                        ));
+                  },
+                );
+              }
+              if (state.status == ListItemStatus.failed) {
+                return const Center(
+                  child: Text('Ой: сталася помилка!'),
                 );
               } else {
                 return const Center(

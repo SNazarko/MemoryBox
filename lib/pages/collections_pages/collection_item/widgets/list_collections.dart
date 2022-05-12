@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:memory_box/models/audio_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/collection_item_edit_audio.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/widgets/button/popup_menu_button.dart';
 
+import '../../../../blocs/list_item_bloc/list_item_bloc.dart';
+import '../../../../resources/app_colors.dart';
 import '../../../../widgets/button/alert_dialog.dart';
 import '../../../../widgets/player/player_mini/player_mini.dart';
 import '../../../save_page/save_page.dart';
@@ -18,42 +20,66 @@ class ListCollectionsAudio extends StatelessWidget {
   final String idCollection;
   final String imageCollection;
 
-  Widget buildAudio(AudioModel audio) => PlayerMini(
-        playPause: audio.playPause,
-        duration: '${audio.duration}',
-        url: '${audio.audioUrl}',
-        name: '${audio.audioName}',
-        done: audio.done!,
-        id: '${audio.id}',
-        collection: audio.collections ?? [],
-        popupMenu: _PopupMenuPlayerMini(
-          image: '',
-          duration: '${audio.duration}',
-          name: '${audio.audioName}',
-          url: '${audio.audioUrl}',
-          done: audio.done!,
-          searchName: audio.searchName!,
-          dateTime: audio.dateTime!,
-          collection: audio.collections!,
-          idAudio: '${audio.id}',
-          imageCollection: imageCollection,
-        ),
-      );
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      child: StreamBuilder<List<AudioModel>>(
-        stream: AudioRepositories.instance.readAudioSort(idCollection),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Text('Ошибка');
+      child: BlocBuilder<ListItemBloc, ListItemState>(
+        builder: (context, state) {
+          if (state.status == ListItemStatus.emptyList) {
+            return const Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 40.0,
+              ),
+              child: Center(
+                child: Text(
+                  'Как только ты добавиш аудио, оно появится здесь.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: AppColor.colorText50,
+                  ),
+                ),
+              ),
+            );
           }
-          if (snapshot.hasData) {
-            final audio = snapshot.data!;
-            // print(i)
-            return ListView(
+          if (state.status == ListItemStatus.initial) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (state.status == ListItemStatus.success) {
+            return ListView.builder(
               padding: const EdgeInsets.only(bottom: 140.0),
-              children: audio.map(buildAudio).toList(),
+              itemCount: state.list.length,
+              itemBuilder: (BuildContext context, int index) {
+                final audio = state.list[index];
+                return PlayerMini(
+                  playPause: audio.playPause,
+                  duration: '${audio.duration}',
+                  url: '${audio.audioUrl}',
+                  name: '${audio.audioName}',
+                  done: audio.done!,
+                  id: '${audio.id}',
+                  collection: audio.collections ?? [],
+                  popupMenu: _PopupMenuPlayerMini(
+                    image: '',
+                    duration: '${audio.duration}',
+                    name: '${audio.audioName}',
+                    url: '${audio.audioUrl}',
+                    done: audio.done!,
+                    searchName: audio.searchName!,
+                    dateTime: audio.dateTime!,
+                    collection: audio.collections!,
+                    idAudio: '${audio.id}',
+                    imageCollection: imageCollection,
+                  ),
+                );
+              },
+            );
+          }
+          if (state.status == ListItemStatus.failed) {
+            return const Center(
+              child: Text('Ой: сталася помилка!'),
             );
           } else {
             return const Center(

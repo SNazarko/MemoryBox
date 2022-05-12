@@ -29,23 +29,27 @@ class _SubTitleState extends State<SubTitle> {
               maxLines: allText ? 4 : 100,
               overflow: TextOverflow.ellipsis),
         ),
-        Align(
-          alignment: Alignment.center,
-          child: GestureDetector(
-            onTap: () {
-              allText = !allText;
-              setState(() {});
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                allText ? 'Подробнее' : 'Скрить...',
-                style: const TextStyle(
-                    color: AppColor.colorText50, fontSize: 13.0),
-              ),
-            ),
-          ),
-        )
+        widget.subTitleCollection.length >= 150
+            ? Align(
+                alignment: Alignment.center,
+                child: GestureDetector(
+                  onTap: () {
+                    allText = !allText;
+                    setState(() {});
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      allText ? 'Подробнее' : 'Скрить...',
+                      style: const TextStyle(
+                          color: AppColor.colorText50, fontSize: 13.0),
+                    ),
+                  ),
+                ),
+              )
+            : const SizedBox(
+                height: 25.0,
+              )
       ],
     );
   }

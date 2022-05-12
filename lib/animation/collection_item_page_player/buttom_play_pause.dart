@@ -4,7 +4,7 @@ import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/utils/constants.dart';
 import 'package:provider/provider.dart';
 
-import '../../pages/collections_pages/collection_item/collections_item_page_model.dart';
+import '../../pages/collections_pages/collection_item/blocs/collection_item_anim/collection_item_anim_bloc.dart';
 
 class ButtonPlayPause extends StatefulWidget {
   const ButtonPlayPause({
@@ -62,7 +62,11 @@ class _ButtonPlayPauseState extends State<ButtonPlayPause>
 
         _timerAmplitude =
             Timer.periodic(const Duration(milliseconds: 1), (_) async {
-          context.read<CollectionsItemPageModel>().setAnim(animation.value);
+          context.read<CollectionItemAnimBloc>().add(
+                CollectionItemAnimEvent(
+                  anim: animation.value,
+                ),
+              );
         });
         setState(() {});
       },

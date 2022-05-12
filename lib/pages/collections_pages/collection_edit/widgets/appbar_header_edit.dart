@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/repositories/collections_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/utils/constants.dart';
 import 'package:memory_box/widgets/button/icon_back.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../widgets/uncategorized/appbar_clipper.dart';
-import '../collection_edit_model.dart';
+import '../blocs/collection_edit/collection_edit_bloc.dart';
+import '../blocs/get_image_cubit/get_image_cubit.dart';
 
 class AppbarHeaderEdit extends StatelessWidget {
   const AppbarHeaderEdit({
@@ -21,86 +22,96 @@ class AppbarHeaderEdit extends StatelessWidget {
   final String subTitleCollection;
   final String imageCollection;
 
-  void _updateCollection(BuildContext context) {
+  void _updateCollection(BuildContext context, state, stateImage) {
     CollectionsRepositories.instance.updateCollection(
       idCollection,
-      Provider.of<CollectionsEditModel>(context, listen: false).getTitle ??
-          titleCollection,
-      Provider.of<CollectionsEditModel>(context, listen: false).getSubTitle ??
-          subTitleCollection,
-      Provider.of<CollectionsEditModel>(context, listen: false).getImage ??
-          imageCollection,
+      state.title ?? titleCollection,
+      state.subTitle ?? subTitleCollection,
+      stateImage.image ?? imageCollection,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(),
-        ClipPath(
-          clipper: AppbarClipper(),
-          child: Container(
-            color: AppColor.colorAppbar2,
-            width: double.infinity,
-            height: 280.0,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconBack(
-                onPressed: () {
-                  Navigator.pop(context);
-                  CollectionsRepositories.instance
-                      .deleteCollection(idCollection, 'CollectionsTale');
-                },
+    return BlocBuilder<CollectionEditBloc, CollectionEditState>(
+      builder: (_, state) {
+        return Stack(
+          children: [
+            Container(),
+            ClipPath(
+              clipper: AppbarClipper(),
+              child: Container(
+                color: AppColor.colorAppbar2,
+                width: double.infinity,
+                height: 280.0,
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 20.0),
-                child: Text(
-                  'Создание',
-                  style: kTitleTextStyle2,
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconBack(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      CollectionsRepositories.instance
+                          .deleteCollection(idCollection, 'CollectionsTale');
+                    },
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20.0),
+                    child: Text(
+                      'Создание',
+                      style: kTitleTextStyle2,
+                    ),
+                  ),
+                  BlocBuilder<GetImageCubit, GetImageState>(
+                    builder: (_, stateImage) {
+                      return TextButton(
+                          onPressed: () {
+                            _updateCollection(context, state, stateImage);
+
+                            Navigator.pop(context);
+                          },
+                          child: const Text(
+                            'Готово',
+                            style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w400,
+                                color: AppColor.white100),
+                          ));
+                    },
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.only(top: 90.0, left: 15.0, right: 15.0),
+              child: TextField(
+                onChanged: (title) {
+                  context
+                      .read<CollectionEditBloc>()
+                      .add(CollectionEditEvent(title: title));
+                },
+                style: const TextStyle(
+                  fontSize: 24.0,
+                  color: AppColor.white100,
+                  fontWeight: FontWeight.w700,
+                ),
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Название',
+                  hintStyle:
+                      TextStyle(fontSize: 24.0, color: AppColor.white100),
                 ),
               ),
-              TextButton(
-                  onPressed: () {
-                    _updateCollection(context);
-
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    'Готово',
-                    style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w400,
-                        color: AppColor.white100),
-                  ))
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 90.0, left: 15.0, right: 15.0),
-          child: TextField(
-            onChanged: (title) {
-              context.read<CollectionsEditModel>().userTitle(title);
-            },
-            style: const TextStyle(
-              fontSize: 24.0,
-              color: AppColor.white100,
-              fontWeight: FontWeight.w700,
             ),
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-              hintText: 'Название',
-              hintStyle: TextStyle(fontSize: 24.0, color: AppColor.white100),
-            ),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 }

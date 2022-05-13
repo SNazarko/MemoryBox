@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/repositories/auth_repositories.dart';
-import 'package:provider/provider.dart';
 import 'package:collection/collection.dart';
 import '../../../repositories/collections_repositories.dart';
 import '../../../repositories/user_repositories.dart';
 import '../../../resources/app_colors.dart';
 import '../../../widgets/button/popup_menu_button.dart';
-import '../delete_page_model.dart';
+import '../bloc/delete_item_done_cubit/delete_item_done.dart';
 
 class PopupMenuDeletePage extends StatelessWidget {
   PopupMenuDeletePage({Key? key}) : super(key: key);
@@ -60,6 +60,7 @@ class PopupMenuDeletePage extends StatelessWidget {
       await UserRepositories.instance.updateSizeRepositories(-size);
     }
     await UserRepositories.instance.updateTotalTimeQuality();
+    context.read<DeleteItemDoneCubit>().itemDone();
   }
 
   Future<void> _reestablish(BuildContext context) async {
@@ -74,6 +75,7 @@ class PopupMenuDeletePage extends StatelessWidget {
           .deleteCollection(item, 'DeleteCollections');
       await UserRepositories.instance.updateTotalTimeQuality();
     }
+    context.read<DeleteItemDoneCubit>().itemDone();
   }
 
   Future<void> _deleteAll(BuildContext context) async {
@@ -106,46 +108,51 @@ class PopupMenuDeletePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<DeletePageModel>().getItemDone;
-    return PopupMenuButton(
-        icon: const Icon(
-          Icons.more_horiz,
-          color: AppColor.white,
-        ),
-        iconSize: 40,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(15),
-          ),
-        ),
-        itemBuilder: state
-            ? (context) => [
-                  popupMenuItem(
-                    'Снять выделение',
-                    () => context.read<DeletePageModel>().stateCollections(),
-                  ),
-                  popupMenuItem(
-                    'Удалить',
-                    () => _delete(context),
-                  ),
-                  popupMenuItem(
-                    'Восстановить',
-                    () => _reestablish(context),
-                  ),
-                ]
-            : (context) => [
-                  popupMenuItem(
-                    'Выбрать несколько',
-                    () => context.read<DeletePageModel>().stateCollections(),
-                  ),
-                  popupMenuItem(
-                    'Удалить все',
-                    () => _deleteAll(context),
-                  ),
-                  popupMenuItem(
-                    'Восстановить все',
-                    () => _reestablishAll(context),
-                  ),
-                ]);
+    return BlocBuilder<DeleteItemDoneCubit, bool>(
+      builder: (_, state) {
+        return PopupMenuButton(
+            icon: const Icon(
+              Icons.more_horiz,
+              color: AppColor.white,
+            ),
+            iconSize: 40,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(15),
+              ),
+            ),
+            itemBuilder: state
+                ? (context) => [
+                      popupMenuItem(
+                        'Снять выделение',
+                        () => context.read<DeleteItemDoneCubit>().itemDone(),
+                        // () => context.read<DeletePageModel>().stateCollections(),
+                      ),
+                      popupMenuItem(
+                        'Удалить',
+                        () => _delete(context),
+                      ),
+                      popupMenuItem(
+                        'Восстановить',
+                        () => _reestablish(context),
+                      ),
+                    ]
+                : (context) => [
+                      popupMenuItem(
+                        'Выбрать несколько',
+                        () => context.read<DeleteItemDoneCubit>().itemDone(),
+                        // () => context.read<DeletePageModel>().stateCollections(),
+                      ),
+                      popupMenuItem(
+                        'Удалить все',
+                        () => _deleteAll(context),
+                      ),
+                      popupMenuItem(
+                        'Восстановить все',
+                        () => _reestablishAll(context),
+                      ),
+                    ]);
+      },
+    );
   }
 }

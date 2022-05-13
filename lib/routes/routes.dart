@@ -156,7 +156,7 @@ class AppRouter {
 
       // delete_pages
       case DeletePage.routeName:
-        builder = (_) => DeletePage.create();
+        builder = (_) => DeletePage();
         break;
 
       // home_page
@@ -183,7 +183,7 @@ class AppRouter {
 
       // recordings_page
       case RecordPage.routeName:
-        builder = (_) => RecordPage.create();
+        builder = (_) => RecordPage();
         break;
 
       // save_page

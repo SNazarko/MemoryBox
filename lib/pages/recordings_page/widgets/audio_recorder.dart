@@ -9,7 +9,7 @@ import '../../../resources/app_colors.dart';
 import '../../../resources/app_icons.dart';
 import '../../../utils/constants.dart';
 import '../../../widgets/button/alert_dialog.dart';
-import '../model_recordings_page.dart';
+import '../bloc/recordings_page/recordings_page_bloc.dart';
 
 class AudioRecorder extends StatefulWidget {
   final void Function(String path) onStop;
@@ -29,7 +29,6 @@ class _AudioRecorderState extends State<AudioRecorder> {
   Timer? _timerAmplitude;
   final _audioRecorder = Record();
   Amplitude? _amplitude;
-  Record? _record;
   double _dcb = 0;
   final List _listAmplitude = [];
   final ScrollController? _scrollController = ScrollController();
@@ -141,7 +140,12 @@ class _AudioRecorderState extends State<AudioRecorder> {
   Widget _buildTimer() {
     final String minutes = _formatNumber(_recordDuration ~/ 60);
     final String seconds = _formatNumber(_recordDuration % 60);
-    context.read<ModelRP>().setDuration(minutes, seconds);
+    context.read<RecordingsPageBloc>().add(
+          RecordingsPageEvent(
+            minutes: minutes,
+            seconds: seconds,
+          ),
+        );
     return Text(
       '$minutes : $seconds',
       style: const TextStyle(color: Colors.red),
@@ -194,7 +198,11 @@ class _AudioRecorderState extends State<AudioRecorder> {
 
     widget.onStop(path);
     setState(() => _isRecording = false);
-    context.read<ModelRP>().changeString(path);
+    context.read<RecordingsPageBloc>().add(
+          RecordingsPageEvent(
+            path: path,
+          ),
+        );
   }
 
   void _startTimer() {

@@ -29,7 +29,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<DataModel>(
       create: (BuildContext context) => DataModel(),
-      child: ProfileCreate(),
+      child: const ProfileCreate(),
     );
   }
 }

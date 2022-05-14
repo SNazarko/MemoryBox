@@ -5,21 +5,23 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../models/collections_model.dart';
+import '../../../../repositories/collections_repositories.dart';
 
 part 'green_list_collections_event.dart';
 part 'green_list_collections_state.dart';
 
 class GreenListItemBloc extends Bloc<GreenListItemEvent, GreenListItemState> {
+  StreamSubscription? _collectionSubscription;
   GreenListItemBloc() : super(const GreenListItemState()) {
     on<LoadGreenListItemEvent>(
         (LoadGreenListItemEvent event, Emitter<GreenListItemState> emit) {
       try {
-        emit(state.copyWith(
-          status: GreenListItemStatus.success,
-          streamList: event.streamList?.listen((loadedAudio) {
-            add(UpdateGreenListItemEvent(list: loadedAudio));
-          }),
-        ));
+        _collectionSubscription?.cancel();
+        _collectionSubscription = CollectionsRepositories.instance
+            .readCollections()
+            .listen((collection) {
+          add(UpdateGreenListItemEvent(list: collection));
+        });
       } on Exception {
         emit(state.copyWith(
           status: GreenListItemStatus.failed,
@@ -42,5 +44,10 @@ class GreenListItemBloc extends Bloc<GreenListItemEvent, GreenListItemState> {
         ));
       }
     });
+  }
+  @override
+  Future<void> close() {
+    _collectionSubscription?.cancel();
+    return super.close();
   }
 }

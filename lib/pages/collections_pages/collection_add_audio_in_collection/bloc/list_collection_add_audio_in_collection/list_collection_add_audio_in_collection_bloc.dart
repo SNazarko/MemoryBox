@@ -49,4 +49,9 @@ class ListCollectionAddAudioInCollectionBloc extends Bloc<
       }
     });
   }
+  @override
+  Future<void> close() {
+    _audioSubscription?.cancel();
+    return super.close();
+  }
 }

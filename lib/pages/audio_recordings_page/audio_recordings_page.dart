@@ -6,8 +6,6 @@ import 'package:memory_box/pages/audio_recordings_page/widgets/list_player.dart'
 import 'package:memory_box/pages/audio_recordings_page/widgets/list_player_not_authorization.dart';
 import 'package:memory_box/repositories/auth_repositories.dart';
 import '../../blocs/list_item_bloc/list_item_bloc.dart';
-import '../../repositories/audio_repositories.dart';
-import '../../repositories/user_repositories.dart';
 import '../../utils/constants.dart';
 import '../../widgets/player/player_collections/player_collections.dart';
 import 'blocs/bloc_anim/anim_bloc.dart';
@@ -40,9 +38,7 @@ class AudioRecordingsPage extends StatelessWidget {
         BlocProvider<QualityTotalTimeBloc>(
           create: (context) => QualityTotalTimeBloc()
             ..add(
-              LoadQualityTotalTimeEvent(
-                streamList: UserRepositories.instance.readUser(),
-              ),
+              LoadQualityTotalTimeEvent(),
             ),
         ),
       ],

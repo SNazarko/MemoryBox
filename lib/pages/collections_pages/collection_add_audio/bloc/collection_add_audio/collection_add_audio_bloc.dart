@@ -10,8 +10,8 @@ part 'collection_add_audio_state.dart';
 
 class CollectionAddAudioBloc
     extends Bloc<CollectionAddAudioEvent, CollectionAddAudioState> {
+  StreamSubscription? _audioSubscription;
   CollectionAddAudioBloc() : super(const CollectionAddAudioState()) {
-    StreamSubscription? _audioSubscription;
     on<LoadCollectionAddAudioEvent>((LoadCollectionAddAudioEvent event,
         Emitter<CollectionAddAudioState> emit) {
       try {
@@ -62,10 +62,10 @@ class CollectionAddAudioBloc
         ),
       );
     });
-    @override
-    Future<void> close() {
-      _audioSubscription?.cancel();
-      return super.close();
-    }
+  }
+  @override
+  Future<void> close() {
+    _audioSubscription?.cancel();
+    return super.close();
   }
 }

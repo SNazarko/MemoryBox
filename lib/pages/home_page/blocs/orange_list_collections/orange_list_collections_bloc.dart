@@ -5,22 +5,24 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../models/collections_model.dart';
+import '../../../../repositories/collections_repositories.dart';
 
 part 'orange_list_collections_event.dart';
 part 'orange_list_collections_state.dart';
 
 class OrangeListItemBloc
     extends Bloc<OrangeListItemEvent, OrangeListItemState> {
+  StreamSubscription? _collectionSubscription;
   OrangeListItemBloc() : super(const OrangeListItemState()) {
     on<LoadOrangeListItemEvent>(
         (LoadOrangeListItemEvent event, Emitter<OrangeListItemState> emit) {
       try {
-        emit(state.copyWith(
-          status: OrangeListItemStatus.success,
-          streamList: event.streamList?.listen((loadedAudio) {
-            add(UpdateOrangeListItemEvent(list: loadedAudio));
-          }),
-        ));
+        _collectionSubscription?.cancel();
+        _collectionSubscription = CollectionsRepositories.instance
+            .readCollections()
+            .listen((collection) {
+          add(UpdateOrangeListItemEvent(list: collection));
+        });
       } on Exception {
         emit(state.copyWith(
           status: OrangeListItemStatus.failed,
@@ -43,5 +45,10 @@ class OrangeListItemBloc
         ));
       }
     });
+  }
+  @override
+  Future<void> close() {
+    _collectionSubscription?.cancel();
+    return super.close();
   }
 }

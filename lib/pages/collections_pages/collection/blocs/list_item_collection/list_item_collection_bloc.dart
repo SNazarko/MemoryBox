@@ -19,7 +19,6 @@ class ListItemCollectionBloc
         _audioSubscription = CollectionsRepositories.instance
             .readCollections()
             .listen((audioList) {
-          print(audioList);
           add(UpdateListItemCollectionEvent(list: audioList));
         });
       } on Exception {
@@ -44,5 +43,10 @@ class ListItemCollectionBloc
         ));
       }
     });
+  }
+  @override
+  Future<void> close() {
+    _audioSubscription?.cancel();
+    return super.close();
   }
 }

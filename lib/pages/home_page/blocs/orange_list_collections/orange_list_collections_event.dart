@@ -1,13 +1,14 @@
 part of 'orange_list_collections_bloc.dart';
 
 @immutable
-abstract class OrangeListItemEvent {}
+abstract class OrangeListItemEvent extends Equatable {}
 
 class LoadOrangeListItemEvent extends OrangeListItemEvent {
-  LoadOrangeListItemEvent({
-    this.streamList,
-  });
-  final Stream<List<CollectionsModel>>? streamList;
+  LoadOrangeListItemEvent();
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
 }
 
 class UpdateOrangeListItemEvent extends OrangeListItemEvent {
@@ -15,4 +16,8 @@ class UpdateOrangeListItemEvent extends OrangeListItemEvent {
     this.list = const <CollectionsModel>[],
   });
   final List<CollectionsModel> list;
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [list];
 }

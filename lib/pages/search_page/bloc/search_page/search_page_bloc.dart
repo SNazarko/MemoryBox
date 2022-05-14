@@ -10,8 +10,8 @@ part 'search_page_event.dart';
 part 'search_page_state.dart';
 
 class SearchPageBloc extends Bloc<SearchPageEvent, SearchPageState> {
+  StreamSubscription? _audioSubscription;
   SearchPageBloc() : super(const SearchPageState()) {
-    StreamSubscription? _audioSubscription;
     on<LoadSearchPageEvent>(
         (LoadSearchPageEvent event, Emitter<SearchPageState> emit) {
       try {
@@ -62,5 +62,10 @@ class SearchPageBloc extends Bloc<SearchPageEvent, SearchPageState> {
         ),
       );
     });
+  }
+  @override
+  Future<void> close() {
+    _audioSubscription?.cancel();
+    return super.close();
   }
 }

@@ -10,7 +10,6 @@ import 'package:memory_box/pages/home_page/widgets/home_page_not_is_authorizatio
 import '../../blocs/list_item_bloc/list_item_bloc.dart';
 import '../../repositories/audio_repositories.dart';
 import '../../repositories/auth_repositories.dart';
-import '../../repositories/collections_repositories.dart';
 import '../../repositories/user_repositories.dart';
 import '../subscription_page/subscription_page.dart';
 import 'blocs/blue _list_collections/blue_list_collections_bloc.dart';
@@ -72,25 +71,19 @@ class _HomePageState extends State<HomePage> {
         BlocProvider<GreenListItemBloc>(
           create: (context) => GreenListItemBloc()
             ..add(
-              LoadGreenListItemEvent(
-                streamList: CollectionsRepositories.instance.readCollections(),
-              ),
+              LoadGreenListItemEvent(),
             ),
         ),
         BlocProvider<OrangeListItemBloc>(
           create: (context) => OrangeListItemBloc()
             ..add(
-              LoadOrangeListItemEvent(
-                streamList: CollectionsRepositories.instance.readCollections(),
-              ),
+              LoadOrangeListItemEvent(),
             ),
         ),
         BlocProvider<BlueListItemBloc>(
           create: (context) => BlueListItemBloc()
             ..add(
-              LoadBlueListItemEvent(
-                streamList: CollectionsRepositories.instance.readCollections(),
-              ),
+              const LoadBlueListItemEvent(),
             ),
         ),
       ],

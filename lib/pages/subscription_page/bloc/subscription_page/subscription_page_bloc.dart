@@ -36,4 +36,9 @@ class SubscriptionPageBloc
       );
     });
   }
+  @override
+  Future<void> close() {
+    _subscription?.cancel();
+    return super.close();
+  }
 }

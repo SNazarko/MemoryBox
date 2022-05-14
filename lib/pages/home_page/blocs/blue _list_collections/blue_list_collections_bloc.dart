@@ -5,21 +5,23 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../models/collections_model.dart';
+import '../../../../repositories/collections_repositories.dart';
 
 part 'blue_list_collections_event.dart';
 part 'blue_list_collections_state.dart';
 
 class BlueListItemBloc extends Bloc<BlueListItemEvent, BlueListItemState> {
+  StreamSubscription? _collectionSubscription;
   BlueListItemBloc() : super(const BlueListItemState()) {
     on<LoadBlueListItemEvent>(
         (LoadBlueListItemEvent event, Emitter<BlueListItemState> emit) {
       try {
-        emit(state.copyWith(
-          status: BlueListItemStatus.success,
-          streamList: event.streamList?.listen((loadedAudio) {
-            add(UpdateBlueListItemEvent(list: loadedAudio));
-          }),
-        ));
+        _collectionSubscription?.cancel();
+        _collectionSubscription = CollectionsRepositories.instance
+            .readCollections()
+            .listen((collection) {
+          add(UpdateBlueListItemEvent(list: collection));
+        });
       } on Exception {
         emit(state.copyWith(
           status: BlueListItemStatus.failed,
@@ -42,5 +44,10 @@ class BlueListItemBloc extends Bloc<BlueListItemEvent, BlueListItemState> {
         ));
       }
     });
+  }
+  @override
+  Future<void> close() {
+    _collectionSubscription?.cancel();
+    return super.close();
   }
 }

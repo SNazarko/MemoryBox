@@ -6,13 +6,9 @@ abstract class BlueListItemEvent extends Equatable {
 }
 
 class LoadBlueListItemEvent extends BlueListItemEvent {
-  const LoadBlueListItemEvent({
-    this.streamList,
-  });
-  final Stream<List<CollectionsModel>>? streamList;
-
+  const LoadBlueListItemEvent();
   @override
-  List<Object?> get props => [streamList];
+  List<Object?> get props => [];
 }
 
 class UpdateBlueListItemEvent extends BlueListItemEvent {

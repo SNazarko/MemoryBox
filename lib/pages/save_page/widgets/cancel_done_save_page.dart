@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/repositories/audio_repositories.dart';
 import 'package:memory_box/utils/constants.dart';
-import 'package:provider/provider.dart';
-
-import '../save_page_model.dart';
+import '../bloc/save_page/save_page_bloc.dart';
 
 class CancelDoneSavePage extends StatelessWidget {
-  CancelDoneSavePage({
+  const CancelDoneSavePage({
     Key? key,
     required this.idAudio,
     required this.audioName,
@@ -26,16 +25,14 @@ class CancelDoneSavePage extends StatelessWidget {
   final List audioSearchName;
   final List audioCollection;
 
-  void _finished(BuildContext context) {
+  void _finished(BuildContext context, state) {
     AudioRepositories.instance.renameAudio(
       idAudio,
-      Provider.of<SavePageModel>(context, listen: false).getNewAudioName ??
-          audioName,
+      state.newAudioName ?? audioName,
       audioUrl,
       audioDuration,
       audioTime,
-      Provider.of<SavePageModel>(context, listen: false).getNewSearchName ??
-          audioSearchName,
+      state.newSearchName ?? audioSearchName,
       audioCollection,
       audioDone,
     );
@@ -44,27 +41,31 @@ class CancelDoneSavePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text(
-                'Отменить',
-                style: kTitle3TextStyle3,
-              )),
-          TextButton(
-              onPressed: () => _finished(context),
-              child: const Text(
-                'Готово',
-                style: kTitle3TextStyle3,
-              )),
-        ],
-      ),
+    return BlocBuilder<SavePageBloc, SavePageState>(
+      builder: (_, state) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    'Отменить',
+                    style: kTitle3TextStyle3,
+                  )),
+              TextButton(
+                  onPressed: () => _finished(context, state),
+                  child: const Text(
+                    'Готово',
+                    style: kTitle3TextStyle3,
+                  )),
+            ],
+          ),
+        );
+      },
     );
   }
 }

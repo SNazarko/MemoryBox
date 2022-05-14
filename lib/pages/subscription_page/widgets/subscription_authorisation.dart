@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../models/user_model.dart';
 import '../../../repositories/user_repositories.dart';
 import '../../../resources/app_colors.dart';
@@ -8,27 +9,35 @@ import '../../../resources/app_icons.dart';
 import '../../../utils/constants.dart';
 import '../../../widgets/button/button_continue.dart';
 import '../../../widgets/uncategorized/container_shadow.dart';
+import '../bloc/subscription_page/subscription_page_bloc.dart';
 
 class SubscriptionAuthorisation extends StatelessWidget {
   const SubscriptionAuthorisation({Key? key}) : super(key: key);
-  Widget buildUser(UserModel model) => _Subscription(
-        onceAMonth: model.onceAMonth,
-        onceAYear: model.onceAYear,
-        onlyMonth: model.onlyMonth,
-        finishTimeSubscription: model.finishTimeSubscription,
-      );
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<UserModel>>(
-      stream: UserRepositories.instance.readUser(),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return const Text('Error');
+    return BlocBuilder<SubscriptionPageBloc, SubscriptionPageState>(
+      builder: (context, state) {
+        if (state.status == SubscriptionPageStatus.initial) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         }
-        if (snapshot.hasData) {
-          final user = snapshot.data!;
-          return Container(
-            child: user.map(buildUser).toList().single,
+        if (state.status == SubscriptionPageStatus.success) {
+          if (state.subscription.isNotEmpty) {
+            final model = state.subscription.last;
+            return _Subscription(
+              onceAMonth: model.onceAMonth,
+              onceAYear: model.onceAYear,
+              onlyMonth: model.onlyMonth,
+              finishTimeSubscription: model.finishTimeSubscription,
+            );
+          } else {
+            return const SizedBox();
+          }
+        }
+        if (state.status == SubscriptionPageStatus.failed) {
+          return const Center(
+            child: Text('Ой: сталася помилка!'),
           );
         } else {
           return const Center(

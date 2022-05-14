@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
 import 'package:memory_box/utils/constants.dart';
-import 'package:provider/src/provider.dart';
-
 import '../../../widgets/uncategorized/appbar_clipper.dart';
-import '../search_page_model.dart';
+import '../bloc/search_page/search_page_bloc.dart';
 
 class AppbarHeaderSearchPage extends StatelessWidget {
   const AppbarHeaderSearchPage({Key? key}) : super(key: key);
@@ -62,9 +61,11 @@ class _SearchPanel extends StatelessWidget {
                   child: TextField(
                     onChanged: (searchTxt) {
                       var text = searchTxt;
-                      context
-                          .read<SearchPageModel>()
-                          .setSearchData(text.toLowerCase());
+                      context.read<SearchPageBloc>().add(
+                            LoadSearchPageEvent(
+                              sort: text.toLowerCase(),
+                            ),
+                          );
                     },
                     style: const TextStyle(
                       fontSize: 20.0,

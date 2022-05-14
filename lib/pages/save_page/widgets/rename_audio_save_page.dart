@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/resources/app_colors.dart';
-import 'package:provider/src/provider.dart';
 
-import '../save_page_model.dart';
+import '../bloc/save_page/save_page_bloc.dart';
 
 class RenameAudioSavePage extends StatelessWidget {
-  RenameAudioSavePage({Key? key, required this.audioName}) : super(key: key);
+  RenameAudioSavePage({
+    Key? key,
+    required this.audioName,
+  }) : super(key: key);
   final String audioName;
   final Set _searchName = {};
 
@@ -24,12 +27,14 @@ class RenameAudioSavePage extends StatelessWidget {
             if (data != _searchName.last) {
               _searchName.remove(_searchName.last);
             }
-            context.read<SavePageModel>().setNewAudioName(value);
-            context
-                .read<SavePageModel>()
-                .setNewSearchName(_searchName.toList());
+            context.read<SavePageBloc>().add(
+                  SavePageEvent(
+                      newAudioName: value, newSearchName: _searchName.toList()),
+                );
           } else {
-            context.read<SavePageModel>().setNewAudioName(audioName);
+            context
+                .read<SavePageBloc>()
+                .add(SavePageEvent(newAudioName: audioName));
           }
         },
         textAlign: TextAlign.center,

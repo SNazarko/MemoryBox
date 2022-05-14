@@ -68,7 +68,7 @@ class AppbarHeaderAudioRecordings extends StatelessWidget {
                         totalTime: user.totalTime ?? '00:00',
                       );
                     } else {
-                      return Container();
+                      return const SizedBox();
                     }
                   } else {
                     return const Center(

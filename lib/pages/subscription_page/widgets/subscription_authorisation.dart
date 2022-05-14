@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../models/user_model.dart';
 import '../../../repositories/user_repositories.dart';
 import '../../../resources/app_colors.dart';
 import '../../../resources/app_icons.dart';

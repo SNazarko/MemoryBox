@@ -46,7 +46,6 @@ class ListPlayer extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               final audio = state.list[index];
               return PlayerMini(
-                playPause: audio.playPause,
                 duration: '${audio.duration}',
                 url: '${audio.audioUrl}',
                 name: '${audio.audioName}',

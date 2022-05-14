@@ -43,9 +43,11 @@ class TextFieldSupportMessagePage extends StatelessWidget {
                 height: 60.0,
                 width: 55.0,
                 decoration: BoxDecoration(
-                    border: Border.all(color: AppColor.colorAppbar),
-                    borderRadius:
-                        const BorderRadius.all(Radius.circular(10.0))),
+                  border: Border.all(color: AppColor.colorAppbar),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(10.0),
+                  ),
+                ),
                 child: const Center(
                     child: Text(
                   'Ввод',

@@ -1,58 +1,54 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/repositories/auth_repositories.dart';
-import '../../../repositories/user_repositories.dart';
+import '../bloc/support_message/support_message_bloc.dart';
 
 class SupportMessagePageList extends StatelessWidget {
   const SupportMessagePageList({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('SupportQuestions')
-            .orderBy('dateTime', descending: true)
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Text('Error');
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (snapshot.hasData) {
-            final message = snapshot.data!;
-            return Expanded(
-              child: ListView(
-                padding: const EdgeInsets.all(15.0),
-                reverse: true,
-                children: message.docs.map((DocumentSnapshot document) {
-                  Map<String, dynamic> data =
-                      document.data() as Map<String, dynamic>;
-                  final message = data['message'] ?? '';
-                  final phoneNumber = data['phoneNumber'] ?? '';
-                  final currentUser =
-                      AuthRepositories.instance.user!.phoneNumber;
-                  bool? isMe;
-                  if (currentUser == phoneNumber) {
-                    isMe = true;
-                  }
-                  if ('+38000112233' == phoneNumber) {
-                    isMe = false;
-                  }
-                  return _ModelMessage(
-                      message: message,
-                      phoneNumber: phoneNumber,
-                      isMe: isMe ?? false);
-                }).toList(),
-              ),
-            );
-          }
+    return BlocBuilder<SupportMessageBloc, SupportMessageState>(
+      builder: (context, state) {
+        if (state.status == SupportMessageStatus.initial) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        });
+        }
+        if (state.status == SupportMessageStatus.success) {
+          return Expanded(
+              child: ListView.builder(
+                  reverse: true,
+                  padding: const EdgeInsets.all(15.0),
+                  itemCount: state.list.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final message = state.list[index];
+                    final currentUser =
+                        AuthRepositories.instance.user!.phoneNumber;
+                    bool? isMe;
+                    if (currentUser == message.phoneNumber) {
+                      isMe = true;
+                    }
+                    if ('+38000112233' == message.phoneNumber) {
+                      isMe = false;
+                    }
+                    return _ModelMessage(
+                        message: message.message,
+                        phoneNumber: message.phoneNumber,
+                        isMe: isMe ?? false);
+                  }));
+        }
+        if (state.status == SupportMessageStatus.failed) {
+          return const Center(
+            child: Text('Ой: сталася помилка!'),
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
   }
 }
 

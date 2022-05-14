@@ -6,6 +6,8 @@ import 'package:memory_box/models/user_model.dart';
 import 'package:memory_box/repositories/auth_repositories.dart';
 import 'package:uuid/uuid.dart';
 
+import '../models/shat_model.dart';
+
 class UserRepositories {
   UserRepositories._();
 
@@ -21,6 +23,15 @@ class UserRepositories {
       .snapshots()
       .map((snapshot) =>
           snapshot.docs.map((doc) => UserModel.fromJson(doc.data())).toList());
+
+  //Stream list support user shat
+
+  Stream<List<ShatModel>> readUserShat() => FirebaseFirestore.instance
+      .collection('SupportQuestions')
+      .orderBy('dateTime', descending: true)
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((doc) => ShatModel.fromJson(doc.data())).toList());
 
   // Basic filling of the database at the first event
 

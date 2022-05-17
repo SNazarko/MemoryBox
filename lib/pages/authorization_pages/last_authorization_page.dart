@@ -9,9 +9,6 @@ import '../../widgets/uncategorized/appbar/appbar_header_authorization.dart';
 class LastAuthorizationPage extends StatefulWidget {
   const LastAuthorizationPage({Key? key}) : super(key: key);
   static const routeName = '/last_authorization_page';
-  static Widget create() {
-    return const LastAuthorizationPage();
-  }
 
   @override
   State<LastAuthorizationPage> createState() => _LastAuthorizationPageState();
@@ -21,7 +18,7 @@ class _LastAuthorizationPageState extends State<LastAuthorizationPage> {
   final bool shouldPop = false;
   @override
   void initState() {
-    Timer(const Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 5), () {
       Phoenix.rebirth(context);
     });
 

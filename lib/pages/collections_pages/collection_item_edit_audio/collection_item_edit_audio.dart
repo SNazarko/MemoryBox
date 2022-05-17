@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/widgets/appbar_header_collection_item_edit_audio.dart';
 import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/widgets/list_collection_item_edit_audio.dart';
 import 'package:memory_box/pages/collections_pages/collection_item_edit_audio/widgets/photo_container.dart';
-
 import '../../../blocs/list_item_bloc/list_item_bloc.dart';
 
 class CollectionItemEditAudioArguments {

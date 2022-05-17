@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/pages/collections_pages/collection/collection.dart';
 import 'package:memory_box/pages/profile_pages/profile_page/profile.dart';
 import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/resources/app_icons.dart';
-import 'package:provider/provider.dart';
 import '../../Blocs/navigation_bloc/navigation__bloc.dart';
 import '../../Blocs/navigation_bloc/navigation__event.dart';
 import '../../Blocs/navigation_bloc/navigation__state.dart';

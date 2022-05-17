@@ -18,7 +18,7 @@ class AudioRepositories {
 
   static final AudioRepositories instance = AudioRepositories._();
 
-  final phoneNumber = AuthRepositories.instance.user!.phoneNumber!;
+  final phoneNumber = AuthRepositories.instance.user?.phoneNumber!;
   final uuid = const Uuid();
 
   Stream<List<AudioModel>> readAudio(
@@ -27,7 +27,7 @@ class AudioRepositories {
     String nameSort,
   ) =>
       FirebaseFirestore.instance
-          .collection(phoneNumber)
+          .collection(phoneNumber!)
           .doc('id')
           .collection(collection)
           .where(nameSort, arrayContains: sort)
@@ -38,27 +38,27 @@ class AudioRepositories {
 
   //Stream play list delete audio
 
-  Stream<List<AudioModel>> readAudioDelete(String sort) => FirebaseFirestore
-      .instance
-      .collection(phoneNumber)
-      .doc('id')
-      .collection('DeleteCollections')
-      .where('collections', arrayContains: sort)
-      .snapshots()
-      .map((snapshot) =>
-          snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
+  // Stream<List<AudioModel>> readAudioDelete(String sort) => FirebaseFirestore
+  //     .instance
+  //     .collection(phoneNumber!)
+  //     .doc('id')
+  //     .collection('DeleteCollections')
+  //     .where('collections', arrayContains: sort)
+  //     .snapshots()
+  //     .map((snapshot) =>
+  //         snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
 
   //Stream play list audio
 
-  Stream<List<AudioModel>> readAudioSort(String sort) => FirebaseFirestore
-      .instance
-      .collection(phoneNumber)
-      .doc('id')
-      .collection('Collections')
-      .where('collections', arrayContains: sort)
-      .snapshots()
-      .map((snapshot) =>
-          snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
+  // Stream<List<AudioModel>> readAudioSort(String sort) => FirebaseFirestore
+  //     .instance
+  //     .collection(phoneNumber!)
+  //     .doc('id')
+  //     .collection('Collections')
+  //     .where('collections', arrayContains: sort)
+  //     .snapshots()
+  //     .map((snapshot) =>
+  //         snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
 
 // Save audio file in firebase
 
@@ -94,7 +94,7 @@ class AudioRepositories {
     final json = model.toJson();
     await UserRepositories.instance.updateSizeRepositories(size);
     await FirebaseFirestore.instance
-        .collection(phoneNumber)
+        .collection(phoneNumber!)
         .doc('id')
         .collection('Collections')
         .doc(id)
@@ -113,7 +113,7 @@ class AudioRepositories {
     }
 
     FirebaseFirestore.instance
-        .collection(phoneNumber)
+        .collection(phoneNumber!)
         .doc('id')
         .collection('Collections')
         .doc(idAudio)
@@ -145,7 +145,7 @@ class AudioRepositories {
     final json = model.toJson();
 
     FirebaseFirestore.instance
-        .collection(phoneNumber)
+        .collection(phoneNumber!)
         .doc('id')
         .collection('Collections')
         .doc(idAudio)
@@ -157,7 +157,7 @@ class AudioRepositories {
   Future<void> doneAudioItem(
       String idAudio, bool done, String collectionFire) async {
     FirebaseFirestore.instance
-        .collection(phoneNumber)
+        .collection(phoneNumber!)
         .doc('id')
         .collection(collectionFire)
         .doc(idAudio)
@@ -187,7 +187,7 @@ class AudioRepositories {
 
   Future<void> playPause(String idAudio, bool donePlay) async {
     FirebaseFirestore.instance
-        .collection(phoneNumber)
+        .collection(phoneNumber!)
         .doc('id')
         .collection('Collections')
         .doc(idAudio)
@@ -203,7 +203,7 @@ class AudioRepositories {
     Timestamp? dateTimeDelete;
     if (AuthRepositories.instance.user != null) {
       await FirebaseFirestore.instance
-          .collection(phoneNumber)
+          .collection(phoneNumber!)
           .doc('id')
           .collection('DeleteCollections')
           .get()

@@ -43,12 +43,14 @@ class AuthWidget extends StatelessWidget {
           phone: phoneController.text,
           smsCode: otpController.text,
           verificationId: state.verificationId));
-      if (AuthRepositories.instance.user != null) {
-        Timer(
-            const Duration(milliseconds: 0),
-            () =>
-                Navigator.pushNamed(context, LastAuthorizationPage.routeName));
-      }
+      FirebaseAuth.instance.authStateChanges().listen((User? user) {
+        if (user != null) {
+          Timer(
+            const Duration(milliseconds: 1),
+            () => Navigator.pushNamed(context, LastAuthorizationPage.routeName),
+          );
+        }
+      });
     } else if (state.status == AuthStatus.failed) {
       BlocProvider.of<AuthBloc>(context)
           .add(PhoneNumberVerificationIdEvent(phone: phoneController.text));
@@ -67,15 +69,8 @@ class AuthWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
-    return BlocConsumer<AuthBloc, AuthState>(
+    return BlocBuilder<AuthBloc, AuthState>(
       bloc: context.watch<AuthBloc>(),
-      listener: (_, state) {
-        if (state.status == AuthStatus.logged) {
-          controller.animateToPage(2,
-              duration: const Duration(milliseconds: 400),
-              curve: Curves.easeIn);
-        }
-      },
       builder: (context, state) {
         return Stack(
           children: [

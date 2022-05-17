@@ -10,9 +10,6 @@ class InitializerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('123456789');
-    print(AuthRepositories.instance.user == null);
-    print(AuthRepositories.instance.user);
     return isLoading
         ? const Scaffold(
             body: Center(
@@ -20,7 +17,7 @@ class InitializerWidget extends StatelessWidget {
             ),
           )
         : AuthRepositories.instance.user == null
-            ? FirstPage.create()
-            : FirstAuthorizationPage.create();
+            ? const FirstPage()
+            : const FirstAuthorizationPage();
   }
 }

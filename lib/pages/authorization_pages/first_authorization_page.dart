@@ -10,10 +10,6 @@ class FirstAuthorizationPage extends StatefulWidget {
   const FirstAuthorizationPage({Key? key}) : super(key: key);
   static const routeName = '/first_authorization_page';
 
-  static Widget create() {
-    return const FirstAuthorizationPage();
-  }
-
   @override
   State<FirstAuthorizationPage> createState() => _FirstAuthorizationPageState();
 }

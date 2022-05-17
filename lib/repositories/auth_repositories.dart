@@ -9,16 +9,10 @@ class AuthRepositories {
   static final AuthRepositories instance = AuthRepositories._();
 
   final FirebaseAuth? _auth = FirebaseAuth.instance;
-  FirebaseAuth? auth;
   User? user;
 
   void init() {
-    auth = FirebaseAuth.instance;
-    user = auth!.currentUser;
-    final user2 = auth?.authStateChanges().listen((event) {
-      print('user2$event');
-    });
-    print('user$user');
+    user = _auth!.currentUser;
   }
 
   Future<void> verifyPhoneSendOtp(
@@ -46,13 +40,15 @@ class AuthRepositories {
       verificationId: verificationId,
       smsCode: smsCode,
     );
+
     final authCredential = await _auth!.signInWithCredential(credential);
+
     if (authCredential.user != null) {
       final DateTime now = DateTime.now();
       final DateTime later = now.add(const Duration(days: 30));
       final Timestamp laterTimestamp = Timestamp.fromDate(later);
-      final uid = authCredential.user!.uid;
-      final phoneNumber = authCredential.user!.phoneNumber;
+      user = authCredential.user!;
+      final phoneNumber = authCredential.user?.phoneNumber;
       final userSnap = await FirebaseFirestore.instance
           .collection(phoneNumber!)
           .doc('user')
@@ -76,7 +72,7 @@ class AuthRepositories {
           'totalTime': '00:00',
         });
       }
-      return uid;
+      return 'uid!';
     } else {
       return '';
     }

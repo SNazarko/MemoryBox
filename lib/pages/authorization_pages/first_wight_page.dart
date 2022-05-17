@@ -5,9 +5,6 @@ import 'package:memory_box/animation/screensaver_page/screensaver_page.dart';
 class FirstWightPage extends StatefulWidget {
   const FirstWightPage({Key? key}) : super(key: key);
   static const routeName = '/logo_page';
-  static Widget create() {
-    return const FirstWightPage();
-  }
 
   @override
   _FirstWightPageState createState() => _FirstWightPageState();

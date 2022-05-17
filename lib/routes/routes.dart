@@ -20,7 +20,6 @@ import 'package:memory_box/pages/profile_pages/profile_page/profile.dart';
 import 'package:memory_box/pages/recordings_page/record_page.dart';
 import 'package:memory_box/pages/save_page/save_page.dart';
 import 'package:memory_box/pages/search_page/search_page.dart';
-
 import '../pages/collections_pages/collection_add_audio_in_collection/collection_add_audio_in_collection.dart';
 import '../pages/profile_pages/profile_edit_page/profile_edit_page.dart';
 import '../pages/subscription_page/subscription_page.dart';
@@ -36,7 +35,7 @@ class AppRouter {
 
     switch (settings.name) {
       case AudioRecordingsPage.routeName:
-        builder = (_) => AudioRecordingsPage();
+        builder = (_) => const AudioRecordingsPage();
         break;
 
       // authorization_pages/
@@ -48,34 +47,34 @@ class AppRouter {
 
       // /first_authorization_page.dart
       case FirstAuthorizationPage.routeName:
-        builder = (_) => FirstAuthorizationPage.create();
+        builder = (_) => const FirstAuthorizationPage();
         break;
 
       // /first_page.dart
       case FirstPage.routeName:
-        builder = (_) => FirstPage.create();
+        builder = (_) => const FirstPage();
         break;
 
       // /first_wight_page.dart
       case FirstWightPage.routeName:
-        builder = (_) => FirstWightPage.create();
+        builder = (_) => const FirstWightPage();
         break;
 
       // /initializer_widget.dart
       case InitializerWidget.routeName:
-        builder = (_) => InitializerWidget();
+        builder = (_) => const InitializerWidget();
         break;
 
       // /last_authorization_page.dart
       case LastAuthorizationPage.routeName:
-        builder = (_) => LastAuthorizationPage.create();
+        builder = (_) => const LastAuthorizationPage();
         break;
 
       // collections_pages/
 
       // /collection
       case Collections.routeName:
-        builder = (_) => Collections();
+        builder = (_) => const Collections();
         break;
 
       // /collection_add_audio
@@ -156,7 +155,7 @@ class AppRouter {
 
       // delete_pages
       case DeletePage.routeName:
-        builder = (_) => DeletePage();
+        builder = (_) => const DeletePage();
         break;
 
       // home_page
@@ -183,7 +182,7 @@ class AppRouter {
 
       // recordings_page
       case RecordPage.routeName:
-        builder = (_) => RecordPage();
+        builder = (_) => const RecordPage();
         break;
 
       // save_page
@@ -209,17 +208,17 @@ class AppRouter {
 
       // subscription_page
       case SubscriptionPage.routeName:
-        builder = (_) => SubscriptionPage();
+        builder = (_) => const SubscriptionPage();
         break;
 
       //support_message_page
       case SupportMessagePage.routeName:
-        builder = (_) => SupportMessagePage();
+        builder = (_) => const SupportMessagePage();
         break;
 
       //screensaver_page
       case Screensaver.routeName:
-        builder = (_) => Screensaver.create();
+        builder = (_) => const Screensaver();
         break;
 
       // main_page.dart

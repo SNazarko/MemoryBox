@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/formatters/masked_input_formatter.dart';
 
 class TextFieldInput extends StatelessWidget {
-  TextFieldInput({Key? key, this.onChanged, this.controller}) : super(key: key);
-  final onChanged;
-  final controller;
+  const TextFieldInput({Key? key, this.onChanged, this.controller})
+      : super(key: key);
+  final void Function(String)? onChanged;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {

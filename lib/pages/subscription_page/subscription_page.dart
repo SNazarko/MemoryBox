@@ -10,6 +10,7 @@ import 'bloc/subscription_page/subscription_page_bloc.dart';
 class SubscriptionPage extends StatelessWidget {
   const SubscriptionPage({Key? key}) : super(key: key);
   static const routeName = '/subscription_page';
+  final bool shouldPop = false;
 
   @override
   Widget build(BuildContext context) {
@@ -18,43 +19,48 @@ class SubscriptionPage extends StatelessWidget {
         ..add(
           LoadSubscriptionPageEvent(),
         ),
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-            icon: const Icon(Icons.menu),
+      child: WillPopScope(
+        onWillPop: () async {
+          return shouldPop;
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            leading: IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: const Icon(Icons.menu),
+            ),
+            title: const Text(
+              'Подписка',
+              style: kTitleTextStyle2,
+            ),
+            centerTitle: true,
+            elevation: 0.0,
           ),
-          title: const Text(
-            'Подписка',
-            style: kTitleTextStyle2,
-          ),
-          centerTitle: true,
-          elevation: 0.0,
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Stack(
-                children: [
-                  const AppbarMenuSubscription(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        'Расширь возможности',
-                        style: kTitle2TextStyle2,
-                      ),
-                    ],
-                  ),
-                  AuthRepositories.instance.user == null
-                      ? const SubscriptionNotAuthorisation()
-                      : const SubscriptionAuthorisation()
-                ],
-              ),
-            ],
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Stack(
+                  children: [
+                    const AppbarMenuSubscription(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Text(
+                          'Расширь возможности',
+                          style: kTitle2TextStyle2,
+                        ),
+                      ],
+                    ),
+                    AuthRepositories.instance.user == null
+                        ? const SubscriptionNotAuthorisation()
+                        : const SubscriptionAuthorisation()
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

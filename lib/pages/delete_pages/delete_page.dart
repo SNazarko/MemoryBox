@@ -13,6 +13,7 @@ import 'bloc/delete_item_done_cubit/delete_item_done.dart';
 class DeletePage extends StatelessWidget {
   const DeletePage({Key? key}) : super(key: key);
   static const routeName = '/delete_page';
+  final bool shouldPop = false;
 
   @override
   Widget build(BuildContext context) {
@@ -35,39 +36,44 @@ class DeletePage extends StatelessWidget {
           create: (context) => NavigationBloc(),
         ),
       ],
-      child: Scaffold(
-        appBar: AppBar(
-          // centerTitle: true,
-          leading: IconButton(
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-            icon: const Icon(Icons.menu),
-          ),
-          elevation: 0.0,
-          centerTitle: true,
+      child: WillPopScope(
+        onWillPop: () async {
+          return shouldPop;
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            // centerTitle: true,
+            leading: IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: const Icon(Icons.menu),
+            ),
+            elevation: 0.0,
+            centerTitle: true,
 
-          title: const Text(
-            'Недавно',
-            style: kTitleTextStyle2,
-          ),
-          actions: [
-            PopupMenuDeletePage(),
-          ],
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Stack(
-                children: [
-                  AuthRepositories.instance.user == null
-                      ? const ModelDeleteNotIsAuthorization()
-                      : const ListPlayersDeletePage(),
-                  const AppbarHeaderDeletePage(),
-                ],
-              ),
+            title: const Text(
+              'Недавно',
+              style: kTitleTextStyle2,
+            ),
+            actions: [
+              PopupMenuDeletePage(),
             ],
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Stack(
+                  children: [
+                    AuthRepositories.instance.user == null
+                        ? const ModelDeleteNotIsAuthorization()
+                        : const ListPlayersDeletePage(),
+                    const AppbarHeaderDeletePage(),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

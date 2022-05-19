@@ -1,14 +1,12 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:just_audio/just_audio.dart' as ap;
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:memory_box/resources/app_icons.dart';
 
 import '../../../repositories/audio_repositories.dart';
 import '../../../repositories/auth_repositories.dart';
-import '../../../repositories/collections_repositories.dart';
 import '../../../resources/app_colors.dart';
 import '../../uncategorized/slider.dart';
 

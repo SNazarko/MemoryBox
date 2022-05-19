@@ -50,7 +50,10 @@ class FirstPage extends StatelessWidget {
             ),
             ButtonContinue(
               onPressed: () {
-                Navigator.pushNamed(context, RegistrationPage.routeName);
+                Navigator.pushNamed(
+                  context,
+                  RegistrationPage.routeName,
+                );
               },
               text: 'Продолжыть',
             )

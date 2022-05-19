@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/src/provider.dart';
 
-import '../../profile_model.dart';
+import '../profile_model.dart';
 
 class PhotoProfileProfile extends StatelessWidget {
   const PhotoProfileProfile({Key? key}) : super(key: key);

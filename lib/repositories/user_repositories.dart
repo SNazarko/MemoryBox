@@ -156,7 +156,7 @@ class UserRepositories {
 
   Future<void> limitNotSubscription() async {
     final now = Timestamp.now();
-    if (AuthRepositories.instance.user != null) {
+    if (AuthRepositories.instance.user != null && phoneNumber != null) {
       await FirebaseFirestore.instance
           .collection(phoneNumber!)
           .get()

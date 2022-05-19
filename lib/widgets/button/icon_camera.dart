@@ -10,7 +10,7 @@ class IconCamera extends StatelessWidget {
       required this.colorBorder,
       required this.position})
       : super(key: key);
-  final onTap;
+  final void Function()? onTap;
   final Color color;
   final Color colorBorder;
   final double position;

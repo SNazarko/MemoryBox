@@ -15,6 +15,7 @@ import 'blocs/bloc_quality_total_time/quality_total_time_event.dart';
 class AudioRecordingsPage extends StatelessWidget {
   const AudioRecordingsPage({Key? key}) : super(key: key);
   static const routeName = '/audio_recordings_page';
+  final bool shouldPop = false;
 
   @override
   Widget build(BuildContext context) {
@@ -42,56 +43,61 @@ class AudioRecordingsPage extends StatelessWidget {
             ),
         ),
       ],
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-            icon: const Icon(Icons.menu),
-          ),
-          elevation: 0.0,
-          title: const Text(
-            'Аудиозаписи',
-            style: kTitleTextStyle2,
-          ),
-        ),
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Stack(
-                    children: [
-                      AuthRepositories.instance.user == null
-                          ? const ListPlayerNotAuthorization()
-                          : const ListPlayer(),
-                      AuthRepositories.instance.user == null
-                          ? const AppbarHeaderAudioRecordingsNotAuthorization()
-                          : const AppbarHeaderAudioRecordings(),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            BlocBuilder<AnimBloc, AnimState>(
-              builder: (_, state) {
-                return Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 5.0),
-                    child: PlayerCollections(
-                      screenWight: screenWight,
-                      screenHeight: screenHeight,
-                      idCollection: 'all',
-                      animation: state.anim,
-                    ),
-                  ),
-                );
+      child: WillPopScope(
+        onWillPop: () async {
+          return shouldPop;
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            leading: IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
               },
-            )
-          ],
+              icon: const Icon(Icons.menu),
+            ),
+            elevation: 0.0,
+            title: const Text(
+              'Аудиозаписи',
+              style: kTitleTextStyle2,
+            ),
+          ),
+          body: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Stack(
+                      children: [
+                        AuthRepositories.instance.user == null
+                            ? const ListPlayerNotAuthorization()
+                            : const ListPlayer(),
+                        AuthRepositories.instance.user == null
+                            ? const AppbarHeaderAudioRecordingsNotAuthorization()
+                            : const AppbarHeaderAudioRecordings(),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              BlocBuilder<AnimBloc, AnimState>(
+                builder: (_, state) {
+                  return Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 5.0),
+                      child: PlayerCollections(
+                        screenWight: screenWight,
+                        screenHeight: screenHeight,
+                        idCollection: 'all',
+                        animation: state.anim,
+                      ),
+                    ),
+                  );
+                },
+              )
+            ],
+          ),
         ),
       ),
     );

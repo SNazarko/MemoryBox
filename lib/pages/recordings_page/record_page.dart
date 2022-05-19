@@ -16,6 +16,7 @@ class RecordPage extends StatefulWidget {
 }
 
 class _RecordPageState extends State<RecordPage> {
+  final bool shouldPop = false;
   bool showPlayer = false;
   ap.AudioSource? audioSource;
   String? path;
@@ -32,54 +33,59 @@ class _RecordPageState extends State<RecordPage> {
     final double screenHeight = MediaQuery.of(context).size.height;
     return BlocProvider<RecordingsPageBloc>(
       create: (context) => RecordingsPageBloc(),
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-            icon: const Icon(Icons.menu),
+      child: WillPopScope(
+        onWillPop: () async {
+          return shouldPop;
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            leading: IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: const Icon(Icons.menu),
+            ),
+            elevation: 0.0,
           ),
-          elevation: 0.0,
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Stack(
-                children: [
-                  const AppbarMenu(),
-                  Positioned(
-                      left: 5.0,
-                      top: 30.0,
-                      child: Container(
-                        height: screenHeight - 180.0,
-                        width: screenWidth * 0.97,
-                        decoration: kBorderContainer2,
-                        child: showPlayer
-                            ? Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 25),
-                                child: AudioPlayer(
-                                  source: audioSource!,
-                                  onDelete: () {
-                                    setState(() => showPlayer = false);
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Stack(
+                  children: [
+                    const AppbarMenu(),
+                    Positioned(
+                        left: 5.0,
+                        top: 30.0,
+                        child: Container(
+                          height: screenHeight - 180.0,
+                          width: screenWidth * 0.97,
+                          decoration: kBorderContainer2,
+                          child: showPlayer
+                              ? Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 25),
+                                  child: AudioPlayer(
+                                    source: audioSource!,
+                                    onDelete: () {
+                                      setState(() => showPlayer = false);
+                                    },
+                                  ),
+                                )
+                              : AudioRecorder(
+                                  onStop: (path) {
+                                    setState(() {
+                                      audioSource =
+                                          ap.AudioSource.uri(Uri.parse(path));
+                                      showPlayer = true;
+                                    });
                                   },
                                 ),
-                              )
-                            : AudioRecorder(
-                                onStop: (path) {
-                                  setState(() {
-                                    audioSource =
-                                        ap.AudioSource.uri(Uri.parse(path));
-                                    showPlayer = true;
-                                  });
-                                },
-                              ),
-                      ))
-                ],
-              ),
-            ],
+                        ))
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

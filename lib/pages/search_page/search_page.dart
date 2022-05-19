@@ -11,6 +11,7 @@ import 'bloc/search_page/search_page_bloc.dart';
 class SearchPage extends StatelessWidget {
   const SearchPage({Key? key}) : super(key: key);
   static const routeName = '/search_page';
+  final bool shouldPop = false;
 
   @override
   Widget build(BuildContext context) {
@@ -19,34 +20,39 @@ class SearchPage extends StatelessWidget {
         ..add(
           const LoadSearchPageEvent(),
         ),
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          leading: IconButton(
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-            icon: const Icon(Icons.menu),
+      child: WillPopScope(
+        onWillPop: () async {
+          return shouldPop;
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            leading: IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: const Icon(Icons.menu),
+            ),
+            elevation: 0.0,
+            title: const Text(
+              'Поиск',
+              style: kTitleTextStyle2,
+            ),
           ),
-          elevation: 0.0,
-          title: const Text(
-            'Поиск',
-            style: kTitleTextStyle2,
-          ),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                children: [
-                  AuthRepositories.instance.user == null
-                      ? const ListPlayersSearchPageNotIsAuthorization()
-                      : const ListPlayersSearchPage(),
-                  const AppbarHeaderSearchPage(),
-                ],
-              ),
-            ],
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Stack(
+                  children: [
+                    AuthRepositories.instance.user == null
+                        ? const ListPlayersSearchPageNotIsAuthorization()
+                        : const ListPlayersSearchPage(),
+                    const AppbarHeaderSearchPage(),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

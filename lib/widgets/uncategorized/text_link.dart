@@ -6,7 +6,7 @@ class TextLink extends StatelessWidget {
       {Key? key, required this.text, this.onPressed, this.underline = true})
       : super(key: key);
   final String text;
-  final onPressed;
+  final void Function()? onPressed;
   final bool underline;
 
   @override

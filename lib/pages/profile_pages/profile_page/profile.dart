@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:memory_box/pages/profile_pages/profile_model.dart';
+import 'package:memory_box/pages/profile_pages/profile_page/profile_model.dart';
 import 'package:memory_box/pages/profile_pages/profile_page/widgets/appbar_header_profile.dart';
 import 'package:memory_box/pages/profile_pages/profile_page/widgets/delete_account.dart';
 import 'package:memory_box/pages/profile_pages/profile_page/widgets/name_and_number.dart';
@@ -36,43 +36,49 @@ class Profile extends StatelessWidget {
 
 class ProfileCreate extends StatelessWidget {
   const ProfileCreate({Key? key}) : super(key: key);
+  final bool shouldPop = false;
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
-          icon: const Icon(Icons.menu),
+    return WillPopScope(
+      onWillPop: () async {
+        return shouldPop;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: const Icon(Icons.menu),
+          ),
+          elevation: 0.0,
+          centerTitle: true,
+          title: const Text(
+            'Профиль',
+            style: kTitleTextStyle2,
+          ),
         ),
-        elevation: 0.0,
-        centerTitle: true,
-        title: const Text(
-          'Профиль',
-          style: kTitleTextStyle2,
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Stack(
-              children: const [
-                AppbarHeaderProfileProfile(),
-                PhotoProfileProfile(),
-              ],
-            ),
-            AuthRepositories.instance.user == null
-                ? _LinksNotAuthorization(
-                    screenWidth: screenWidth,
-                  )
-                : _Links(
-                    screenWidth: screenWidth,
-                  ),
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Stack(
+                children: const [
+                  AppbarHeaderProfileProfile(),
+                  PhotoProfileProfile(),
+                ],
+              ),
+              AuthRepositories.instance.user == null
+                  ? _LinksNotAuthorization(
+                      screenWidth: screenWidth,
+                    )
+                  : _Links(
+                      screenWidth: screenWidth,
+                    ),
+            ],
+          ),
         ),
       ),
     );

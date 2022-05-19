@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class IconBack extends StatelessWidget {
   const IconBack({Key? key, this.onPressed}) : super(key: key);
-  final onPressed;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {

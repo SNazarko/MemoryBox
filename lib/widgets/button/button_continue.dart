@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
 
@@ -6,7 +5,7 @@ class ButtonContinue extends StatelessWidget {
   const ButtonContinue({Key? key, this.onPressed, required this.text})
       : super(key: key);
   final String text;
-  final onPressed;
+  final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(

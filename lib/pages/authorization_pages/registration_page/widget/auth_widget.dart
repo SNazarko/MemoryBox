@@ -3,8 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/pages/authorization_pages/registration_page/widget/text_field_captcha.dart';
-
-import '../../../../repositories/auth_repositories.dart';
 import '../../../../resources/app_colors.dart';
 import '../../../../widgets/button/button_continue.dart';
 import '../../../../widgets/uncategorized/container_shadow.dart';
@@ -16,16 +14,15 @@ import '../bloc/authorization_bloc/app_authorization_event.dart';
 import '../bloc/authorization_bloc/app_authorization_state.dart';
 
 class AuthWidget extends StatelessWidget {
-  AuthWidget(
+  const AuthWidget(
       {Key? key,
       required this.controller,
       required this.otpController,
       required this.phoneController})
       : super(key: key);
-  PageController controller = PageController();
-  TextEditingController phoneController = TextEditingController();
-
-  TextEditingController otpController = TextEditingController();
+  final PageController controller;
+  final TextEditingController phoneController;
+  final TextEditingController otpController;
 
   void buttonContinue(BuildContext context, state) {
     if (phoneController.text.isNotEmpty && state.status == AuthStatus.initial) {
@@ -152,15 +149,15 @@ class AuthWidget extends StatelessWidget {
 }
 
 class _Sms extends StatelessWidget {
-  _Sms(
+  const _Sms(
       {Key? key,
       required this.otpController,
       required this.controller,
       required this.phoneController})
       : super(key: key);
-  TextEditingController otpController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  PageController controller = PageController();
+  final TextEditingController otpController;
+  final TextEditingController phoneController;
+  final PageController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -233,8 +230,8 @@ class _Sms extends StatelessWidget {
 }
 
 class _Phone extends StatelessWidget {
-  _Phone({Key? key, required this.phoneController}) : super(key: key);
-  TextEditingController phoneController = TextEditingController();
+  const _Phone({Key? key, required this.phoneController}) : super(key: key);
+  final TextEditingController phoneController;
 
   @override
   Widget build(BuildContext context) {

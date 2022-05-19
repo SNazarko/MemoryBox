@@ -11,6 +11,7 @@ import 'blocs/list_item_collection/list_item_collection_bloc.dart';
 class Collections extends StatelessWidget {
   const Collections({Key? key}) : super(key: key);
   static const routeName = '/collection';
+  final bool shouldPop = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +25,22 @@ class Collections extends StatelessWidget {
             ..add(const LoadListItemCollectionEvent()),
         ),
       ],
-      child: Scaffold(
-        body: SafeArea(
-          child: Stack(
-            children: [
-              AuthRepositories.instance.user == null
-                  ? const AppbarHeaderCollectionNotAuthorization()
-                  : const AppbarHeaderCollection(),
-              AuthRepositories.instance.user == null
-                  ? const ListCollectionsNotAuthorization()
-                  : const ListCollections(),
-            ],
+      child: WillPopScope(
+        onWillPop: () async {
+          return shouldPop;
+        },
+        child: Scaffold(
+          body: SafeArea(
+            child: Stack(
+              children: [
+                AuthRepositories.instance.user == null
+                    ? const AppbarHeaderCollectionNotAuthorization()
+                    : const AppbarHeaderCollection(),
+                AuthRepositories.instance.user == null
+                    ? const ListCollectionsNotAuthorization()
+                    : const ListCollections(),
+              ],
+            ),
           ),
         ),
       ),

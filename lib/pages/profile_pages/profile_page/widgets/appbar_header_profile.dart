@@ -11,7 +11,6 @@ class AppbarHeaderProfileProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(),
         ClipPath(
           clipper: AppbarClipper(),
           child: Container(
@@ -21,7 +20,7 @@ class AppbarHeaderProfileProfile extends StatelessWidget {
           ),
         ),
         const Align(
-          alignment: Alignment.center,
+          alignment: Alignment.topCenter,
           child: Text(
             'Твоя частичка',
             style: kTitle2TextStyle2,

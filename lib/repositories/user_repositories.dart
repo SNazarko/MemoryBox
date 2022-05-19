@@ -13,7 +13,7 @@ class UserRepositories {
 
   static final UserRepositories instance = UserRepositories._();
 
-  final phoneNumber = AuthRepositories.instance.user?.phoneNumber!;
+  final phoneNumber = AuthRepositories.instance.user?.phoneNumber;
   var uuid = const Uuid();
 
   //Stream list user

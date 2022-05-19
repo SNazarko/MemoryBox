@@ -18,7 +18,7 @@ class AudioRepositories {
 
   static final AudioRepositories instance = AudioRepositories._();
 
-  final phoneNumber = AuthRepositories.instance.user?.phoneNumber!;
+  final phoneNumber = AuthRepositories.instance.user?.phoneNumber;
   final uuid = const Uuid();
 
   Stream<List<AudioModel>> readAudio(
@@ -201,7 +201,7 @@ class AudioRepositories {
     String? idAudio;
     int? size;
     Timestamp? dateTimeDelete;
-    if (AuthRepositories.instance.user != null) {
+    if (AuthRepositories.instance.user != null && phoneNumber != null) {
       await FirebaseFirestore.instance
           .collection(phoneNumber!)
           .doc('id')

@@ -103,12 +103,21 @@ class PlayerCollectionsState extends State<PlayerCollections> {
               color: const Color(0xFF8C84E2),
             ),
             onTap: () {
+              final index = _audioPlayer.currentIndex;
               if (_audioPlayer.playerState.playing) {
                 pause();
+                AudioRepositories.instance.playPause(
+                  audioIdList[index!.toInt()],
+                  false,
+                );
                 setState(() {});
               } else {
                 setState(() {});
                 play();
+                AudioRepositories.instance.playPause(
+                  audioIdList[index!.toInt()],
+                  true,
+                );
               }
             },
           ),
@@ -128,16 +137,27 @@ class PlayerCollectionsState extends State<PlayerCollections> {
     return SizedBox(
       child: SliderTheme(
         data: SliderTheme.of(context).copyWith(
-            thumbShape:
-                const RoundedAmebaThumbShape(radius: 8, color: AppColor.white),
-            thumbColor: AppColor.white,
-            inactiveTrackColor: AppColor.white,
-            activeTrackColor: AppColor.white),
+          thumbShape: RoundedAmebaThumbShape(
+            radius: 8,
+            color:
+                widget.animation <= 0.3 ? Colors.transparent : AppColor.white,
+          ),
+          thumbColor:
+              widget.animation <= 0.3 ? Colors.transparent : AppColor.white,
+          inactiveTrackColor:
+              widget.animation <= 0.3 ? Colors.transparent : AppColor.white,
+          activeTrackColor:
+              widget.animation <= 0.3 ? Colors.transparent : AppColor.white,
+        ),
         child: Slider(
           onChanged: (v) {
             if (duration != null) {
               final position = v * duration.inMilliseconds;
-              _audioPlayer.seek(Duration(milliseconds: position.round()));
+              _audioPlayer.seek(
+                Duration(
+                  milliseconds: position.round(),
+                ),
+              );
             }
           },
           value: canSetValue && duration != null
@@ -181,9 +201,7 @@ class PlayerCollectionsState extends State<PlayerCollections> {
   }
 
   Future<void> seekToNext() {
-    // setState(() => _isPlay = true);
-    // startTimer();
-    // _audioPlayer.seekToNext().
+    _recordDuration = 0;
     return _audioPlayer.seekToNext();
   }
 
@@ -233,39 +251,22 @@ class PlayerCollectionsState extends State<PlayerCollections> {
     final index = _audioPlayer.currentIndex;
     final durationAudioPlayer = _audioPlayer.duration;
     final durationMilliseconds = durationAudioPlayer?.inMilliseconds ?? 0;
-    final durationDouble = durationMilliseconds / 1000;
-    final duration = durationDouble.toInt();
-    if (_recordDuration == duration) {
-      _recordDuration = 0;
-    }
-
-    if (index!.isEven == true) {
-      if (index.toInt() >= 1) {
+    final position = _audioPlayer.position;
+    if (position.inMilliseconds / durationMilliseconds * 100 >= 0.1) {
+      if (position.inMilliseconds / durationMilliseconds * 100 <= 2) {
         AudioRepositories.instance.playPause(
-          audioIdList[index.toInt() - 1],
-          false,
+          audioIdList[index!.toInt()],
+          true,
         );
       }
-      AudioRepositories.instance.playPause(
-        audioIdList[index.toInt()],
-        true,
-      );
     }
-    if (index.isEven == false) {
+
+    if (position.inMilliseconds / durationMilliseconds * 100 >= 98) {
       AudioRepositories.instance.playPause(
-        audioIdList[index.toInt()],
-        true,
-      );
-      AudioRepositories.instance.playPause(
-        audioIdList[index.toInt() - 1],
+        audioIdList[index!.toInt()],
         false,
       );
-    }
-    if (_audioPlayer.playing == false) {
-      AudioRepositories.instance.playPause(
-        audioIdList[index.toInt()],
-        false,
-      );
+      _recordDuration = 0;
     }
 
     final String minutes = _formatNumber(_recordDuration ~/ 60);
@@ -383,6 +384,10 @@ class PlayerCollectionsState extends State<PlayerCollections> {
                         child: GestureDetector(
                           onTap: () {
                             if (_audioPlayer.nextIndex != null) {
+                              AudioRepositories.instance.playPause(
+                                audioIdList[_audioPlayer.currentIndex!.toInt()],
+                                false,
+                              );
                               seekToNext();
                             } else {
                               AudioRepositories.instance.playPause(

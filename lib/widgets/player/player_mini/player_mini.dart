@@ -340,7 +340,7 @@ class PlayerMiniState extends State<PlayerMini> {
                             ],
                           ),
                         ),
-                        Expanded(child: const SizedBox())
+                        const Expanded(child: SizedBox())
                       ],
                     )),
             ),

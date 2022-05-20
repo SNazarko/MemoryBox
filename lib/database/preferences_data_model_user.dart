@@ -8,9 +8,9 @@ class PreferencesDataUser {
 
   // Save data in SharedPreferences
 
-  Future<void> counter(String counter) async {
+  Future<void> saveImage(String image) async {
     SharedPreferences storageData = await _storage;
-    storageData.setString('counter_key', counter);
+    storageData.setString('image_key', image);
   }
 
   Future<void> saveName(String name) async {

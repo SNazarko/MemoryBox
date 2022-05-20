@@ -12,39 +12,35 @@ import 'package:memory_box/pages/profile_pages/profile_edit_page/profile_edit_pa
 import 'package:memory_box/repositories/auth_repositories.dart';
 import 'package:memory_box/widgets/uncategorized/text_link.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Blocs/navigation_bloc/navigation__bloc.dart';
 import '../../../Blocs/navigation_bloc/navigation__state.dart';
 import '../../../utils/constants.dart';
 import '../../../widgets/navigation/navigate_to_page.dart';
 import '../../subscription_page/subscription_page.dart';
+import 'blocs/profile_page/profile_page_bloc.dart';
 import 'blocs/progress_indicator/progress_indicator_bloc.dart';
 
 class Profile extends StatelessWidget {
-  Profile({Key? key}) : super(key: key);
+  const Profile({Key? key}) : super(key: key);
   static const routeName = '/profile';
-  final DataModel model = DataModel();
-
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider<DataModel>(
-      create: (BuildContext context) => DataModel(),
-      child: const ProfileCreate(),
-    );
-  }
-}
-
-class ProfileCreate extends StatelessWidget {
-  const ProfileCreate({Key? key}) : super(key: key);
   final bool shouldPop = false;
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    return BlocProvider<ProgressIndicatorBloc>(
-      create: (context) => ProgressIndicatorBloc()
-        ..add(
-          const LoadProgressIndicatorEvent(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ProgressIndicatorBloc>(
+          create: (context) => ProgressIndicatorBloc()
+            ..add(
+              const LoadProgressIndicatorEvent(),
+            ),
         ),
+        BlocProvider<ProfilePageBloc>(
+          create: (context) => ProfilePageBloc()..add(const ProfilePageEvent()),
+        ),
+      ],
       child: WillPopScope(
         onWillPop: () async {
           return shouldPop;
@@ -106,117 +102,121 @@ class _Links extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NavigationBloc, NavigationState>(
       builder: (context, state) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Flexible(
-              flex: 5,
-              child: SizedBox(
-                child: Column(
-                  children: [
-                    NameAndNumber(screenWidth: screenWidth * 0.75),
-                    TextLink(
-                      onPressed: () async {
-                        final userName =
-                            Provider.of<DataModel>(context, listen: false)
-                                    .getName ??
-                                '';
-                        final userImage =
-                            Provider.of<DataModel>(context, listen: false)
-                                    .getUserImage ??
-                                '';
-                        final userNumber =
-                            Provider.of<DataModel>(context, listen: false)
-                                    .getNumber ??
-                                '';
-                        List result = await Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return ProfileEdit(
-                            userName: userName,
-                            userImage: userImage,
-                            userNumber: userNumber,
-                          );
-                        }));
-                        if (result.isNotEmpty) {
-                          context.read<DataModel>().userName(result[0]);
-                          context.read<DataModel>().userNumber(result[1]);
-                          context.read<DataModel>().userImage(result[2]);
-                        }
-                      },
-                      text: 'Редактировать',
+        return BlocBuilder<ProfilePageBloc, ProfilePageState>(
+          builder: (context, state2) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Flexible(
+                  flex: 5,
+                  child: SizedBox(
+                    child: Column(
+                      children: [
+                        NameAndNumber(screenWidth: screenWidth * 0.75),
+                        TextLink(
+                          onPressed: () async {
+                            final userName = state2.name;
+                            final userImage = state2.image;
+                            final userNumber = state2.number;
+                            List result = await Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return ProfileEdit(
+                                userName: userName!,
+                                userImage: userImage!,
+                                userNumber: userNumber!,
+                              );
+                            }));
+                            if (result.isNotEmpty) {
+                              context
+                                  .read<ProfilePageBloc>()
+                                  .add(ProfilePageEvent(
+                                    name: result[0],
+                                    number: result[1],
+                                    image: result[2],
+                                  ));
+                            }
+                          },
+                          text: 'Редактировать',
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-            Flexible(
-              flex: 4,
-              child: SizedBox(
-                child: Column(
-                  children: [
-                    TextLink(
-                      onPressed: () => NavigateToPage.instance?.navigate(
-                        context,
-                        index: 7,
-                        currentIndex: state.currentIndex,
-                        route: SubscriptionPage.routeName,
-                      ),
-                      underline: false,
-                      text: 'Подписка',
-                    ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    BlocBuilder<ProgressIndicatorBloc, ProgressIndicatorState>(
-                      builder: (context, state) {
-                        if (state.status == ProgressIndicatorStatus.initial) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                        if (state.status == ProgressIndicatorStatus.emptyList) {
-                          return const CustomProgressIndicator(
-                            size: 150,
-                          );
-                        }
-                        if (state.status == ProgressIndicatorStatus.failed) {
-                          return const CustomProgressIndicator(
-                            size: 150,
-                          );
-                        }
-                        if (state.status == ProgressIndicatorStatus.success) {
-                          final user = state.progressIndicator.last;
-                          return CustomProgressIndicator(
-                            size: user.totalSize ?? 0,
-                          );
-                        } else {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TextLink(
-                            text: 'Вийти из приложения',
-                            onPressed: () async {
-                              await _auth.signOut();
-                              exit(0);
-                            },
+                Flexible(
+                  flex: 4,
+                  child: SizedBox(
+                    child: Column(
+                      children: [
+                        TextLink(
+                          onPressed: () => NavigateToPage.instance?.navigate(
+                            context,
+                            index: 7,
+                            currentIndex: state.currentIndex,
+                            route: SubscriptionPage.routeName,
                           ),
-                          DeleteAccount(),
-                        ],
-                      ),
-                    )
-                  ],
+                          underline: false,
+                          text: 'Подписка',
+                        ),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        BlocBuilder<ProgressIndicatorBloc,
+                            ProgressIndicatorState>(
+                          builder: (context, state) {
+                            if (state.status ==
+                                ProgressIndicatorStatus.initial) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                            if (state.status ==
+                                ProgressIndicatorStatus.emptyList) {
+                              return const CustomProgressIndicator(
+                                size: 150,
+                              );
+                            }
+                            if (state.status ==
+                                ProgressIndicatorStatus.failed) {
+                              return const CustomProgressIndicator(
+                                size: 150,
+                              );
+                            }
+                            if (state.status ==
+                                ProgressIndicatorStatus.success) {
+                              final user = state.progressIndicator.last;
+                              return CustomProgressIndicator(
+                                size: user.totalSize ?? 0,
+                              );
+                            } else {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                          },
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              TextLink(
+                                text: 'Вийти из приложения',
+                                onPressed: () async {
+                                  await _auth.signOut();
+                                  exit(0);
+                                },
+                              ),
+                              DeleteAccount(),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ],
+              ],
+            );
+          },
         );
       },
     );

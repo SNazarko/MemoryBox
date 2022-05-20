@@ -27,6 +27,7 @@ class _FirstAuthorizationPageState extends State<FirstAuthorizationPage> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
     return WillPopScope(
       onWillPop: () async {
         return shouldPop;
@@ -38,34 +39,44 @@ class _FirstAuthorizationPageState extends State<FirstAuthorizationPage> {
               title: 'MemoryBox',
               subtitle: 'Твой голос всегда рядом',
             ),
-            const SizedBox(
-              height: 40.0,
-            ),
-            const ContainerShadow(
-                image: Text(''),
-                width: 300.0,
-                height: 80.0,
-                widget: Text(
-                  'Мы рады тебя видеть',
-                  style: kBodiTextStyle,
+            SizedBox(
+              height: screenHeight - 300.0,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 50.0),
+                child: Column(
+                  children: [
+                    const Expanded(
+                      child: SizedBox(),
+                    ),
+                    const ContainerShadow(
+                        image: Text(''),
+                        width: 300.0,
+                        height: 80.0,
+                        widget: Text(
+                          'Мы рады тебя видеть',
+                          style: kBodiTextStyle,
+                        ),
+                        radius: 20.0),
+                    const Expanded(
+                      child: SizedBox(),
+                    ),
+                    Image.asset(AppIcons.heart),
+                    const Expanded(
+                      child: SizedBox(),
+                    ),
+                    const ContainerShadow(
+                        image: Text(''),
+                        width: 250.0,
+                        height: 75.0,
+                        widget: Text(
+                          'Взрослые иногда нуждаются в \n сказке даже больше, чем дети',
+                          style: kBodi2TextStyle,
+                        ),
+                        radius: 20.0),
+                  ],
                 ),
-                radius: 20.0),
-            const SizedBox(
-              height: 50.0,
+              ),
             ),
-            Image.asset(AppIcons.heart),
-            const SizedBox(
-              height: 50.0,
-            ),
-            const ContainerShadow(
-                image: Text(''),
-                width: 250.0,
-                height: 75.0,
-                widget: Text(
-                  'Взрослые иногда нуждаются в \n сказке даже больше, чем дети',
-                  style: kBodi2TextStyle,
-                ),
-                radius: 20.0),
           ],
         ),
       ),

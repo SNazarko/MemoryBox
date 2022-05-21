@@ -6,11 +6,18 @@ import 'app_authorization_event.dart';
 import 'app_authorization_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc() : super(const AuthState()) {
-    on<PhoneNumberVerificationIdEvent>(
-        (PhoneNumberVerificationIdEvent event, Emitter<AuthState> emit) async {
+  AuthBloc()
+      : super(
+          const AuthState(),
+        ) {
+    on<PhoneNumberVerificationIdEvent>((
+      PhoneNumberVerificationIdEvent event,
+      Emitter<AuthState> emit,
+    ) async {
       emit(
-        state.copyWith(status: AuthStatus.loading),
+        state.copyWith(
+          status: AuthStatus.loading,
+        ),
       );
       try {
         await AuthRepositories.instance.verifyPhoneSendOtp(event.phone!,
@@ -18,18 +25,33 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           if (kDebugMode) {
             print('completed');
           }
-          add(CompletedAuthEvent(credential: credential));
+          add(
+            CompletedAuthEvent(credential: credential),
+          );
         }, failed: (error) {
           if (kDebugMode) {
             print(error);
           }
-          add(ErrorOccuredEvent(error: error.toString()));
-        }, codeSent: (String id, int? token) {
-          add(CodeSendEvent(token: token, verificationId: id));
+          add(
+            ErrorOccurredEvent(
+              error: error.toString(),
+            ),
+          );
+        }, codeSent: (
+          String id,
+          int? token,
+        ) {
+          add(
+            CodeSendEvent(
+              token: token,
+              verificationId: id,
+            ),
+          );
         }, codeAutoRetrievalTimeout: (String id) {
-          // add(CodeSendEvent(verificationId: id, token: 0));
           if (AuthRepositories.instance.user == null) {
-            add(ErrorCodeSendEvent());
+            add(
+              ErrorCodeSendEvent(),
+            );
           }
         });
       } on Exception catch (e) {
@@ -38,7 +60,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
       }
     });
-    on<ErrorCodeSendEvent>((ErrorCodeSendEvent event, Emitter<AuthState> emit) {
+    on<ErrorCodeSendEvent>((
+      ErrorCodeSendEvent event,
+      Emitter<AuthState> emit,
+    ) {
       emit(
         state.copyWith(
           status: AuthStatus.failedCodeSent,
@@ -46,7 +71,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       );
     });
 
-    on<ErrorOccuredEvent>((ErrorOccuredEvent event, Emitter<AuthState> emit) {
+    on<ErrorOccurredEvent>((
+      ErrorOccurredEvent event,
+      Emitter<AuthState> emit,
+    ) {
       emit(
         state.copyWith(
           status: AuthStatus.failed,
@@ -64,10 +92,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           event.phone!,
         );
       } on Exception {
-        add(ErrorCodeSendEvent());
+        add(
+          ErrorCodeSendEvent(),
+        );
       }
     });
-    on<CodeSendEvent>((CodeSendEvent event, Emitter<AuthState> emit) {
+    on<CodeSendEvent>((
+      CodeSendEvent event,
+      Emitter<AuthState> emit,
+    ) {
       emit(
         state.copyWith(
           status: AuthStatus.codeSent,

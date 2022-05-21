@@ -26,7 +26,7 @@ class AudioModel {
       this.collections,
       this.size});
 
-  factory AudioModel.fromJson(Map<String, dynamic> json) {
+  factory AudioModel.fromJson(Map<String, dynamic> json,) {
     return AudioModel(
       id: json['id'],
       audioName: json['audioName'],

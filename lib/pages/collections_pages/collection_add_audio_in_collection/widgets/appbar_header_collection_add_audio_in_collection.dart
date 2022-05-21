@@ -32,7 +32,9 @@ class AppbarHeaderCollectionAddAudioInCollection extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10.0,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -40,17 +42,23 @@ class AppbarHeaderCollectionAddAudioInCollection extends StatelessWidget {
                     onPressed: () {
                       var uuid = const Uuid();
                       var id = uuid.v1();
-                      CollectionsRepositories.instance
-                          .addCollections('Без названия', '...', '', id);
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return CollectionsEdit(
-                          idCollection: id,
-                          titleCollection: 'Без названия',
-                          subTitleCollection: '...',
-                          imageCollection: '',
-                        );
-                      }));
+                      CollectionsRepositories.instance.addCollections(
+                        'Без названия',
+                        '...',
+                        '',
+                        id,
+                      );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return CollectionsEdit(
+                            idCollection: id,
+                            titleCollection: 'Без названия',
+                            subTitleCollection: '...',
+                            imageCollection: '',
+                          );
+                        }),
+                      );
                     },
                     icon: const Icon(
                       Icons.add,

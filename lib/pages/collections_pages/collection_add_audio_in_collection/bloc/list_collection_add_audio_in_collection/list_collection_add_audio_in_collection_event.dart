@@ -22,5 +22,7 @@ class UpdateListCollectionAddAudioInCollectionEvent
 
   @override
   // TODO: implement props
-  List<Object?> get props => [list];
+  List<Object?> get props => [
+        list,
+      ];
 }

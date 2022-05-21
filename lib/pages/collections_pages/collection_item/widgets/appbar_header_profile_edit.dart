@@ -38,7 +38,10 @@ class AppbarHeaderCollectionItem extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 30.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 15.0,
+            vertical: 30.0,
+          ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,19 +64,20 @@ class AppbarHeaderCollectionItem extends StatelessWidget {
           ),
         ),
         Padding(
-            padding: const EdgeInsets.only(
-              top: 90.0,
-              left: 15.0,
-              right: 15.0,
+          padding: const EdgeInsets.only(
+            top: 90.0,
+            left: 15.0,
+            right: 15.0,
+          ),
+          child: Text(
+            titleCollection,
+            style: const TextStyle(
+              fontSize: 24.0,
+              color: AppColor.white100,
+              fontWeight: FontWeight.w700,
             ),
-            child: Text(
-              titleCollection,
-              style: const TextStyle(
-                fontSize: 24.0,
-                color: AppColor.white100,
-                fontWeight: FontWeight.w700,
-              ),
-            )),
+          ),
+        ),
       ],
     );
   }

@@ -43,18 +43,21 @@ class _LastAuthorizationPageState extends State<LastAuthorizationPage> {
                 height: 40.0,
               ),
               const ContainerShadow(
-                  image: Text(''),
-                  width: 300.0,
-                  height: 80.0,
-                  widget: Text(
-                    'Мы рады тебя видеть',
-                    style: kBodiTextStyle,
-                  ),
-                  radius: 20.0),
+                image: Text(''),
+                width: 300.0,
+                height: 80.0,
+                widget: Text(
+                  'Мы рады тебя видеть',
+                  style: kBodyTextStyle,
+                ),
+                radius: 20.0,
+              ),
               const SizedBox(
                 height: 50.0,
               ),
-              Image.asset(AppIcons.heart),
+              Image.asset(
+                AppIcons.heart,
+              ),
             ],
           ),
         ),

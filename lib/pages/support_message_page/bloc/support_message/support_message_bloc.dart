@@ -12,24 +12,37 @@ part 'support_message_state.dart';
 class SupportMessageBloc
     extends Bloc<SupportMessageEvent, SupportMessageState> {
   StreamSubscription? _messageSubscription;
-  SupportMessageBloc() : super(const SupportMessageState()) {
-    on<LoadSupportMessageEvent>(
-        (LoadSupportMessageEvent event, Emitter<SupportMessageState> emit) {
+  SupportMessageBloc()
+      : super(
+          const SupportMessageState(),
+        ) {
+    on<LoadSupportMessageEvent>((
+      LoadSupportMessageEvent event,
+      Emitter<SupportMessageState> emit,
+    ) {
       try {
         _messageSubscription?.cancel();
         _messageSubscription =
             UserRepositories.instance.readUserShat().listen((shatList) {
-          add(UpdateSupportMessageEvent(list: shatList));
+          add(
+            UpdateSupportMessageEvent(
+              list: shatList,
+            ),
+          );
         });
       } on Exception {
-        emit(state.copyWith(
-          status: SupportMessageStatus.failed,
-        ));
+        emit(
+          state.copyWith(
+            status: SupportMessageStatus.failed,
+          ),
+        );
       }
     });
 
-    on<UpdateSupportMessageEvent>(
-        (UpdateSupportMessageEvent event, Emitter<SupportMessageState> emit) {
+    on<UpdateSupportMessageEvent>((
+      UpdateSupportMessageEvent event,
+      Emitter<SupportMessageState> emit,
+    ) {
       emit(
         state.copyWith(
           status: SupportMessageStatus.success,

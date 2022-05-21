@@ -45,7 +45,10 @@ class ListPlayersDeletePage extends StatelessWidget {
                   }
                   if (state.status == ListItemStatus.success) {
                     return ListView.builder(
-                      padding: const EdgeInsets.only(top: 130.0, bottom: 110.0),
+                      padding: const EdgeInsets.only(
+                        top: 130.0,
+                        bottom: 110.0,
+                      ),
                       itemCount: state.list.length,
                       itemBuilder: (BuildContext context, int index) {
                         final audio = state.list[index];

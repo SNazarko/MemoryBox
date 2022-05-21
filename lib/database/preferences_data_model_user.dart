@@ -8,19 +8,34 @@ class PreferencesDataUser {
 
   // Save data in SharedPreferences
 
-  Future<void> saveImage(String image) async {
+  Future<void> saveImage(
+    String image,
+  ) async {
     SharedPreferences storageData = await _storage;
-    storageData.setString('image_key', image);
+    storageData.setString(
+      'image_key',
+      image,
+    );
   }
 
-  Future<void> saveName(String name) async {
+  Future<void> saveName(
+    String name,
+  ) async {
     SharedPreferences storageData = await _storage;
-    storageData.setString('name_key', name);
+    storageData.setString(
+      'name_key',
+      name,
+    );
   }
 
-  Future<void> saveNumber(String number) async {
+  Future<void> saveNumber(
+    String number,
+  ) async {
     SharedPreferences storageData = await _storage;
-    storageData.setString('number_key', number);
+    storageData.setString(
+      'number_key',
+      number,
+    );
   }
 
   Future<void> cleanKey() async {

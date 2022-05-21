@@ -49,12 +49,15 @@ class PopupMenuAudioRecording extends StatelessWidget {
 
   void _addInCollection(BuildContext context) {
     Timer(const Duration(seconds: 1), () {
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return CollectionAddAudioInCollection(
-          collectionAudio: collection,
-          idAudio: idAudio,
-        );
-      }));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) {
+          return CollectionAddAudioInCollection(
+            collectionAudio: collection,
+            idAudio: idAudio,
+          );
+        }),
+      );
     });
   }
 
@@ -67,11 +70,14 @@ class PopupMenuAudioRecording extends StatelessWidget {
       iconSize: 40,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
-          Radius.circular(15),
+          Radius.circular(15.0),
         ),
       ),
       itemBuilder: (context) => [
-        popupMenuItem('Переименовать', () => _rename(context)),
+        popupMenuItem(
+          'Переименовать',
+          () => _rename(context),
+        ),
         popupMenuItem(
           'Добавить в подборку',
           () => _addInCollection(context),
@@ -87,7 +93,10 @@ class PopupMenuAudioRecording extends StatelessWidget {
         ),
         popupMenuItem(
           'Поделиться',
-          () => AudioRepositories.instance.downloadAudio(idAudio, name),
+          () => AudioRepositories.instance.downloadAudio(
+            idAudio,
+            name,
+          ),
         ),
       ],
     );

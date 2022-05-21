@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memory_box/utils/constants.dart';
 import 'package:memory_box/widgets/uncategorized/container_shadow.dart';
-import 'package:provider/src/provider.dart';
 import '../blocs/profile_page/profile_page_bloc.dart';
-import '../profile_model.dart';
 
 class NameAndNumber extends StatelessWidget {
   const NameAndNumber({Key? key, required this.screenWidth}) : super(key: key);
@@ -21,7 +19,7 @@ class NameAndNumber extends StatelessWidget {
             ),
             Text(
               '${state.name}',
-              style: kBodiTextStyle,
+              style: kBodyTextStyle,
             ),
             const SizedBox(
               height: 10.0,

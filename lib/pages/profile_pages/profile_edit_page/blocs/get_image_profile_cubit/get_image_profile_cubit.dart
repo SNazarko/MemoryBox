@@ -10,14 +10,19 @@ part 'get_image_profile_state.dart';
 
 class GetImageProfileCubit extends Cubit<GetImageProfileState> {
   final ImagePick _imagePick = ImagePick();
-  GetImageProfileCubit() : super(const GetImageProfileState());
+  GetImageProfileCubit()
+      : super(
+          const GetImageProfileState(),
+        );
   Future<void> getImage() async {
     String? _singleImage;
     XFile? _image = await _imagePick.singleImagePick();
     if (_image != null && _image.path.isNotEmpty) {
       _singleImage = await UserRepositories.instance.uploadImage(_image);
       emit(
-        state.copyWith(image: _singleImage),
+        state.copyWith(
+          image: _singleImage,
+        ),
       );
     }
   }

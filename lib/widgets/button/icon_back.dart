@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class IconBack extends StatelessWidget {
-  const IconBack({Key? key, this.onPressed}) : super(key: key);
+  const IconBack({
+    Key? key,
+    this.onPressed,
+  }) : super(key: key);
   final void Function()? onPressed;
 
   @override
@@ -20,7 +23,9 @@ class IconBack extends StatelessWidget {
           Center(
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
+                border: Border.all(
+                  color: Colors.black,
+                ),
                 borderRadius: const BorderRadius.all(
                   Radius.circular(50.0),
                 ),
@@ -30,7 +35,9 @@ class IconBack extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 5.0),
+            padding: const EdgeInsets.only(
+              left: 5.0,
+            ),
             child: IconButton(
               iconSize: 30.0,
               color: Colors.white,

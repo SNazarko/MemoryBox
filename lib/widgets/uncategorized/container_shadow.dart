@@ -27,7 +27,10 @@ class ContainerShadow extends StatelessWidget {
           boxShadow: <BoxShadow>[
             BoxShadow(
               color: Colors.grey.shade300,
-              offset: const Offset(0.0, 5.0),
+              offset: const Offset(
+                0.0,
+                5.0,
+              ),
               blurRadius: 5.0,
             )
           ]),
@@ -43,7 +46,9 @@ class ContainerShadow extends StatelessWidget {
         child: Stack(
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(20.0),
+              ),
               child: SizedBox(
                 width: width,
                 height: height,

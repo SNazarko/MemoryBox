@@ -27,5 +27,8 @@ class BlueListItemState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [status, list];
+  List<Object?> get props => [
+        status,
+        list,
+      ];
 }

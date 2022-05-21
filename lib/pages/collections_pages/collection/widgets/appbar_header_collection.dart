@@ -26,7 +26,9 @@ class AppbarHeaderCollection extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -34,16 +36,23 @@ class AppbarHeaderCollection extends StatelessWidget {
                 onPressed: () {
                   var uuid = const Uuid();
                   var id = uuid.v1();
-                  CollectionsRepositories.instance
-                      .addCollections('Без названия', '...', '', id);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return CollectionsEdit(
-                      idCollection: id,
-                      titleCollection: 'Без названия',
-                      subTitleCollection: '...',
-                      imageCollection: '',
-                    );
-                  }));
+                  CollectionsRepositories.instance.addCollections(
+                    'Без названия',
+                    '...',
+                    '',
+                    id,
+                  );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return CollectionsEdit(
+                        idCollection: id,
+                        titleCollection: 'Без названия',
+                        subTitleCollection: '...',
+                        imageCollection: '',
+                      );
+                    }),
+                  );
                 },
                 icon: const Icon(
                   Icons.add,
@@ -60,7 +69,9 @@ class AppbarHeaderCollection extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 40.0),
+          padding: const EdgeInsets.only(
+            top: 40.0,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [

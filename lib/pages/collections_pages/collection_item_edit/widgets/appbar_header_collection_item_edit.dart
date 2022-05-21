@@ -55,7 +55,10 @@ class AppbarHeaderCollectionItemEditState
       state.subTitle ?? widget.subTitleCollection,
       stateImage.image ?? widget.imageCollection,
     );
-    Navigator.pushNamed(context, Collections.routeName);
+    Navigator.pushNamed(
+      context,
+      Collections.routeName,
+    );
   }
 
   @override
@@ -78,14 +81,19 @@ class AppbarHeaderCollectionItemEditState
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 15.0, vertical: 27.0),
+                    horizontal: 15.0,
+                    vertical: 27.0,
+                  ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconBack(
-                        onPressed: () =>
-                            _editCollections(context, state, stateImage),
+                        onPressed: () => _editCollections(
+                          context,
+                          state,
+                          stateImage,
+                        ),
                       ),
                       TextButton(
                         onPressed: () {
@@ -100,8 +108,11 @@ class AppbarHeaderCollectionItemEditState
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.only(top: 90.0, left: 15.0, right: 15.0),
+                  padding: const EdgeInsets.only(
+                    top: 90.0,
+                    left: 15.0,
+                    right: 15.0,
+                  ),
                   child: TextField(
                     autofocus: true,
                     controller: _controller,

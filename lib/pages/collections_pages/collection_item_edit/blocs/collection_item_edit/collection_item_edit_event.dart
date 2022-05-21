@@ -9,7 +9,6 @@ class CollectionItemEditEvent extends Equatable {
   final String? subTitle;
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
         title,
         subTitle,

@@ -62,10 +62,10 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
         Icons.more_horiz,
         color: AppColor.white,
       ),
-      iconSize: 40,
+      iconSize: 40.0,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
-          Radius.circular(15),
+          Radius.circular(15.0),
         ),
       ),
       itemBuilder: (_) => [
@@ -73,17 +73,20 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
           'Редактировать',
           () {
             Timer(const Duration(seconds: 1), () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return CollectionItemEditPage(
-                  qualityCollection: qualityCollection,
-                  dataCollection: dataCollection,
-                  titleCollection: titleCollection,
-                  imageCollection: imageCollection,
-                  idCollection: idCollection,
-                  totalTimeCollection: totalTimeCollection,
-                  subTitleCollection: subTitleCollection,
-                );
-              }));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return CollectionItemEditPage(
+                    qualityCollection: qualityCollection,
+                    dataCollection: dataCollection,
+                    titleCollection: titleCollection,
+                    imageCollection: imageCollection,
+                    idCollection: idCollection,
+                    totalTimeCollection: totalTimeCollection,
+                    subTitleCollection: subTitleCollection,
+                  );
+                }),
+              );
             });
           },
         ),
@@ -91,17 +94,20 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
           'Выбрать несколько',
           () {
             Timer(const Duration(seconds: 1), () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return CollectionItemEditAudio(
-                  qualityCollection: qualityCollection,
-                  dataCollection: dataCollection,
-                  titleCollection: titleCollection,
-                  imageCollection: imageCollection,
-                  idCollection: idCollection,
-                  totalTimeCollection: totalTimeCollection,
-                  subTitleCollection: subTitleCollection,
-                );
-              }));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return CollectionItemEditAudio(
+                    qualityCollection: qualityCollection,
+                    dataCollection: dataCollection,
+                    titleCollection: titleCollection,
+                    imageCollection: imageCollection,
+                    idCollection: idCollection,
+                    totalTimeCollection: totalTimeCollection,
+                    subTitleCollection: subTitleCollection,
+                  );
+                }),
+              );
             });
           },
         ),
@@ -113,7 +119,10 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
                 idCollection,
                 'CollectionsTale',
               );
-              Navigator.pushNamed(context, Collections.routeName);
+              Navigator.pushNamed(
+                context,
+                Collections.routeName,
+              );
             });
           },
         ),
@@ -122,7 +131,12 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
           () async {
             await _getIdAudio(context);
             List<String> listFilePath = [];
-            for (var item in IterableZip([idAudioList, nameList])) {
+            for (var item in IterableZip(
+              [
+                idAudioList,
+                nameList,
+              ],
+            )) {
               final idAudio = item[0];
               final name = item[1];
               Directory directory = await getTemporaryDirectory();
@@ -131,8 +145,11 @@ class PopupMenuCollectionItemPage extends StatelessWidget {
               try {
                 await FirebaseStorage.instance
                     .ref(
-                        '${AuthRepositories.instance.user!.phoneNumber!}/userAudio/$idAudio.m4a')
-                    .writeToFile(File(filePath));
+                      '${AuthRepositories.instance.user!.phoneNumber!}/userAudio/$idAudio.m4a',
+                    )
+                    .writeToFile(
+                      File(filePath),
+                    );
               } on FirebaseException catch (e) {
                 if (kDebugMode) {
                   print('Ошибка $e');

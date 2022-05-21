@@ -11,9 +11,14 @@ part 'collection_add_audio_state.dart';
 class CollectionAddAudioBloc
     extends Bloc<CollectionAddAudioEvent, CollectionAddAudioState> {
   StreamSubscription? _audioSubscription;
-  CollectionAddAudioBloc() : super(const CollectionAddAudioState()) {
-    on<LoadCollectionAddAudioEvent>((LoadCollectionAddAudioEvent event,
-        Emitter<CollectionAddAudioState> emit) {
+  CollectionAddAudioBloc()
+      : super(
+          const CollectionAddAudioState(),
+        ) {
+    on<LoadCollectionAddAudioEvent>((
+      LoadCollectionAddAudioEvent event,
+      Emitter<CollectionAddAudioState> emit,
+    ) {
       try {
         if (event.sort == null || event.sort == '') {
           _audioSubscription?.cancel();
@@ -47,14 +52,18 @@ class CollectionAddAudioBloc
           });
         }
       } on Exception {
-        emit(state.copyWith(
-          status: CollectionAddAudioStatus.failed,
-        ));
+        emit(
+          state.copyWith(
+            status: CollectionAddAudioStatus.failed,
+          ),
+        );
       }
     });
 
-    on<UpdateCollectionAddAudioEvent>((UpdateCollectionAddAudioEvent event,
-        Emitter<CollectionAddAudioState> emit) {
+    on<UpdateCollectionAddAudioEvent>((
+      UpdateCollectionAddAudioEvent event,
+      Emitter<CollectionAddAudioState> emit,
+    ) {
       emit(
         state.copyWith(
           status: CollectionAddAudioStatus.success,

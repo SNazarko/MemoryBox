@@ -33,34 +33,36 @@ class PopupMenuHomePage extends StatelessWidget {
 
   void _rename(BuildContext context) {
     Timer(const Duration(seconds: 1), () {
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return SavePage(
-          audioUrl: url,
-          audioImage: image,
-          audioDone: done,
-          audioTime: dateTime,
-          audioSearchName: searchName,
-          audioCollection: collection,
-          idAudio: idAudio,
-          audioDuration: duration,
-          audioName: name,
-        );
-      }));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) {
+          return SavePage(
+            audioUrl: url,
+            audioImage: image,
+            audioDone: done,
+            audioTime: dateTime,
+            audioSearchName: searchName,
+            audioCollection: collection,
+            idAudio: idAudio,
+            audioDuration: duration,
+            audioName: name,
+          );
+        }),
+      );
     });
   }
 
   void _addInCollections(BuildContext context) {
     Timer(const Duration(seconds: 1), () {
-      // context
-      //     .read<CollectionAddAudioInCollectionModel>()
-      //     .setCollectionAudio(collection);
-      // context.read<CollectionAddAudioInCollectionModel>().setIdAudio(idAudio);
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return CollectionAddAudioInCollection(
-          collectionAudio: collection,
-          idAudio: idAudio,
-        );
-      }));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) {
+          return CollectionAddAudioInCollection(
+            collectionAudio: collection,
+            idAudio: idAudio,
+          );
+        }),
+      );
     });
   }
 
@@ -73,7 +75,7 @@ class PopupMenuHomePage extends StatelessWidget {
       iconSize: 40,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
-          Radius.circular(15),
+          Radius.circular(15.0),
         ),
       ),
       itemBuilder: (context) => [
@@ -94,8 +96,13 @@ class PopupMenuHomePage extends StatelessWidget {
             'Collections',
           ),
         ),
-        popupMenuItem('Поделиться',
-            () => AudioRepositories.instance.downloadAudio(idAudio, name)),
+        popupMenuItem(
+          'Поделиться',
+          () => AudioRepositories.instance.downloadAudio(
+            idAudio,
+            name,
+          ),
+        ),
       ],
     );
   }

@@ -9,7 +9,6 @@ class LoadProgressIndicatorEvent extends ProgressIndicatorEvent {
   const LoadProgressIndicatorEvent();
 
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
@@ -20,6 +19,7 @@ class UpdateProgressIndicatorEvent extends ProgressIndicatorEvent {
   final List progressIndicator;
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [progressIndicator];
+  List<Object?> get props => [
+        progressIndicator,
+      ];
 }

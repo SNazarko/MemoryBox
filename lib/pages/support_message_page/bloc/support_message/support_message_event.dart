@@ -8,7 +8,6 @@ abstract class SupportMessageEvent extends Equatable {
 class LoadSupportMessageEvent extends SupportMessageEvent {
   const LoadSupportMessageEvent();
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
@@ -19,6 +18,7 @@ class UpdateSupportMessageEvent extends SupportMessageEvent {
   final List? list;
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [list];
+  List<Object?> get props => [
+        list,
+      ];
 }

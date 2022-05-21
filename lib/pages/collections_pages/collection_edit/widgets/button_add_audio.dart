@@ -19,16 +19,26 @@ class ButtonAddAudio extends StatelessWidget {
   final String subTitleCollection;
   final String imageCollection;
 
-  void _addAudioInCollection(BuildContext context, state, stateImage) {
+  void _addAudioInCollection(
+    BuildContext context,
+    state,
+    stateImage,
+  ) {
     final title = state.title ?? titleCollection;
     CollectionsRepositories.instance.updateCollection(
-        idCollection,
-        state.title ?? titleCollection,
-        state.subTitle ?? subTitleCollection,
-        stateImage.image ?? imageCollection);
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return CollectionsAddAudio(titleCollections: title);
-    }));
+      idCollection,
+      state.title ?? titleCollection,
+      state.subTitle ?? subTitleCollection,
+      stateImage.image ?? imageCollection,
+    );
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) {
+        return CollectionsAddAudio(
+          titleCollections: title,
+        );
+      }),
+    );
   }
 
   @override
@@ -38,18 +48,22 @@ class ButtonAddAudio extends StatelessWidget {
         return BlocBuilder<GetImageCubit, GetImageState>(
           builder: (_, stateImage) {
             return TextButton(
-                onPressed: () =>
-                    _addAudioInCollection(context, state, stateImage),
-                child: const Center(
-                  child: Text(
-                    'Добавить аудиофайл',
-                    style: TextStyle(
-                      color: AppColor.colorText80,
-                      fontSize: 14.0,
-                      decoration: TextDecoration.underline,
-                    ),
+              onPressed: () => _addAudioInCollection(
+                context,
+                state,
+                stateImage,
+              ),
+              child: const Center(
+                child: Text(
+                  'Добавить аудиофайл',
+                  style: TextStyle(
+                    color: AppColor.colorText80,
+                    fontSize: 14.0,
+                    decoration: TextDecoration.underline,
                   ),
-                ));
+                ),
+              ),
+            );
           },
         );
       },

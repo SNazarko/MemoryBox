@@ -29,7 +29,9 @@ class UserModel {
     this.onlyMonth,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
+  factory UserModel.fromJson(
+    Map<String, dynamic> json,
+  ) {
     return UserModel(
       displayName: json['displayName'],
       phoneNumb: json['phoneNumb'],

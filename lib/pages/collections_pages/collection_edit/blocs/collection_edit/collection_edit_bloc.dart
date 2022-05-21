@@ -7,12 +7,20 @@ part 'collection_edit_state.dart';
 
 class CollectionEditBloc
     extends Bloc<CollectionEditEvent, CollectionEditState> {
-  CollectionEditBloc() : super(const CollectionEditState()) {
-    on<CollectionEditEvent>((event, emit) {
-      emit(state.copyWith(
-        title: event.title,
-        subTitle: event.subTitle,
-      ));
+  CollectionEditBloc()
+      : super(
+          const CollectionEditState(),
+        ) {
+    on<CollectionEditEvent>((
+      event,
+      emit,
+    ) {
+      emit(
+        state.copyWith(
+          title: event.title,
+          subTitle: event.subTitle,
+        ),
+      );
     });
   }
 }

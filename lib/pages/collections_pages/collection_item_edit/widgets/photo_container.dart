@@ -7,8 +7,10 @@ import 'package:memory_box/widgets/button/icon_camera.dart';
 import '../blocs/get_image_cubit/get_image_cubit.dart';
 
 class PhotoContainer extends StatelessWidget {
-  const PhotoContainer({Key? key, required this.imageCollection})
-      : super(key: key);
+  const PhotoContainer({
+    Key? key,
+    required this.imageCollection,
+  }) : super(key: key);
   final String imageCollection;
 
   @override

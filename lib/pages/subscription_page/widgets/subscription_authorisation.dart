@@ -36,7 +36,9 @@ class SubscriptionAuthorisation extends StatelessWidget {
         }
         if (state.status == SubscriptionPageStatus.failed) {
           return const Center(
-            child: Text('Ой: сталася помилка!'),
+            child: Text(
+              'Ой: сталася помилка!',
+            ),
           );
         } else {
           return const Center(
@@ -83,8 +85,14 @@ class _Subscription extends StatelessWidget {
           child: Column(
             children: [
               const Padding(
-                padding: EdgeInsets.only(top: 25.0, bottom: 20.0),
-                child: Text('Выбери подписку', style: kBodiTextStyle),
+                padding: EdgeInsets.only(
+                  top: 25.0,
+                  bottom: 20.0,
+                ),
+                child: Text(
+                  'Выбери подписку',
+                  style: kBodyTextStyle,
+                ),
               ),
               _SubscriptionItem(
                 screenWidth: screenWidth,
@@ -121,12 +129,21 @@ class _SubscriptionItem extends StatelessWidget {
   Future<void> subscriptionOnceAMonth() async {
     done = !done!;
     if (done!) {
-      await _rep.subscriptionDone('onceAMonth', true);
-      await _rep.subscriptionDone('onceAYear', false);
+      await _rep.subscriptionDone(
+        'onceAMonth',
+        true,
+      );
+      await _rep.subscriptionDone(
+        'onceAYear',
+        false,
+      );
       await _rep.subscription(31);
     }
     if (!done!) {
-      await _rep.subscriptionDone('onceAMonth', false);
+      await _rep.subscriptionDone(
+        'onceAMonth',
+        false,
+      );
       await _rep.subscription(0);
     }
   }
@@ -134,12 +151,21 @@ class _SubscriptionItem extends StatelessWidget {
   Future<void> subscriptionOnceAYear() async {
     done = !done!;
     if (done!) {
-      await _rep.subscriptionDone('onceAYear', true);
-      await _rep.subscriptionDone('onceAMonth', false);
+      await _rep.subscriptionDone(
+        'onceAYear',
+        true,
+      );
+      await _rep.subscriptionDone(
+        'onceAMonth',
+        false,
+      );
       await _rep.subscription(365);
     }
     if (!done!) {
-      await _rep.subscriptionDone('onceAYear', false);
+      await _rep.subscriptionDone(
+        'onceAYear',
+        false,
+      );
       await _rep.subscription(0);
     }
   }
@@ -221,8 +247,11 @@ class _SubscriptionItem extends StatelessWidget {
 }
 
 class _Link extends StatelessWidget {
-  const _Link({Key? key, required this.image, required this.text})
-      : super(key: key);
+  const _Link({
+    Key? key,
+    required this.image,
+    required this.text,
+  }) : super(key: key);
   final String image;
   final String text;
 
@@ -261,7 +290,7 @@ class _DoneSubscriptionPage extends StatelessWidget {
     this.onTap,
     required this.done,
   }) : super(key: key);
-  final onTap;
+  final void Function()? onTap;
   final bool done;
 
   @override
@@ -271,10 +300,12 @@ class _DoneSubscriptionPage extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          width: 40,
-          height: 40,
+          width: 40.0,
+          height: 40.0,
           decoration: BoxDecoration(
-            border: Border.all(color: AppColor.colorText),
+            border: Border.all(
+              color: AppColor.colorText,
+            ),
             borderRadius: const BorderRadius.all(
               Radius.circular(25.0),
             ),
@@ -297,7 +328,11 @@ class _WhatDoesASubscriptionGive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20.0, left: 30.0, bottom: 10.0),
+      padding: const EdgeInsets.only(
+        top: 20.0,
+        left: 30.0,
+        bottom: 10.0,
+      ),
       child: SizedBox(
         height: 120.0,
         child: Column(
@@ -314,14 +349,17 @@ class _WhatDoesASubscriptionGive extends StatelessWidget {
               height: 10.0,
             ),
             _Link(
-                image: AppIcons.subscription_infinity,
-                text: 'Неограниченая память'),
+              image: AppIcons.subscription_infinity,
+              text: 'Неограниченая память',
+            ),
             _Link(
-                image: AppIcons.subscription_upload,
-                text: 'Все файлы хранятся в облаке'),
+              image: AppIcons.subscription_upload,
+              text: 'Все файлы хранятся в облаке',
+            ),
             _Link(
-                image: AppIcons.subscription_download,
-                text: 'Возможность скачивать без ограничений'),
+              image: AppIcons.subscription_download,
+              text: 'Возможность скачивать без ограничений',
+            ),
           ],
         ),
       ),
@@ -330,8 +368,10 @@ class _WhatDoesASubscriptionGive extends StatelessWidget {
 }
 
 class _SubscribeTo extends StatelessWidget {
-  const _SubscribeTo({Key? key, required this.finishTimeSubscription})
-      : super(key: key);
+  const _SubscribeTo({
+    Key? key,
+    required this.finishTimeSubscription,
+  }) : super(key: key);
   final Timestamp? finishTimeSubscription;
   @override
   Widget build(BuildContext context) {
@@ -340,20 +380,21 @@ class _SubscribeTo extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       child: SizedBox(
         child: Center(
-            child: Text(
-          'Подписка действует \n        '
-          '   до ${formatDate(date, [
-                dd,
-                '.',
-                mm,
-                '.',
-                yy,
-              ])}',
-          style: const TextStyle(
-            fontSize: 20.0,
-            color: AppColor.colorText50,
+          child: Text(
+            'Подписка действует \n        '
+            '   до ${formatDate(date, [
+                  dd,
+                  '.',
+                  mm,
+                  '.',
+                  yy,
+                ])}',
+            style: const TextStyle(
+              fontSize: 20.0,
+              color: AppColor.colorText50,
+            ),
           ),
-        )),
+        ),
       ),
     );
   }
@@ -365,16 +406,19 @@ class _SubscribeNow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Padding(
-      padding: EdgeInsets.only(top: 20.0),
+      padding: EdgeInsets.only(
+        top: 20.0,
+      ),
       child: SizedBox(
         child: Center(
-            child: Text(
-          'Подпишитесь сейчас!',
-          style: TextStyle(
-            fontSize: 20.0,
-            color: AppColor.colorText50,
+          child: Text(
+            'Подпишитесь сейчас!',
+            style: TextStyle(
+              fontSize: 20.0,
+              color: AppColor.colorText50,
+            ),
           ),
-        )),
+        ),
       ),
     );
   }
@@ -387,10 +431,16 @@ class _SubscribeForAMonth extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Padding(
-        padding: const EdgeInsets.only(top: 25.0, left: 10.0),
+        padding: const EdgeInsets.only(
+          top: 25.0,
+          left: 10.0,
+        ),
         child: ButtonContinue(
           onPressed: () {
-            UserRepositories.instance.subscriptionDone('onlyMonth', true);
+            UserRepositories.instance.subscriptionDone(
+              'onlyMonth',
+              true,
+            );
             UserRepositories.instance.subscription(31);
           },
           text: 'Подписаться на месяц',

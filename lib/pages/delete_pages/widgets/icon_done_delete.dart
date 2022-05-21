@@ -7,10 +7,8 @@ class IconDoneDelete extends StatefulWidget {
     Key? key,
     required this.id,
     required this.done,
-    // required this.collection,
   }) : super(key: key);
   final String? id;
-  // final List collection;
   final bool? done;
 
   @override
@@ -49,10 +47,12 @@ class _IconDoneDeleteState extends State<IconDoneDelete> {
           GestureDetector(
             onTap: () => _onTapDone(),
             child: Container(
-              width: 35,
-              height: 35,
+              width: 35.0,
+              height: 35.0,
               decoration: BoxDecoration(
-                border: Border.all(color: AppColor.colorText),
+                border: Border.all(
+                  color: AppColor.colorText,
+                ),
                 borderRadius: const BorderRadius.all(
                   Radius.circular(25.0),
                 ),

@@ -5,7 +5,6 @@ import 'package:memory_box/utils/constants.dart';
 
 import '../../../../widgets/uncategorized/appbar_clipper.dart';
 
-
 class AppbarHeaderCollectionNotAuthorization extends StatelessWidget {
   const AppbarHeaderCollectionNotAuthorization({Key? key}) : super(key: key);
 
@@ -23,7 +22,9 @@ class AppbarHeaderCollectionNotAuthorization extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
@@ -35,7 +36,9 @@ class AppbarHeaderCollectionNotAuthorization extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 40.0),
+          padding: const EdgeInsets.only(
+            top: 40.0,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [

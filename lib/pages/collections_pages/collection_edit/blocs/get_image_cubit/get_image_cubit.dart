@@ -10,7 +10,10 @@ part 'get_image_state.dart';
 
 class GetImageCubit extends Cubit<GetImageState> {
   final ImagePick _imagePick = ImagePick();
-  GetImageCubit() : super(const GetImageState());
+  GetImageCubit()
+      : super(
+          const GetImageState(),
+        );
   Future<void> getImage() async {
     String? _singleImage;
     XFile? _image = await _imagePick.singleImagePick();

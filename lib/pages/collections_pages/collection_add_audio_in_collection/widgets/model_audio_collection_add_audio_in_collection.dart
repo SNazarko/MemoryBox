@@ -110,7 +110,11 @@ class _ModelAudioCollectionAddAudioInCollectionState
                     color: Colors.grey,
                   ),
             Padding(
-              padding: const EdgeInsets.only(left: 10, right: 5, bottom: 10),
+              padding: const EdgeInsets.only(
+                left: 10,
+                right: 5,
+                bottom: 10,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -163,8 +167,14 @@ class _ModelAudioCollectionAddAudioInCollectionState
                 color: Colors.black.withOpacity(0.4),
                 gradient: LinearGradient(
                     colors: widget.doneCollection!
-                        ? [const Color(0xFF000000), const Color(0xFF000000)]
-                        : [const Color(0xFF000000), const Color(0xFF454545)],
+                        ? [
+                            const Color(0xFF000000),
+                            const Color(0xFF000000),
+                          ]
+                        : [
+                            const Color(0xFF000000),
+                            const Color(0xFF454545),
+                          ],
                     begin: Alignment.bottomRight),
               ),
             ),
@@ -175,7 +185,9 @@ class _ModelAudioCollectionAddAudioInCollectionState
                     width: 50.0,
                     height: 50.0,
                     decoration: BoxDecoration(
-                      border: Border.all(color: AppColor.white),
+                      border: Border.all(
+                        color: AppColor.white,
+                      ),
                       borderRadius: const BorderRadius.all(
                         Radius.circular(25.0),
                       ),

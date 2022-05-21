@@ -4,8 +4,8 @@ class ImagePick {
   Future<XFile?> singleImagePick() async {
     return await ImagePicker().pickImage(
       source: ImageSource.gallery,
-      maxHeight: 800,
-      maxWidth: 800,
+      maxHeight: 800.0,
+      maxWidth: 800.0,
     );
   }
 }

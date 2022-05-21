@@ -16,9 +16,11 @@ class CollectionAddAudioInCollectionArgument {
 }
 
 class CollectionAddAudioInCollection extends StatelessWidget {
-  const CollectionAddAudioInCollection(
-      {Key? key, required this.collectionAudio, required this.idAudio})
-      : super(key: key);
+  const CollectionAddAudioInCollection({
+    Key? key,
+    required this.collectionAudio,
+    required this.idAudio,
+  }) : super(key: key);
   static const routeName = '/collection_add_audio_in_collection';
   final List collectionAudio;
   final String idAudio;
@@ -27,7 +29,9 @@ class CollectionAddAudioInCollection extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<ListCollectionAddAudioInCollectionBloc>(
       create: (context) => ListCollectionAddAudioInCollectionBloc()
-        ..add(const LoadListCollectionAddAudioInCollectionEvent()),
+        ..add(
+          const LoadListCollectionAddAudioInCollectionEvent(),
+        ),
       child: Scaffold(
         body: SafeArea(
           child: Stack(

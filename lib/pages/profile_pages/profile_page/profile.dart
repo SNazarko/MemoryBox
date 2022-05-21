@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:memory_box/pages/profile_pages/profile_page/profile_model.dart';
 import 'package:memory_box/pages/profile_pages/profile_page/widgets/appbar_header_profile.dart';
 import 'package:memory_box/pages/profile_pages/profile_page/widgets/delete_account.dart';
 import 'package:memory_box/pages/profile_pages/profile_page/widgets/name_and_number.dart';
@@ -11,8 +10,6 @@ import 'package:memory_box/pages/profile_pages/profile_page/widgets/progress_ind
 import 'package:memory_box/pages/profile_pages/profile_edit_page/profile_edit_page.dart';
 import 'package:memory_box/repositories/auth_repositories.dart';
 import 'package:memory_box/widgets/uncategorized/text_link.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Blocs/navigation_bloc/navigation__bloc.dart';
 import '../../../Blocs/navigation_bloc/navigation__state.dart';
 import '../../../utils/constants.dart';
@@ -38,7 +35,10 @@ class Profile extends StatelessWidget {
             ),
         ),
         BlocProvider<ProfilePageBloc>(
-          create: (context) => ProfilePageBloc()..add(const ProfilePageEvent()),
+          create: (context) => ProfilePageBloc()
+            ..add(
+              const ProfilePageEvent(),
+            ),
         ),
       ],
       child: WillPopScope(
@@ -51,7 +51,9 @@ class Profile extends StatelessWidget {
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
-              icon: const Icon(Icons.menu),
+              icon: const Icon(
+                Icons.menu,
+              ),
             ),
             elevation: 0.0,
             centerTitle: true,
@@ -127,13 +129,13 @@ class _Links extends StatelessWidget {
                               );
                             }));
                             if (result.isNotEmpty) {
-                              context
-                                  .read<ProfilePageBloc>()
-                                  .add(ProfilePageEvent(
-                                    name: result[0],
-                                    number: result[1],
-                                    image: result[2],
-                                  ));
+                              context.read<ProfilePageBloc>().add(
+                                    ProfilePageEvent(
+                                      name: result[0],
+                                      number: result[1],
+                                      image: result[2],
+                                    ),
+                                  );
                             }
                           },
                           text: 'Редактировать',
@@ -241,10 +243,15 @@ class _LinksNotAuthorization extends StatelessWidget {
               child: SizedBox(
                 child: Column(
                   children: [
-                    NameAndNumber(screenWidth: screenWidth * 0.75),
+                    NameAndNumber(
+                      screenWidth: screenWidth * 0.75,
+                    ),
                     TextLink(
                       onPressed: () {
-                        Navigator.pushNamed(context, ProfileEdit.routeName);
+                        Navigator.pushNamed(
+                          context,
+                          ProfileEdit.routeName,
+                        );
                       },
                       text: 'Редактировать',
                     ),
@@ -274,7 +281,9 @@ class _LinksNotAuthorization extends StatelessWidget {
                       size: 150,
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0,
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

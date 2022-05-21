@@ -8,18 +8,20 @@ class AppbarMenuSupportMessagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    return Stack(children: [
-      Container(
-        height: screenHeight / 1.27,
-      ),
-      ClipPath(
-        clipper: AppbarClipper(),
-        child: Container(
-          color: AppColor.colorAppbar,
-          width: double.infinity,
-          height: 125.0,
+    return Stack(
+      children: [
+        Container(
+          height: screenHeight / 1.27,
         ),
-      ),
-    ]);
+        ClipPath(
+          clipper: AppbarClipper(),
+          child: Container(
+            color: AppColor.colorAppbar,
+            width: double.infinity,
+            height: 125.0,
+          ),
+        ),
+      ],
+    );
   }
 }

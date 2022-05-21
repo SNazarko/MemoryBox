@@ -47,8 +47,10 @@ class AppbarHeaderEdit extends StatelessWidget {
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 15.0,
+                vertical: 15.0,
+              ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,12 +58,16 @@ class AppbarHeaderEdit extends StatelessWidget {
                   IconBack(
                     onPressed: () {
                       Navigator.pop(context);
-                      CollectionsRepositories.instance
-                          .deleteCollection(idCollection, 'CollectionsTale');
+                      CollectionsRepositories.instance.deleteCollection(
+                        idCollection,
+                        'CollectionsTale',
+                      );
                     },
                   ),
                   const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20.0),
+                    padding: EdgeInsets.symmetric(
+                      vertical: 20.0,
+                    ),
                     child: Text(
                       'Создание',
                       style: kTitleTextStyle2,
@@ -70,31 +76,42 @@ class AppbarHeaderEdit extends StatelessWidget {
                   BlocBuilder<GetImageCubit, GetImageState>(
                     builder: (_, stateImage) {
                       return TextButton(
-                          onPressed: () {
-                            _updateCollection(context, state, stateImage);
+                        onPressed: () {
+                          _updateCollection(
+                            context,
+                            state,
+                            stateImage,
+                          );
 
-                            Navigator.pop(context);
-                          },
-                          child: const Text(
-                            'Готово',
-                            style: TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w400,
-                                color: AppColor.white100),
-                          ));
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          'Готово',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w400,
+                            color: AppColor.white100,
+                          ),
+                        ),
+                      );
                     },
                   )
                 ],
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.only(top: 90.0, left: 15.0, right: 15.0),
+              padding: const EdgeInsets.only(
+                top: 90.0,
+                left: 15.0,
+                right: 15.0,
+              ),
               child: TextField(
                 onChanged: (title) {
-                  context
-                      .read<CollectionEditBloc>()
-                      .add(CollectionEditEvent(title: title));
+                  context.read<CollectionEditBloc>().add(
+                        CollectionEditEvent(
+                          title: title,
+                        ),
+                      );
                 },
                 style: const TextStyle(
                   fontSize: 24.0,
@@ -104,8 +121,10 @@ class AppbarHeaderEdit extends StatelessWidget {
                 decoration: const InputDecoration(
                   border: InputBorder.none,
                   hintText: 'Название',
-                  hintStyle:
-                      TextStyle(fontSize: 24.0, color: AppColor.white100),
+                  hintStyle: TextStyle(
+                    fontSize: 24.0,
+                    color: AppColor.white100,
+                  ),
                 ),
               ),
             ),

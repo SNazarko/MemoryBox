@@ -20,7 +20,10 @@ class _FirstAuthorizationPageState extends State<FirstAuthorizationPage> {
   @override
   void initState() {
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushNamed(context, MainPage.routeName);
+      Navigator.pushNamed(
+        context,
+        MainPage.routeName,
+      );
     });
     super.initState();
   }
@@ -49,30 +52,34 @@ class _FirstAuthorizationPageState extends State<FirstAuthorizationPage> {
                       child: SizedBox(),
                     ),
                     const ContainerShadow(
-                        image: Text(''),
-                        width: 300.0,
-                        height: 80.0,
-                        widget: Text(
-                          'Мы рады тебя видеть',
-                          style: kBodiTextStyle,
-                        ),
-                        radius: 20.0),
+                      image: Text(''),
+                      width: 300.0,
+                      height: 80.0,
+                      widget: Text(
+                        'Мы рады тебя видеть',
+                        style: kBodyTextStyle,
+                      ),
+                      radius: 20.0,
+                    ),
                     const Expanded(
                       child: SizedBox(),
                     ),
-                    Image.asset(AppIcons.heart),
+                    Image.asset(
+                      AppIcons.heart,
+                    ),
                     const Expanded(
                       child: SizedBox(),
                     ),
                     const ContainerShadow(
-                        image: Text(''),
-                        width: 250.0,
-                        height: 75.0,
-                        widget: Text(
-                          'Взрослые иногда нуждаются в \n сказке даже больше, чем дети',
-                          style: kBodi2TextStyle,
-                        ),
-                        radius: 20.0),
+                      image: Text(''),
+                      width: 250.0,
+                      height: 75.0,
+                      widget: Text(
+                        'Взрослые иногда нуждаются в \n сказке даже больше, чем дети',
+                        style: kBody2TextStyle,
+                      ),
+                      radius: 20.0,
+                    ),
                   ],
                 ),
               ),

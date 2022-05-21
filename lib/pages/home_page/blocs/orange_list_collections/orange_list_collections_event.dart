@@ -19,5 +19,7 @@ class UpdateOrangeListItemEvent extends OrangeListItemEvent {
 
   @override
   // TODO: implement props
-  List<Object?> get props => [list];
+  List<Object?> get props => [
+        list,
+      ];
 }

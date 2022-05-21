@@ -12,11 +12,17 @@ class ButtonContinue extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         text,
-        style: const TextStyle(fontSize: 18.0, color: AppColor.white100),
+        style: const TextStyle(
+          fontSize: 18.0,
+          color: AppColor.white100,
+        ),
       ),
       style: ButtonStyle(
         minimumSize: MaterialStateProperty.all(
-          const Size(275.0, 50.0),
+          const Size(
+            275.0,
+            50.0,
+          ),
         ),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(

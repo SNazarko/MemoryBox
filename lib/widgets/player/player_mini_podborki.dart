@@ -65,7 +65,9 @@ class _PlayerMiniPodborkiState extends State<PlayerMiniPodborki> {
 
   Future<void> stop() async {
     await player.stop();
-    return player.seek(const Duration(milliseconds: 0));
+    return player.seek(
+      const Duration(milliseconds: 0),
+    );
   }
 
   Widget _buildControl() {
@@ -91,7 +93,11 @@ class _PlayerMiniPodborkiState extends State<PlayerMiniPodborki> {
       child: ClipOval(
         child: Material(
           child: InkWell(
-            child: SizedBox(width: 55, height: 55, child: icon),
+            child: SizedBox(
+              width: 55,
+              height: 55,
+              child: icon,
+            ),
             onTap: () {
               if (player.playerState.playing) {
                 pause();
@@ -130,7 +136,9 @@ class _PlayerMiniPodborkiState extends State<PlayerMiniPodborki> {
           children: [
             _buildControl(),
             Padding(
-              padding: const EdgeInsets.only(left: 20.0),
+              padding: const EdgeInsets.only(
+                left: 20.0,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,

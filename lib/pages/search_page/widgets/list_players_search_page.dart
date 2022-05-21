@@ -28,7 +28,10 @@ class ListPlayersSearchPage extends StatelessWidget {
               }
               if (state.status == SearchPageStatus.success) {
                 return ListView.builder(
-                  padding: const EdgeInsets.only(top: 165.0, bottom: 110.0),
+                  padding: const EdgeInsets.only(
+                    top: 165.0,
+                    bottom: 110.0,
+                  ),
                   itemCount: state.list.length,
                   itemBuilder: (BuildContext context, int index) {
                     final audio = state.list[index];
@@ -114,16 +117,15 @@ class _PopupMenuAudioSearchPage extends StatelessWidget {
 
   void _addInCollection(BuildContext context) {
     Timer(const Duration(seconds: 1), () {
-      // context
-      //     .read<CollectionAddAudioInCollectionModel>()
-      //     .setCollectionAudio(collection);
-      // context.read<CollectionAddAudioInCollectionModel>().setIdAudio(idAudio);
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return CollectionAddAudioInCollection(
-          collectionAudio: collection,
-          idAudio: idAudio,
-        );
-      }));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) {
+          return CollectionAddAudioInCollection(
+            collectionAudio: collection,
+            idAudio: idAudio,
+          );
+        }),
+      );
     });
   }
 
@@ -133,10 +135,10 @@ class _PopupMenuAudioSearchPage extends StatelessWidget {
       icon: const Icon(
         Icons.more_horiz,
       ),
-      iconSize: 40,
+      iconSize: 40.0,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
-          Radius.circular(15),
+          Radius.circular(15.0),
         ),
       ),
       itemBuilder: (context) => [
@@ -159,7 +161,10 @@ class _PopupMenuAudioSearchPage extends StatelessWidget {
         ),
         popupMenuItem(
           'Поделиться',
-          () => AudioRepositories.instance.downloadAudio(idAudio, name),
+          () => AudioRepositories.instance.downloadAudio(
+            idAudio,
+            name,
+          ),
         ),
       ],
     );

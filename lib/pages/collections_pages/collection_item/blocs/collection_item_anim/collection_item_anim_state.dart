@@ -2,7 +2,7 @@ part of 'collection_item_anim_bloc.dart';
 
 @immutable
 class CollectionItemAnimState extends Equatable {
-  const CollectionItemAnimState({this.anim = 0.0});
+  const CollectionItemAnimState({this.anim = 0.0,});
   final double anim;
 
   CollectionItemAnimState copyWith({
@@ -15,5 +15,5 @@ class CollectionItemAnimState extends Equatable {
 
   @override
   // TODO: implement props
-  List<Object?> get props => [anim];
+  List<Object?> get props => [anim,];
 }

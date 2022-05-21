@@ -19,11 +19,7 @@ import '../../../widgets/uncategorized/slider.dart';
 import '../bloc/recordings_page/recordings_page_bloc.dart';
 
 class AudioPlayer extends StatefulWidget {
-  /// Path from where to play recorded audio
   final ap.AudioSource source;
-
-  /// Callback when audio file should be removed
-  /// Setting this to null hides the delete button
   final VoidCallback onDelete;
 
   AudioPlayer({
@@ -59,10 +55,12 @@ class _AudioPlayerState extends State<AudioPlayer> {
       }
       setState(() {});
     });
-    _positionChangedSubscription =
-        _audioPlayer.positionStream.listen((position) => setState(() {}));
-    _durationChangedSubscription =
-        _audioPlayer.durationStream.listen((duration) => setState(() {}));
+    _positionChangedSubscription = _audioPlayer.positionStream.listen(
+      (position) => setState(() {}),
+    );
+    _durationChangedSubscription = _audioPlayer.durationStream.listen(
+      (duration) => setState(() {}),
+    );
     _init();
 
     super.initState();
@@ -125,11 +123,15 @@ class _AudioPlayerState extends State<AudioPlayer> {
       state.path,
       _saveRecord,
     );
-    _audioPlayer.stop().then((value) => widget.onDelete());
+    _audioPlayer.stop().then(
+          (value) => widget.onDelete(),
+        );
   }
 
   void saveRecordsFirebase(state) async {
-    _audioPlayer.stop().then((value) => widget.onDelete());
+    _audioPlayer.stop().then(
+          (value) => widget.onDelete(),
+        );
     await AudioRepositories.instance.addAudio(
       state.path,
       _saveRecord,
@@ -155,7 +157,11 @@ class _AudioPlayerState extends State<AudioPlayer> {
     await _audioPlayer.stop();
     _timer?.cancel();
     setState(() => _recordDuration = 0);
-    return _audioPlayer.seek(const Duration(milliseconds: 0));
+    return _audioPlayer.seek(
+      const Duration(
+        milliseconds: 0,
+      ),
+    );
   }
 
   void _startTimer() {
@@ -225,16 +231,23 @@ class _AudioPlayerState extends State<AudioPlayer> {
       width: width * 2,
       child: SliderTheme(
         data: SliderTheme.of(context).copyWith(
-            thumbShape: const RoundedAmebaThumbShape(
-                radius: 8, color: AppColor.colorText),
-            thumbColor: AppColor.colorText,
-            inactiveTrackColor: AppColor.colorText,
-            activeTrackColor: AppColor.colorText),
+          thumbShape: const RoundedAmebaThumbShape(
+            radius: 8,
+            color: AppColor.colorText,
+          ),
+          thumbColor: AppColor.colorText,
+          inactiveTrackColor: AppColor.colorText,
+          activeTrackColor: AppColor.colorText,
+        ),
         child: Slider(
           onChanged: (v) {
             if (duration != null) {
               final position = v * duration.inMilliseconds;
-              _audioPlayer.seek(Duration(milliseconds: position.round()));
+              _audioPlayer.seek(
+                Duration(
+                  milliseconds: position.round(),
+                ),
+              );
             }
           },
           value: canSetValue && duration != null
@@ -250,12 +263,18 @@ class _AudioPlayerState extends State<AudioPlayer> {
       return _buildTimer();
     }
 
-    return const Text('00:00');
+    return const Text(
+      '00:00',
+    );
   }
 
   Widget _buildTimer() {
-    final String minutes = _formatNumber(_recordDuration ~/ 60);
-    final String seconds = _formatNumber(_recordDuration % 60);
+    final String minutes = _formatNumber(
+      _recordDuration ~/ 60,
+    );
+    final String seconds = _formatNumber(
+      _recordDuration % 60,
+    );
     return Text(
       '$minutes : $seconds',
     );
@@ -269,23 +288,41 @@ class _AudioPlayerState extends State<AudioPlayer> {
           child: Row(
             children: [
               IconButton(
-                onPressed: () => shareAudio(context, state),
-                icon: Image.asset(AppIcons.rec_upload),
+                onPressed: () => shareAudio(
+                  context,
+                  state,
+                ),
+                icon: Image.asset(
+                  AppIcons.rec_upload,
+                ),
               ),
               IconButton(
-                  onPressed: () => saveRecordLocal(state),
-                  icon: Image.asset(AppIcons.rec_paper_download),
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0)),
+                onPressed: () => saveRecordLocal(state),
+                icon: Image.asset(
+                  AppIcons.rec_paper_download,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15.0,
+                ),
+              ),
               IconButton(
-                  onPressed: () =>
-                      _audioPlayer.stop().then((value) => widget.onDelete()),
-                  icon: Image.asset(AppIcons.rec_delete),
-                  padding: const EdgeInsets.symmetric(horizontal: 15)),
+                onPressed: () => _audioPlayer.stop().then(
+                      (value) => widget.onDelete(),
+                    ),
+                icon: Image.asset(
+                  AppIcons.rec_delete,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                ),
+              ),
             ],
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 35.0),
+          padding: const EdgeInsets.only(
+            left: 35.0,
+          ),
           child: TextButton(
             onPressed: () => logicSave(state),
             child: const Text(
@@ -326,11 +363,15 @@ class _AudioPlayerState extends State<AudioPlayer> {
                     decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Аудиофайл',
-                      hintStyle:
-                          TextStyle(fontSize: 24.0, color: AppColor.colorText),
+                      hintStyle: TextStyle(
+                        fontSize: 24.0,
+                        color: AppColor.colorText,
+                      ),
                     ),
                     textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 24.0),
+                    style: const TextStyle(
+                      fontSize: 24.0,
+                    ),
                     onChanged: (value) {
                       _saveRecord = value;
                       final data = value.toLowerCase();
@@ -346,7 +387,9 @@ class _AudioPlayerState extends State<AudioPlayer> {
                 ),
                 _buildSlider(constraints.maxWidth),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

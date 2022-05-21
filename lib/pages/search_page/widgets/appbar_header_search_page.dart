@@ -44,15 +44,23 @@ class _SearchPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.only(left: 20.0, top: 61.0, right: 12.0),
+      padding: const EdgeInsets.only(
+        left: 20.0,
+        top: 61.0,
+        right: 12.0,
+      ),
       child: Container(
         height: 60.0,
         decoration: const BoxDecoration(
           color: AppColor.white,
-          borderRadius: BorderRadius.all(Radius.circular(30.0)),
+          borderRadius: BorderRadius.all(
+            Radius.circular(30.0),
+          ),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 29),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 29,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -77,15 +85,14 @@ class _SearchPanel extends StatelessWidget {
                         fontSize: 20.0,
                         color: AppColor.colorText50,
                       ),
-                      border: OutlineInputBorder(borderSide: BorderSide.none),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                      ),
                     ),
                   )),
-              GestureDetector(
-                onTap: () {},
-                child: Image.asset(
-                  AppIcons.search,
-                  color: AppColor.colorText,
-                ),
+              Image.asset(
+                AppIcons.search,
+                color: AppColor.colorText,
               )
             ],
           ),

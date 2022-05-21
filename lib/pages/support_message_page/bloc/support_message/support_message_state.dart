@@ -27,6 +27,8 @@ class SupportMessageState extends Equatable {
   }
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [status, list];
+  List<Object?> get props => [
+        status,
+        list,
+      ];
 }

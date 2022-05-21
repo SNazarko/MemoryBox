@@ -49,7 +49,9 @@ class ListCollectionsAudio extends StatelessWidget {
           }
           if (state.status == ListItemStatus.success) {
             return ListView.builder(
-              padding: const EdgeInsets.only(bottom: 140.0),
+              padding: const EdgeInsets.only(
+                bottom: 140.0,
+              ),
               itemCount: state.list.length,
               itemBuilder: (BuildContext context, int index) {
                 final audio = state.list[index];
@@ -119,19 +121,22 @@ class _PopupMenuPlayerMini extends StatelessWidget {
 
   void _rename(BuildContext context, String imageCollection) {
     Timer(const Duration(seconds: 1), () {
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return SavePage(
-          audioUrl: url,
-          audioImage: imageCollection,
-          audioDone: done,
-          audioTime: dateTime,
-          audioSearchName: searchName,
-          audioCollection: collection,
-          idAudio: idAudio,
-          audioDuration: duration,
-          audioName: name,
-        );
-      }));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) {
+          return SavePage(
+            audioUrl: url,
+            audioImage: imageCollection,
+            audioDone: done,
+            audioTime: dateTime,
+            audioSearchName: searchName,
+            audioCollection: collection,
+            idAudio: idAudio,
+            audioDuration: duration,
+            audioName: name,
+          );
+        }),
+      );
     });
   }
 
@@ -141,21 +146,27 @@ class _PopupMenuPlayerMini extends StatelessWidget {
       icon: const Icon(
         Icons.more_horiz,
       ),
-      iconSize: 40,
+      iconSize: 40.0,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
-          Radius.circular(15),
+          Radius.circular(15.0),
         ),
       ),
       itemBuilder: (context) => [
         popupMenuItem(
           'Переименовать',
-          () => _rename(context, imageCollection),
+          () => _rename(
+            context,
+            imageCollection,
+          ),
         ),
         popupMenuItem(
           'Добавить в подборку',
           () => Timer(const Duration(seconds: 1), () {
-            Navigator.pushNamed(context, CollectionItemEditAudio.routeName);
+            Navigator.pushNamed(
+              context,
+              CollectionItemEditAudio.routeName,
+            );
           }),
         ),
         popupMenuItem(
@@ -169,7 +180,10 @@ class _PopupMenuPlayerMini extends StatelessWidget {
         ),
         popupMenuItem(
           'Поделиться',
-          () => AudioRepositories.instance.downloadAudio(idAudio, name),
+          () => AudioRepositories.instance.downloadAudio(
+            idAudio,
+            name,
+          ),
         ),
       ],
     );

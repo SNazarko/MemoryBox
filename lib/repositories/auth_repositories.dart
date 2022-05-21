@@ -45,7 +45,11 @@ class AuthRepositories {
 
     if (authCredential.user != null) {
       final DateTime now = DateTime.now();
-      final DateTime later = now.add(const Duration(days: 30));
+      final DateTime later = now.add(
+        const Duration(
+          days: 30,
+        ),
+      );
       final Timestamp laterTimestamp = Timestamp.fromDate(later);
       user = authCredential.user!;
       final phoneNumber = authCredential.user?.phoneNumber;

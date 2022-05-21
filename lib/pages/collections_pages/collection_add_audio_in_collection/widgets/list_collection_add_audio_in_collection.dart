@@ -15,7 +15,9 @@ class ListCollectionAddAudioInCollection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 90.0),
+      padding: const EdgeInsets.only(
+        top: 90.0,
+      ),
       child: BlocBuilder<ListCollectionAddAudioInCollectionBloc,
           ListCollectionAddAudioInCollectionState>(
         builder: (context, state) {
@@ -56,7 +58,9 @@ class ListCollectionAddAudioInCollection extends StatelessWidget {
           }
           if (state.status == ListCollectionAddAudioInCollectionStatus.failed) {
             return const Center(
-              child: Text('Ой: сталася помилка!'),
+              child: Text(
+                'Ой: сталася помилка!',
+              ),
             );
           } else {
             return const Center(

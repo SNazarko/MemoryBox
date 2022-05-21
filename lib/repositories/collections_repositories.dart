@@ -22,9 +22,15 @@ class CollectionsRepositories {
       .doc('id')
       .collection('CollectionsTale')
       .snapshots()
-      .map((snapshot) => snapshot.docs
-          .map((doc) => CollectionsModel.fromJson(doc.data()))
-          .toList());
+      .map(
+        (snapshot) => snapshot.docs
+            .map(
+              (doc) => CollectionsModel.fromJson(
+                doc.data(),
+              ),
+            )
+            .toList(),
+      );
 
   // Add Collections in Firebase
 
@@ -151,7 +157,10 @@ class CollectionsRepositories {
         .collection(phoneNumber)
         .doc('id')
         .collection('Collections')
-        .where('collections', arrayContainsAny: [idCollection])
+        .where(
+          'collections',
+          arrayContainsAny: [idCollection],
+        )
         .get()
         .then((querySnapshot) {
           for (var result in querySnapshot.docs) {
@@ -204,7 +213,10 @@ class CollectionsRepositories {
         .collection(phoneNumber)
         .doc('id')
         .collection('Collections')
-        .where('collections', arrayContainsAny: [idCollection])
+        .where(
+          'collections',
+          arrayContainsAny: [idCollection],
+        )
         .get()
         .then((querySnapshot) {
           for (var result in querySnapshot.docs) {

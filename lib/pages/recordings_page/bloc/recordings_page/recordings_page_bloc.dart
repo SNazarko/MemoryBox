@@ -7,13 +7,21 @@ part 'recordings_page_state.dart';
 
 class RecordingsPageBloc
     extends Bloc<RecordingsPageEvent, RecordingsPageState> {
-  RecordingsPageBloc() : super(const RecordingsPageState()) {
-    on<RecordingsPageEvent>((event, emit) {
-      emit(state.copyWith(
-        path: event.path,
-        minutes: event.minutes,
-        seconds: event.seconds,
-      ));
+  RecordingsPageBloc()
+      : super(
+          const RecordingsPageState(),
+        ) {
+    on<RecordingsPageEvent>((
+      event,
+      emit,
+    ) {
+      emit(
+        state.copyWith(
+          path: event.path,
+          minutes: event.minutes,
+          seconds: event.seconds,
+        ),
+      );
     });
   }
 }

@@ -52,10 +52,12 @@ class PlayerMiniState extends State<PlayerMini> {
       }
       setState(() {});
     });
-    _positionChangedSubscription =
-        player.positionStream.listen((position) => setState(() {}));
-    _durationChangedSubscription =
-        player.durationStream.listen((duration) => setState(() {}));
+    _positionChangedSubscription = player.positionStream.listen(
+      (position) => setState(() {}),
+    );
+    _durationChangedSubscription = player.durationStream.listen(
+      (duration) => setState(() {}),
+    );
     _init();
     super.initState();
   }
@@ -95,7 +97,9 @@ class PlayerMiniState extends State<PlayerMini> {
     await player.stop();
     _timer?.cancel();
     setState(() => _recordDuration = 0);
-    return player.seek(const Duration(milliseconds: 0));
+    return player.seek(
+      const Duration(milliseconds: 0),
+    );
   }
 
   void _startTimer() {
@@ -190,20 +194,16 @@ class PlayerMiniState extends State<PlayerMini> {
       child: ClipOval(
         child: Material(
           child: InkWell(
-            child: SizedBox(width: 55, height: 55, child: icon),
+            child: SizedBox(
+              width: 55,
+              height: 55,
+              child: icon,
+            ),
             onTap: () {
               if (player.playerState.playing) {
-                // AudioRepositories().playPause(
-                //   widget.id,
-                //   false,
-                // );
                 pause();
                 setState(() {});
               } else {
-                // AudioRepositories().playPause(
-                //   widget.id,
-                //   true,
-                // );
                 setState(() {});
                 play();
               }
@@ -225,16 +225,23 @@ class PlayerMiniState extends State<PlayerMini> {
     return SizedBox(
       child: SliderTheme(
         data: SliderTheme.of(context).copyWith(
-            thumbShape: const RoundedAmebaThumbShape(
-                radius: 8, color: AppColor.colorText),
-            thumbColor: AppColor.colorText,
-            inactiveTrackColor: AppColor.colorText,
-            activeTrackColor: AppColor.colorText),
+          thumbShape: const RoundedAmebaThumbShape(
+            radius: 8,
+            color: AppColor.colorText,
+          ),
+          thumbColor: AppColor.colorText,
+          inactiveTrackColor: AppColor.colorText,
+          activeTrackColor: AppColor.colorText,
+        ),
         child: Slider(
           onChanged: (v) {
             if (duration != null) {
               final position = v * duration.inMilliseconds;
-              player.seek(Duration(milliseconds: position.round()));
+              player.seek(
+                Duration(
+                  milliseconds: position.round(),
+                ),
+              );
             }
           },
           value: canSetValue && duration != null
@@ -277,33 +284,45 @@ class PlayerMiniState extends State<PlayerMini> {
               child: _isReverse
                   ? SizedBox(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 10.0,
+                        ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 15.0),
+                                padding: const EdgeInsets.only(
+                                  left: 15.0,
+                                ),
                                 child: Text(
                                   widget.name,
                                   style: const TextStyle(
-                                      fontFamily: 'TTNorms',
-                                      fontSize: 14.0,
-                                      color: AppColor.colorText,
-                                      fontWeight: FontWeight.w400),
+                                    fontFamily: 'TTNorms',
+                                    fontSize: 14.0,
+                                    color: AppColor.colorText,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ),
                             ),
-                            Expanded(child: _buildSlider()),
+                            Expanded(
+                              child: _buildSlider(),
+                            ),
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 15.0, right: 20.0),
+                                  left: 15.0,
+                                  right: 20.0,
+                                ),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
-                                  children: [_buildText(), _duration()],
+                                  children: [
+                                    _buildText(),
+                                    _duration(),
+                                  ],
                                 ),
                               ),
                             )
@@ -332,15 +351,18 @@ class PlayerMiniState extends State<PlayerMini> {
                               Text(
                                 '${widget.duration} минут',
                                 style: const TextStyle(
-                                    fontFamily: 'TTNorms',
-                                    fontSize: 14.0,
-                                    color: AppColor.colorText80,
-                                    fontWeight: FontWeight.w400),
+                                  fontFamily: 'TTNorms',
+                                  fontSize: 14.0,
+                                  color: AppColor.colorText80,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
                             ],
                           ),
                         ),
-                        const Expanded(child: SizedBox())
+                        const Expanded(
+                          child: SizedBox(),
+                        )
                       ],
                     )),
             ),
@@ -354,51 +376,3 @@ class PlayerMiniState extends State<PlayerMini> {
     );
   }
 }
-//Row(
-//           children: [
-//             _buildControl(),
-//             Padding(
-//               padding: const EdgeInsets.only(left: 20.0),
-//               child: Column(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Text(
-//                     widgets.name,
-//                     maxLines: 1,
-//                     overflow: TextOverflow.fade,
-//                     softWrap: true,
-//                     style: const TextStyle(
-//                       fontSize: 14.0,
-//                     ),
-//                   ),
-//                   SizedBox(
-//                     child: Column(
-//                       children: [
-//                         _buildSlider(),
-//                         Padding(
-//                           padding:
-//                               const EdgeInsets.only(left: 15.0, right: 20.0),
-//                           child: Row(
-//                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                             children: [_buildText(), _duration()],
-//                           ),
-//                         )
-//                       ],
-//                     ),
-//                   )
-//                   // Text(
-//                   //   '${widgets.duration} минут',
-//                   //   style: const TextStyle(
-//                   //     color: AppColor.colorText50,
-//                   //   ),
-//                   // ),
-//                 ],
-//               ),
-//             ),
-//             Expanded(
-//               child: SizedBox(),
-//             ),
-//             widgets.popupMenu
-//           ],
-//         ),

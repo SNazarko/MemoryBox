@@ -55,33 +55,36 @@ class _RecordPageState extends State<RecordPage> {
                   children: [
                     const AppbarMenu(),
                     Positioned(
-                        left: 5.0,
-                        top: 30.0,
-                        child: Container(
-                          height: screenHeight - 180.0,
-                          width: screenWidth * 0.97,
-                          decoration: kBorderContainer2,
-                          child: showPlayer
-                              ? Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25),
-                                  child: AudioPlayer(
-                                    source: audioSource!,
-                                    onDelete: () {
-                                      setState(() => showPlayer = false);
-                                    },
-                                  ),
-                                )
-                              : AudioRecorder(
-                                  onStop: (path) {
-                                    setState(() {
-                                      audioSource =
-                                          ap.AudioSource.uri(Uri.parse(path));
-                                      showPlayer = true;
-                                    });
+                      left: 5.0,
+                      top: 30.0,
+                      child: Container(
+                        height: screenHeight - 180.0,
+                        width: screenWidth * 0.97,
+                        decoration: kBorderContainer2,
+                        child: showPlayer
+                            ? Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 25,
+                                ),
+                                child: AudioPlayer(
+                                  source: audioSource!,
+                                  onDelete: () {
+                                    setState(() => showPlayer = false);
                                   },
                                 ),
-                        ))
+                              )
+                            : AudioRecorder(
+                                onStop: (path) {
+                                  setState(() {
+                                    audioSource = ap.AudioSource.uri(
+                                      Uri.parse(path),
+                                    );
+                                    showPlayer = true;
+                                  });
+                                },
+                              ),
+                      ),
+                    )
                   ],
                 ),
               ],

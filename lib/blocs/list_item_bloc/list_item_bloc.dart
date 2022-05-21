@@ -10,15 +10,28 @@ part 'list_item_state.dart';
 
 class ListItemBloc extends Bloc<ListItemEvent, ListItemState> {
   StreamSubscription? _audioSubscription;
-  ListItemBloc() : super(const ListItemState()) {
-    on<LoadListItemEvent>(
-        (LoadListItemEvent event, Emitter<ListItemState> emit) {
+  ListItemBloc()
+      : super(
+          const ListItemState(),
+        ) {
+    on<LoadListItemEvent>((
+      LoadListItemEvent event,
+      Emitter<ListItemState> emit,
+    ) {
       try {
         _audioSubscription?.cancel();
         _audioSubscription = AudioRepositories.instance
-            .readAudio(event.sort!, event.collection!, event.nameSort!)
+            .readAudio(
+          event.sort!,
+          event.collection!,
+          event.nameSort!,
+        )
             .listen((audioList) {
-          add(UpdateListItemEvent(list: audioList));
+          add(
+            UpdateListItemEvent(
+              list: audioList,
+            ),
+          );
         });
       } on Exception {
         emit(state.copyWith(
@@ -27,8 +40,10 @@ class ListItemBloc extends Bloc<ListItemEvent, ListItemState> {
       }
     });
 
-    on<UpdateListItemEvent>(
-        (UpdateListItemEvent event, Emitter<ListItemState> emit) {
+    on<UpdateListItemEvent>((
+      UpdateListItemEvent event,
+      Emitter<ListItemState> emit,
+    ) {
       if (event.list.isNotEmpty) {
         emit(
           state.copyWith(

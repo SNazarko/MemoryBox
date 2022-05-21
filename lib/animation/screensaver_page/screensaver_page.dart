@@ -1,14 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_colors.dart';
+import 'package:memory_box/resources/app_icons.dart';
 import '../../pages/authorization_pages/initializer_widget.dart';
 
 class Screensaver extends StatefulWidget {
   const Screensaver({Key? key}) : super(key: key);
   static const routeName = 'screensaver_page';
-  static Widget create() {
-    return const Screensaver();
-  }
 
   @override
   _ScreensaverState createState() => _ScreensaverState();
@@ -30,19 +28,30 @@ class _ScreensaverState extends State<Screensaver>
   }
 
   void anim() {
-    controller =
-        AnimationController(duration: const Duration(seconds: 3), vsync: this);
-    controller2 =
-        AnimationController(duration: const Duration(seconds: 2), vsync: this);
-    animation = CurvedAnimation(parent: controller, curve: Curves.decelerate);
-    animationColor = ColorTween(begin: Colors.white, end: AppColor.glass)
-        .animate(controller);
-    animationColor2 =
-        ColorTween(begin: const Color(0XFF8077E4), end: AppColor.white100)
-            .animate(controller);
-    animationColor3 =
-        ColorTween(begin: const Color(0XFF8077E4), end: const Color(0xFFF1B488))
-            .animate(controller2);
+    controller = AnimationController(
+      duration: const Duration(seconds: 3),
+      vsync: this,
+    );
+    controller2 = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
+    animation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.decelerate,
+    );
+    animationColor = ColorTween(
+      begin: Colors.white,
+      end: AppColor.glass,
+    ).animate(controller);
+    animationColor2 = ColorTween(
+      begin: const Color(0XFF8077E4),
+      end: AppColor.white100,
+    ).animate(controller);
+    animationColor3 = ColorTween(
+      begin: const Color(0XFF8077E4),
+      end: const Color(0xFFF1B488),
+    ).animate(controller2);
     controller2.forward();
     controller2.addListener(() {});
     animationColor3.addStatusListener((status) {
@@ -58,7 +67,10 @@ class _ScreensaverState extends State<Screensaver>
       if (status == AnimationStatus.completed) {
         const duration = Duration(seconds: 2);
         sleep(duration);
-        Navigator.pushNamed(context, InitializerWidget.routeName);
+        Navigator.pushNamed(
+          context,
+          InitializerWidget.routeName,
+        );
       }
     });
   }
@@ -74,8 +86,12 @@ class _ScreensaverState extends State<Screensaver>
           width: double.infinity,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-                colors: [animationColor3.value, const Color(0xFF8077E4)],
-                begin: Alignment.bottomCenter),
+              colors: [
+                animationColor3.value,
+                const Color(0xFF8077E4),
+              ],
+              begin: Alignment.bottomCenter,
+            ),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -85,9 +101,10 @@ class _ScreensaverState extends State<Screensaver>
                   child: Text(
                     'MemoryBox',
                     style: TextStyle(
-                        color: animationColor2.value,
-                        fontSize: controller.value * 42,
-                        fontWeight: FontWeight.w700),
+                      color: animationColor2.value,
+                      fontSize: controller.value * 42,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
                 height: 60.0,
@@ -102,9 +119,9 @@ class _ScreensaverState extends State<Screensaver>
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Image.asset(
-                  'assets/images/microfon.png',
-                  width: 100,
-                  height: 100,
+                  AppIcons.microfon,
+                  width: 100.0,
+                  height: 100.0,
                 ),
               ),
             ],

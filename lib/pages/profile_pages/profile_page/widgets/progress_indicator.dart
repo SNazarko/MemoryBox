@@ -12,11 +12,17 @@ class CustomProgressIndicator extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(50.0),
-              ),
-              border: Border.all(color: AppColor.colorText, width: 2.0)),
-          margin: const EdgeInsets.symmetric(vertical: 5.0),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(50.0),
+            ),
+            border: Border.all(
+              color: AppColor.colorText,
+              width: 2.0,
+            ),
+          ),
+          margin: const EdgeInsets.symmetric(
+            vertical: 5.0,
+          ),
           width: screenWidth * 0.75,
           height: 30.0,
           child: ClipRRect(
@@ -32,7 +38,9 @@ class CustomProgressIndicator extends StatelessWidget {
             ),
           ),
         ),
-        Text('${(size! / 1048576.toDouble()).toStringAsFixed(2)}/500 мб')
+        Text(
+          '${(size! / 1048576.toDouble()).toStringAsFixed(2)}/500 мб',
+        )
       ],
     );
   }

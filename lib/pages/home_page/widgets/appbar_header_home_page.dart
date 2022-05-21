@@ -72,7 +72,9 @@ class _TitleAppbar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                  ),
                   child: Text(
                     'Подборки',
                     style: TextStyle(
@@ -82,7 +84,9 @@ class _TitleAppbar extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                  ),
                   child: GestureDetector(
                     onTap: () => NavigateToPage.instance?.navigate(context,
                         index: 1,
@@ -153,7 +157,10 @@ class _ContainerModel extends StatelessWidget {
             borderRadius: const BorderRadius.all(
               Radius.circular(20.0),
             ),
-            child: imageInContainer(image, screenWidth),
+            child: imageInContainer(
+              image,
+              screenWidth,
+            ),
           ),
           ClipRRect(
             borderRadius: const BorderRadius.all(
@@ -163,7 +170,8 @@ class _ContainerModel extends StatelessWidget {
               width: screenWidth / 2.3,
               height: height,
               child: Padding(
-                padding: const EdgeInsets.only(left: 10, right: 5, bottom: 10),
+                padding:
+                    const EdgeInsets.only(left: 10.0, right: 5.0, bottom: 10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -216,17 +224,20 @@ class _ContainerModel extends StatelessWidget {
       width: screenWidth / 2.3,
       height: height,
       decoration: const BoxDecoration(
-          color: AppColor.blue200,
-          borderRadius: BorderRadius.all(
-            Radius.circular(15.0),
-          )),
+        color: AppColor.blue200,
+        borderRadius: BorderRadius.all(
+          Radius.circular(15.0),
+        ),
+      ),
     );
   }
 }
 
 class _BlueListCollections extends StatelessWidget {
-  const _BlueListCollections({Key? key, required this.screenWidth})
-      : super(key: key);
+  const _BlueListCollections({
+    Key? key,
+    required this.screenWidth,
+  }) : super(key: key);
   final double screenWidth;
 
   @override
@@ -290,8 +301,10 @@ class _BlueListCollections extends StatelessWidget {
 }
 
 class _OrangeListCollections extends StatelessWidget {
-  const _OrangeListCollections({Key? key, required this.screenWidth})
-      : super(key: key);
+  const _OrangeListCollections({
+    Key? key,
+    required this.screenWidth,
+  }) : super(key: key);
   final double screenWidth;
 
   @override

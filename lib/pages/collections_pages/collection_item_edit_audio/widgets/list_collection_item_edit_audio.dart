@@ -6,8 +6,10 @@ import '../../../../widgets/player/player_mini/player_mini.dart';
 import 'done_collection_item_edit_audio.dart';
 
 class ListCollectionItemEditAudio extends StatelessWidget {
-  const ListCollectionItemEditAudio({Key? key, required this.idCollection})
-      : super(key: key);
+  const ListCollectionItemEditAudio({
+    Key? key,
+    required this.idCollection,
+  }) : super(key: key);
   final String idCollection;
 
   @override
@@ -39,7 +41,9 @@ class ListCollectionItemEditAudio extends StatelessWidget {
           }
           if (state.status == ListItemStatus.success) {
             return ListView.builder(
-              padding: const EdgeInsets.only(bottom: 140.0),
+              padding: const EdgeInsets.only(
+                bottom: 140.0,
+              ),
               itemCount: state.list.length,
               itemBuilder: (BuildContext context, int index) {
                 final audio = state.list[index];
@@ -63,7 +67,9 @@ class ListCollectionItemEditAudio extends StatelessWidget {
           }
           if (state.status == ListItemStatus.failed) {
             return const Center(
-              child: Text('Ой: сталася помилка!'),
+              child: Text(
+                'Ой: сталася помилка!',
+              ),
             );
           } else {
             return const Center(

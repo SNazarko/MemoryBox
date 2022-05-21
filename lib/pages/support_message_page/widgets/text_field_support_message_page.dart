@@ -36,23 +36,28 @@ class TextFieldSupportMessagePage extends StatelessWidget {
         Flexible(
           flex: 1,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 3.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 3.0,
+            ),
             child: GestureDetector(
               onTap: () => _onSubmitted(message!),
               child: Container(
                 height: 60.0,
                 width: 55.0,
                 decoration: BoxDecoration(
-                  border: Border.all(color: AppColor.colorAppbar),
+                  border: Border.all(
+                    color: AppColor.colorAppbar,
+                  ),
                   borderRadius: const BorderRadius.all(
                     Radius.circular(10.0),
                   ),
                 ),
                 child: const Center(
-                    child: Text(
-                  'Ввод',
-                  style: kBodi2TextStyle,
-                )),
+                  child: Text(
+                    'Ввод',
+                    style: kBody2TextStyle,
+                  ),
+                ),
               ),
             ),
           ),

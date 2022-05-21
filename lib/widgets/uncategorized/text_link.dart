@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:memory_box/utils/constants.dart';
+
+import '../../utils/constants.dart';
 
 class TextLink extends StatelessWidget {
   const TextLink(
@@ -15,7 +16,7 @@ class TextLink extends StatelessWidget {
       onTap: onPressed,
       child: Text(
         text,
-        style: underline ? kBodi2TextStyle : kBodiOverlineTextStyle,
+        style: underline ? kBody2TextStyle : kBodyOverlineTextStyle,
       ),
     );
   }

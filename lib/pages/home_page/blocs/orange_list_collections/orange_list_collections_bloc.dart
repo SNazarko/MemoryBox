@@ -13,25 +13,38 @@ part 'orange_list_collections_state.dart';
 class OrangeListItemBloc
     extends Bloc<OrangeListItemEvent, OrangeListItemState> {
   StreamSubscription? _collectionSubscription;
-  OrangeListItemBloc() : super(const OrangeListItemState()) {
-    on<LoadOrangeListItemEvent>(
-        (LoadOrangeListItemEvent event, Emitter<OrangeListItemState> emit) {
+  OrangeListItemBloc()
+      : super(
+          const OrangeListItemState(),
+        ) {
+    on<LoadOrangeListItemEvent>((
+      LoadOrangeListItemEvent event,
+      Emitter<OrangeListItemState> emit,
+    ) {
       try {
         _collectionSubscription?.cancel();
         _collectionSubscription = CollectionsRepositories.instance
             .readCollections()
             .listen((collection) {
-          add(UpdateOrangeListItemEvent(list: collection));
+          add(
+            UpdateOrangeListItemEvent(
+              list: collection,
+            ),
+          );
         });
       } on Exception {
-        emit(state.copyWith(
-          status: OrangeListItemStatus.failed,
-        ));
+        emit(
+          state.copyWith(
+            status: OrangeListItemStatus.failed,
+          ),
+        );
       }
     });
 
-    on<UpdateOrangeListItemEvent>(
-        (UpdateOrangeListItemEvent event, Emitter<OrangeListItemState> emit) {
+    on<UpdateOrangeListItemEvent>((
+      UpdateOrangeListItemEvent event,
+      Emitter<OrangeListItemState> emit,
+    ) {
       if (event.list.isNotEmpty) {
         emit(
           state.copyWith(
@@ -40,9 +53,11 @@ class OrangeListItemBloc
           ),
         );
       } else {
-        emit(state.copyWith(
-          status: OrangeListItemStatus.emptyList,
-        ));
+        emit(
+          state.copyWith(
+            status: OrangeListItemStatus.emptyList,
+          ),
+        );
       }
     });
   }

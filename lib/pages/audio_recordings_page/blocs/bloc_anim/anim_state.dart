@@ -1,10 +1,11 @@
 part of 'anim_bloc.dart';
 
 @immutable
-class AnimState  {
-  const AnimState({this.anim = 0.0});
+class AnimState {
+  const AnimState({
+    this.anim = 0.0,
+  });
   final double anim;
-
 
   AnimState copyWith({
     double? anim,
@@ -14,4 +15,3 @@ class AnimState  {
     );
   }
 }
-

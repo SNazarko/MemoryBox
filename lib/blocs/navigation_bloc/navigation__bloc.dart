@@ -4,8 +4,14 @@ import 'navigation__event.dart';
 import 'navigation__state.dart';
 
 class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
-  NavigationBloc() : super(const NavigationState()) {
-    on<NavigateMenu>((event, emit) {
+  NavigationBloc()
+      : super(
+          const NavigationState(),
+        ) {
+    on<NavigateMenu>((
+      event,
+      emit,
+    ) {
       emit(
         state.copyWith(
           status: NavigationStateStatus.menu,
@@ -15,7 +21,10 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
       );
     });
 
-    on<NavigateTab>((event, emit) {
+    on<NavigateTab>((
+      event,
+      emit,
+    ) {
       emit(
         state.copyWith(
           status: NavigationStateStatus.tab,

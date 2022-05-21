@@ -11,25 +11,36 @@ part 'list_item_collection_state.dart';
 class ListItemCollectionBloc
     extends Bloc<ListItemCollectionEvent, ListItemCollectionState> {
   StreamSubscription? _audioSubscription;
-  ListItemCollectionBloc() : super(const ListItemCollectionState()) {
-    on<LoadListItemCollectionEvent>((LoadListItemCollectionEvent event,
-        Emitter<ListItemCollectionState> emit) {
+  ListItemCollectionBloc()
+      : super(
+          const ListItemCollectionState(),
+        ) {
+    on<LoadListItemCollectionEvent>((
+      LoadListItemCollectionEvent event,
+      Emitter<ListItemCollectionState> emit,
+    ) {
       try {
         _audioSubscription?.cancel();
         _audioSubscription = CollectionsRepositories.instance
             .readCollections()
             .listen((audioList) {
-          add(UpdateListItemCollectionEvent(list: audioList));
+          add(
+            UpdateListItemCollectionEvent(list: audioList),
+          );
         });
       } on Exception {
-        emit(state.copyWith(
-          status: ListItemCollectionStatus.failed,
-        ));
+        emit(
+          state.copyWith(
+            status: ListItemCollectionStatus.failed,
+          ),
+        );
       }
     });
 
-    on<UpdateListItemCollectionEvent>((UpdateListItemCollectionEvent event,
-        Emitter<ListItemCollectionState> emit) {
+    on<UpdateListItemCollectionEvent>((
+      UpdateListItemCollectionEvent event,
+      Emitter<ListItemCollectionState> emit,
+    ) {
       if (event.list.isNotEmpty) {
         emit(
           state.copyWith(
@@ -38,9 +49,11 @@ class ListItemCollectionBloc
           ),
         );
       } else {
-        emit(state.copyWith(
-          status: ListItemCollectionStatus.emptyList,
-        ));
+        emit(
+          state.copyWith(
+            status: ListItemCollectionStatus.emptyList,
+          ),
+        );
       }
     });
   }

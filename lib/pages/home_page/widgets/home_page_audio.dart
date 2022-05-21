@@ -24,7 +24,10 @@ class HomePageAudio extends StatelessWidget {
           boxShadow: <BoxShadow>[
             BoxShadow(
               color: Colors.grey.shade300,
-              offset: const Offset(0.0, -5.0),
+              offset: const Offset(
+                0.0,
+                -5.0,
+              ),
               blurRadius: 10.0,
             )
           ]),
@@ -74,7 +77,9 @@ class _AudioList extends StatelessWidget {
         }
         if (state.status == ListItemStatus.success) {
           return ListView.builder(
-            padding: const EdgeInsets.only(bottom: 75.0),
+            padding: const EdgeInsets.only(
+              bottom: 75.0,
+            ),
             itemCount: state.list.length,
             itemBuilder: (BuildContext context, int index) {
               final audio = state.list[index];
@@ -141,7 +146,9 @@ class _TitleAudioList extends StatelessWidget {
             children: [
               const Text(
                 'Аудиозаписи',
-                style: TextStyle(fontSize: 24.0),
+                style: TextStyle(
+                  fontSize: 24.0,
+                ),
               ),
               GestureDetector(
                 onTap: () => NavigateToPage.instance?.navigate(context,
@@ -150,7 +157,9 @@ class _TitleAudioList extends StatelessWidget {
                     route: AudioRecordingsPage.routeName),
                 child: const Text(
                   'Открыть все',
-                  style: TextStyle(fontSize: 14.0),
+                  style: TextStyle(
+                    fontSize: 14.0,
+                  ),
                 ),
               )
             ],

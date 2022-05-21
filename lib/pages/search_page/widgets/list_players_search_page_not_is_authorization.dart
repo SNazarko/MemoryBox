@@ -21,40 +21,43 @@ class ListPlayersSearchPageNotIsAuthorization extends StatelessWidget {
               height: 200.0,
             ),
             Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 50.0,
-                  horizontal: 40.0,
-                ),
-                child: Column(
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                          text: '     Для открытия полного \n '
-                              '            функционала \n '
-                              '   приложения вам нужно \n '
-                              ' зарегистрироваться',
+              padding: const EdgeInsets.symmetric(
+                vertical: 50.0,
+                horizontal: 40.0,
+              ),
+              child: Column(
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      text: '     Для открытия полного \n '
+                          '            функционала \n '
+                          '   приложения вам нужно \n '
+                          ' зарегистрироваться',
+                      style: const TextStyle(
+                        fontSize: 20.0,
+                        color: AppColor.colorText50,
+                      ),
+                      children: [
+                        TextSpan(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => NavigateToPage.instance?.navigate(
+                                  context,
+                                  index: 9,
+                                  currentIndex: state.currentIndex,
+                                  route: RegistrationPage.routeName,
+                                ),
+                          text: ' здесь',
                           style: const TextStyle(
                             fontSize: 20.0,
-                            color: AppColor.colorText50,
+                            color: AppColor.pink,
                           ),
-                          children: [
-                            TextSpan(
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () => NavigateToPage.instance
-                                    ?.navigate(context,
-                                        index: 9,
-                                        currentIndex: state.currentIndex,
-                                        route: RegistrationPage.routeName),
-                              text: ' здесь',
-                              style: const TextStyle(
-                                fontSize: 20.0,
-                                color: AppColor.pink,
-                              ),
-                            )
-                          ]),
-                    )
-                  ],
-                )),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
           ],
         );
       },

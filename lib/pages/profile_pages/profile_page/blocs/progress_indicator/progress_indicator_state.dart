@@ -27,6 +27,7 @@ class ProgressIndicatorState extends Equatable {
   }
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [progressIndicator];
+  List<Object?> get props => [
+        progressIndicator,
+      ];
 }

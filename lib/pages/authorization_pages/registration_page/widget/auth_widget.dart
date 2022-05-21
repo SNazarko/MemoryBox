@@ -24,11 +24,17 @@ class AuthWidget extends StatelessWidget {
   final TextEditingController phoneController;
   final TextEditingController otpController;
 
-  void buttonContinue(BuildContext context, state) {
+  void buttonContinue(
+    BuildContext context,
+    state,
+  ) {
     if (phoneController.text.isNotEmpty && state.status == AuthStatus.initial) {
       FocusScope.of(context).unfocus();
-      BlocProvider.of<AuthBloc>(context)
-          .add(PhoneNumberVerificationIdEvent(phone: phoneController.text));
+      BlocProvider.of<AuthBloc>(context).add(
+        PhoneNumberVerificationIdEvent(
+          phone: phoneController.text,
+        ),
+      );
       controller.animateToPage(
         1,
         duration: const Duration(milliseconds: 400),
@@ -36,29 +42,40 @@ class AuthWidget extends StatelessWidget {
       );
     } else if (state.status == AuthStatus.codeSent) {
       FocusScope.of(context).unfocus();
-      BlocProvider.of<AuthBloc>(context).add(PhoneAuthCodeVerificationIdEvent(
-          phone: phoneController.text,
-          smsCode: otpController.text,
-          verificationId: state.verificationId));
+      BlocProvider.of<AuthBloc>(context).add(
+        PhoneAuthCodeVerificationIdEvent(
+            phone: phoneController.text,
+            smsCode: otpController.text,
+            verificationId: state.verificationId),
+      );
       FirebaseAuth.instance.authStateChanges().listen((User? user) {
         if (user != null) {
           Timer(
             const Duration(milliseconds: 1),
-            () => Navigator.pushNamed(context, LastAuthorizationPage.routeName),
+            () => Navigator.pushNamed(
+              context,
+              LastAuthorizationPage.routeName,
+            ),
           );
         }
       });
     } else if (state.status == AuthStatus.failed) {
-      BlocProvider.of<AuthBloc>(context)
-          .add(PhoneNumberVerificationIdEvent(phone: phoneController.text));
+      BlocProvider.of<AuthBloc>(context).add(
+        PhoneNumberVerificationIdEvent(
+          phone: phoneController.text,
+        ),
+      );
       controller.animateToPage(
         1,
         duration: const Duration(milliseconds: 400),
         curve: Curves.easeIn,
       );
     } else if (state.status == AuthStatus.failedCodeSent) {
-      BlocProvider.of<AuthBloc>(context)
-          .add(PhoneNumberVerificationIdEvent(phone: phoneController.text));
+      BlocProvider.of<AuthBloc>(context).add(
+        PhoneNumberVerificationIdEvent(
+          phone: phoneController.text,
+        ),
+      );
     }
   }
 
@@ -72,7 +89,7 @@ class AuthWidget extends StatelessWidget {
         return Stack(
           children: [
             SizedBox(
-              height: screenHeight - 350,
+              height: screenHeight - 350.0,
               width: screenWidth,
               child: PageView(
                 controller: controller,
@@ -92,7 +109,7 @@ class AuthWidget extends StatelessWidget {
             ),
             Positioned(
               top: 100.0,
-              left: (screenWidth - 275) / 2,
+              left: (screenWidth - 275.0) / 2,
               child: Column(
                 children: [
                   const SizedBox(
@@ -101,7 +118,10 @@ class AuthWidget extends StatelessWidget {
                   ButtonContinue(
                     onPressed: state.status == AuthStatus.loading
                         ? null
-                        : () => buttonContinue(context, state),
+                        : () => buttonContinue(
+                              context,
+                              state,
+                            ),
                     text: state.status == AuthStatus.failed ||
                             state.status == AuthStatus.failedCodeSent
                         ? 'Отправить еще раз'
@@ -111,16 +131,20 @@ class AuthWidget extends StatelessWidget {
                     height: 15.0,
                   ),
                   TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, MainPage.routeName);
-                      },
-                      child: const Text(
-                        'Позже',
-                        style: TextStyle(
-                          fontSize: 24.0,
-                          color: AppColor.colorText,
-                        ),
-                      )),
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        MainPage.routeName,
+                      );
+                    },
+                    child: const Text(
+                      'Позже',
+                      style: TextStyle(
+                        fontSize: 24.0,
+                        color: AppColor.colorText,
+                      ),
+                    ),
+                  ),
                   const SizedBox(
                     height: 10.0,
                   ),
@@ -133,7 +157,7 @@ class AuthWidget extends StatelessWidget {
                       'Регистрация привяжет твои сказки к облаку, после чего они всегда будут с тобой',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 16.0,
                         color: Colors.black,
                       ),
                     ),

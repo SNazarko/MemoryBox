@@ -15,39 +15,44 @@ class PhotoProfileEdit extends StatelessWidget {
         return Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 110.0),
+              padding: const EdgeInsets.only(
+                top: 110.0,
+              ),
               child: Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    width: 200.0,
-                    height: 200.0,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20.0),
-                      ),
+                alignment: Alignment.center,
+                child: Container(
+                  width: 200.0,
+                  height: 200.0,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20.0),
                     ),
-                    child: state.image != null && state.image!.isNotEmpty
-                        ? ClipRRect(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(20.0),
-                            ),
-                            child: Image.network(
-                              state.image!,
-                              fit: BoxFit.cover,
-                            ))
-                        : ClipRRect(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(20.0),
-                            ),
-                            child: Image.asset(
-                              AppIcons.avatarka,
-                              fit: BoxFit.cover,
-                            ),
+                  ),
+                  child: state.image != null && state.image!.isNotEmpty
+                      ? ClipRRect(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(20.0),
                           ),
-                  )),
+                          child: Image.network(
+                            state.image!,
+                            fit: BoxFit.cover,
+                          ))
+                      : ClipRRect(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(20.0),
+                          ),
+                          child: Image.asset(
+                            AppIcons.avatarka,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                ),
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 110.0),
+              padding: const EdgeInsets.only(
+                top: 110.0,
+              ),
               child: IconCamera(
                 colorBorder: Colors.white,
                 onTap: () => context.read<GetImageProfileCubit>().getImage(),

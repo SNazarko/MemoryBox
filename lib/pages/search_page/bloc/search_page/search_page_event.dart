@@ -12,8 +12,9 @@ class LoadSearchPageEvent extends SearchPageEvent {
   final String? sort;
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [sort];
+  List<Object?> get props => [
+        sort,
+      ];
 }
 
 class UpdateSearchPageEvent extends SearchPageEvent {
@@ -23,6 +24,7 @@ class UpdateSearchPageEvent extends SearchPageEvent {
   final List list;
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [list];
+  List<Object?> get props => [
+        list,
+      ];
 }

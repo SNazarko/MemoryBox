@@ -19,7 +19,9 @@ class CollectionsModel {
     this.doneCollection,
   });
 
-  factory CollectionsModel.fromJson(Map<String, dynamic> json) {
+  factory CollectionsModel.fromJson(
+    Map<String, dynamic> json,
+  ) {
     return CollectionsModel(
       id: json['id'],
       titleCollections: json['titleCollections'],

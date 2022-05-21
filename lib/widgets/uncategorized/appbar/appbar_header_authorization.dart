@@ -4,11 +4,12 @@ import 'package:memory_box/utils/constants.dart';
 
 import '../appbar_clipper.dart';
 
-
-
 class AppbarHeaderAuthorization extends StatelessWidget {
-  const AppbarHeaderAuthorization({Key? key, this.title, this.subtitle})
-      : super(key: key);
+  const AppbarHeaderAuthorization({
+    Key? key,
+    this.title,
+    this.subtitle,
+  }) : super(key: key);
   final String? title;
   final String? subtitle;
 

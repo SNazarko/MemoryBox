@@ -14,27 +14,37 @@ class ListCollectionAddAudioInCollectionBloc extends Bloc<
     ListCollectionAddAudioInCollectionState> {
   StreamSubscription? _audioSubscription;
   ListCollectionAddAudioInCollectionBloc()
-      : super(const ListCollectionAddAudioInCollectionState()) {
-    on<LoadListCollectionAddAudioInCollectionEvent>(
-        (LoadListCollectionAddAudioInCollectionEvent event,
-            Emitter<ListCollectionAddAudioInCollectionState> emit) {
+      : super(
+          const ListCollectionAddAudioInCollectionState(),
+        ) {
+    on<LoadListCollectionAddAudioInCollectionEvent>((
+      LoadListCollectionAddAudioInCollectionEvent event,
+      Emitter<ListCollectionAddAudioInCollectionState> emit,
+    ) {
       try {
         _audioSubscription?.cancel();
         _audioSubscription = CollectionsRepositories.instance
             .readCollections()
             .listen((audioList) {
-          add(UpdateListCollectionAddAudioInCollectionEvent(list: audioList));
+          add(
+            UpdateListCollectionAddAudioInCollectionEvent(
+              list: audioList,
+            ),
+          );
         });
       } on Exception {
-        emit(state.copyWith(
-          status: ListCollectionAddAudioInCollectionStatus.failed,
-        ));
+        emit(
+          state.copyWith(
+            status: ListCollectionAddAudioInCollectionStatus.failed,
+          ),
+        );
       }
     });
 
-    on<UpdateListCollectionAddAudioInCollectionEvent>(
-        (UpdateListCollectionAddAudioInCollectionEvent event,
-            Emitter<ListCollectionAddAudioInCollectionState> emit) {
+    on<UpdateListCollectionAddAudioInCollectionEvent>((
+      UpdateListCollectionAddAudioInCollectionEvent event,
+      Emitter<ListCollectionAddAudioInCollectionState> emit,
+    ) {
       if (event.list.isNotEmpty) {
         emit(
           state.copyWith(
@@ -43,9 +53,11 @@ class ListCollectionAddAudioInCollectionBloc extends Bloc<
           ),
         );
       } else {
-        emit(state.copyWith(
-          status: ListCollectionAddAudioInCollectionStatus.emptyList,
-        ));
+        emit(
+          state.copyWith(
+            status: ListCollectionAddAudioInCollectionStatus.emptyList,
+          ),
+        );
       }
     });
   }

@@ -18,8 +18,10 @@ class SupportMessagePage extends StatelessWidget {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
     return BlocProvider<SupportMessageBloc>(
-      create: (context) =>
-          SupportMessageBloc()..add(const LoadSupportMessageEvent()),
+      create: (context) => SupportMessageBloc()
+        ..add(
+          const LoadSupportMessageEvent(),
+        ),
       child: WillPopScope(
         onWillPop: () async {
           return shouldPop;
@@ -30,7 +32,9 @@ class SupportMessagePage extends StatelessWidget {
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
-              icon: const Icon(Icons.menu),
+              icon: const Icon(
+                Icons.menu,
+              ),
             ),
             title: const Text(
               'Поддержка',

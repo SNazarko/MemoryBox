@@ -7,7 +7,6 @@ class LoadGreenListItemEvent extends GreenListItemEvent {
   LoadGreenListItemEvent();
 
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
@@ -18,6 +17,7 @@ class UpdateGreenListItemEvent extends GreenListItemEvent {
   final List<CollectionsModel> list;
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [list];
+  List<Object?> get props => [
+        list,
+      ];
 }

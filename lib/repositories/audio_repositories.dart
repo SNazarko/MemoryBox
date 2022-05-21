@@ -36,30 +36,6 @@ class AudioRepositories {
               .map((doc) => AudioModel.fromJson(doc.data()))
               .toList());
 
-  //Stream play list delete audio
-
-  // Stream<List<AudioModel>> readAudioDelete(String sort) => FirebaseFirestore
-  //     .instance
-  //     .collection(phoneNumber!)
-  //     .doc('id')
-  //     .collection('DeleteCollections')
-  //     .where('collections', arrayContains: sort)
-  //     .snapshots()
-  //     .map((snapshot) =>
-  //         snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
-
-  //Stream play list audio
-
-  // Stream<List<AudioModel>> readAudioSort(String sort) => FirebaseFirestore
-  //     .instance
-  //     .collection(phoneNumber!)
-  //     .doc('id')
-  //     .collection('Collections')
-  //     .where('collections', arrayContains: sort)
-  //     .snapshots()
-  //     .map((snapshot) =>
-  //         snapshot.docs.map((doc) => AudioModel.fromJson(doc.data())).toList());
-
 // Save audio file in firebase
 
   Future<void> addAudio(
@@ -83,8 +59,19 @@ class AudioRepositories {
       audioName: name,
       audioUrl: await ref.getDownloadURL(),
       duration: duration,
-      dateTime: formatDate(
-          _todayDate, [dd, '.', mm, '.', yy, HH, ':', nn, ':', ss, z]),
+      dateTime: formatDate(_todayDate, [
+        dd,
+        '.',
+        mm,
+        '.',
+        yy,
+        HH,
+        ':',
+        nn,
+        ':',
+        ss,
+        z,
+      ]),
       dateTimeDelete: _todayDate2,
       done: false,
       playPause: false,
@@ -172,7 +159,9 @@ class AudioRepositories {
     try {
       await firebase_storage.FirebaseStorage.instance
           .ref('$phoneNumber/userAudio/$idAudio.m4a')
-          .writeToFile(File(filePath));
+          .writeToFile(
+            File(filePath),
+          );
     } on FirebaseException catch (e) {
       if (kDebugMode) {
         print('Ошибка $e');
@@ -197,7 +186,11 @@ class AudioRepositories {
   // Delete files after 15 days
   Future<void> finishDelete() async {
     final now = DateTime.now();
-    final later = now.add(const Duration(days: 15));
+    final later = now.add(
+      const Duration(
+        days: 15,
+      ),
+    );
     String? idAudio;
     int? size;
     Timestamp? dateTimeDelete;
@@ -215,11 +208,15 @@ class AudioRepositories {
         }
       });
       if (dateTimeDelete != null) {
-        final state = dateTimeDelete!.compareTo(Timestamp.fromDate(later));
+        final state = dateTimeDelete!.compareTo(
+          Timestamp.fromDate(later),
+        );
         if (state >= 0) {
           await UserRepositories.instance.updateSizeRepositories(-size!);
-          await CollectionsRepositories.instance
-              .deleteCollectionApp(idAudio!, 'DeleteCollections');
+          await CollectionsRepositories.instance.deleteCollectionApp(
+            idAudio!,
+            'DeleteCollections',
+          );
         }
       }
     }

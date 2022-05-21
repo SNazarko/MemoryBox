@@ -11,9 +11,14 @@ part 'search_page_state.dart';
 
 class SearchPageBloc extends Bloc<SearchPageEvent, SearchPageState> {
   StreamSubscription? _audioSubscription;
-  SearchPageBloc() : super(const SearchPageState()) {
-    on<LoadSearchPageEvent>(
-        (LoadSearchPageEvent event, Emitter<SearchPageState> emit) {
+  SearchPageBloc()
+      : super(
+          const SearchPageState(),
+        ) {
+    on<LoadSearchPageEvent>((
+      LoadSearchPageEvent event,
+      Emitter<SearchPageState> emit,
+    ) {
       try {
         if (event.sort == null || event.sort == '') {
           _audioSubscription?.cancel();
@@ -47,14 +52,18 @@ class SearchPageBloc extends Bloc<SearchPageEvent, SearchPageState> {
           });
         }
       } on Exception {
-        emit(state.copyWith(
-          status: SearchPageStatus.failed,
-        ));
+        emit(
+          state.copyWith(
+            status: SearchPageStatus.failed,
+          ),
+        );
       }
     });
 
-    on<UpdateSearchPageEvent>(
-        (UpdateSearchPageEvent event, Emitter<SearchPageState> emit) {
+    on<UpdateSearchPageEvent>((
+      UpdateSearchPageEvent event,
+      Emitter<SearchPageState> emit,
+    ) {
       emit(
         state.copyWith(
           status: SearchPageStatus.success,

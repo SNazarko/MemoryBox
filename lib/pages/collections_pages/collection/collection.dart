@@ -22,7 +22,9 @@ class Collections extends StatelessWidget {
         ),
         BlocProvider<ListItemCollectionBloc>(
           create: (context) => ListItemCollectionBloc()
-            ..add(const LoadListItemCollectionEvent()),
+            ..add(
+              const LoadListItemCollectionEvent(),
+            ),
         ),
       ],
       child: WillPopScope(

@@ -54,7 +54,6 @@ class _AudioRecorderState extends State<AudioRecorder> {
       const Duration(milliseconds: 40),
       (_) async {
         _incWidth++;
-        // _amplitude = await _record!.getAmplitude();
         _dcb = _amplitude!.current + 45;
         if (_dcb < 2) {
           _dcb = 2;
@@ -77,7 +76,11 @@ class _AudioRecorderState extends State<AudioRecorder> {
       );
       color = Colors.red.withOpacity(0.1);
     } else {
-      icon = const Icon(Icons.mic, color: AppColor.white, size: 70);
+      icon = const Icon(
+        Icons.mic,
+        color: AppColor.white,
+        size: 70,
+      );
       color = AppColor.pinkRec;
     }
 
@@ -85,7 +88,11 @@ class _AudioRecorderState extends State<AudioRecorder> {
       child: Material(
         color: color,
         child: InkWell(
-          child: SizedBox(width: 80, height: 80, child: icon),
+          child: SizedBox(
+            width: 80,
+            height: 80,
+            child: icon,
+          ),
           onTap: () {
             _isRecording ? _stop() : _start();
           },
@@ -110,14 +117,16 @@ class _AudioRecorderState extends State<AudioRecorder> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               AnimatedContainer(
-                duration: const Duration(milliseconds: 50),
+                duration: const Duration(
+                  milliseconds: 50,
+                ),
                 height: _listAmplitude[index] * 3,
-                width: 2,
+                width: 2.0,
                 color: Colors.black,
               ),
               SizedBox(
-                width: 2,
-                height: 6,
+                width: 2.0,
+                height: 6.0,
                 child: Container(
                   color: Colors.black,
                 ),
@@ -138,8 +147,12 @@ class _AudioRecorderState extends State<AudioRecorder> {
   }
 
   Widget _buildTimer() {
-    final String minutes = _formatNumber(_recordDuration ~/ 60);
-    final String seconds = _formatNumber(_recordDuration % 60);
+    final String minutes = _formatNumber(
+      _recordDuration ~/ 60,
+    );
+    final String seconds = _formatNumber(
+      _recordDuration % 60,
+    );
     context.read<RecordingsPageBloc>().add(
           RecordingsPageEvent(
             minutes: minutes,
@@ -148,7 +161,9 @@ class _AudioRecorderState extends State<AudioRecorder> {
         );
     return Text(
       '$minutes : $seconds',
-      style: const TextStyle(color: Colors.red),
+      style: const TextStyle(
+        color: Colors.red,
+      ),
     );
   }
 
@@ -241,17 +256,17 @@ class _AudioRecorderState extends State<AudioRecorder> {
           ),
         ),
         const SizedBox(
-          height: 50,
+          height: 50.0,
         ),
         const Text(
           'Запись',
-          style: kBodiTextStyle,
+          style: kBodyTextStyle,
         ),
         SizedBox(
           child: Column(
             children: [
               const SizedBox(
-                height: 120,
+                height: 120.0,
               ),
               _amplitudRecords(),
               Row(

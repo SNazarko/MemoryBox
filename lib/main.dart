@@ -8,12 +8,18 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+  SystemChrome.setPreferredOrientations(
+    [
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ],
+  );
   await Firebase.initializeApp();
-  runApp(Phoenix(child: const MyApp()));
+  runApp(
+    Phoenix(
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -24,12 +30,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'MemoryBox',
       theme: ThemeData(
-          appBarTheme: const AppBarTheme(backgroundColor: AppColor.colorAppbar),
-          textTheme: const TextTheme(
-              bodyText2: TextStyle(
-                  color: AppColor.colorText,
-                  fontFamily: 'TTNorms',
-                  fontWeight: FontWeight.normal))),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: AppColor.colorAppbar,
+        ),
+        textTheme: const TextTheme(
+          bodyText2: TextStyle(
+            color: AppColor.colorText,
+            fontFamily: 'TTNorms',
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+      ),
       initialRoute: FirstWightPage.routeName,
       onGenerateRoute: AppRouter.generateRoute,
     );

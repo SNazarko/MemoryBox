@@ -198,10 +198,17 @@ class CollectionItem extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.black.withOpacity(0.4),
               gradient: LinearGradient(
-                  colors: doneCollection!
-                      ? [const Color(0xFF000000), const Color(0xFF000000)]
-                      : [const Color(0xFF000000), const Color(0xFF454545)],
-                  begin: Alignment.bottomRight),
+                colors: doneCollection!
+                    ? [
+                        const Color(0xFF000000),
+                        const Color(0xFF000000),
+                      ]
+                    : [
+                        const Color(0xFF000000),
+                        const Color(0xFF454545),
+                      ],
+                begin: Alignment.bottomRight,
+              ),
             ),
           ),
           Center(
@@ -211,7 +218,9 @@ class CollectionItem extends StatelessWidget {
                   width: 50.0,
                   height: 50.0,
                   decoration: BoxDecoration(
-                    border: Border.all(color: AppColor.white),
+                    border: Border.all(
+                      color: AppColor.white,
+                    ),
                     borderRadius: const BorderRadius.all(
                       Radius.circular(25.0),
                     ),

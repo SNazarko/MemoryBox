@@ -45,10 +45,11 @@ class CustomBottomNavBar extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
-                color: Colors.grey.shade500,
-                offset: const Offset(0.0, 0.0),
-                blurRadius: 10.0,
-                spreadRadius: 1.0),
+              color: Colors.grey.shade500,
+              offset: const Offset(0.0, 0.0),
+              blurRadius: 10.0,
+              spreadRadius: 1.0,
+            ),
           ]),
       child: ClipRRect(
         borderRadius: const BorderRadius.only(
@@ -83,8 +84,9 @@ class CustomBottomNavBar extends StatelessWidget {
                           Flexible(
                             flex: 10,
                             child: ClipRRect(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(50.0)),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(50.0),
+                              ),
                               child: e.iconPath == AppIcons.microfon
                                   ? Container(
                                       color: AppColor.pinkRec,

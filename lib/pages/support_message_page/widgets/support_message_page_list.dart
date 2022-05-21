@@ -17,26 +17,27 @@ class SupportMessagePageList extends StatelessWidget {
         }
         if (state.status == SupportMessageStatus.success) {
           return Expanded(
-              child: ListView.builder(
-                  reverse: true,
-                  padding: const EdgeInsets.all(15.0),
-                  itemCount: state.list.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final message = state.list[index];
-                    final currentUser =
-                        AuthRepositories.instance.user!.phoneNumber;
-                    bool? isMe;
-                    if (currentUser == message.phoneNumber) {
-                      isMe = true;
-                    }
-                    if ('+38000112233' == message.phoneNumber) {
-                      isMe = false;
-                    }
-                    return _ModelMessage(
-                        message: message.message,
-                        phoneNumber: message.phoneNumber,
-                        isMe: isMe ?? false);
-                  }));
+            child: ListView.builder(
+                reverse: true,
+                padding: const EdgeInsets.all(15.0),
+                itemCount: state.list.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final message = state.list[index];
+                  final currentUser =
+                      AuthRepositories.instance.user!.phoneNumber;
+                  bool? isMe;
+                  if (currentUser == message.phoneNumber) {
+                    isMe = true;
+                  }
+                  if ('+38000112233' == message.phoneNumber) {
+                    isMe = false;
+                  }
+                  return _ModelMessage(
+                      message: message.message,
+                      phoneNumber: message.phoneNumber,
+                      isMe: isMe ?? false);
+                }),
+          );
         }
         if (state.status == SupportMessageStatus.failed) {
           return const Center(
@@ -73,10 +74,14 @@ class _ModelMessage extends StatelessWidget {
           isMe! ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10.0,
+          ),
           child: Text(
             phoneNumber!,
-            style: const TextStyle(fontSize: 12.0),
+            style: const TextStyle(
+              fontSize: 12.0,
+            ),
           ),
         ),
         Padding(
@@ -99,7 +104,9 @@ class _ModelMessage extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: Text(
                 message!,
-                style: const TextStyle(fontSize: 16.0),
+                style: const TextStyle(
+                  fontSize: 16.0,
+                ),
               ),
             ),
           ),

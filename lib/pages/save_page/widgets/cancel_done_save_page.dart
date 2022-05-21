@@ -44,7 +44,10 @@ class CancelDoneSavePage extends StatelessWidget {
     return BlocBuilder<SavePageBloc, SavePageState>(
       builder: (_, state) {
         return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+          padding: const EdgeInsets.symmetric(
+            vertical: 10.0,
+            horizontal: 20.0,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -57,7 +60,10 @@ class CancelDoneSavePage extends StatelessWidget {
                     style: kTitle3TextStyle3,
                   )),
               TextButton(
-                  onPressed: () => _finished(context, state),
+                  onPressed: () => _finished(
+                        context,
+                        state,
+                      ),
                   child: const Text(
                     'Готово',
                     style: kTitle3TextStyle3,

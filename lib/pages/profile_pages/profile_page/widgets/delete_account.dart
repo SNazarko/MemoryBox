@@ -5,11 +5,8 @@ import 'package:memory_box/database/preferences_data_model_user.dart';
 import 'package:memory_box/repositories/user_repositories.dart';
 import 'package:memory_box/resources/app_colors.dart';
 
-import '../profile_model.dart';
-
 class DeleteAccount extends StatelessWidget {
   DeleteAccount({Key? key}) : super(key: key);
-  final DataModel model = DataModel();
   final _auth = FirebaseAuth.instance;
 
   void _deleteAccount(BuildContext context) {

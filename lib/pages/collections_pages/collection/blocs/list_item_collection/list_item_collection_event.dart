@@ -9,7 +9,6 @@ class LoadListItemCollectionEvent extends ListItemCollectionEvent {
   const LoadListItemCollectionEvent();
 
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
@@ -20,6 +19,5 @@ class UpdateListItemCollectionEvent extends ListItemCollectionEvent {
   final List list;
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [list];
+  List<Object?> get props => [list,];
 }

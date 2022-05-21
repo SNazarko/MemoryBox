@@ -3,8 +3,10 @@ import 'package:memory_box/resources/app_colors.dart';
 import 'package:memory_box/utils/constants.dart';
 
 class SubTitle extends StatefulWidget {
-  const SubTitle({Key? key, required this.subTitleCollection})
-      : super(key: key);
+  const SubTitle({
+    Key? key,
+    required this.subTitleCollection,
+  }) : super(key: key);
   final String subTitleCollection;
   @override
   State<SubTitle> createState() => _SubTitleState();
@@ -24,10 +26,12 @@ class _SubTitleState extends State<SubTitle> {
           padding: const EdgeInsets.only(
             left: 28.0,
           ),
-          child: Text(widget.subTitleCollection,
-              style: kBodi2TextStyle,
-              maxLines: allText ? 4 : 100,
-              overflow: TextOverflow.ellipsis),
+          child: Text(
+            widget.subTitleCollection,
+            style: kBody2TextStyle,
+            maxLines: allText ? 4 : 100,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
         widget.subTitleCollection.length >= 150
             ? Align(
@@ -42,7 +46,9 @@ class _SubTitleState extends State<SubTitle> {
                     child: Text(
                       allText ? 'Подробнее' : 'Скрить...',
                       style: const TextStyle(
-                          color: AppColor.colorText50, fontSize: 13.0),
+                        color: AppColor.colorText50,
+                        fontSize: 13.0,
+                      ),
                     ),
                   ),
                 ),

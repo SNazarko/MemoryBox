@@ -12,8 +12,9 @@ class LoadCollectionAddAudioEvent extends CollectionAddAudioEvent {
   final String? sort;
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [sort];
+  List<Object?> get props => [
+        sort,
+      ];
 }
 
 class UpdateCollectionAddAudioEvent extends CollectionAddAudioEvent {
@@ -24,5 +25,7 @@ class UpdateCollectionAddAudioEvent extends CollectionAddAudioEvent {
 
   @override
   // TODO: implement props
-  List<Object?> get props => [list];
+  List<Object?> get props => [
+        list,
+      ];
 }

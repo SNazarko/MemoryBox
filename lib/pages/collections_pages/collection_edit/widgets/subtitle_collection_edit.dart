@@ -18,7 +18,11 @@ class SubTitleCollectionEdit extends StatelessWidget {
   final String subTitleCollection;
   final String imageCollection;
 
-  void _updateCollection(BuildContext context, state, stateImage) {
+  void _updateCollection(
+    BuildContext context,
+    state,
+    stateImage,
+  ) {
     CollectionsRepositories.instance.updateCollection(
       idCollection,
       state.title ?? titleCollection,
@@ -44,7 +48,7 @@ class SubTitleCollectionEdit extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'Введите описание...',
-                  style: kBodi2TextStyle,
+                  style: kBody2TextStyle,
                 ),
               ),
             ),
@@ -56,7 +60,9 @@ class SubTitleCollectionEdit extends StatelessWidget {
                 maxLines: 3,
                 onChanged: (subTitle) {
                   context.read<CollectionEditBloc>().add(
-                        CollectionEditEvent(subTitle: subTitle),
+                        CollectionEditEvent(
+                          subTitle: subTitle,
+                        ),
                       );
                 },
                 style: const TextStyle(

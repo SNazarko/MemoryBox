@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:memory_box/resources/app_icons.dart';
 
 class IconCamera extends StatelessWidget {
-  const IconCamera(
-      {Key? key,
-      required this.onTap,
-      required this.color,
-      required this.colorBorder,
-      required this.position})
-      : super(key: key);
+  const IconCamera({
+    Key? key,
+    required this.onTap,
+    required this.color,
+    required this.colorBorder,
+    required this.position,
+  }) : super(key: key);
   final void Function()? onTap;
   final Color color;
   final Color colorBorder;
@@ -34,7 +34,9 @@ class IconCamera extends StatelessWidget {
               )),
         ),
         Padding(
-          padding: EdgeInsets.only(top: position),
+          padding: EdgeInsets.only(
+            top: position,
+          ),
           child: Center(
             child: GestureDetector(
               onTap: onTap,
@@ -42,7 +44,9 @@ class IconCamera extends StatelessWidget {
                 width: 100.0,
                 height: 100.0,
                 decoration: BoxDecoration(
-                  border: Border.all(color: colorBorder),
+                  border: Border.all(
+                    color: colorBorder,
+                  ),
                   borderRadius: const BorderRadius.all(
                     Radius.circular(50.0),
                   ),

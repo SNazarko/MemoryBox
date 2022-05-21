@@ -32,10 +32,13 @@ class _DoneCollectionItemEditAudioState
     extends State<DoneCollectionItemEditAudio> {
   Future<void> _onTapDone() async {
     await AudioRepositories.instance.addAudioCollections(
+      widget.idCollection,
+      widget.id!,
+      widget.collection!,
+      !widget.collection!.contains(
         widget.idCollection,
-        widget.id!,
-        widget.collection!,
-        !widget.collection!.contains(widget.idCollection));
+      ),
+    );
     await CollectionsRepositories.instance.updateQualityAndTotalTime(
       widget.idCollection,
     );
@@ -49,10 +52,12 @@ class _DoneCollectionItemEditAudioState
       child: GestureDetector(
         onTap: () => _onTapDone(),
         child: Container(
-          width: 40,
-          height: 40,
+          width: 40.0,
+          height: 40.0,
           decoration: BoxDecoration(
-            border: Border.all(color: AppColor.colorText),
+            border: Border.all(
+              color: AppColor.colorText,
+            ),
             borderRadius: const BorderRadius.all(
               Radius.circular(25.0),
             ),

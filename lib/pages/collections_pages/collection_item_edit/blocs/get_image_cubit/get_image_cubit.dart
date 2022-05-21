@@ -12,7 +12,9 @@ class GetImageCollectionItemEditCubit
     extends Cubit<GetImageCollectionItemEditState> {
   final ImagePick _imagePick = ImagePick();
   GetImageCollectionItemEditCubit()
-      : super(const GetImageCollectionItemEditState());
+      : super(
+          const GetImageCollectionItemEditState(),
+        );
   Future<void> getImage() async {
     String? _singleImage;
     XFile? _image = await _imagePick.singleImagePick();

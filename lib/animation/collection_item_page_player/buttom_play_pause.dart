@@ -21,12 +21,16 @@ class _ButtonPlayPauseState extends State<ButtonPlayPause>
   late AnimationController controller;
   late Animation animation;
   Timer? _timerAmplitude;
-  // late Animation animation;
 
   void animPlus() {
-    controller =
-        AnimationController(duration: const Duration(seconds: 1), vsync: this);
-    animation = CurvedAnimation(parent: controller, curve: Curves.decelerate);
+    controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    );
+    animation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.decelerate,
+    );
     controller.forward();
     controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
@@ -36,10 +40,17 @@ class _ButtonPlayPauseState extends State<ButtonPlayPause>
   }
 
   void animMinus() {
-    controller =
-        AnimationController(duration: const Duration(seconds: 1), vsync: this);
-    animation = CurvedAnimation(parent: controller, curve: Curves.easeInQuart);
-    controller.reverse(from: 1);
+    controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    );
+    animation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.easeInQuart,
+    );
+    controller.reverse(
+      from: 1,
+    );
     controller.addStatusListener((status) {
       if (status == AnimationStatus.dismissed) {
         _timerAmplitude!.cancel();
@@ -82,7 +93,7 @@ class _ButtonPlayPauseState extends State<ButtonPlayPause>
                 height: 48.0,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(
-                    Radius.circular(25),
+                    Radius.circular(25.0),
                   ),
                   color: Colors.grey,
                 ),

@@ -14,7 +14,10 @@ class _FirstWightPageState extends State<FirstWightPage> {
   @override
   void initState() {
     Timer(const Duration(seconds: 1), () {
-      Navigator.pushNamed(context, Screensaver.routeName);
+      Navigator.pushNamed(
+        context,
+        Screensaver.routeName,
+      );
     });
     super.initState();
   }

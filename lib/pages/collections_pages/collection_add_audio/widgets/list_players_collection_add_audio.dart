@@ -25,7 +25,10 @@ class ListPlayersCollectionAddAudio extends StatelessWidget {
               }
               if (state.status == CollectionAddAudioStatus.success) {
                 return ListView.builder(
-                  padding: const EdgeInsets.only(top: 230.0, bottom: 110.0),
+                  padding: const EdgeInsets.only(
+                    top: 230.0,
+                    bottom: 110.0,
+                  ),
                   itemCount: state.list.length,
                   itemBuilder: (BuildContext context, int index) {
                     final audio = state.list[index];
@@ -43,7 +46,9 @@ class ListPlayersCollectionAddAudio extends StatelessWidget {
               }
               if (state.status == CollectionAddAudioStatus.failed) {
                 return const Center(
-                  child: Text('Ой: сталася помилка!'),
+                  child: Text(
+                    'Ой: сталася помилка!',
+                  ),
                 );
               } else {
                 return const Center(

@@ -36,7 +36,10 @@ class _HomePageState extends State<HomePage> {
             final bool subscription = result.data()['subscription'] ?? true;
             if (subscription == false) {
               Timer(const Duration(seconds: 3), () {
-                Navigator.pushNamed(context, SubscriptionPage.routeName);
+                Navigator.pushNamed(
+                  context,
+                  SubscriptionPage.routeName,
+                );
               });
             }
           }

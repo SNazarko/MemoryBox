@@ -18,11 +18,16 @@ class UserRepositories {
 
   //Stream list user
 
-  Stream<List<UserModel>> readUser() => FirebaseFirestore.instance
-      .collection(phoneNumber!)
-      .snapshots()
-      .map((snapshot) =>
-          snapshot.docs.map((doc) => UserModel.fromJson(doc.data())).toList());
+  Stream<List<UserModel>> readUser() =>
+      FirebaseFirestore.instance.collection(phoneNumber!).snapshots().map(
+            (snapshot) => snapshot.docs
+                .map(
+                  (doc) => UserModel.fromJson(
+                    doc.data(),
+                  ),
+                )
+                .toList(),
+          );
 
   //Stream list support user shat
 
@@ -30,33 +35,15 @@ class UserRepositories {
       .collection('SupportQuestions')
       .orderBy('dateTime', descending: true)
       .snapshots()
-      .map((snapshot) =>
-          snapshot.docs.map((doc) => ShatModel.fromJson(doc.data())).toList());
-
-  // Basic filling of the database at the first event
-
-  // Future<void> firstAuthorization() async {
-  //   final DateTime now = DateTime.now();
-  //   final DateTime later = now.add(const Duration(days: 30));
-  //   final Timestamp laterTimestamp = Timestamp.fromDate(later);
-  //   await FirebaseFirestore.instance
-  //       .collection(user!.phoneNumber!)
-  //       .doc('user')
-  //       .set({
-  //     'displayName': 'Имя',
-  //     'phoneNumb': '+00(000)0000000',
-  //     'avatarUrl': '',
-  //     'onceAMonth': false,
-  //     'onceAYear': false,
-  //     'onlyMonth': false,
-  //     'finishTimeSubscription': laterTimestamp,
-  //     'subscription': true,
-  //     'subscriptionLimit': 524288000,
-  //     'totalQuality': 0,
-  //     'totalSize': 0,
-  //     'totalTime': '00:00',
-  //   });
-  // }
+      .map(
+        (snapshot) => snapshot.docs
+            .map(
+              (doc) => ShatModel.fromJson(
+                doc.data(),
+              ),
+            )
+            .toList(),
+      );
 
   // Update size repositories
   Future<void> updateSizeRepositories(int size) async {
@@ -77,7 +64,10 @@ class UserRepositories {
         .collection(phoneNumber!)
         .doc('id')
         .collection('Collections')
-        .where('collections', arrayContainsAny: ['all'])
+        .where(
+          'collections',
+          arrayContainsAny: ['all'],
+        )
         .get()
         .then((querySnapshot) {
           for (var result in querySnapshot.docs) {
@@ -129,8 +119,10 @@ class UserRepositories {
   // Update image
 
   Future<String> uploadImage(XFile image) async {
-    firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
-        .ref('$phoneNumber/userImage/${getImageName(image)}');
+    firebase_storage.Reference ref =
+        firebase_storage.FirebaseStorage.instance.ref(
+      '$phoneNumber/userImage/${getImageName(image)}',
+    );
     await ref.putFile(File(image.path));
     UserModel(avatarUrl: '${ref.getDownloadURL()}');
     return ref.getDownloadURL();
@@ -221,7 +213,9 @@ class UserRepositories {
 
   Future<void> subscription(int days) async {
     final DateTime now = DateTime.now();
-    final DateTime later = now.add(Duration(days: days));
+    final DateTime later = now.add(
+      Duration(days: days),
+    );
     final Timestamp laterTimestamp = Timestamp.fromDate(later);
     FirebaseFirestore.instance.collection(phoneNumber!).doc('user').update({
       'finishTimeSubscription': laterTimestamp,

@@ -12,25 +12,38 @@ part 'green_list_collections_state.dart';
 
 class GreenListItemBloc extends Bloc<GreenListItemEvent, GreenListItemState> {
   StreamSubscription? _collectionSubscription;
-  GreenListItemBloc() : super(const GreenListItemState()) {
-    on<LoadGreenListItemEvent>(
-        (LoadGreenListItemEvent event, Emitter<GreenListItemState> emit) {
+  GreenListItemBloc()
+      : super(
+          const GreenListItemState(),
+        ) {
+    on<LoadGreenListItemEvent>((
+      LoadGreenListItemEvent event,
+      Emitter<GreenListItemState> emit,
+    ) {
       try {
         _collectionSubscription?.cancel();
         _collectionSubscription = CollectionsRepositories.instance
             .readCollections()
             .listen((collection) {
-          add(UpdateGreenListItemEvent(list: collection));
+          add(
+            UpdateGreenListItemEvent(
+              list: collection,
+            ),
+          );
         });
       } on Exception {
-        emit(state.copyWith(
-          status: GreenListItemStatus.failed,
-        ));
+        emit(
+          state.copyWith(
+            status: GreenListItemStatus.failed,
+          ),
+        );
       }
     });
 
-    on<UpdateGreenListItemEvent>(
-        (UpdateGreenListItemEvent event, Emitter<GreenListItemState> emit) {
+    on<UpdateGreenListItemEvent>((
+      UpdateGreenListItemEvent event,
+      Emitter<GreenListItemState> emit,
+    ) {
       if (event.list.isNotEmpty) {
         emit(
           state.copyWith(
@@ -39,9 +52,11 @@ class GreenListItemBloc extends Bloc<GreenListItemEvent, GreenListItemState> {
           ),
         );
       } else {
-        emit(state.copyWith(
-          status: GreenListItemStatus.emptyList,
-        ));
+        emit(
+          state.copyWith(
+            status: GreenListItemStatus.emptyList,
+          ),
+        );
       }
     });
   }

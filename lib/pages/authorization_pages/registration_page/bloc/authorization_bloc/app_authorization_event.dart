@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 
 abstract class AuthEvent extends Equatable {
   const AuthEvent();
@@ -9,7 +8,9 @@ abstract class AuthEvent extends Equatable {
 }
 
 class PhoneNumberVerificationIdEvent extends AuthEvent {
-  const PhoneNumberVerificationIdEvent({this.phone});
+  const PhoneNumberVerificationIdEvent({
+    this.phone,
+  });
   final String? phone;
   @override
   List<Object?> get props => [phone];
@@ -25,16 +26,24 @@ class PhoneAuthCodeVerificationIdEvent extends AuthEvent {
   final String? smsCode;
   final String? verificationId;
   @override
-  List<Object?> get props => [phone, smsCode, verificationId];
+  List<Object?> get props => [
+        phone,
+        smsCode,
+        verificationId,
+      ];
 }
 
 class CompletedAuthEvent extends AuthEvent {
-  const CompletedAuthEvent({this.credential});
+  const CompletedAuthEvent({
+    this.credential,
+  });
   final AuthCredential? credential;
 }
 
-class ErrorOccuredEvent extends AuthEvent {
-  ErrorOccuredEvent({this.error});
+class ErrorOccurredEvent extends AuthEvent {
+  const ErrorOccurredEvent({
+    this.error,
+  });
   final String? error;
 }
 

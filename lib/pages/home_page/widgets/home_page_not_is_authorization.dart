@@ -26,7 +26,10 @@ class HomePageNotIsAuthorization extends StatelessWidget {
               boxShadow: <BoxShadow>[
                 BoxShadow(
                   color: Colors.grey.shade300,
-                  offset: const Offset(0.0, -5.0),
+                  offset: const Offset(
+                    0.0,
+                    -5.0,
+                  ),
                   blurRadius: 10.0,
                 )
               ]),
@@ -42,41 +45,44 @@ class HomePageNotIsAuthorization extends StatelessWidget {
                 Expanded(
                   flex: 5,
                   child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 50.0,
-                        horizontal: 40.0,
-                      ),
-                      child: Column(
-                        children: [
-                          RichText(
-                            text: TextSpan(
-                                text: '     Для открытия полного \n '
-                                    '            функционала \n '
-                                    '   приложения вам нужно \n '
-                                    ' зарегистрироваться',
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 50.0,
+                      horizontal: 40.0,
+                    ),
+                    child: Column(
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            text: '     Для открытия полного \n '
+                                '            функционала \n '
+                                '   приложения вам нужно \n '
+                                ' зарегистрироваться',
+                            style: const TextStyle(
+                              fontSize: 20.0,
+                              color: AppColor.colorText50,
+                            ),
+                            children: [
+                              TextSpan(
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap =
+                                      () => NavigateToPage.instance?.navigate(
+                                            context,
+                                            index: 9,
+                                            currentIndex: state.currentIndex,
+                                            route: RegistrationPage.routeName,
+                                          ),
+                                text: ' здесь',
                                 style: const TextStyle(
                                   fontSize: 20.0,
-                                  color: AppColor.colorText50,
+                                  color: AppColor.pink,
                                 ),
-                                children: [
-                                  TextSpan(
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () => NavigateToPage.instance
-                                          ?.navigate(context,
-                                              index: 9,
-                                              currentIndex: state.currentIndex,
-                                              route:
-                                                  RegistrationPage.routeName),
-                                    text: ' здесь',
-                                    style: const TextStyle(
-                                      fontSize: 20.0,
-                                      color: AppColor.pink,
-                                    ),
-                                  )
-                                ]),
-                          )
-                        ],
-                      )),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -102,7 +108,9 @@ class _TitleAudioList extends StatelessWidget {
             children: [
               const Text(
                 'Аудиозаписи',
-                style: TextStyle(fontSize: 24.0),
+                style: TextStyle(
+                  fontSize: 24.0,
+                ),
               ),
               GestureDetector(
                 onTap: () => NavigateToPage.instance?.navigate(
@@ -113,7 +121,9 @@ class _TitleAudioList extends StatelessWidget {
                 ),
                 child: const Text(
                   'Открыть все',
-                  style: TextStyle(fontSize: 14.0),
+                  style: TextStyle(
+                    fontSize: 14.0,
+                  ),
                 ),
               )
             ],

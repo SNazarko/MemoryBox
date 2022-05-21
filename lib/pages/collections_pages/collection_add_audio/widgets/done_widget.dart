@@ -49,14 +49,22 @@ class _DoneWidgetState extends State<DoneWidget> {
         widget.collection,
         false,
       );
-      AudioRepositories.instance.doneAudioItem(widget.id, false, 'Collections');
+      AudioRepositories.instance.doneAudioItem(
+        widget.id,
+        false,
+        'Collections',
+      );
       setState(() {});
     }
     if (_done) {
       await _getIdCollection(context);
       await AudioRepositories.instance.addAudioCollections(
           idCollection!, widget.id, widget.collection, true);
-      AudioRepositories.instance.doneAudioItem(widget.id, true, 'Collections');
+      AudioRepositories.instance.doneAudioItem(
+        widget.id,
+        true,
+        'Collections',
+      );
       setState(() {});
     }
   }
@@ -70,10 +78,12 @@ class _DoneWidgetState extends State<DoneWidget> {
           GestureDetector(
             onTap: () => _onTapDone(context),
             child: Container(
-              width: 35,
-              height: 35,
+              width: 35.0,
+              height: 35.0,
               decoration: BoxDecoration(
-                border: Border.all(color: AppColor.colorText),
+                border: Border.all(
+                  color: AppColor.colorText,
+                ),
                 borderRadius: const BorderRadius.all(
                   Radius.circular(25.0),
                 ),

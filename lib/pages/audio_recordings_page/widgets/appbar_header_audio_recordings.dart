@@ -78,7 +78,6 @@ class AppbarHeaderAudioRecordings extends StatelessWidget {
                 },
               ),
               const AudioRecordingsPagePlayer(),
-              // const AppbarPlayer(),
             ],
           ),
         )

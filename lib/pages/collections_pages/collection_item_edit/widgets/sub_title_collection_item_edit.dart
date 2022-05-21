@@ -3,8 +3,10 @@ import 'package:provider/provider.dart';
 import '../blocs/collection_item_edit/collection_item_edit_bloc.dart';
 
 class SubTitleCollectionItemEdit extends StatefulWidget {
-  const SubTitleCollectionItemEdit({Key? key, required this.subTitleCollection})
-      : super(key: key);
+  const SubTitleCollectionItemEdit({
+    Key? key,
+    required this.subTitleCollection,
+  }) : super(key: key);
   final String subTitleCollection;
   @override
   _SubTitleCollectionItemEditState createState() =>

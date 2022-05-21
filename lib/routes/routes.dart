@@ -96,7 +96,7 @@ class AppRouter {
             );
         break;
 
-      // /collection_edit_dmjmkjj
+      // /collection_edit
       case CollectionsEdit.routeName:
         final CollectionsEditArguments args =
             arguments as CollectionsEditArguments;
@@ -177,7 +177,7 @@ class AppRouter {
 
       // /profile_page
       case Profile.routeName:
-        builder = (_) => Profile();
+        builder = (_) => const Profile();
         break;
 
       // recordings_page

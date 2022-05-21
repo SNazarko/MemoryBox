@@ -39,10 +39,12 @@ class _PlayerBigState extends State<PlayerBig> {
       }
       setState(() {});
     });
-    _positionChangedSubscription =
-        _audioPlayer.positionStream.listen((position) => setState(() {}));
-    _durationChangedSubscription =
-        _audioPlayer.durationStream.listen((duration) => setState(() {}));
+    _positionChangedSubscription = _audioPlayer.positionStream.listen(
+      (position) => setState(() {}),
+    );
+    _durationChangedSubscription = _audioPlayer.durationStream.listen(
+      (duration) => setState(() {}),
+    );
     _init();
 
     super.initState();
@@ -71,7 +73,9 @@ class _PlayerBigState extends State<PlayerBig> {
           children: [
             _buildSlider(constraints.maxWidth),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20.0,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -135,7 +139,11 @@ class _PlayerBigState extends State<PlayerBig> {
     return ClipOval(
       child: Material(
         child: InkWell(
-          child: SizedBox(width: 80, height: 80, child: icon),
+          child: SizedBox(
+            width: 80,
+            height: 80,
+            child: icon,
+          ),
           onTap: () {
             if (_audioPlayer.playerState.playing) {
               pause();
@@ -166,16 +174,23 @@ class _PlayerBigState extends State<PlayerBig> {
       width: width * 2,
       child: SliderTheme(
         data: SliderTheme.of(context).copyWith(
-            thumbShape: const RoundedAmebaThumbShape(
-                radius: 8, color: AppColor.colorText),
-            thumbColor: AppColor.colorText,
-            inactiveTrackColor: AppColor.colorText,
-            activeTrackColor: AppColor.colorText),
+          thumbShape: const RoundedAmebaThumbShape(
+            radius: 8,
+            color: AppColor.colorText,
+          ),
+          thumbColor: AppColor.colorText,
+          inactiveTrackColor: AppColor.colorText,
+          activeTrackColor: AppColor.colorText,
+        ),
         child: Slider(
           onChanged: (v) {
             if (duration != null) {
               final position = v * duration.inMilliseconds;
-              _audioPlayer.seek(Duration(milliseconds: position.round()));
+              _audioPlayer.seek(
+                Duration(
+                  milliseconds: position.round(),
+                ),
+              );
             }
           },
           value: canSetValue && duration != null
@@ -202,7 +217,9 @@ class _PlayerBigState extends State<PlayerBig> {
     await _audioPlayer.stop();
     _timer?.cancel();
     setState(() => _recordDuration = 0);
-    return _audioPlayer.seek(const Duration(milliseconds: 0));
+    return _audioPlayer.seek(
+      const Duration(milliseconds: 0),
+    );
   }
 
   void _startTimer() {

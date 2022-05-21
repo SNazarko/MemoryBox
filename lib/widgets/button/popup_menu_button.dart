@@ -10,7 +10,9 @@ PopupMenuItem popupMenuItem(
     },
     child: Text(
       text,
-      style: const TextStyle(fontSize: 14),
+      style: const TextStyle(
+        fontSize: 14,
+      ),
     ),
   );
 }

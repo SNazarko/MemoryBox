@@ -49,10 +49,12 @@ class PlayerCollectionsState extends State<PlayerCollections> {
       }
       setState(() {});
     });
-    _positionChangedSubscription =
-        _audioPlayer.positionStream.listen((position) => setState(() {}));
-    _durationChangedSubscription =
-        _audioPlayer.durationStream.listen((duration) => setState(() {}));
+    _positionChangedSubscription = _audioPlayer.positionStream.listen(
+      (position) => setState(() {}),
+    );
+    _durationChangedSubscription = _audioPlayer.durationStream.listen(
+      (duration) => setState(() {}),
+    );
     player();
     _init();
 
@@ -240,10 +242,11 @@ class PlayerCollectionsState extends State<PlayerCollections> {
     return Text(
       '00:00',
       style: TextStyle(
-          fontFamily: 'TTNorms',
-          fontSize: widget.animation * 10.0,
-          color: Colors.white,
-          fontWeight: FontWeight.w400),
+        fontFamily: 'TTNorms',
+        fontSize: widget.animation * 10.0,
+        color: Colors.white,
+        fontWeight: FontWeight.w400,
+      ),
     );
   }
 
@@ -274,10 +277,11 @@ class PlayerCollectionsState extends State<PlayerCollections> {
     return Text(
       '$minutes : $seconds',
       style: TextStyle(
-          fontFamily: 'TTNorms',
-          fontSize: widget.animation * 10.0,
-          color: Colors.white,
-          fontWeight: FontWeight.w400),
+        fontFamily: 'TTNorms',
+        fontSize: widget.animation * 10.0,
+        color: Colors.white,
+        fontWeight: FontWeight.w400,
+      ),
     );
   }
 
@@ -315,98 +319,110 @@ class PlayerCollectionsState extends State<PlayerCollections> {
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 0.0),
+          padding: const EdgeInsets.only(
+            bottom: 0.0,
+          ),
           child: Visibility(
             visible: true,
             child: Container(
-                width: double.infinity,
-                height: widget.animation * 75.0,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      const Color(0xFF8C84E2).withOpacity(widget.animation),
-                      const Color(0xFF6C689F).withOpacity(widget.animation),
-                    ],
-                  ),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(40.0),
-                  ),
+              width: double.infinity,
+              height: widget.animation * 75.0,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    const Color(0xFF8C84E2).withOpacity(widget.animation),
+                    const Color(0xFF6C689F).withOpacity(widget.animation),
+                  ],
                 ),
-                child: Row(
-                  children: [
-                    Flexible(
-                        flex: 3,
-                        child: SizedBox(
-                          child: _buildControl(),
-                        )),
-                    Flexible(
-                        flex: 10,
-                        child: SizedBox(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 15.0),
-                                    child: Text(
-                                      title(),
-                                      style: TextStyle(
-                                          fontFamily: 'TTNorms',
-                                          fontSize: widget.animation * 14.0,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(child: _buildSlider()),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 15.0, right: 20.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [_buildText(), _duration()],
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        )),
-                    Flexible(
-                      flex: 2,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(40.0),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Flexible(
+                      flex: 3,
+                      child: SizedBox(
+                        child: _buildControl(),
+                      )),
+                  Flexible(
+                    flex: 10,
+                    child: SizedBox(
                       child: Padding(
-                        padding: const EdgeInsets.only(right: 30.0),
-                        child: GestureDetector(
-                          onTap: () {
-                            if (_audioPlayer.nextIndex != null) {
-                              AudioRepositories.instance.playPause(
-                                audioIdList[_audioPlayer.currentIndex!.toInt()],
-                                false,
-                              );
-                              seekToNext();
-                            } else {
-                              AudioRepositories.instance.playPause(
-                                audioIdList[_audioPlayer.currentIndex!.toInt()],
-                                false,
-                              );
-                              player();
-                            }
-                          },
-                          child: Image.asset(
-                            AppIcons.next,
-                            width: widget.animation * 24.0,
-                            height: widget.animation * 24.0,
-                          ),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 10.0,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 15.0,
+                                ),
+                                child: Text(
+                                  title(),
+                                  style: TextStyle(
+                                      fontFamily: 'TTNorms',
+                                      fontSize: widget.animation * 14.0,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: _buildSlider(),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 15.0, right: 20.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [_buildText(), _duration()],
+                                ),
+                              ),
+                            )
+                          ],
                         ),
                       ),
                     ),
-                  ],
-                )),
+                  ),
+                  Flexible(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        right: 30.0,
+                      ),
+                      child: GestureDetector(
+                        onTap: () {
+                          if (_audioPlayer.nextIndex != null) {
+                            AudioRepositories.instance.playPause(
+                              audioIdList[_audioPlayer.currentIndex!.toInt()],
+                              false,
+                            );
+                            seekToNext();
+                          } else {
+                            AudioRepositories.instance.playPause(
+                              audioIdList[_audioPlayer.currentIndex!.toInt()],
+                              false,
+                            );
+                            player();
+                          }
+                        },
+                        child: Image.asset(
+                          AppIcons.next,
+                          width: widget.animation * 24.0,
+                          height: widget.animation * 24.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),

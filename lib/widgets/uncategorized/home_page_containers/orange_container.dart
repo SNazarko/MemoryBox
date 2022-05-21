@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../../resources/app_colors.dart';
 
-
 class OrangeContainer extends StatelessWidget {
-  const OrangeContainer({Key? key, required this.screenWidth})
-      : super(key: key);
+  const OrangeContainer({
+    Key? key,
+    required this.screenWidth,
+  }) : super(key: key);
   final double screenWidth;
   @override
   Widget build(BuildContext context) {
@@ -23,10 +24,11 @@ class OrangeContainer extends StatelessWidget {
       width: screenWidth / 2.3,
       height: 95.0,
       decoration: const BoxDecoration(
-          color: AppColor.yellow100,
-          borderRadius: BorderRadius.all(
-            Radius.circular(15.0),
-          )),
+        color: AppColor.yellow100,
+        borderRadius: BorderRadius.all(
+          Radius.circular(15.0),
+        ),
+      ),
     );
   }
 }

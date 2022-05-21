@@ -24,10 +24,15 @@ class PopupMenuCollectionPage extends StatelessWidget {
   Future<void> _getIdAudio(BuildContext context) async {
     await _getIdCollection(context);
     await FirebaseFirestore.instance
-        .collection(AuthRepositories.instance.user!.phoneNumber!)
+        .collection(
+          AuthRepositories.instance.user!.phoneNumber!,
+        )
         .doc('id')
         .collection('Collections')
-        .where('collections', arrayContains: _idCollectionsList)
+        .where(
+          'collections',
+          arrayContains: _idCollectionsList,
+        )
         .get()
         .then((querySnapshot) {
       for (var result in querySnapshot.docs) {
@@ -41,7 +46,9 @@ class PopupMenuCollectionPage extends StatelessWidget {
 
   Future<void> _getIdCollection(BuildContext context) async {
     await FirebaseFirestore.instance
-        .collection(AuthRepositories.instance.user!.phoneNumber!)
+        .collection(
+          AuthRepositories.instance.user!.phoneNumber!,
+        )
         .doc('id')
         .collection('CollectionsTale')
         .where('doneCollection', isEqualTo: true)
@@ -68,7 +75,9 @@ class PopupMenuCollectionPage extends StatelessWidget {
   Future<void> _shareCollections(BuildContext context) async {
     await _getIdAudio(context);
     List<String> listFilePath = [];
-    for (var item in IterableZip([_idAudioList, _nameList])) {
+    for (var item in IterableZip(
+      [_idAudioList, _nameList],
+    )) {
       final idAudio = item[0];
       final name = item[1];
       Directory directory = await getTemporaryDirectory();
@@ -78,7 +87,9 @@ class PopupMenuCollectionPage extends StatelessWidget {
         await FirebaseStorage.instance
             .ref(
                 '${AuthRepositories.instance.user!.phoneNumber!}/userAudio/$idAudio.m4a')
-            .writeToFile(File(filePath));
+            .writeToFile(
+              File(filePath),
+            );
       } on FirebaseException catch (e) {
         if (kDebugMode) {
           print('Ошибка $e');
@@ -96,40 +107,38 @@ class PopupMenuCollectionPage extends StatelessWidget {
     return BlocBuilder<ItemDoneCubit, bool>(
       builder: (_, state) {
         return PopupMenuButton(
-            icon: const Icon(
-              Icons.more_horiz,
-              color: AppColor.white,
+          icon: const Icon(
+            Icons.more_horiz,
+            color: AppColor.white,
+          ),
+          iconSize: 40.0,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(15.0),
             ),
-            iconSize: 40,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(15),
-              ),
-            ),
-            itemBuilder: state
-                ? (context) => [
-                      popupMenuItem(
-                        'Снять выделение',
-                        () => context.read<ItemDoneCubit>().itemDone(),
-                      ),
-                      // () => context.read<CollectionModel>().stateCollections()),
-                      popupMenuItem(
-                        'Удалить подборку',
-                        () => _deleteCollections(context),
-                      ),
-                      popupMenuItem(
-                        'Поделиться',
-                        () => _shareCollections(context),
-                      ),
-                    ]
-                : (context) => [
-                      popupMenuItem(
-                        'Выбрать несколько',
-                        () => context.read<ItemDoneCubit>().itemDone(),
-                      ),
-                      //   () => context.read<CollectionModel>().stateCollections(),
-                      // ),
-                    ]);
+          ),
+          itemBuilder: state
+              ? (context) => [
+                    popupMenuItem(
+                      'Снять выделение',
+                      () => context.read<ItemDoneCubit>().itemDone(),
+                    ),
+                    popupMenuItem(
+                      'Удалить подборку',
+                      () => _deleteCollections(context),
+                    ),
+                    popupMenuItem(
+                      'Поделиться',
+                      () => _shareCollections(context),
+                    ),
+                  ]
+              : (context) => [
+                    popupMenuItem(
+                      'Выбрать несколько',
+                      () => context.read<ItemDoneCubit>().itemDone(),
+                    ),
+                  ],
+        );
       },
     );
   }

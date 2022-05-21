@@ -29,7 +29,9 @@ class SubscriptionPage extends StatelessWidget {
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
-              icon: const Icon(Icons.menu),
+              icon: const Icon(
+                Icons.menu,
+              ),
             ),
             title: const Text(
               'Подписка',

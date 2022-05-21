@@ -23,9 +23,14 @@ class _AudioRecordingsPagePlayerState extends State<AudioRecordingsPagePlayer>
   Timer? _timerAmplitude;
 
   void animPlus() {
-    controller =
-        AnimationController(duration: const Duration(seconds: 1), vsync: this);
-    animation = CurvedAnimation(parent: controller, curve: Curves.decelerate);
+    controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    );
+    animation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.decelerate,
+    );
     controller.forward();
     controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
@@ -35,9 +40,14 @@ class _AudioRecordingsPagePlayerState extends State<AudioRecordingsPagePlayer>
   }
 
   void animMinus() {
-    controller =
-        AnimationController(duration: const Duration(seconds: 1), vsync: this);
-    animation = CurvedAnimation(parent: controller, curve: Curves.easeInQuart);
+    controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    );
+    animation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.easeInQuart,
+    );
     controller.reverse(from: 1);
     controller.addStatusListener((status) {
       if (status == AnimationStatus.dismissed) {
@@ -63,7 +73,9 @@ class _AudioRecordingsPagePlayerState extends State<AudioRecordingsPagePlayer>
             _timerAmplitude =
                 Timer.periodic(const Duration(milliseconds: 1), (_) async {
               context.read<AnimBloc>().add(
-                    AnimEvent(anim: animation.value),
+                    AnimEvent(
+                      anim: animation.value,
+                    ),
                   );
             });
             setState(() {});
@@ -97,7 +109,10 @@ class _AudioRecordingsPagePlayerState extends State<AudioRecordingsPagePlayer>
               ),
               Container(
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 1.0, top: 1.0),
+                  padding: const EdgeInsets.only(
+                    right: 1.0,
+                    top: 1.0,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -124,7 +139,9 @@ class _AudioRecordingsPagePlayerState extends State<AudioRecordingsPagePlayer>
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(
-                      Radius.circular(50.0),
+                      Radius.circular(
+                        50.0,
+                      ),
                     )),
               ),
             ],

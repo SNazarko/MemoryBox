@@ -4,6 +4,8 @@ class ItemDoneCubit extends Cubit<bool> {
   ItemDoneCubit() : super(false);
 
   void itemDone() {
-    emit(state == false);
+    emit(
+      state == false,
+    );
   }
 }

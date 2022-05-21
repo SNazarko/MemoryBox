@@ -9,14 +9,23 @@ import '../../../../repositories/user_repositories.dart';
 class QualityTotalTimeBloc
     extends Bloc<QualityTotalTimeEvent, QualityTotalTimeState> {
   StreamSubscription? _qualityTotalTimeSubscription;
-  QualityTotalTimeBloc() : super(const QualityTotalTimeState()) {
-    on<LoadQualityTotalTimeEvent>(
-        (LoadQualityTotalTimeEvent event, Emitter<QualityTotalTimeState> emit) {
+  QualityTotalTimeBloc()
+      : super(
+          const QualityTotalTimeState(),
+        ) {
+    on<LoadQualityTotalTimeEvent>((
+      LoadQualityTotalTimeEvent event,
+      Emitter<QualityTotalTimeState> emit,
+    ) {
       try {
         _qualityTotalTimeSubscription?.cancel();
         _qualityTotalTimeSubscription =
             UserRepositories.instance.readUser().listen((qualityTotalTime) {
-          add(UpdateQualityTotalTimeEvent(qualityTotalTime: qualityTotalTime));
+          add(
+            UpdateQualityTotalTimeEvent(
+              qualityTotalTime: qualityTotalTime,
+            ),
+          );
         });
       } on Exception {
         emit(state.copyWith(
@@ -25,12 +34,15 @@ class QualityTotalTimeBloc
       }
     });
 
-    on<UpdateQualityTotalTimeEvent>((UpdateQualityTotalTimeEvent event,
-        Emitter<QualityTotalTimeState> emit) {
+    on<UpdateQualityTotalTimeEvent>((
+      UpdateQualityTotalTimeEvent event,
+      Emitter<QualityTotalTimeState> emit,
+    ) {
       emit(
         state.copyWith(
-            status: QualityTotalTimeStatus.success,
-            qualityTotalTime: event.qualityTotalTime),
+          status: QualityTotalTimeStatus.success,
+          qualityTotalTime: event.qualityTotalTime,
+        ),
       );
     });
   }

@@ -18,5 +18,7 @@ class UpdateBlueListItemEvent extends BlueListItemEvent {
   final List<CollectionsModel> list;
 
   @override
-  List<Object?> get props => [list];
+  List<Object?> get props => [
+        list,
+      ];
 }

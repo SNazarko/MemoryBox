@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../../resources/app_colors.dart';
 
-
 class BlueContainer extends StatelessWidget {
-  const BlueContainer({Key? key, required this.screenWidth}) : super(key: key);
+  const BlueContainer({
+    Key? key,
+    required this.screenWidth,
+  }) : super(key: key);
   final double screenWidth;
 
   @override
@@ -23,10 +25,11 @@ class BlueContainer extends StatelessWidget {
       width: screenWidth / 2.3,
       height: 95.0,
       decoration: const BoxDecoration(
-          color: AppColor.blue200,
-          borderRadius: BorderRadius.all(
-            Radius.circular(15.0),
-          )),
+        color: AppColor.blue200,
+        borderRadius: BorderRadius.all(
+          Radius.circular(15.0),
+        ),
+      ),
     );
   }
 }

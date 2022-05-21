@@ -11,11 +11,13 @@ class LocalSaveAudioFile {
   LocalSaveAudioFile._();
   static final LocalSaveAudioFile instance = LocalSaveAudioFile._();
 
-
   // Save audio file in phone memory
 
   Future<void> saveAudioStorageDirectory(
-      BuildContext context, String newPath, String name) async {
+    BuildContext context,
+    String newPath,
+    String name,
+  ) async {
     Directory? directory;
     var status = await Permission.storage.shouldShowRequestRationale;
     if (status == false) {
@@ -34,7 +36,9 @@ class LocalSaveAudioFile {
       if (Platform.isIOS) {
         directory = await pathProvider.getApplicationDocumentsDirectory();
       } else {
-        directory = Directory('/storage/emulated/0/Download');
+        directory = Directory(
+          '/storage/emulated/0/Download',
+        );
         if (!await directory.exists()) {
           directory = await pathProvider.getExternalStorageDirectory();
         }
@@ -56,7 +60,9 @@ class LocalSaveAudioFile {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(
         '$name.mp3',
-        style: const TextStyle(color: AppColor.colorText),
+        style: const TextStyle(
+          color: AppColor.colorText,
+        ),
       ),
       backgroundColor: Colors.white,
     ));

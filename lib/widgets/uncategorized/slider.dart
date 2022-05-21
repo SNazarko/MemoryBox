@@ -5,7 +5,10 @@ class RoundedAmebaThumbShape extends SliderComponentShape {
   final double radius;
   final Color color;
 
-  const RoundedAmebaThumbShape({required this.radius, required this.color});
+  const RoundedAmebaThumbShape({
+    required this.radius,
+    required this.color,
+  });
 
   @override
   Size getPreferredSize(bool isEnabled, bool isDiscrete) {

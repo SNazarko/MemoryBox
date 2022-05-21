@@ -5,13 +5,17 @@ import 'package:memory_box/pages/collections_pages/collection_add_audio/widgets/
 import 'bloc/collection_add_audio/collection_add_audio_bloc.dart';
 
 class CollectionsAddAudioArguments {
-  CollectionsAddAudioArguments({required this.titleCollections});
+  CollectionsAddAudioArguments({
+    required this.titleCollections,
+  });
   final String titleCollections;
 }
 
 class CollectionsAddAudio extends StatelessWidget {
-  const CollectionsAddAudio({Key? key, required this.titleCollections})
-      : super(key: key);
+  const CollectionsAddAudio({
+    Key? key,
+    required this.titleCollections,
+  }) : super(key: key);
   static const routeName = '/collection_add_audio';
   final String titleCollections;
 

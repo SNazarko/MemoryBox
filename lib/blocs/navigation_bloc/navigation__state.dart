@@ -1,9 +1,12 @@
-
 import 'package:flutter/cupertino.dart';
 
 import '../../pages/home_page/home_page.dart';
 
-enum NavigationStateStatus { initial, menu, tab }
+enum NavigationStateStatus {
+  initial,
+  menu,
+  tab,
+}
 
 @immutable
 class NavigationState {

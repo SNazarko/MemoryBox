@@ -7,7 +7,6 @@ class LoadSubscriptionPageEvent extends SubscriptionPageEvent {
   LoadSubscriptionPageEvent();
 
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
@@ -18,6 +17,7 @@ class UpdateSubscriptionPageEvent extends SubscriptionPageEvent {
   final List subscription;
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [subscription];
+  List<Object?> get props => [
+        subscription,
+      ];
 }

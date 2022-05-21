@@ -12,25 +12,38 @@ part 'blue_list_collections_state.dart';
 
 class BlueListItemBloc extends Bloc<BlueListItemEvent, BlueListItemState> {
   StreamSubscription? _collectionSubscription;
-  BlueListItemBloc() : super(const BlueListItemState()) {
-    on<LoadBlueListItemEvent>(
-        (LoadBlueListItemEvent event, Emitter<BlueListItemState> emit) {
+  BlueListItemBloc()
+      : super(
+          const BlueListItemState(),
+        ) {
+    on<LoadBlueListItemEvent>((
+      LoadBlueListItemEvent event,
+      Emitter<BlueListItemState> emit,
+    ) {
       try {
         _collectionSubscription?.cancel();
         _collectionSubscription = CollectionsRepositories.instance
             .readCollections()
             .listen((collection) {
-          add(UpdateBlueListItemEvent(list: collection));
+          add(
+            UpdateBlueListItemEvent(
+              list: collection,
+            ),
+          );
         });
       } on Exception {
-        emit(state.copyWith(
-          status: BlueListItemStatus.failed,
-        ));
+        emit(
+          state.copyWith(
+            status: BlueListItemStatus.failed,
+          ),
+        );
       }
     });
 
-    on<UpdateBlueListItemEvent>(
-        (UpdateBlueListItemEvent event, Emitter<BlueListItemState> emit) {
+    on<UpdateBlueListItemEvent>((
+      UpdateBlueListItemEvent event,
+      Emitter<BlueListItemState> emit,
+    ) {
       if (event.list.isNotEmpty) {
         emit(
           state.copyWith(
@@ -39,9 +52,11 @@ class BlueListItemBloc extends Bloc<BlueListItemEvent, BlueListItemState> {
           ),
         );
       } else {
-        emit(state.copyWith(
-          status: BlueListItemStatus.emptyList,
-        ));
+        emit(
+          state.copyWith(
+            status: BlueListItemStatus.emptyList,
+          ),
+        );
       }
     });
   }

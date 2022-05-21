@@ -9,7 +9,9 @@ class ShatModel {
     this.phoneNumber,
     this.dateTime,
   });
-  factory ShatModel.fromJson(Map<String, dynamic> json) {
+  factory ShatModel.fromJson(
+    Map<String, dynamic> json,
+  ) {
     return ShatModel(
       message: json['message'],
       phoneNumber: json['phoneNumber'],
@@ -17,6 +19,9 @@ class ShatModel {
     );
   }
 
-  Map<String, dynamic> toJson() =>
-      {'message': message, 'phoneNumber': phoneNumber, 'dateTime': dateTime};
+  Map<String, dynamic> toJson() => {
+        'message': message,
+        'phoneNumber': phoneNumber,
+        'dateTime': dateTime,
+      };
 }

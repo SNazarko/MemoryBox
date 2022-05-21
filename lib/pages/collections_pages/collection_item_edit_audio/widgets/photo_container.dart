@@ -26,43 +26,44 @@ class PhotoContainerCollectionItemEditAudio extends StatelessWidget {
           right: 15.0,
         ),
         child: ContainerShadow(
-            image: Container(
-              color: Colors.grey,
+          image: Container(
+            color: Colors.grey,
+          ),
+          width: screenWidth * 0.955,
+          height: 200.0,
+          radius: 20.0,
+          widget: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  dataCollection,
+                  style: kTitle4TextStyle,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '$qualityCollection аудио',
+                          style: kTitle2TextStyle,
+                        ),
+                        Text(
+                          '$totalTimeCollection часа',
+                          style: kTitle2TextStyle,
+                        ),
+                      ],
+                    ),
+                  ],
+                )
+              ],
             ),
-            width: screenWidth * 0.955,
-            height: 200.0,
-            radius: 20.0,
-            widget: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    dataCollection,
-                    style: kTitle4TextStyle,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '$qualityCollection аудио',
-                            style: kTitle2TextStyle,
-                          ),
-                          Text(
-                            '$totalTimeCollection часа',
-                            style: kTitle2TextStyle,
-                          ),
-                        ],
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            )),
+          ),
+        ),
       );
     } else {
       return Padding(
@@ -72,44 +73,45 @@ class PhotoContainerCollectionItemEditAudio extends StatelessWidget {
           right: 15.0,
         ),
         child: ContainerShadow(
-            image: Image.network(
-              imageCollection,
-              fit: BoxFit.fitWidth,
+          image: Image.network(
+            imageCollection,
+            fit: BoxFit.fitWidth,
+          ),
+          width: screenWidth * 0.955,
+          height: 200.0,
+          radius: 20.0,
+          widget: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  dataCollection,
+                  style: kTitle4TextStyle,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '$qualityCollection аудио',
+                          style: kTitle2TextStyle,
+                        ),
+                        Text(
+                          '$totalTimeCollection часа',
+                          style: kTitle2TextStyle,
+                        ),
+                      ],
+                    ),
+                  ],
+                )
+              ],
             ),
-            width: screenWidth * 0.955,
-            height: 200.0,
-            radius: 20.0,
-            widget: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    dataCollection,
-                    style: kTitle4TextStyle,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '$qualityCollection аудио',
-                            style: kTitle2TextStyle,
-                          ),
-                          Text(
-                            '$totalTimeCollection часа',
-                            style: kTitle2TextStyle,
-                          ),
-                        ],
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            )),
+          ),
+        ),
       );
     }
   }

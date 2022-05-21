@@ -8,7 +8,10 @@ import '../../../resources/app_colors.dart';
 import '../../navigation/navigate_to_page.dart';
 
 class GreenContainer extends StatelessWidget {
-  const GreenContainer({Key? key, required this.screenWidth}) : super(key: key);
+  const GreenContainer({
+    Key? key,
+    required this.screenWidth,
+  }) : super(key: key);
   final double screenWidth;
 
   @override
@@ -34,7 +37,9 @@ class GreenContainer extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-              const SizedBox(height: 40.0),
+              const SizedBox(
+                height: 40.0,
+              ),
               TextButton(
                 onPressed: () => NavigateToPage.instance?.navigate(
                   context,
@@ -56,10 +61,11 @@ class GreenContainer extends StatelessWidget {
           width: screenWidth / 2.3,
           height: 210.0,
           decoration: const BoxDecoration(
-              color: AppColor.green100,
-              borderRadius: BorderRadius.all(
-                Radius.circular(15.0),
-              )),
+            color: AppColor.green100,
+            borderRadius: BorderRadius.all(
+              Radius.circular(15.0),
+            ),
+          ),
         );
       },
     );

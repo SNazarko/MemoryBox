@@ -83,7 +83,10 @@ class AppbarHeaderHomePageNotIsAuthorization extends StatelessWidget {
 }
 
 class _TitleAppbar extends StatelessWidget {
-  const _TitleAppbar({Key? key, required this.screenWidth}) : super(key: key);
+  const _TitleAppbar({
+    Key? key,
+    required this.screenWidth,
+  }) : super(key: key);
   final double screenWidth;
 
   @override
@@ -98,7 +101,9 @@ class _TitleAppbar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                  ),
                   child: Text(
                     'Подборки',
                     style: TextStyle(
@@ -108,7 +113,9 @@ class _TitleAppbar extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                  ),
                   child: GestureDetector(
                     onTap: () => NavigateToPage.instance?.navigate(
                       context,

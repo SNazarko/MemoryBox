@@ -29,12 +29,16 @@ class RenameAudioSavePage extends StatelessWidget {
             }
             context.read<SavePageBloc>().add(
                   SavePageEvent(
-                      newAudioName: value, newSearchName: _searchName.toList()),
+                    newAudioName: value,
+                    newSearchName: _searchName.toList(),
+                  ),
                 );
           } else {
-            context
-                .read<SavePageBloc>()
-                .add(SavePageEvent(newAudioName: audioName));
+            context.read<SavePageBloc>().add(
+                  SavePageEvent(
+                    newAudioName: audioName,
+                  ),
+                );
           }
         },
         textAlign: TextAlign.center,

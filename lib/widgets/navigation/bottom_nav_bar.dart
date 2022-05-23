@@ -56,95 +56,98 @@ class CustomBottomNavBar extends StatelessWidget {
           topRight: Radius.circular(20.0),
           topLeft: Radius.circular(20.0),
         ),
-        child: Padding(
-          padding: const EdgeInsets.only(
-            left: 10.0,
-            right: 3.0,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: _items.map((e) {
-              final int i = _items.indexOf(e);
-              return Flexible(
-                child: SizedBox(
-                  width: double.infinity,
-                  height: kBottomNavigationBarHeight,
-                  child: Material(
-                    color: AppColor.white,
-                    child: InkWell(
-                      onTap: () => onSelect(i),
-                      highlightColor: Colors.transparent,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const SizedBox(
-                            height: 3.0,
-                          ),
-                          Flexible(
-                            flex: 10,
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(50.0),
-                              ),
-                              child: e.iconPath == AppIcons.microfon
-                                  ? Container(
-                                      color: AppColor.pinkRec,
-                                      child: Image.asset(
-                                        e.iconPath,
-                                        fit: BoxFit.fill,
-                                        color: i == currentTab
-                                            ? AppColor.pinkRec
-                                            : AppColor.white,
-                                      ),
-                                    )
-                                  : Container(
-                                      color: null,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
+        child: Container(
+          color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.only(
+              left: 10.0,
+              right: 3.0,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: _items.map((e) {
+                final int i = _items.indexOf(e);
+                return Flexible(
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: kBottomNavigationBarHeight,
+                    child: Material(
+                      color: AppColor.white,
+                      child: InkWell(
+                        onTap: () => onSelect(i),
+                        highlightColor: Colors.transparent,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(
+                              height: 3.0,
+                            ),
+                            Flexible(
+                              flex: 10,
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(50.0),
+                                ),
+                                child: e.iconPath == AppIcons.microfon
+                                    ? Container(
+                                        color: AppColor.pinkRec,
                                         child: Image.asset(
                                           e.iconPath,
                                           fit: BoxFit.fill,
                                           color: i == currentTab
-                                              ? AppColor.colorAppbar
-                                              : AppColor.colorText80,
+                                              ? AppColor.pinkRec
+                                              : AppColor.white,
+                                        ),
+                                      )
+                                    : Container(
+                                        color: null,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Image.asset(
+                                            e.iconPath,
+                                            fit: BoxFit.fill,
+                                            color: i == currentTab
+                                                ? AppColor.colorAppbar
+                                                : AppColor.colorText80,
+                                          ),
                                         ),
                                       ),
-                                    ),
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 2.0,
-                          ),
-                          Flexible(
-                            flex: 4,
-                            child: Text(e.title,
-                                style: e.title == 'Запись'
-                                    ? TextStyle(
-                                        color: i == currentTab
-                                            ? AppColor.white
-                                            : AppColor.colorText80,
-                                        fontSize: 11.0,
-                                        height: 1.18,
-                                      )
-                                    : TextStyle(
-                                        color: i == currentTab
-                                            ? AppColor.colorAppbar
-                                            : AppColor.colorText80,
-                                        fontSize: 11.0,
-                                        height: 1.18,
-                                      )),
-                          ),
-                          const SizedBox(
-                            height: 3.0,
-                          ),
-                        ],
+                            const SizedBox(
+                              height: 2.0,
+                            ),
+                            Flexible(
+                              flex: 4,
+                              child: Text(e.title,
+                                  style: e.title == 'Запись'
+                                      ? TextStyle(
+                                          color: i == currentTab
+                                              ? AppColor.white
+                                              : AppColor.colorText80,
+                                          fontSize: 11.0,
+                                          height: 1.18,
+                                        )
+                                      : TextStyle(
+                                          color: i == currentTab
+                                              ? AppColor.colorAppbar
+                                              : AppColor.colorText80,
+                                          fontSize: 11.0,
+                                          height: 1.18,
+                                        )),
+                            ),
+                            const SizedBox(
+                              height: 3.0,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              );
-            }).toList(),
+                );
+              }).toList(),
+            ),
           ),
         ),
       ),

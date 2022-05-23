@@ -23,7 +23,7 @@ class ListCollections extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  'Как только ты создаш колекцию, она появится здесь.',
+                  'Как только ты создаш подборку, она появится здесь.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20.0,

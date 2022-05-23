@@ -14,12 +14,18 @@ import 'package:uuid/uuid.dart';
 import 'collections_repositories.dart';
 
 class AudioRepositories {
-  AudioRepositories._();
+  AudioRepositories._() {
+    init();
+  }
 
   static final AudioRepositories instance = AudioRepositories._();
 
-  final phoneNumber = AuthRepositories.instance.user?.phoneNumber;
+  String? phoneNumber;
   final uuid = const Uuid();
+
+  void init() {
+    phoneNumber = AuthRepositories.instance.user?.phoneNumber!;
+  }
 
   Stream<List<AudioModel>> readAudio(
     String sort,

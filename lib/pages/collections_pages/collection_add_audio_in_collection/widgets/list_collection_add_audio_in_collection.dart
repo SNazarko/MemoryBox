@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../resources/app_colors.dart';
 import '../bloc/list_collection_add_audio_in_collection/list_collection_add_audio_in_collection_bloc.dart';
 import 'model_audio_collection_add_audio_in_collection.dart';
 
@@ -25,6 +26,18 @@ class ListCollectionAddAudioInCollection extends StatelessWidget {
               ListCollectionAddAudioInCollectionStatus.initial) {
             return const Center(
               child: CircularProgressIndicator(),
+            );
+          }
+          if (state.status ==
+              ListCollectionAddAudioInCollectionStatus.emptyList) {
+            return const Center(
+              child: Text(
+                'Сперва Вам нужно \n создать подборку',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: AppColor.colorText50,
+                ),
+              ),
             );
           }
           if (state.status ==

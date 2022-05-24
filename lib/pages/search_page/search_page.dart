@@ -39,20 +39,18 @@ class SearchPage extends StatelessWidget {
               style: kTitleTextStyle2,
             ),
           ),
-          body: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Stack(
-                  children: [
-                    AuthRepositories.instance.user == null
-                        ? const ListPlayersSearchPageNotIsAuthorization()
-                        : const ListPlayersSearchPage(),
-                    const AppbarHeaderSearchPage(),
-                  ],
-                ),
-              ],
-            ),
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                children: [
+                  AuthRepositories.instance.user == null
+                      ? const ListPlayersSearchPageNotIsAuthorization()
+                      : const ListPlayersSearchPage(),
+                  const AppbarHeaderSearchPage(),
+                ],
+              ),
+            ],
           ),
         ),
       ),

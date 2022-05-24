@@ -37,11 +37,11 @@ class HomePageAudio extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: const [
             Expanded(
-              flex: 1,
+              flex: 2,
               child: _TitleAudioList(),
             ),
             Expanded(
-              flex: 5,
+              flex: 8,
               child: _AudioList(),
             )
           ],
@@ -77,9 +77,6 @@ class _AudioList extends StatelessWidget {
         }
         if (state.status == ListItemStatus.success) {
           return ListView.builder(
-            padding: const EdgeInsets.only(
-              bottom: 75.0,
-            ),
             itemCount: state.list.length,
             itemBuilder: (BuildContext context, int index) {
               final audio = state.list[index];

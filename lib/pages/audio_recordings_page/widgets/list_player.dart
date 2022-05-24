@@ -13,7 +13,7 @@ class ListPlayer extends StatelessWidget {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     return SizedBox(
-      height: screenHeight - 140.0,
+      height: screenHeight - (kBottomNavigationBarHeight + 85.0),
       child:
           BlocBuilder<ListItemBloc, ListItemState>(builder: (context, state) {
         if (state.status == ListItemStatus.emptyList) {

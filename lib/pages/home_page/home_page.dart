@@ -100,26 +100,24 @@ class _HomePageState extends State<HomePage> {
           ),
           elevation: 0.0,
         ),
-        body: SingleChildScrollView(
-          child: SizedBox(
-            height: screenHeight * 0.89,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  flex: 8,
-                  child: AuthRepositories.instance.user == null
-                      ? const AppbarHeaderHomePageNotIsAuthorization()
-                      : const AppbarHeaderHomePage(),
-                ),
-                Expanded(
-                  flex: 11,
-                  child: AuthRepositories.instance.user == null
-                      ? const HomePageNotIsAuthorization()
-                      : const HomePageAudio(),
-                ),
-              ],
-            ),
+        body: SizedBox(
+          height: screenHeight - (kBottomNavigationBarHeight + 40.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 8,
+                child: AuthRepositories.instance.user == null
+                    ? const AppbarHeaderHomePageNotIsAuthorization()
+                    : const AppbarHeaderHomePage(),
+              ),
+              Expanded(
+                flex: 9,
+                child: AuthRepositories.instance.user == null
+                    ? const HomePageNotIsAuthorization()
+                    : const HomePageAudio(),
+              ),
+            ],
           ),
         ),
       ),

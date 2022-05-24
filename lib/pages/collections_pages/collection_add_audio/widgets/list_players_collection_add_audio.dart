@@ -15,7 +15,7 @@ class ListPlayersCollectionAddAudio extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: screenHeight * 0.95,
+          height: screenHeight - (kBottomNavigationBarHeight),
           child: BlocBuilder<CollectionAddAudioBloc, CollectionAddAudioState>(
             builder: (context, state) {
               if (state.status == CollectionAddAudioStatus.initial) {
@@ -27,7 +27,6 @@ class ListPlayersCollectionAddAudio extends StatelessWidget {
                 return ListView.builder(
                   padding: const EdgeInsets.only(
                     top: 230.0,
-                    bottom: 110.0,
                   ),
                   itemCount: state.list.length,
                   itemBuilder: (BuildContext context, int index) {

@@ -16,7 +16,7 @@ class ListPlayersDeletePage extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: screenHeight * 0.95,
+          height: screenHeight - (kBottomNavigationBarHeight + 88.0),
           child: BlocBuilder<DeleteItemDoneCubit, bool>(
             builder: (_, stateDone) {
               return BlocBuilder<ListItemBloc, ListItemState>(
@@ -47,7 +47,7 @@ class ListPlayersDeletePage extends StatelessWidget {
                     return ListView.builder(
                       padding: const EdgeInsets.only(
                         top: 130.0,
-                        bottom: 110.0,
+                        bottom: 0,
                       ),
                       itemCount: state.list.length,
                       itemBuilder: (BuildContext context, int index) {

@@ -69,66 +69,64 @@ class CollectionsItemPage extends StatelessWidget {
         ),
       ],
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: SizedBox(
-            height: screenHeight,
-            child: Stack(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Stack(
-                        children: [
-                          AppbarHeaderCollectionItem(
-                            totalTimeCollection: totalTimeCollection,
-                            qualityCollection: qualityCollection,
-                            dataCollection: dataCollection,
-                            imageCollection: imageCollection,
-                            titleCollection: titleCollection,
-                            subTitleCollection: subTitleCollection,
+        body: SizedBox(
+          height: screenHeight - kBottomNavigationBarHeight,
+          child: Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        AppbarHeaderCollectionItem(
+                          totalTimeCollection: totalTimeCollection,
+                          qualityCollection: qualityCollection,
+                          dataCollection: dataCollection,
+                          imageCollection: imageCollection,
+                          titleCollection: titleCollection,
+                          subTitleCollection: subTitleCollection,
+                          idCollection: idCollection,
+                        ),
+                        PhotoContainer(
+                          totalTimeCollection: totalTimeCollection,
+                          dataCollection: dataCollection,
+                          qualityCollection: qualityCollection,
+                          imageCollection: imageCollection,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        SubTitle(
+                          subTitleCollection: subTitleCollection,
+                        ),
+                        Flexible(
+                          fit: FlexFit.tight,
+                          flex: 2,
+                          child: ListCollectionsAudio(
                             idCollection: idCollection,
-                          ),
-                          PhotoContainer(
-                            totalTimeCollection: totalTimeCollection,
-                            dataCollection: dataCollection,
-                            qualityCollection: qualityCollection,
                             imageCollection: imageCollection,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          SubTitle(
-                            subTitleCollection: subTitleCollection,
-                          ),
-                          Flexible(
-                            fit: FlexFit.tight,
-                            flex: 2,
-                            child: ListCollectionsAudio(
-                              idCollection: idCollection,
-                              imageCollection: imageCollection,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                BlocBuilder<CollectionItemAnimBloc, CollectionItemAnimState>(
-                  builder: (_, state) {
-                    return PlayerCollections(
-                      screenWight: screenWight,
-                      screenHeight: screenHeight,
-                      idCollection: idCollection,
-                      animation: state.anim,
-                    );
-                  },
-                )
-              ],
-            ),
+                  ),
+                ],
+              ),
+              BlocBuilder<CollectionItemAnimBloc, CollectionItemAnimState>(
+                builder: (_, state) {
+                  return PlayerCollections(
+                    screenWight: screenWight,
+                    screenHeight: screenHeight,
+                    idCollection: idCollection,
+                    animation: state.anim,
+                  );
+                },
+              )
+            ],
           ),
         ),
       ),

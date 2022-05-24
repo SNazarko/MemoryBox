@@ -42,6 +42,7 @@ class ListCollectionItemEditAudio extends StatelessWidget {
           if (state.status == ListItemStatus.success) {
             return ListView.builder(
               padding: const EdgeInsets.only(
+                top: 20.0,
                 bottom: 140.0,
               ),
               itemCount: state.list.length,

@@ -39,11 +39,11 @@ class HomePageNotIsAuthorization extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const Expanded(
-                  flex: 1,
+                  flex: 2,
                   child: _TitleAudioList(),
                 ),
                 Expanded(
-                  flex: 5,
+                  flex: 8,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       vertical: 50.0,

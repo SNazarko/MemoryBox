@@ -73,7 +73,7 @@ class CollectionItemEditPage extends StatelessWidget {
       child: Scaffold(
         body: SingleChildScrollView(
           child: SizedBox(
-            height: screenHeight,
+            height: screenHeight - kBottomNavigationBarHeight,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

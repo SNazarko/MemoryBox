@@ -18,7 +18,7 @@ class ListPlayersSearchPage extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: screenHeight * 0.95,
+          height: screenHeight - (kBottomNavigationBarHeight + 88.0),
           child: BlocBuilder<SearchPageBloc, SearchPageState>(
             builder: (context, state) {
               if (state.status == SearchPageStatus.initial) {
@@ -30,7 +30,7 @@ class ListPlayersSearchPage extends StatelessWidget {
                 return ListView.builder(
                   padding: const EdgeInsets.only(
                     top: 165.0,
-                    bottom: 110.0,
+                    bottom: 0.0,
                   ),
                   itemCount: state.list.length,
                   itemBuilder: (BuildContext context, int index) {

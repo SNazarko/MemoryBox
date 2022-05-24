@@ -57,40 +57,38 @@ class CollectionItemEditAudio extends StatelessWidget {
           ),
         ),
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: SizedBox(
-            height: screenHeight,
-            child: Stack(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Stack(
-                        children: [
-                          AppbarHeaderCollectionItemEditAudio(
-                            subTitleCollection: subTitleCollection,
-                            idCollection: idCollection,
-                            titleCollection: titleCollection,
-                          ),
-                          PhotoContainerCollectionItemEditAudio(
-                            dataCollection: dataCollection,
-                            imageCollection: imageCollection,
-                            totalTimeCollection: totalTimeCollection,
-                            qualityCollection: qualityCollection,
-                          ),
-                        ],
-                      ),
+        body: SizedBox(
+          height: screenHeight - kBottomNavigationBarHeight,
+          child: Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        AppbarHeaderCollectionItemEditAudio(
+                          subTitleCollection: subTitleCollection,
+                          idCollection: idCollection,
+                          titleCollection: titleCollection,
+                        ),
+                        PhotoContainerCollectionItemEditAudio(
+                          dataCollection: dataCollection,
+                          imageCollection: imageCollection,
+                          totalTimeCollection: totalTimeCollection,
+                          qualityCollection: qualityCollection,
+                        ),
+                      ],
                     ),
-                    Expanded(
-                      child: ListCollectionItemEditAudio(
-                        idCollection: idCollection,
-                      ),
+                  ),
+                  Expanded(
+                    child: ListCollectionItemEditAudio(
+                      idCollection: idCollection,
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

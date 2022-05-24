@@ -50,7 +50,7 @@ class ListCollectionsAudio extends StatelessWidget {
           if (state.status == ListItemStatus.success) {
             return ListView.builder(
               padding: const EdgeInsets.only(
-                bottom: 140.0,
+                bottom: 95.0,
               ),
               itemCount: state.list.length,
               itemBuilder: (BuildContext context, int index) {

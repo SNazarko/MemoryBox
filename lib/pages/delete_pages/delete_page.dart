@@ -60,20 +60,18 @@ class DeletePage extends StatelessWidget {
               PopupMenuDeletePage(),
             ],
           ),
-          body: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Stack(
-                  children: [
-                    AuthRepositories.instance.user == null
-                        ? const ModelDeleteNotIsAuthorization()
-                        : const ListPlayersDeletePage(),
-                    const AppbarHeaderDeletePage(),
-                  ],
-                ),
-              ],
-            ),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Stack(
+                children: [
+                  AuthRepositories.instance.user == null
+                      ? const ModelDeleteNotIsAuthorization()
+                      : const ListPlayersDeletePage(),
+                  const AppbarHeaderDeletePage(),
+                ],
+              ),
+            ],
           ),
         ),
       ),
